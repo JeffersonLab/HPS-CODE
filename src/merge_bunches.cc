@@ -12,8 +12,6 @@
 // takes input stdhep file, explodes each event into single-particle events, and writes to a new stdhep file
 int main(int argc,char** argv)
 {
-	int current_nhep;
-	int split_nevhep = 0;
 	int nevhep;             /* The event number */
 	int nhep;               /* The number of entries in this event */
 	int isthep[NMXHEP];     /* The Particle id */
@@ -23,7 +21,6 @@ int main(int argc,char** argv)
 	double phep[NMXHEP][5];    /* 4-Momentum, mass */
 	double vhep[NMXHEP][4];    /* Vertex information */
 
-	char outputname[200];
 	if (argc!=4) 
 	{
 		printf("<input stdhep filename> <output stdhep filename> <number of events per event>\n");
@@ -40,9 +37,6 @@ int main(int argc,char** argv)
 	printf("Writing to %s, %d events per event\n",argv[2],n_merge);
 	StdHepXdrWriteOpen(argv[2],argv[2],n_events,ostream);
 	StdHepXdrWrite(100,ostream);
-	do {
-		StdHepXdrRead(&ilbl,istream);
-	} while (ilbl==100);
 
 	nevhep = 0;
 
@@ -51,7 +45,10 @@ int main(int argc,char** argv)
 		bool bunches_merged = true;
 		for (int i=0;i<n_merge;i++)
 		{
-			StdHepXdrRead(&ilbl,istream);
+			do {
+				StdHepXdrRead(&ilbl,istream);
+			} while (ilbl==100);
+
 			if (ilbl!=1)
 			{
 				printf("End of file\n");
@@ -91,5 +88,6 @@ int main(int argc,char** argv)
 
 	StdHepXdrWrite(200,ostream);
 	StdHepXdrEnd(ostream);
+	StdHepXdrEnd(istream);
 }
 
