@@ -38,6 +38,7 @@ int main(int argc,char** argv)
 	for (i=0;i<n_events;i++)
 	{
 		StdHepXdrRead(&ilbl,istream);
+		printf("Event %d\n",hepevt_.nevhep);
 		if (ilbl!=1)
 		{
 			printf("End of file\n");
