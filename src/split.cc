@@ -30,18 +30,18 @@ int main(int argc,char** argv)
 		printf("Writing to %s\n",outputname);
 		StdHepXdrWriteOpen(outputname,outputname,n_events,ostream);
 		StdHepXdrWrite(100,ostream);
-		do {
-			StdHepXdrRead(&ilbl,istream);
-		} while (ilbl==100);
 
 		for (int i=0;i<n_events;i++)
 		{
-			StdHepXdrRead(&ilbl,istream);
-			if (ilbl!=1)
-			{
-				printf("End of file\n");
-				return(0);
-			}
+			do {
+				if (StdHepXdrRead(&ilbl,istream)!=0) {
+					printf("End of file: ilbl = %d\n",ilbl);
+					printf("Last output file contains %d events\n",n_events);
+					return(0);
+				}
+				if (ilbl!=1)
+					printf("ilbl = %d\n",ilbl);
+			} while (ilbl!=1);
 			StdHepXdrWrite(ilbl,ostream);
 		}
 		StdHepXdrWrite(200,ostream);
