@@ -37,13 +37,15 @@ int main(int argc,char** argv)
 	char name[100];
 	for (i=0;i<n_events;i++)
 	{
-		StdHepXdrRead(&ilbl,istream);
+		do {
+			if (StdHepXdrRead(&ilbl,istream)!=0) {
+				printf("End of file: ilbl = %d\n",ilbl);
+				return(0);
+			}
+			if (ilbl!=1)
+				printf("ilbl = %d\n",ilbl);
+		} while (ilbl!=1);
 		printf("Event %d\n",hepevt_.nevhep);
-		if (ilbl!=1)
-		{
-			printf("End of file\n");
-			break;
-		}
 		for (j = 0; j < hepevt_.nhep; j++)
 		{
 			phep = hepevt_.phep[j];

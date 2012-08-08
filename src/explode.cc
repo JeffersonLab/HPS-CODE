@@ -39,17 +39,20 @@ int main(int argc,char** argv)
 	printf("Writing to %s\n",argv[2]);
 	StdHepXdrWriteOpen(argv[2],argv[2],n_events,ostream);
 	StdHepXdrWrite(100,ostream);
-	do {
-		StdHepXdrRead(&ilbl,istream);
-	} while (ilbl==100);
 
 	while (true) {
-		StdHepXdrRead(&ilbl,istream);
-		if (ilbl!=1)
-		{
-			printf("End of file\n");
-			break;
-		}
+		do {
+			if (StdHepXdrRead(&ilbl,istream)!=0) {
+				printf("End of file\n");
+				StdHepXdrEnd(istream);
+
+				StdHepXdrWrite(200,ostream);
+				StdHepXdrEnd(ostream);
+				return(0);
+			}
+			if (ilbl!=1)
+				printf("ilbl = %d\n",ilbl);
+		} while (ilbl!=1);
 
 		nevhep = hepevt_.nevhep;
 		nhep = hepevt_.nhep;
@@ -77,8 +80,5 @@ int main(int argc,char** argv)
 			StdHepXdrWrite(ilbl,ostream);
 		}
 	}
-
-	StdHepXdrWrite(200,ostream);
-	StdHepXdrEnd(ostream);
 }
 

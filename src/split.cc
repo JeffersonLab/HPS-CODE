@@ -35,8 +35,11 @@ int main(int argc,char** argv)
 		{
 			do {
 				if (StdHepXdrRead(&ilbl,istream)!=0) {
-					printf("End of file: ilbl = %d\n",ilbl);
+					printf("End of file\n");
 					printf("Last output file contains %d events\n",n_events);
+					StdHepXdrEnd(istream);
+					StdHepXdrWrite(200,ostream);
+					StdHepXdrEnd(ostream);
 					return(0);
 				}
 				if (ilbl!=1)

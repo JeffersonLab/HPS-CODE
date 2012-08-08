@@ -44,20 +44,25 @@ int main(int argc,char** argv)
 
 	while (true) {
 		nhep = 0;
-		bool bunches_merged = true;
 		for (int i=0;i<n_inputs;i++)
 		{
 			int istream = i+1;
 			int ilbl;
 			do {
-				StdHepXdrRead(&ilbl,istream);
-			} while (ilbl==100);
-			if (ilbl!=1)
-			{
-				printf("End of file\n");
-				bunches_merged = false;
-				break;
-			}
+				if (StdHepXdrRead(&ilbl,istream)!=0) {
+					printf("End of file %s\n",argv[i+2]);
+					StdHepXdrWrite(200,ostream);
+					StdHepXdrEnd(ostream);
+					for (int i=0;i<n_inputs;i++)
+					{
+						int istream = i+1;
+						StdHepXdrEnd(istream);
+					}
+					return(0);
+				}
+				if (ilbl!=1)
+					printf("ilbl = %d\n",ilbl);
+			} while (ilbl!=1);
 
 			//if (nevhep!=hepevt_.nevhep) printf("Expected nevhep = %d, got %d in file %s\n",nevhep,hepevt_.nevhep,argv[i+2]);
 
@@ -72,7 +77,6 @@ int main(int argc,char** argv)
 			}
 			nhep += hepevt_.nhep;
 		}
-		if (!bunches_merged) break;
 
 
 		hepevt_.nhep = nhep;
@@ -89,14 +93,6 @@ int main(int argc,char** argv)
 		}
 		StdHepXdrWrite(1,ostream);
 		nevhep++;
-	}
-
-	StdHepXdrWrite(200,ostream);
-	StdHepXdrEnd(ostream);
-	for (int i=0;i<n_inputs;i++)
-	{
-		int istream = i+1;
-		StdHepXdrEnd(istream);
 	}
 }
 
