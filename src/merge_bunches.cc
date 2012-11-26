@@ -2,24 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdhep_mcfio.h>
-#include <stdhep.h>
-#include <TFile.h>
-#include <TH2D.h>
-#include <TCanvas.h>
 #include <string.h>
+#include <stdhep_util.hh>
 
-
-// takes input stdhep file, explodes each event into single-particle events, and writes to a new stdhep file
+// takes input stdhep file, merges a fixed number of events, and writes to a new stdhep file
 int main(int argc,char** argv)
 {
 	int nevhep;             /* The event number */
-	int nhep;               /* The number of entries in this event */
-	int isthep[NMXHEP];     /* The Particle id */
-	int idhep[NMXHEP];      /* The particle id */
-	int jmohep[NMXHEP][2];    /* The position of the mother particle */
-	int jdahep[NMXHEP][2];    /* Position of the first daughter... */
-	double phep[NMXHEP][5];    /* 4-Momentum, mass */
-	double vhep[NMXHEP][4];    /* Vertex information */
+	vector<stdhep_entry> new_event;
 
 	if (argc!=4) 
 	{
@@ -41,7 +31,6 @@ int main(int argc,char** argv)
 	nevhep = 0;
 
 	while (true) {
-		nhep = 0;
 		for (int i=0;i<n_merge;i++)
 		{
 			do {
@@ -57,30 +46,10 @@ int main(int argc,char** argv)
 					printf("ilbl = %d\n",ilbl);
 			} while (ilbl!=1);
 
-			for (int i = 0;i<hepevt_.nhep;i++)
-			{
-				isthep[nhep+i] = hepevt_.isthep[i];
-				idhep[nhep+i] = hepevt_.idhep[i];
-				for (int j=0;j<2;j++) jmohep[nhep+i][j] = hepevt_.jmohep[i][j];
-				for (int j=0;j<2;j++) jdahep[nhep+i][j] = hepevt_.jdahep[i][j];
-				for (int j=0;j<5;j++) phep[nhep+i][j] = hepevt_.phep[i][j];
-				for (int j=0;j<4;j++) vhep[nhep+i][j] = hepevt_.vhep[i][j];
-			}
-			nhep += hepevt_.nhep;
+			read_stdhep(&new_event);
 		}
 
-		hepevt_.nhep = nhep;
-		hepevt_.nevhep = nevhep;
-
-		for (int i = 0;i<nhep;i++)
-		{
-			hepevt_.isthep[i] = isthep[i];
-			hepevt_.idhep[i] = idhep[i];
-			for (int j=0;j<2;j++) hepevt_.jmohep[i][j] = jmohep[i][j];
-			for (int j=0;j<2;j++) hepevt_.jdahep[i][j] = jdahep[i][j];
-			for (int j=0;j<5;j++) hepevt_.phep[i][j] = phep[i][j];
-			for (int j=0;j<4;j++) hepevt_.vhep[i][j] = vhep[i][j];
-		}
+		write_stdhep(&new_event,nevhep);
 		StdHepXdrWrite(ilbl,ostream);
 		nevhep++;
 	}

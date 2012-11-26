@@ -14,7 +14,7 @@ int main(int argc,char** argv)
 	char outputname[200];
 	if (argc!=4) 
 	{
-		printf("<input stdhep filename> <output stdhep filename> <number of events per file>\n");
+		printf("<input stdhep filename> <output stdhep basename> <number of events per file>\n");
 		return 1;
 	}
 	int n_events = atoi(argv[3]);
