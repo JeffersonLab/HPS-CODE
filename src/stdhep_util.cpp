@@ -3,13 +3,14 @@
 
 void read_stdhep(vector<stdhep_entry> *new_event)
 {
+	int offset = new_event->size();
 	for (int i = 0;i<hepevt_.nhep;i++)
 	{
 		struct stdhep_entry *temp = new struct stdhep_entry;
 		temp->isthep = hepevt_.isthep[i];
 		temp->idhep = hepevt_.idhep[i];
-		for (int j=0;j<2;j++) temp->jmohep[j] = hepevt_.jmohep[i][j];
-		for (int j=0;j<2;j++) temp->jdahep[j] = hepevt_.jdahep[i][j];
+		for (int j=0;j<2;j++) temp->jmohep[j] = hepevt_.jmohep[i][j]+offset;
+		for (int j=0;j<2;j++) temp->jdahep[j] = hepevt_.jdahep[i][j]+offset;
 		for (int j=0;j<5;j++) temp->phep[j] = hepevt_.phep[i][j];
 		for (int j=0;j<4;j++) temp->vhep[j] = hepevt_.vhep[i][j];
 		new_event->push_back(*temp);
