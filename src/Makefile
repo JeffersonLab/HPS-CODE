@@ -1,21 +1,31 @@
 ROOTLIBS = `$(ROOTSYS)/bin/root-config --glibs`
 
-BIN := ../bin/
-SRC_DIR := ../src/
-LOADLIBS=-L$(CERNLIB) -L$(X11LIB) -L/usr/local/lib/stdhep -L/afs/slac.stanford.edu/package/cernlib/@sys/cern/2002/lib
-LDLIBS=-lstdhepC $(ROOTLIBS) -lFmcfio -lgsl -lgslcblas
-INCFILES=-I/home/meeg/stdhep-5-06-01/src/inc/ -I$(ROOTSYS)/include/ -I$(ROOTSYS)/include/root/ -I/afs/slac.stanford.edu/package/cernlib/@sys/cern/2002/include/stdhep -I$(SRC_DIR)
+BIN := ../bin
+SRC_DIR := ../src
+STDHEP_DIR := ../src/stdhep-5-06-01
+STDHEP_C := $(STDHEP_DIR)/libstdhepC.a
+MCFIO := $(STDHEP_DIR)/libFmcfio.a
+STDHEP_LIBS = $(STDHEP_C) $(MCFIO)
+LOADLIBS=-L$(CERNLIB) -L$(X11LIB) -L$(STDHEP_DIR)/lib
+LDLIBS=-lstdhepC -lFmcfio $(ROOTLIBS) -lgsl -lgslcblas
+INCFILES=-I$(STDHEP_DIR)/src/inc -I$(ROOTSYS)/include/ -I$(ROOTSYS)/include/root/ -I$(SRC_DIR)
 CPP=g++
 CPPFLAGS=$(LOADLIBS) $(LDLIBS) $(INCFILES) -g
 TARGETS := $(patsubst $(SRC_DIR)/%.cc,$(BIN)/%,$(wildcard $(SRC_DIR)/*.cc))
 UTIL_SRC := $(wildcard $(SRC_DIR)/*.cpp)
 UTIL_OBJ := $(UTIL_SRC:.cpp=.o)
 
-all: $(TARGETS) $(UTIL_OBJ)
-$(BIN)/%: $(SRC_DIR)/%.cc $(UTIL_OBJ)
+all: $(TARGETS) $(UTIL_OBJ) $(STDHEP_C) $(MCFIO)
+$(BIN)/%: $(SRC_DIR)/%.cc $(UTIL_OBJ) $(STDHEP_C) $(MCFIO)
 	$(CPP) $< $(CPPFLAGS) $(UTIL_OBJ) -o $@
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp $(SRC_DIR)/%.hh
 	$(CPP) $< -c $(INCFILES) -g -o $@
+$(STDHEP_C):
+	cd $(STDHEP_DIR)/src/stdhep; make
+$(MCFIO):
+	cd $(STDHEP_DIR)/mcfio/src; make
 clean:
-	@rm -f $(TARGETS) $(UTIL_OBJ)
+	@rm -f $(TARGETS) $(UTIL_OBJ) $(STDHEP_DIR)/lib/*.a
+	cd $(STDHEP_DIR)/src/stdhep; make clean
+	cd $(STDHEP_DIR)/mcfio/src; make clean
 
