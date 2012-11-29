@@ -2,6 +2,7 @@
 #include <stdhep_mcfio.h>
 #include <math.h>
 #include <stdhep.h>
+#include <stdio.h>
 
 hepevt hepevt_;
 
