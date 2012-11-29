@@ -17,7 +17,7 @@ UTIL_OBJ := $(UTIL_SRC:.cpp=.o)
 
 all: $(TARGETS) $(UTIL_OBJ) $(STDHEP_C) $(MCFIO)
 $(BIN)/%: $(SRC_DIR)/%.cc $(UTIL_OBJ) $(STDHEP_C) $(MCFIO)
-	$(CPP) $< $(CPPFLAGS) $(UTIL_OBJ) -o $@
+	$(CPP) $< $(UTIL_OBJ) $(CPPFLAGS) -o $@
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp $(SRC_DIR)/%.hh
 	$(CPP) $< -c $(INCFILES) -g -o $@
 $(STDHEP_C):

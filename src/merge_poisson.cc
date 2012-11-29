@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//#include <stdhep.h>
-//#include <stdhep_mcfio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <stdhep_util.hh>
 
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
+
+#include <unistd.h>
 
 // takes input stdhep files, merges a Poisson-determined number of events per event into a new stdhep file
 int main(int argc,char** argv)
