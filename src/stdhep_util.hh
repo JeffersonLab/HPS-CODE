@@ -1,4 +1,3 @@
-#include <stdhep.h>
 #include <vector>
 using namespace std;
 
@@ -13,3 +12,11 @@ struct stdhep_entry {
 
 void read_stdhep(vector<stdhep_entry> *new_event);
 void write_stdhep(vector<stdhep_entry> *new_event, int nevhep);
+void add_filler_particle(vector<stdhep_entry> *new_event);
+
+int open_read(char *filename, int istream);
+void open_write(char *filename, int ostream, int n_events);
+void close_write(int ostream);
+void write_file(int ostream);
+bool read_next(int istream);
+void close_read(int istream);
