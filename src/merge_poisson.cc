@@ -27,6 +27,7 @@ int main(int argc,char** argv)
 			case 'h':
 				printf("-h: print this help\n");
 				printf("-m: mean number of events in an event\n");
+				printf("-n: output events per output file\n");
 				return(0);
 				break;
 			case 'm':
@@ -65,27 +66,42 @@ int main(int argc,char** argv)
 	int ostream = 1;
 	int ilbl;
 
-	open_read(argv[1],istream);
 
-	open_write(argv[2],ostream,output_n);
+	char *output_basename = argv[argc-1];
+	char output_filename[100];
+	int file_n = 0;
 
-	nevhep = 0;
-
+	open_read(argv[optind++],istream);
 	while (true) {
-		for (int i=0;i<gsl_ran_poisson(r,poisson_mu);i++)
+		sprintf(output_filename,"%s_%02d.stdhep",output_basename,file_n++);
+		open_write(output_filename,ostream,output_n);
+		for (int nevhep = 0; nevhep < output_n; nevhep++)
 		{
-			if (!read_next(istream)) {
-				close_read(istream);
-					close_write(ostream);
-					return(0);
+			int n_merge = gsl_ran_poisson(r,poisson_mu);
+			if (n_merge==0)
+add_filler_particle(&new_event);
+			for (int i=0;i<n_merge;i++)
+			{
+				if (!read_next(istream)) {
+					close_read(istream);
+					if (optind<argc-1)
+					{
+						open_read(argv[optind++],istream);
+					}
+					else
+					{
+						close_write(ostream);
+						return(0);
+					}
+				}
+
+				read_stdhep(&new_event);
 			}
 
-			read_stdhep(&new_event);
+			write_stdhep(&new_event,nevhep+1);
+			write_file(ostream);
 		}
-
-		write_stdhep(&new_event,nevhep);
-		write_file(ostream);
-		nevhep++;
+		close_write(ostream);
 	}
 }
 
