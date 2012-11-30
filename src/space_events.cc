@@ -15,6 +15,7 @@ int main(int argc,char** argv)
 	int event_interval = 500;
 	int output_n = 500000;
 	int max_output_files = 0;
+	int output_filename_digits = 2;
 
 	int c;
 
@@ -36,6 +37,7 @@ int main(int argc,char** argv)
 				break;
 			case 'N':
 				max_output_files = atoi(optarg);
+				output_filename_digits = strlen(optarg);
 				break;
 			case '?':
 				printf("Invalid option or missing option argument; -h to list options\n");
@@ -65,8 +67,8 @@ int main(int argc,char** argv)
 	int events_written = 0;
 
 	open_read(argv[optind++],istream);
-	while (max_output_files==0||file_n<max_output_files) {
-		sprintf(output_filename,"%s_%02d.stdhep",output_basename,file_n++);
+	while (max_output_files==0||file_n-1<max_output_files) {
+		sprintf(output_filename,"%s_%0*d.stdhep",output_basename,output_filename_digits,file_n++);
 		open_write(output_filename,ostream,output_n);
 		for (int nevhep = 0; nevhep < output_n; nevhep++)
 		{
