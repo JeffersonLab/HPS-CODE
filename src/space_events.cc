@@ -60,7 +60,7 @@ int main(int argc,char** argv)
 
 	char *output_basename = argv[argc-1];
 	char output_filename[100];
-	int file_n = 0;
+	int file_n = 1;
 
 	int events_written = 0;
 

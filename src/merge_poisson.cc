@@ -73,7 +73,7 @@ int main(int argc,char** argv)
 
 	char *output_basename = argv[argc-1];
 	char output_filename[100];
-	int file_n = 0;
+	int file_n = 1;
 
 	open_read(argv[optind++],istream);
 	while (max_output_files==0||file_n<max_output_files) {
