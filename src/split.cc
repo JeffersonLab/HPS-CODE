@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <stdhep_mcfio.h>
 #include <stdhep.h>
-#include <TFile.h>
-#include <TH2D.h>
-#include <TCanvas.h>
 #include <string.h>
 
 // Reads one stdhep file and splits it into multiple files, each of a given length.

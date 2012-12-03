@@ -74,7 +74,7 @@ int main(int argc,char** argv)
 		{
 			if (events_written%event_interval==0)
 			{
-				if (!read_next(istream)) {
+				while (!read_next(istream)) {
 					close_read(istream);
 					if (optind<argc-1)
 					{

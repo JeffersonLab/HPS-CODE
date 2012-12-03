@@ -88,7 +88,7 @@ int main(int argc,char** argv)
 				add_filler_particle(&new_event);
 			for (int i=0;i<n_merge;i++)
 			{
-				if (!read_next(istream)) {
+				while (!read_next(istream)) {
 					close_read(istream);
 					if (optind<argc-1)
 					{

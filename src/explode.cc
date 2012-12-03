@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <stdhep_mcfio.h>
 #include <stdhep.h>
-#include <TFile.h>
-#include <TH2D.h>
-#include <TCanvas.h>
 #include <string.h>
 
 
