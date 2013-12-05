@@ -15,10 +15,12 @@ int main(int argc,char** argv)
 	int nevhep;             /* The event number */
 	vector<stdhep_entry> new_event;
 
+	vector<vector<stdhep_entry> *> input_events;
+
 	double poisson_mu = 1.0;
 	int output_n = 500000;
-	int max_output_files = 0;
-	int output_filename_digits = 2;
+	int max_output_files = 1;
+	int output_filename_digits = 1;
 
 	int rseed = 0;
 
@@ -83,7 +85,31 @@ int main(int argc,char** argv)
 	int file_n = 1;
 
 	open_read(argv[optind++],istream);
-	while (max_output_files==0||file_n-1<max_output_files) {
+
+	while (true) {
+		bool no_more_data = false;
+		while (!read_next(istream)) {
+			close_read(istream);
+			if (optind<argc-1)
+			{
+				open_read(argv[optind++],istream);
+			}
+			else
+			{
+				no_more_data = true;
+				break;
+			}
+		}
+		if (no_more_data) break;
+
+		vector<stdhep_entry> * read_event = new vector<stdhep_entry>;
+		read_stdhep(read_event);
+		input_events.push_back(read_event);
+	}
+
+	printf("read %d events\n",input_events.size());
+
+	while (file_n<=max_output_files) {
 		sprintf(output_filename,"%s_%0*d.stdhep",output_basename,output_filename_digits,file_n++);
 		open_write(output_filename,ostream,output_n);
 		for (int nevhep = 0; nevhep < output_n; nevhep++)
@@ -93,20 +119,8 @@ int main(int argc,char** argv)
 				add_filler_particle(&new_event);
 			for (int i=0;i<n_merge;i++)
 			{
-				while (!read_next(istream)) {
-					close_read(istream);
-					if (optind<argc-1)
-					{
-						open_read(argv[optind++],istream);
-					}
-					else
-					{
-						close_write(ostream);
-						return(0);
-					}
-				}
-
-				read_stdhep(&new_event);
+				int random_index = gsl_rng_uniform_int(r,input_events.size());
+				append_stdhep(&new_event,input_events[random_index]);
 			}
 
 			write_stdhep(&new_event,nevhep+1);
