@@ -17,7 +17,7 @@ int main(int argc,char** argv)
 
 	vector<vector<stdhep_entry> *> input_events;
 
-	double poisson_mu = 1.0;
+	double poisson_mu = -1.0;
 	int output_n = 500000;
 	int max_output_files = 1;
 	int output_filename_digits = 1;
@@ -108,6 +108,11 @@ int main(int argc,char** argv)
 	}
 
 	printf("read %d events\n",input_events.size());
+
+	if (poisson_mu<0) {
+		poisson_mu = ((double) input_events.size())/output_n;
+		printf("Setting mu to %f\n",poisson_mu);
+	}
 
 	while (file_n<=max_output_files) {
 		sprintf(output_filename,"%s_%0*d.stdhep",output_basename,output_filename_digits,file_n++);

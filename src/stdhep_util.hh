@@ -15,6 +15,7 @@ struct stdhep_entry {
 int read_stdhep(vector<stdhep_entry> *new_event);
 void write_stdhep(vector<stdhep_entry> *new_event, int nevhep);
 void add_filler_particle(vector<stdhep_entry> *new_event);
+int append_stdhep(vector<stdhep_entry> *event, const vector<stdhep_entry> *new_event);
 
 int open_read(char *filename, int istream, int n_events=1000000);
 void open_write(char *filename, int ostream, int n_events);

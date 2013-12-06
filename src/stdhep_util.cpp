@@ -64,6 +64,23 @@ void add_filler_particle(vector<stdhep_entry> *new_event) //add a 10 MeV photon 
 	new_event->push_back(*temp);
 }
 
+int append_stdhep(vector<stdhep_entry> *event, const vector<stdhep_entry> *new_event)
+{
+	int offset = event->size();
+	for (int i = 0;i<new_event->size();i++)
+	{
+		struct stdhep_entry temp = (*new_event)[i];
+		for (int j=0;j<2;j++) {
+			if (temp.jmohep[j]!=0) temp.jmohep[j]+=offset;
+		}
+		for (int j=0;j<2;j++) {
+			if (temp.jdahep[j]!=0) temp.jdahep[j]+=offset;
+		}
+		event->push_back(temp);
+	}
+	return event->size();
+}
+
 int open_read(char *filename, int istream, int n_events)
 {
 	printf("Reading from %s; expecting %d events\n",filename,n_events);
