@@ -47,6 +47,7 @@ int main(int argc,char** argv)
 				break;
 			case 's':
 				rseed = atoi(optarg);
+				break;
 			case '?':
 				printf("Invalid option or missing option argument; -h to list options\n");
 				return(1);
