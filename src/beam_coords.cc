@@ -84,9 +84,9 @@ int main(int argc,char** argv)
 	int istream = 0;
 	int ostream = 1;
 
-	n_events = open_read(argv[1],istream);
+	n_events = open_read(argv[optind],istream);
 
-	open_write(argv[2],ostream,n_events);
+	open_write(argv[optind+1],ostream,n_events);
 
 	printf("Rotating by %f radians; beam size %f mm in X, %f mm in Y\n",theta, sigma_x, sigma_y);
 
