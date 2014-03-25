@@ -15,10 +15,10 @@ void rotate_entry(stdhep_entry *entry, double theta)
 	double pz = entry->phep[2];
 	double vx = entry->vhep[0];
 	double vz = entry->vhep[2];
-	entry->phep[0] = px*cos(theta) - pz*sin(theta);
-	entry->phep[2] = px*sin(theta) + pz*cos(theta);
-	entry->vhep[0] = vx*cos(theta) - vz*sin(theta);
-	entry->vhep[2] = vx*sin(theta) + vz*cos(theta);
+	entry->phep[0] = px*cos(theta) + pz*sin(theta);
+	entry->phep[2] = pz*cos(theta) - px*sin(theta);
+	entry->vhep[0] = vx*cos(theta) + vz*sin(theta);
+	entry->vhep[2] = vz*cos(theta) - vx*sin(theta);
 }
 
 // takes input stdhep file, applies beam rotation and width, and writes to a new stdhep file
