@@ -110,7 +110,6 @@ int main(int argc,char** argv)
 
 		write_stdhep(&new_event,nevhep);
 		write_file(ostream);
-		nevhep++;
 	}
 }
 
