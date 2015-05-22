@@ -295,6 +295,8 @@ void hps_ecal_scalers_app::draw_scalers()
                 datime.GetHour(),datime.GetMinute(),datime.GetSecond()));
     tdatime.Draw();
 
+    gPad->SetLogz(doLogScale);
+
     pCanvas->GetCanvas()->Modified();
     pCanvas->GetCanvas()->Update();
 }
