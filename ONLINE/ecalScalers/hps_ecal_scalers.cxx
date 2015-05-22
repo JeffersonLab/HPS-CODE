@@ -290,7 +290,7 @@ void hps_ecal_scalers_app::draw_scalers()
 
     TDatime datime;
     tdatime.Clear();
-    tdatime.AddText(Form("%d/%d/%d %.2d:%.2d:%2d",
+    tdatime.AddText(Form("%d/%d/%d %.2d:%.2d:%.2d",
                 datime.GetDay(),datime.GetMonth(),datime.GetYear(),
                 datime.GetHour(),datime.GetMinute(),datime.GetSecond()));
     tdatime.Draw();
