@@ -9,7 +9,7 @@ g++ -W -Wall -Wshadow -Wstrict-aliasing -pthread -m64 -I$ROOTSYS/include \
     -c hps_ecal_scalers_Dict.cxx
 
 g++ -W -Wall -Wshadow -Wstrict-aliasing -pthread -m64 -I$ROOTSYS/include \
-    -L$ROOT/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
+    -L$ROOTSYS/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad \
     -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread \
     -pthread -lm -ldl -rdynamic -L$ROOTSYS/lib -lGui \
     -o hps_ecal_scalers hps_ecal_scalers.o  hps_ecal_scalers_Dict.o
