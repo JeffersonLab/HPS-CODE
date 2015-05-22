@@ -33,6 +33,7 @@ class hps_ecal_scalers_app : public TGMainFrame
 {
     private:
         int connect_to_server();
+        int reconnect_to_server();
         int read_scalers();
         int get_ch(int x, int y);
         int get_crate_map();
@@ -49,12 +50,13 @@ class hps_ecal_scalers_app : public TGMainFrame
         CrateMsgClient *crate_hps[2];
         TCanvas *pTC;
         TH2I *pH;
+        TH2D *pH2;
         TRootEmbeddedCanvas *pCanvas;
 
         int hpsCrates[2];
 
     public:
-        hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h);
+        hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h, int scalerType);
         ~hps_ecal_scalers_app();
 
         void DoExit();
@@ -62,9 +64,11 @@ class hps_ecal_scalers_app : public TGMainFrame
         void button_LogEnable();
         void refresh_scalers();
 
+        bool enableButtons;
         bool doLogScale;
         int updatePeriod;
         int scalerType;
+        bool doAccumulate;
 
         ClassDef(hps_ecal_scalers_app, 0)
 };

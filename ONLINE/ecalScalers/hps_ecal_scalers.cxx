@@ -1,12 +1,16 @@
-// rootcint -f hps_ecal_scalers_Dict.cxx -c -p hps_ecal_scalers.h hps_ecal_scalers_LinkDef.h
-// g++ -W -Wall -Wshadow -Wstrict-aliasing -pthread -m64 -I/home/hpsrun/apps/root_v5.34.21.Linux-slc6-amd64-gcc4.4/include -I/home/hpsrun/.root -c hps_ecal_scalers.cxx
-// g++ -W -Wall -Wshadow -Wstrict-aliasing -pthread -m64 -I/home/hpsrun/apps/root_v5.34.21.Linux-slc6-amd64-gcc4.4/include -I/home/hpsrun/.root -c hps_ecal_scalers_Dict.cxx
-//  g++ -W -Wall -Wshadow -Wstrict-aliasing -pthread -m64 -I/home/hpsrun/apps/root_v5.34.21.Linux-slc6-amd64-gcc4.4/include -L/home/hpsrun/apps/root_v5.34.21.Linux-slc6-amd64-gcc4.4/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/hpsrun/apps/root_v5.34.21.Linux-slc6-amd64-gcc4.4/lib -lGui -I/home/hpsrun/.root -o hps_ecal_scalers hps_ecal_scalers.o hps_ecal_scalers_Dict.o
-//
-//
 #include "hps_ecal_scalers.h"
 
 ClassImp(hps_ecal_scalers_app)
+
+int hps_ecal_scalers_app::reconnect_to_server()
+{
+    for (int i=0; i<2; i++)
+    {
+        crate_hps[i]->Close();
+        crate_hps[i]->Delete();
+    }
+    return connect_to_server();
+}
 
 int hps_ecal_scalers_app::connect_to_server()
 {
@@ -39,6 +43,9 @@ int hps_ecal_scalers_app::read_scalers()
     unsigned int *buf;
     int len;
 
+    static const int ref = scalerType==SCALER_TYPE_FADC250 ? 16 : 68;
+    static const int off = scalerType==SCALER_TYPE_FADC250 ? 0 : 51;
+
     for(int crate = 0; crate < 2; crate++)
     {
         for(int slot = 0; slot <= 20; slot++)
@@ -46,11 +53,11 @@ int hps_ecal_scalers_app::read_scalers()
             if(hps_crate_map[crate][slot] == scalerType)
             {
                 if(!crate_hps[crate]->ScalerReadBoard(slot, &buf, &len)) return -3;
-                if(len == 17)
+                if(scalerType==SCALER_TYPE_DSC2 || len == 17)
                 {
                     for(int ch = 0; ch < 16; ch++)
-                        hps_ecal_crate_slot_scalers[crate][slot][ch] = buf[ch];
-                    hps_ecal_crate_slot_ref[crate][slot] = buf[16];
+                        hps_ecal_crate_slot_scalers[crate][slot][ch] = buf[off+ch];
+                    hps_ecal_crate_slot_ref[crate][slot] = buf[ref];
                 }
                 delete [] buf;
             }
@@ -167,6 +174,7 @@ void hps_ecal_scalers_app::draw_scalers()
     static TLine ll;
     static TText tarrow(14.5,0.3,"Beam Left");
     static TArrow arrow(19,0.5,23,0.5,0.02,"|>");
+    static TPaveText tdatime(-5,-6.5,5,-5.8);
 
     if (!called)
     {
@@ -189,11 +197,18 @@ void hps_ecal_scalers_app::draw_scalers()
         arrow.SetAngle(40);
         arrow.SetFillColor(kBlack);
         arrow.SetLineWidth(2);
+        tdatime.SetFillColor(kWhite);
+        tdatime.SetBorderSize(0);
+        tdatime.SetLineWidth(0);
     }
 
+    const int histoUnits = scalerType == SCALER_TYPE_FADC250 ? 1e3 : 1; // seconds
+
     unsigned int max=0;
-    pH->SetMinimum(0);
-    pH->Reset();
+    if (!doAccumulate) pH->Reset();
+    if (!doAccumulate) pH2->Reset();
+    pH->SetMinimum(0.1);
+    pH2->SetMinimum(0.1);
     for(int x = -23; x <= 23; x++)
     {
         for(int y = 1; y <= 5; y++)
@@ -202,9 +217,15 @@ void hps_ecal_scalers_app::draw_scalers()
 
             if(ch >= 0)
             {
-                pH->Fill(x, y, (float)hps_ecal_crate_slot_scalers[0][ch/16][ch%16]/1000);
-                pH->Fill(x, -y, (float)hps_ecal_crate_slot_scalers[1][ch/16][ch%16]/1000);
+                // one TH2I for number display:
+                pH->Fill(x, y, (float)hps_ecal_crate_slot_scalers[0][ch/16][ch%16]/histoUnits);
+                pH->Fill(x, -y, (float)hps_ecal_crate_slot_scalers[1][ch/16][ch%16]/histoUnits);
+                
+                // one TH2D for color display:
+                pH2->Fill(x, y, (float)hps_ecal_crate_slot_scalers[0][ch/16][ch%16]/histoUnits);
+                pH2->Fill(x, -y, (float)hps_ecal_crate_slot_scalers[1][ch/16][ch%16]/histoUnits);
 
+                // just look at crystals adjacent to beam hole for maximum:
                 if (y<3 && (x>=-11 || x<=1))
                 {
                     if (hps_ecal_crate_slot_scalers[0][ch/16][ch%16] > max) 
@@ -249,11 +270,15 @@ void hps_ecal_scalers_app::draw_scalers()
     ttT.Clear();
     ttB.Clear();
     ttM.Clear();
+    
+    const int textUnits = scalerType == SCALER_TYPE_FADC250 ? 1e6 : 1e3;
+    const char* stringUnit = textUnits == 1e6 ? "M" : "k";
+    
     tt1.AddText(Form("Total:  %.1E Hz",(float)rr.total));
-    tt2.AddText(Form("Total:  %.2f MHz",(float)rr.total/1e6));
-    ttT.AddText(Form("%.3f MHz",(float)rr.top/1e6));
-    ttB.AddText(Form("%.3f MHz",(float)rr.bottom/1e6));
-    ttM.AddText(Form("MAX SINGLE CRYSTAL = %.2f kHz",(float)max/1000));
+    tt2.AddText(Form("Total:  %.2f %sHz",(float)rr.total/textUnits,stringUnit));
+    ttT.AddText(Form("%.2f %sHz",(float)rr.top/textUnits,stringUnit));
+    ttB.AddText(Form("%.2f %sHz",(float)rr.bottom/textUnits,stringUnit));
+    ttM.AddText(Form("MAX SINGLE CRYSTAL = %.2f kHz",(float)max/1e3));
     tt1.Draw();
     tt2.Draw();
     ttT.Draw();
@@ -262,6 +287,13 @@ void hps_ecal_scalers_app::draw_scalers()
     
     arrow.Draw();
     tarrow.Draw();
+
+    TDatime datime;
+    tdatime.Clear();
+    tdatime.AddText(Form("%d/%d/%d %.2d:%.2d:%2d",
+                datime.GetDay(),datime.GetMonth(),datime.GetYear(),
+                datime.GetHour(),datime.GetMinute(),datime.GetSecond()));
+    tdatime.Draw();
 
     pCanvas->GetCanvas()->Modified();
     pCanvas->GetCanvas()->Update();
@@ -368,14 +400,15 @@ void hps_ecal_scalers_app::button_Save()
     }
 }
 
-hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h) : TGMainFrame(p, w, h) 
+hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h,int scalerType2) : TGMainFrame(p, w, h) 
 {
     printf("hps_ecal_scalers_app started...\n");
 
+    enableButtons=0;
     doLogScale=1; // default: yes, log
     updatePeriod=1000; // default: 1s
-    
-    scalerType=SCALER_TYPE_FADC250; // default: FADC, not DSC
+    scalerType=scalerType2;//SCALER_TYPE_FADC250; // default: FADC, not DSC
+    doAccumulate=0;
 
     SetCleanup(kDeepCleanup);
 
@@ -383,17 +416,19 @@ hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h
     DontCallClose();
 
     TGCompositeFrame *pTF;
-//    TGTextButton *pB;
+    TGTextButton *pB;
 
     AddFrame(pTF= new TGHorizontalFrame(this), new TGLayoutHints(kLHintsExpandX));
 
-    // DSIABLE BUTTONS:
-//    pTF->AddFrame(pB = new TGTextButton(pTF, new TGHotString("LogToggle")), new TGLayoutHints(kLHintsLeft | kLHintsCenterX));
-//    pB->Connect("Clicked()", "hps_ecal_scalers_app", this, "button_LogEnable()");
-//    pTF->AddFrame(pB = new TGTextButton(pTF, new TGHotString("Save")), new TGLayoutHints(kLHintsLeft | kLHintsCenterX));
-//    pB->Connect("Clicked()", "hps_ecal_scalers_app", this, "button_Save()");
-//    pTF->AddFrame(pB = new TGTextButton(pTF, new TGHotString("Exit")), new TGLayoutHints(kLHintsLeft | kLHintsCenterX));
-//    pB->Connect("Clicked()", "hps_ecal_scalers_app", this, "DoExit()");
+    if (enableButtons)
+    {
+        pTF->AddFrame(pB = new TGTextButton(pTF, new TGHotString("LogToggle")), new TGLayoutHints(kLHintsLeft | kLHintsCenterX));
+        pB->Connect("Clicked()", "hps_ecal_scalers_app", this, "button_LogEnable()");
+        pTF->AddFrame(pB = new TGTextButton(pTF, new TGHotString("Save")), new TGLayoutHints(kLHintsLeft | kLHintsCenterX));
+        pB->Connect("Clicked()", "hps_ecal_scalers_app", this, "button_Save()");
+        pTF->AddFrame(pB = new TGTextButton(pTF, new TGHotString("Exit")), new TGLayoutHints(kLHintsLeft | kLHintsCenterX));
+        pB->Connect("Clicked()", "hps_ecal_scalers_app", this, "DoExit()");
+    }
 
     AddFrame(pTF = new TGVerticalFrame(this), new TGLayoutHints(kLHintsExpandX | kLHintsExpandY));
     pTF->AddFrame(pCanvas = new TRootEmbeddedCanvas("c1", pTF, w, h), new TGLayoutHints(kLHintsExpandX | kLHintsExpandY));
@@ -405,6 +440,17 @@ hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h
     if (scalerType == SCALER_TYPE_DSC2)
         title=title.ReplaceAll("FADC","DSC2");
 
+    pH2 = new TH2D(title+"2", ";X;Y", 46, -22.0, 24.0, 11, -5.0, 6.0);
+    pH2->SetStats(0);
+    pH2->GetXaxis()->CenterLabels();
+    pH2->GetXaxis()->SetNdivisions(46, kFALSE);
+    pH2->GetXaxis()->SetTickLength(0);
+    pH2->GetYaxis()->CenterLabels();
+    pH2->GetYaxis()->SetNdivisions(11, kFALSE);
+    pH2->GetYaxis()->SetTickLength(0);
+    pH2->GetYaxis()->SetTitleOffset(0.5);
+    pH2->Draw("COLZ");
+    
     pH = new TH2I(title, ";X;Y", 46, -22.0, 24.0, 11, -5.0, 6.0);
     pH->SetStats(0);
     pH->GetXaxis()->CenterLabels();
@@ -414,18 +460,19 @@ hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h
     pH->GetYaxis()->SetNdivisions(11, kFALSE);
     pH->GetYaxis()->SetTickLength(0);
     pH->GetYaxis()->SetTitleOffset(0.5);
-    pH->Draw("COLZTEXT");
+    pH->Draw("TEXTSAME");
 
     TText tt;
     tt.SetTextColor(kBlack);
     tt.SetTextAngle(90);
-    tt.DrawText(25.2,0,"kHz");
+    tt.DrawText(25.2,0,scalerType==SCALER_TYPE_FADC250 ? "kHz":"Hz");
     tt.SetTextAngle(0);
     tt.SetTextColor(kRed);
     tt.SetTextSize(0.08);
 
-    TString title2=title;
-    title2=title2.ReplaceAll(" Scalers","");
+    TString title2="FADC SCALERS";
+    if (scalerType==SCALER_TYPE_DSC2)
+        title2.ReplaceAll("FADC","DSC2");
     tt.DrawTextNDC(0.38,0.92,title2);
 
     std::cout<<title2<<" "<<title<<" "<<std::endl;
@@ -440,6 +487,7 @@ hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h
     for(int n = 1; n <= 46; n++)
     {
         pH->GetXaxis()->SetBinLabel(n,Form("%d", x));
+        pH2->GetXaxis()->SetBinLabel(n,Form("%d", x));
         x++;
         if(x == 0) x++;
     }
@@ -453,7 +501,7 @@ hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h
     TString title3="ECAL FADC SCALERS";
     if (scalerType == SCALER_TYPE_DSC2)
         title3=title3.ReplaceAll("FADC","DSC2");
-    
+
     SetWindowName(title3);
     MapSubwindows();
     Resize();
@@ -462,10 +510,10 @@ hps_ecal_scalers_app::hps_ecal_scalers_app(const TGWindow *p, UInt_t w, UInt_t h
     TTimer::SingleShot(updatePeriod, "hps_ecal_scalers_app", this, "refresh_scalers()");
 }
 
-void hps_ecal_scalers_app_run()
-{
-    new hps_ecal_scalers_app(gClient->GetRoot(), 1500, 500);
-}
+//void hps_ecal_scalers_app_run()
+//{
+//    new hps_ecal_scalers_app(gClient->GetRoot(), 1500, 500);
+//}
 
 void setupColorScale()
 {
@@ -482,15 +530,19 @@ int main(int argc,char* argv[])
     // DEFAULTS:
     int updatePeriod=1000; // milliseconds
     bool doLogScale=1;
-    int scalerType=SCALER_TYPE_FADC250; // 0 = FADC, 1 = DSC2
+    bool enableButtons=0;
+    bool doAccumulate=0;
+    int scalerType=SCALER_TYPE_FADC250;
     
     const char* usage="hps_scalers [options]\n"
         "\t-l    linear scale (default is log)\n"
         "\t-t #  update period (milliseconds)\n"
-        "\t-d    use discriminators (default = FADCs)\n";
+        "\t-d    use discriminators (default = FADCs)\n"
+        "\t-a    accumulate counts\n"
+        "\t-b    enable buttons (broken)\n";
 
     int itmp;
-    while ( (itmp=getopt(argc,argv,"ldt:")) != -1 )
+    while ( (itmp=getopt(argc,argv,"ldat:")) != -1 )
     {
         switch (itmp)
         {
@@ -503,6 +555,12 @@ int main(int argc,char* argv[])
             case 'd':
                 scalerType=SCALER_TYPE_DSC2;
                 break;
+            case 'b':
+                enableButtons=1;
+                break;
+            case 'a':
+                doAccumulate=1;
+                break;
             default:
                 std::cout<<usage<<std::endl;
                 exit(1);
@@ -513,12 +571,13 @@ int main(int argc,char* argv[])
 
     TApplication asdf("asdf",&argc,argv);
 
-    hps_ecal_scalers_app *qwer=new hps_ecal_scalers_app(gClient->GetRoot(), 1500, 500);
+    hps_ecal_scalers_app *qwer=new hps_ecal_scalers_app(gClient->GetRoot(), 1500, 450, scalerType);
     
     qwer->doLogScale=doLogScale;
     qwer->updatePeriod=updatePeriod;
-    qwer->scalerType=scalerType;
-    
+    qwer->enableButtons=enableButtons;
+    qwer->doAccumulate=doAccumulate;
+
     asdf.Run();
     
     return 0;
