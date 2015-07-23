@@ -1,0 +1,38 @@
+<Request>
+  <List name="filno">XXXFILENOSXXX</List>
+  <Name name="dqXXXRUNNOXXXXXXPASSXXX"/>
+  <Project name="hps"/>
+  <Track name="reconstruction"/>
+  <Email email="baltzell@jlab.org" request="false" job="true" />
+  <Memory space="4000" unit="MB"/>
+  <DiskSpace space="5" unit="GB"/> 
+  <TimeLimit time ="15" unit="hours"/>
+  <OS name="centos65"/>
+
+  <Variable name="pre" value="XXXPREFIXXXX_00"/>
+  <Variable name="rel" value="XXXRELEASEXXX"/>
+  <Variable name="run" value="XXXRUNNOXXX"/>
+  <Variable name="pass" value="XXXPASSXXX"/>
+  <Variable name="detector" value="XXXDETECTORXXX"/> 
+  <Variable name="jar" value="XXXJARXXX"/>
+  <Variable name="disk" value="file:XXXDISKTOPDIRXXX"/>
+  <Variable name="mss" value="mss:XXXTAPETOPDIRXXX"/>
+  
+  <Variable name="java" value="/apps/scicomp/java/jdk1.7/bin/java -XX:+UseSerialGC"/>
+  <Variable name="dq_steer" value="/org/hps/steering/production/DataQuality.lcsim"/>
+
+  <ForEach list="filno">
+    <Job>
+      <Input src="mss:/mss/hallb/hps/data/${pre}${run}.evio.${filno}"  dest="in.evio"/>
+      <Command><![CDATA[
+      echo "Auger ID: $AUGER_ID"
+      echo "Ok... now run DQM #1 ..."
+      ${java} -Xmx100m -jar ${jar} -r ${dq_steer} -i out.slcio > data_quality.txt
+      ]]></Command>
+      <Output src="data_quality.txt"    dest="${disk}/${pass}/data_quality/recon/${pre}${run}.${filno}_recon_${rel}.txt"/>
+      <Stderr                           dest="${disk}/${pass}/logs/recon/${pre}${run}.${filno}_dq_${rel}.err" />
+      <Stdout                           dest="${disk}/${pass}/logs/recon/${pre}${run}.${filno}_dq_${rel}.out" />
+    </Job>
+  </ForEach>
+
+</Request> 

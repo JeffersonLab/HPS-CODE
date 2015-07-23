@@ -1,0 +1,62 @@
+<Request>
+  <List name="filno">XXXFILENOSXXX</List>
+  <Name name="allXXXRUNNOXXXXXXPASSXXX"/>
+  <Project name="hps"/>
+  <Track name="reconstruction"/>
+  <Email email="baltzell@jlab.org" request="false" job="true" />
+  <Memory space="4000" unit="MB"/>
+  <DiskSpace space="5" unit="GB"/> 
+  <TimeLimit time ="15" unit="hours"/>
+  <OS name="centos65"/>
+
+  <Variable name="pre" value="XXXPREFIXXXX_00"/>
+  <Variable name="rel" value="XXXRELEASEXXX"/>
+  <Variable name="run" value="XXXRUNNOXXX"/>
+  <Variable name="pass" value="XXXPASSXXX"/>
+  <Variable name="detector" value="XXXDETECTORXXX"/> 
+  <Variable name="jar" value="XXXJARXXX"/>
+  <Variable name="disk" value="XXXDISKTOPDIRXXX"/>
+  <Variable name="mss" value="XXXTAPETOPDIRXXX"/>
+
+  <Variable name="eviocopy" value="">
+  <Variable name="dstmaker" value="/u/group/hps/hps_soft/hps-dst/build/bin/dst_maker"/>
+  <Variable name="java" value="/apps/scicomp/java/jdk1.7/bin/java -XX:+UseSerialGC"/>
+  <Variable name="recon_steer" value="/org/hps/steering/recon/EngineeringRun2015FullRecon.lcsim"/>
+  <Variable name="trig_steer"  value="/org/hps/steering/recon/TriggerDiagnosticsAnalysis.lcsim"/>
+  <Variable name="dq_steer"    value="/org/hps/steering/production/DataQuality.lcsim"/>
+  <Variable name="dqm_steer"   value="/org/hps/steering/production/DataQualityRecon.lcsim"/>
+
+  <ForEach list="filno">
+    <Job>
+      <Input src="mss:/mss/hallb/hps/data/${pre}${run}.evio.${filno}"  dest="in.evio"/>
+      <Command><![CDATA[
+      echo "Auger ID: $AUGER_ID"
+      mv -f ${disk}/${pass}/logs/recon/${pre}${run}.${filno}_recon_${rel}.err ${disk}/${pass}/logs/recon-resubmitted/${pre}${run}.${filno}_recon_${rel}.err
+      mv -f ${disk}/${pass}/logs/recon/${pre}${run}.${filno}_recon_${rel}.out ${disk}/${pass}/logs/recon-resubmitted/${pre}${run}.${filno}_recon_${rel}.out
+      ./eviocopy in.evio scrub.evio
+      mv -f scrub.evio in.evio
+      echo "Ok... now run RECON ..."
+      ${java} -cp ${jar} org.hps.evio.EvioToLcio -x ${recon_steer} -r -d ${detector} -R ${run} -DoutputFile=out in.evio 
+      echo "Ok... now run TRIGDIAG ..."
+      ${java} -cp ${jar} org.hps.evio.EvioToLcio -x ${trig_steer}  -r -d ${detector} -R ${run} -DoutputFile=a in.evio 
+      echo "Ok... now run DQM #1 ..."
+      ${java} -Xmx100m -jar ${jar} -r ${dq_steer} -i out.slcio > data_quality.txt
+      echo "Ok... now run DQM #2 ..."
+      ${java} -jar ${jar} -r ${dqm_steer} -DoutputFile=dqm -i out.slcio
+      echo "Ok... now run DST ..."
+      ${dstmaker} -o dst.root out.slcio 
+      ]]></Command>
+      <Output src="out.slcio"           dest="mss:${mss}/${pass}/recon/${pre}${run}.${filno}_recon_${rel}.slcio"/>
+      <Output src="dst.root"            dest="mss:${mss}/${pass}/dst/${pre}${run}.${filno}_dst_${rel}.root"/>
+      <Output src="a_triggerPlots.aida" dest="mss:${mss}/${pass}/trigdiag/aida/${pre}${run}.${filno}_trigdiag_${rel}.aida"/>
+      <Output src="a_triggerPlots.aida" dest="file:${disk}/${pass}/trigdiag/aida/${pre}${run}.${filno}_trigdiag_${rel}.aida"/>
+CANON <Output src="out.slcio"           dest="file:${disk}/${pass}/recon/${pre}${run}.${filno}_recon_${rel}.slcio"/>
+      <Output src="dst.root"            dest="file:${disk}/${pass}/dst/${pre}${run}.${filno}_dst_${rel}.root"/>
+      <Output src="dqm.root"            dest="file:${disk}/${pass}/data_quality/dqm/${pre}${run}.${filno}_dqm_${rel}.root"/>
+      <Output src="data_quality.txt"    dest="file:${disk}/${pass}/data_quality/recon/${pre}${run}.${filno}_recon_${rel}.txt"/>
+      <Stderr                           dest="file:${disk}/${pass}/logs/recon/${pre}${run}.${filno}_recon_${rel}.err" />
+      <Stdout                           dest="file:${disk}/${pass}/logs/recon/${pre}${run}.${filno}_recon_${rel}.out" />
+    </Job>
+  </ForEach>
+
+</Request> 

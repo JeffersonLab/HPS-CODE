@@ -1,0 +1,38 @@
+<Request>
+  <List name="filno">XXXFILENOSXXX</List>
+  <Name name="dstXXXRUNNOXXXXXXPASSXXX"/>
+  <Project name="hps"/>
+  <Track name="reconstruction"/>
+  <Email email="baltzell@jlab.org" request="false" job="true" />
+  <Memory space="4000" unit="MB"/>
+  <DiskSpace space="5" unit="GB"/> 
+  <TimeLimit time ="15" unit="hours"/>
+  <OS name="centos65"/>
+
+  <Variable name="pre" value="XXXPREFIXXXX_00"/>
+  <Variable name="rel" value="XXXRELEASEXXX"/>
+  <Variable name="run" value="XXXRUNNOXXX"/>
+  <Variable name="pass" value="XXXPASSXXX"/>
+  <Variable name="detector" value="XXXDETECTORXXX"/> 
+  <Variable name="jar" value="XXXJARXXX"/>
+  <Variable name="disk" value="file:XXXDISKTOPDIRXXX"/>
+  <Variable name="mss" value="mss:XXXTAPETOPDIRXXX"/>
+  
+  <Variable name="dstmaker" value="/u/group/hps/hps_soft/hps-dst/build/bin/dst_maker"/>
+
+  <ForEach list="filno">
+    <Job>
+      <Input src="${mss}/${pass}/recon/${pre}${run}.${filno}_recon_${rel}.slcio"  dest="out.evio"/>
+      <Command><![CDATA[
+      echo "Auger ID: $AUGER_ID"
+      echo "Ok... now run DST ..."
+      ${dstmaker} -o dst.root out.slcio 
+      ]]></Command>
+      <Output src="dst.root"            dest="${mss}/${pass}/dst/${pre}${run}.${filno}_dst_${rel}.root"/>
+      <Output src="dst.root"            dest="${disk}/${pass}/dst/${pre}${run}.${filno}_dst_${rel}.root"/>
+      <Stderr                           dest="${disk}/${pass}/logs/recon/${pre}${run}.${filno}_dst_${rel}.err" />
+      <Stdout                           dest="${disk}/${pass}/logs/recon/${pre}${run}.${filno}_dst_${rel}.out" />
+    </Job>
+  </ForEach>
+
+</Request> 
