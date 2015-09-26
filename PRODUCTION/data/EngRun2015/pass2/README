@@ -1,0 +1,72 @@
+
+
+**********************************************************************
+5623 is 1st run with SVT @ 0.5mm.  You may want to submit 0.5 mm first.
+**********************************************************************
+
+
+**********************************************************************
+All xml files for 0.5 and 1.5 mm are setup and ready to go in ./jsubs.
+
+They are expecting there to be a (currently nonexisting) jar file here
+for the new release:
+
+/u/group/hps_soft/hps-java/hps-distribution-3.4.0-bin.jar
+
+and are setup to use the release tag "R340" in the output file names
+and the output directories on disk and tape named "pass2".
+
+All DSTs are setup to goto disk, as are all both moller and pulser LCIO
+skims (see below).  Unskimmed LCIOs are only going to disk for the
+"canonical" runs (5772,5739,5698) and calibration runs.  Calibration
+runs are unblinded, everything else is blinded (every 10th file only).
+**********************************************************************
+
+
+
+
+**********************************************************************
+Run all scripts with current working directory:
+/u/group/hps/production/data/EngRun2015/pass2
+**********************************************************************
+
+
+
+
+**********************************************************************
+This will submit all xml files between R1 and R2, and move those
+xml files to jsub-subbed:
+
+`./scripts/jsub.sh R1 R2`
+`./scripts/jsub.sh 5623 5800`  (0.5 mm only)
+**********************************************************************
+
+
+
+**********************************************************************
+If you need to remake the xml files:
+
+  If necessary, edit ./templates/all.xml (e.g. remove the moller skim)
+  Move or remove the ./jsub directory
+  Run `./allruns.py` 
+
+allruns.py can take various arguments to customize the xml files without
+changing the template.  The ones you might want:
+
+`./allruns.py JAR=/path/to/release.jar RELEASE=R341 PASS=pass2.1`
+*********************************************************************
+
+
+
+**********************************************************************
+You may want to keep tabs on the total pass2 usage on disk:
+`du -sh /work/hallb/hps/data/engrun2015/pass2`
+
+And hps's quota on /work:
+https://scicomp.jlab.org/scicomp/#/disk/work
+
+Although I don't expect it to be an issue, possible trimmings include
+gzipping all the txt files, deleting skims. 
+**********************************************************************
+
+
