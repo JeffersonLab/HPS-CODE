@@ -33,7 +33,7 @@
   <Variable name="pulser_steer" value="/org/hps/steering/production/PulserTriggerFilter.lcsim"/>
   <Variable name="moller_steer" value="/org/hps/steering/production/MollerCandidateFilter.lcsim"/>
   <Variable name="v0_steer"     value="/org/hps/steering/production/V0CandidateFilter.lcsim"/>
-  <Variable name="fee_steer"    value="/org/hps/steering/production/FEECandidateFilter.lcsim"/>
+  <Variable name="fee_steer"    value="/org/hps/steering/production/FEEFilter.lcsim"/>
 
   <Variable name="disk" value="file:XXXDISKTOPDIRXXX"/>
   <Variable name="mss"  value="mss:XXXTAPETOPDIRXXX"/>
@@ -46,21 +46,7 @@
       <Input src="mss:/mss/hallb/hps/data/${pre}${run}.evio.${fnum}" dest="in.evio"/>
       
       <Command><![CDATA[
-
-      mkdir -p ${disk}/${pass}/logs/recon
-      mkdir -p ${disk}/${pass}/recon
-      mkdir -p ${disk}/${pass}/dst
-      mkdir -p ${disk}/${pass}/data_quality/dqm
-      mkdir -p ${disk}/${pass}/data_quality/recon
-      mkdir -p ${disk}/${pass}/skim/pulser
-      mkdir -p ${disk}/${pass}/skim/fee
-      mkdir -p ${disk}/${pass}/skim/moller
-      mkdir -p ${disk}/${pass}/skim/v0
-      mkdir -p ${disk}/${pass}/skim/dst/pulser
-      mkdir -p ${disk}/${pass}/skim/dst/fee
-      mkdir -p ${disk}/${pass}/skim/dst/moller
-      mkdir -p ${disk}/${pass}/skim/dst/v0
-
+	      
       mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.err               ${disk}/${passfail}/logs
       mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.out               ${disk}/${passfail}/logs
       mv -f ${disk}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio            ${disk}/${passfail}/recon
