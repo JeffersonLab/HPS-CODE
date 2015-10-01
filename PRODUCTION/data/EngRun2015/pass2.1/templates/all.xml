@@ -66,11 +66,15 @@
       mv -f ${disk}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio            ${disk}/${passfail}/recon
       mv -f ${disk}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root                 ${disk}/${passfail}/dst
       mv -f ${disk}/${pass}/data_quality/dqm/${pre}${run}.${fnum}_dqm_${rel}.root    ${disk}/${passfail}/data_quality/dqm
+      mv -f ${disk}/${pass}/data_quality/recon/${pre}${run}.${fnum}_recon_${rel}.txt ${disk}/${passfail}/data_quality/recon
       mv -f ${disk}/${pass}/skim/pulser/${pre}${run}.${fnum}_pulser_${rel}.slcio     ${disk}/${passfail}/skim/pulser
       mv -f ${disk}/${pass}/skim/moller/${pre}${run}.${fnum}_moller_${rel}.slcio     ${disk}/${passfail}/skim/moller
       mv -f ${disk}/${pass}/skim/fee/${pre}${run}.${fnum}_fee_${rel}.slcio           ${disk}/${passfail}/skim/fee
       mv -f ${disk}/${pass}/skim/v0/${pre}${run}.${fnum}_v0_${rel}.slcio             ${disk}/${passfail}/skim/v0
-      mv -f ${disk}/${pass}/data_quality/recon/${pre}${run}.${fnum}_recon_${rel}.txt ${disk}/${passfail}/data_quality/recon
+      mv -f ${disk}/${pass}/skim/dst/pulser/${pre}${run}.${fnum}_pulser_${rel}.root  ${disk}/${passfail}/skim/dst/pulser
+      mv -f ${disk}/${pass}/skim/dst/moller/${pre}${run}.${fnum}_moller_${rel}.root  ${disk}/${passfail}/skim/dst/moller
+      mv -f ${disk}/${pass}/skim/dst/fee/${pre}${run}.${fnum}_fee_${rel}.root        ${disk}/${passfail}/skim/dst/fee
+      mv -f ${disk}/${pass}/skim/dst/v0/${pre}${run}.${fnum}_v0_${rel}.root          ${disk}/${passfail}/skim/dst/v0
       
       mkdir ./fieldmap ; mv ${fieldmap} fieldmap
       
