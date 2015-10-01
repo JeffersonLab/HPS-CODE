@@ -73,6 +73,7 @@
       endif
       if ( `ls -l out.slcio | awk '{print$5}'` == "0" ) then
           echo ; echo ########################### Zero out.slcio #################################
+          rm -f out.slcio
           exit
       endif
 
