@@ -1,0 +1,363 @@
+Loading libHpsEvent.so
+
+Processing runAnalysis.cc(2)...
+Number of entries = 1234567890
+# Passed previous file = 0
+0
+# Passed previous file = 219
+# Passed previous file = 231
+# Passed previous file = 241
+# Passed previous file = 214
+# Passed previous file = 212
+# Passed previous file = 216
+# Passed previous file = 238
+10000
+# Passed previous file = 179
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_11.root
+# Passed previous file = 213
+# Passed previous file = 225
+# Passed previous file = 229
+# Passed previous file = 208
+# Passed previous file = 215
+# Passed previous file = 205
+20000
+# Passed previous file = 199
+# Passed previous file = 231
+# Passed previous file = 234
+# Passed previous file = 225
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_12.root
+# Passed previous file = 212
+# Passed previous file = 197
+# Passed previous file = 226
+30000
+# Passed previous file = 228
+# Passed previous file = 221
+# Passed previous file = 210
+# Passed previous file = 189
+# Passed previous file = 211
+# Passed previous file = 220
+# Passed previous file = 224
+40000
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_13.root
+# Passed previous file = 196
+# Passed previous file = 237
+# Passed previous file = 216
+# Passed previous file = 199
+# Passed previous file = 231
+# Passed previous file = 194
+# Passed previous file = 219
+# Passed previous file = 216
+50000
+# Passed previous file = 221
+# Passed previous file = 203
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_14.root
+# Passed previous file = 223
+# Passed previous file = 219
+# Passed previous file = 216
+# Passed previous file = 213
+# Passed previous file = 237
+60000
+# Passed previous file = 211
+# Passed previous file = 212
+# Passed previous file = 227
+# Passed previous file = 214
+# Passed previous file = 231
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_15.root
+# Passed previous file = 221
+# Passed previous file = 211
+70000
+# Passed previous file = 252
+# Passed previous file = 223
+# Passed previous file = 220
+# Passed previous file = 204
+# Passed previous file = 187
+# Passed previous file = 218
+# Passed previous file = 213
+80000
+# Passed previous file = 203
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_16.root
+# Passed previous file = 220
+# Passed previous file = 209
+# Passed previous file = 238
+# Passed previous file = 235
+# Passed previous file = 205
+# Passed previous file = 227
+# Passed previous file = 200
+90000
+# Passed previous file = 210
+# Passed previous file = 204
+# Passed previous file = 187
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_17.root
+# Passed previous file = 220
+# Passed previous file = 219
+# Passed previous file = 206
+# Passed previous file = 217
+100000
+# Passed previous file = 233
+# Passed previous file = 224
+# Passed previous file = 219
+# Passed previous file = 210
+# Passed previous file = 203
+# Passed previous file = 217
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_18.root
+# Passed previous file = 222
+110000
+# Passed previous file = 217
+# Passed previous file = 209
+# Passed previous file = 222
+# Passed previous file = 221
+# Passed previous file = 204
+# Passed previous file = 222
+# Passed previous file = 218
+120000
+# Passed previous file = 205
+# Passed previous file = 225
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_19.root
+# Passed previous file = 212
+# Passed previous file = 191
+# Passed previous file = 220
+# Passed previous file = 226
+# Passed previous file = 217
+130000
+# Passed previous file = 217
+# Passed previous file = 202
+# Passed previous file = 216
+# Passed previous file = 242
+# Passed previous file = 215
+Error in <TChain::LoadTree>: Cannot find tree with name HPS_Event in file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig-beam-tri/dst/egsv3-triv2-g4v1_s2d6_HPS-EngRun2015-Nominal-v1_3.3.3_pairs1_20.root
+# Passed previous file = 232
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		138407			1			1
+N(particle) Cuts:		27585			0.199304			0.199304
+V0 Momentum Cuts:		23406			0.848505			0.16911
+V0 Vertex   Cuts:		22417			0.957746			0.161964
+Tracking    Cuts:		21627			0.964759			0.156257
+.....done....
+
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002b26055956ce in waitpid () from /lib64/libc.so.6
+#1  0x00002b2605527609 in do_system () from /lib64/libc.so.6
+#2  0x00002b26046443f8 in TUnixSystem::StackTrace() () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCore.so
+#3  0x00002b2604643273 in TUnixSystem::DispatchSignals(ESignals) () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCore.so
+#4  <signal handler called>
+#5  0x00002b260880c697 in G__G__Matrix_139_0_107(G__value*, char const*, G__param*, int) () from /afs/slac/package/cernroot/53426/lib/libMatrix.so
+#6  0x00002b26058cab79 in Cint::G__ExceptionWrapper(int (*)(G__value*, char const*, G__param*, int), G__value*, char*, G__param*, int) () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#7  0x00002b2605974121 in G__execute_call () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#8  0x00002b2605974f62 in G__call_cppfunc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#9  0x00002b2605953968 in G__interpret_func () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#10 0x00002b26059416bc in G__getfunction () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#11 0x00002b260595bffa in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#12 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#13 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#14 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#15 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#16 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#17 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#18 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#19 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#20 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#21 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#22 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#23 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#24 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#25 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#26 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#27 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#28 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#29 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#30 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#31 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#32 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#33 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#34 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#35 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#36 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#37 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#38 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#39 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#40 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#41 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#42 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#43 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#44 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#45 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#46 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#47 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#48 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#49 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#50 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#51 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#52 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#53 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#54 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#55 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#56 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#57 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#58 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#59 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#60 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#61 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#62 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#63 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#64 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#65 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#66 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#67 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#68 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#69 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#70 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#71 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#72 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#73 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#74 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#75 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#76 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#77 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#78 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#79 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#80 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#81 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#82 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#83 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#84 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#85 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#86 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#87 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#88 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#89 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#90 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#91 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#92 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#93 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#94 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#95 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#96 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#97 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#98 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#99 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#100 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#101 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#102 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#103 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#104 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#105 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#106 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#107 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#108 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#109 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#110 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#111 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#112 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#113 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#114 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#115 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#116 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#117 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#118 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#119 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#120 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#121 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#122 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#123 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#124 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#125 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#126 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#127 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#128 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#129 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#130 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#131 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#132 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#133 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#134 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#135 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#136 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#137 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#138 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#139 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#140 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#141 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#142 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#143 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#144 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#145 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#146 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#147 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#148 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#149 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#150 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#151 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#152 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#153 0x00002b260595bd86 in G__basedestructrc () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#154 0x00002b260595db67 in G__basedestructor () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#155 0x00002b26059565f2 in G__interpret_func () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#156 0x00002b26059416bc in G__getfunction () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#157 0x00002b26059eb58e in G__destroy_upto () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#158 0x00002b2605955c64 in G__interpret_func () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#159 0x00002b260594171b in G__getfunction () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#160 0x00002b260592004e in G__getitem () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#161 0x00002b2605924bc8 in G__getexpr () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#162 0x00002b260592e0d8 in G__calc_internal () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#163 0x00002b26059b0053 in G__process_cmd () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCint.so
+#164 0x00002b2604604fc6 in TCint::ProcessLine(char const*, TInterpreter::EErrorCode*) () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCore.so
+#165 0x00002b2604602613 in TCint::ProcessLineSynch(char const*, TInterpreter::EErrorCode*) () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCore.so
+#166 0x00002b260456bae8 in TApplication::ExecuteFile(char const*, int*, bool) () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCore.so
+#167 0x00002b260456af76 in TApplication::ProcessLine(char const*, bool, int*) () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libCore.so
+#168 0x00002b2604d82788 in TRint::Run(bool) () from /afs/slac.stanford.edu/package/cernroot/vol3/53426/Linux26SL6_x86_64_gcc447/lib/libRint.so
+#169 0x000000000040102c in main ()
+===========================================================
+
+
+The crash is most likely caused by a problem in your script.
+Try to compile it (.L myscript.C+g) and fix any errors.
+If that does not help then please submit a bug report at
+http://root.cern.ch/bugs. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+
+
+Function runAnalysis() busy flag cleared
+Function ~tridentAnalysis() busy flag cleared
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0277>
+Subject: Job 25957: <root -l -b -q runAnalysis.cc\(2\)> in cluster <slac> Done
+
+Job <root -l -b -q runAnalysis.cc\(2\)> was submitted from host <rhel6-64d> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0277>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Wed Aug 12 18:33:47 2015
+Results reported on Wed Aug 12 18:34:16 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+root -l -b -q runAnalysis.cc\(2\)
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   12.86 sec.
+    Max Memory :                                 299 MB
+    Average Memory :                             19.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   29 sec.
+    Turnaround time :                            47 sec.
+
+The output (if any) is above this job summary.
+

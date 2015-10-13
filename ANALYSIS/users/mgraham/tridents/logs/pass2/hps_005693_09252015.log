@@ -1,0 +1,263 @@
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 392, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 378, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@bullet0083>
+Subject: Job 489781: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <bullet0083>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 06:08:44 2015
+Results reported on Fri Sep 25 06:08:47 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   3.53 sec.
+    Max Memory :                                 30 MB
+    Average Memory :                             30.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   3 sec.
+    Turnaround time :                            3 sec.
+
+The output (if any) is above this job summary.
+
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 392, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 378, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0188>
+Subject: Job 500562: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0188>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 06:50:33 2015
+Results reported on Fri Sep 25 06:50:53 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   0.94 sec.
+    Max Memory :                                 7 MB
+    Average Memory :                             7.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   285 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   20 sec.
+    Turnaround time :                            21 sec.
+
+The output (if any) is above this job summary.
+
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 379, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0062>
+Subject: Job 504897: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0062>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 07:08:13 2015
+Results reported on Fri Sep 25 07:08:19 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   0.95 sec.
+    Max Memory :                                 32 MB
+    Average Memory :                             32.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   342 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   6 sec.
+    Turnaround time :                            7 sec.
+
+The output (if any) is above this job summary.
+
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 379, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0025>
+Subject: Job 505044: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0025>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 07:08:39 2015
+Results reported on Fri Sep 25 07:08:46 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   0.83 sec.
+    Max Memory :                                 20 MB
+    Average Memory :                             20.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   339 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   6 sec.
+    Turnaround time :                            8 sec.
+
+The output (if any) is above this job summary.
+
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 379, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0077>
+Subject: Job 507346: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0077>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 07:16:18 2015
+Results reported on Fri Sep 25 07:16:22 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   0.77 sec.
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Run time :                                   4 sec.
+    Turnaround time :                            5 sec.
+
+The output (if any) is above this job summary.
+
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 379, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@bullet0053>
+Subject: Job 523386: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <bullet0053>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 08:16:17 2015
+Results reported on Fri Sep 25 08:16:22 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005693_09252015.root pass2-dst/hps_005693
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   2.31 sec.
+    Max Memory :                                 42 MB
+    Average Memory :                             36.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   4 sec.
+    Turnaround time :                            6 sec.
+
+The output (if any) is above this job summary.
+

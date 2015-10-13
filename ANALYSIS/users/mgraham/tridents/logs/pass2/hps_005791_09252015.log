@@ -1,0 +1,601 @@
+
+ *** Break *** segmentation violation
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+Event 110000
+Event 120000
+Event 130000
+Event 140000
+Event 150000
+Event 160000
+Event 170000
+Event 180000
+Event 190000
+Event 200000
+Event 210000
+Event 220000
+Event 230000
+Event 240000
+Event 250000
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002ac202b2965e in waitpid () from /lib64/libc.so.6
+#1  0x00002ac202abb609 in do_system () from /lib64/libc.so.6
+#2  0x00002ac20ada03f8 in TUnixSystem::StackTrace() () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#3  0x00002ac20ad9f273 in TUnixSystem::DispatchSignals(ESignals) () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#4  <signal handler called>
+#5  0x00002ac20f03ea02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002ac20f04434c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#7  0x00002ac20f023d8e in G__HpsEventDic_203_0_21(G__value*, char const*, G__param*, int) () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#8  0x00002ac20b51a50f in Cint::G__CallFunc::Execute(void*) () from /afs/slac/package/cernroot/53426/lib/libCint.so
+#9  0x00002ac20a8cc427 in PyROOT::TIntExecutor::Execute(Cint::G__CallFunc*, void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#10 0x00002ac20a8d282b in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::CallSafe(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#11 0x00002ac20a8d29b1 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::Execute(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#12 0x00002ac20a8d01f6 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::operator()(PyROOT::ObjectProxy*, _object*, _object*, long, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#13 0x00002ac20a8d51a3 in PyROOT::(anonymous namespace)::mp_call(PyROOT::MethodProxy*, _object*, _object*) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#14 0x000000000041aac3 in PyObject_Call ()
+#15 0x000000000048b614 in PyEval_EvalFrameEx ()
+#16 0x000000000048d770 in PyEval_EvalFrameEx ()
+#17 0x000000000048e269 in PyEval_EvalCodeEx ()
+#18 0x000000000048e382 in PyEval_EvalCode ()
+#19 0x00000000004a854c in run_mod ()
+#20 0x00000000004a8620 in PyRun_FileExFlags ()
+#21 0x00000000004a9b5c in PyRun_SimpleFileExFlags ()
+#22 0x00000000004165b4 in Py_Main ()
+#23 0x00002ac202a9bd5d in __libc_start_main () from /lib64/libc.so.6
+#24 0x0000000000415599 in _start ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+If they do not help you then please submit a bug report at
+http://root.cern.ch/bugs. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#5  0x00002ac20f03ea02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002ac20f04434c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+===========================================================
+
+
+Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 392, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 242, in main
+    if track.getCharge()>0 :
+SystemError: problem in C++; program state has been reset
+
+------------------------------------------------------------
+Sender: LSF System <lsf@bullet0099>
+Subject: Job 489822: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <bullet0099>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 06:08:49 2015
+Results reported on Fri Sep 25 06:10:37 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   75.34 sec.
+    Max Memory :                                 1027 MB
+    Average Memory :                             498.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   108 sec.
+    Turnaround time :                            109 sec.
+
+The output (if any) is above this job summary.
+
+
+ *** Break *** segmentation violation
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+Event 110000
+Event 120000
+Event 130000
+Event 140000
+Event 150000
+Event 160000
+Event 170000
+Event 180000
+Event 190000
+Event 200000
+Event 210000
+Event 220000
+Event 230000
+Event 240000
+Event 250000
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002ab7e152865e in waitpid () from /lib64/libc.so.6
+#1  0x00002ab7e14ba609 in do_system () from /lib64/libc.so.6
+#2  0x00002ab7e979f3f8 in TUnixSystem::StackTrace() () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#3  0x00002ab7e979e273 in TUnixSystem::DispatchSignals(ESignals) () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#4  <signal handler called>
+#5  0x00002ab7eda3ba02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002ab7eda4134c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#7  0x00002ab7eda20d8e in G__HpsEventDic_203_0_21(G__value*, char const*, G__param*, int) () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#8  0x00002ab7e9f1950f in Cint::G__CallFunc::Execute(void*) () from /afs/slac/package/cernroot/53426/lib/libCint.so
+#9  0x00002ab7e92cb427 in PyROOT::TIntExecutor::Execute(Cint::G__CallFunc*, void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#10 0x00002ab7e92d182b in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::CallSafe(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#11 0x00002ab7e92d19b1 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::Execute(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#12 0x00002ab7e92cf1f6 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::operator()(PyROOT::ObjectProxy*, _object*, _object*, long, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#13 0x00002ab7e92d41a3 in PyROOT::(anonymous namespace)::mp_call(PyROOT::MethodProxy*, _object*, _object*) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#14 0x000000000041aac3 in PyObject_Call ()
+#15 0x000000000048b614 in PyEval_EvalFrameEx ()
+#16 0x000000000048d770 in PyEval_EvalFrameEx ()
+#17 0x000000000048e269 in PyEval_EvalCodeEx ()
+#18 0x000000000048e382 in PyEval_EvalCode ()
+#19 0x00000000004a854c in run_mod ()
+#20 0x00000000004a8620 in PyRun_FileExFlags ()
+#21 0x00000000004a9b5c in PyRun_SimpleFileExFlags ()
+#22 0x00000000004165b4 in Py_Main ()
+#23 0x00002ab7e149ad5d in __libc_start_main () from /lib64/libc.so.6
+#24 0x0000000000415599 in _start ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+If they do not help you then please submit a bug report at
+http://root.cern.ch/bugs. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#5  0x00002ab7eda3ba02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002ab7eda4134c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+===========================================================
+
+
+Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 392, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 242, in main
+    if track.getCharge()>0 :
+SystemError: problem in C++; program state has been reset
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0012>
+Subject: Job 500602: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0012>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 06:50:36 2015
+Results reported on Fri Sep 25 06:51:58 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   57.76 sec.
+    Max Memory :                                 158 MB
+    Average Memory :                             106.33 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   502 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   82 sec.
+    Turnaround time :                            83 sec.
+
+The output (if any) is above this job summary.
+
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 226, in main
+    tree.GetEntry(entry)
+KeyboardInterrupt
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0106>
+Subject: Job 504943: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0106>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 07:08:18 2015
+Results reported on Fri Sep 25 07:08:30 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   10.33 sec.
+    Max Memory :                                 61 MB
+    Average Memory :                             61.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   494 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   12 sec.
+    Turnaround time :                            14 sec.
+
+The output (if any) is above this job summary.
+
+
+ *** Break *** segmentation violation
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+Event 110000
+Event 120000
+Event 130000
+Event 140000
+Event 150000
+Event 160000
+Event 170000
+Event 180000
+Event 190000
+Event 200000
+Event 210000
+Event 220000
+Event 230000
+Event 240000
+Event 250000
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002b05ff6b565e in waitpid () from /lib64/libc.so.6
+#1  0x00002b05ff647609 in do_system () from /lib64/libc.so.6
+#2  0x00002b060792c3f8 in TUnixSystem::StackTrace() () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#3  0x00002b060792b273 in TUnixSystem::DispatchSignals(ESignals) () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#4  <signal handler called>
+#5  0x00002b060bbc9a02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002b060bbcf34c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#7  0x00002b060bbaed8e in G__HpsEventDic_203_0_21(G__value*, char const*, G__param*, int) () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#8  0x00002b06080a650f in Cint::G__CallFunc::Execute(void*) () from /afs/slac/package/cernroot/53426/lib/libCint.so
+#9  0x00002b0607458427 in PyROOT::TIntExecutor::Execute(Cint::G__CallFunc*, void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#10 0x00002b060745e82b in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::CallSafe(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#11 0x00002b060745e9b1 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::Execute(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#12 0x00002b060745c1f6 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::operator()(PyROOT::ObjectProxy*, _object*, _object*, long, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#13 0x00002b06074611a3 in PyROOT::(anonymous namespace)::mp_call(PyROOT::MethodProxy*, _object*, _object*) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#14 0x000000000041aac3 in PyObject_Call ()
+#15 0x000000000048b614 in PyEval_EvalFrameEx ()
+#16 0x000000000048d770 in PyEval_EvalFrameEx ()
+#17 0x000000000048e269 in PyEval_EvalCodeEx ()
+#18 0x000000000048e382 in PyEval_EvalCode ()
+#19 0x00000000004a854c in run_mod ()
+#20 0x00000000004a8620 in PyRun_FileExFlags ()
+#21 0x00000000004a9b5c in PyRun_SimpleFileExFlags ()
+#22 0x00000000004165b4 in Py_Main ()
+#23 0x00002b05ff627d5d in __libc_start_main () from /lib64/libc.so.6
+#24 0x0000000000415599 in _start ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+If they do not help you then please submit a bug report at
+http://root.cern.ch/bugs. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#5  0x00002b060bbc9a02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002b060bbcf34c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+===========================================================
+
+
+Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 242, in main
+    if track.getCharge()>0 :
+SystemError: problem in C++; program state has been reset
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0006>
+Subject: Job 505088: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0006>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 07:08:43 2015
+Results reported on Fri Sep 25 07:10:05 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   63.07 sec.
+    Max Memory :                                 159 MB
+    Average Memory :                             131.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   503 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   81 sec.
+    Turnaround time :                            83 sec.
+
+The output (if any) is above this job summary.
+
+
+ *** Break *** segmentation violation
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+Event 110000
+Event 120000
+Event 130000
+Event 140000
+Event 150000
+Event 160000
+Event 170000
+Event 180000
+Event 190000
+Event 200000
+Event 210000
+Event 220000
+Event 230000
+Event 240000
+Event 250000
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002adcc01dd65e in waitpid () from /lib64/libc.so.6
+#1  0x00002adcc016f609 in do_system () from /lib64/libc.so.6
+#2  0x00002adcc84543f8 in TUnixSystem::StackTrace() () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#3  0x00002adcc8453273 in TUnixSystem::DispatchSignals(ESignals) () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#4  <signal handler called>
+#5  0x00002adccc6f1a02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002adccc6f734c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#7  0x00002adccc6d6d8e in G__HpsEventDic_203_0_21(G__value*, char const*, G__param*, int) () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#8  0x00002adcc8bce50f in Cint::G__CallFunc::Execute(void*) () from /afs/slac/package/cernroot/53426/lib/libCint.so
+#9  0x00002adcc7f80427 in PyROOT::TIntExecutor::Execute(Cint::G__CallFunc*, void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#10 0x00002adcc7f8682b in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::CallSafe(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#11 0x00002adcc7f869b1 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::Execute(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#12 0x00002adcc7f841f6 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::operator()(PyROOT::ObjectProxy*, _object*, _object*, long, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#13 0x00002adcc7f891a3 in PyROOT::(anonymous namespace)::mp_call(PyROOT::MethodProxy*, _object*, _object*) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#14 0x000000000041aac3 in PyObject_Call ()
+#15 0x000000000048b614 in PyEval_EvalFrameEx ()
+#16 0x000000000048d770 in PyEval_EvalFrameEx ()
+#17 0x000000000048e269 in PyEval_EvalCodeEx ()
+#18 0x000000000048e382 in PyEval_EvalCode ()
+#19 0x00000000004a854c in run_mod ()
+#20 0x00000000004a8620 in PyRun_FileExFlags ()
+#21 0x00000000004a9b5c in PyRun_SimpleFileExFlags ()
+#22 0x00000000004165b4 in Py_Main ()
+#23 0x00002adcc014fd5d in __libc_start_main () from /lib64/libc.so.6
+#24 0x0000000000415599 in _start ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+If they do not help you then please submit a bug report at
+http://root.cern.ch/bugs. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#5  0x00002adccc6f1a02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002adccc6f734c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+===========================================================
+
+
+Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 242, in main
+    if track.getCharge()>0 :
+SystemError: problem in C++; program state has been reset
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0069>
+Subject: Job 507389: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0069>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 07:16:22 2015
+Results reported on Fri Sep 25 07:18:33 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   56.29 sec.
+    Max Memory :                                 158 MB
+    Average Memory :                             136.20 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   503 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   130 sec.
+    Turnaround time :                            132 sec.
+
+The output (if any) is above this job summary.
+
+
+ *** Break *** segmentation violation
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002ad7b115c65e in waitpid () from /lib64/libc.so.6
+#1  0x00002ad7b10ee609 in do_system () from /lib64/libc.so.6
+#2  0x00002ad7b93d33f8 in TUnixSystem::StackTrace() () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#3  0x00002ad7b93d2273 in TUnixSystem::DispatchSignals(ESignals) () from /afs/slac/package/cernroot/53426/lib/libCore.so
+#4  <signal handler called>
+#5  0x00002ad7bd671a02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002ad7bd67734c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#7  0x00002ad7bd656d8e in G__HpsEventDic_203_0_21(G__value*, char const*, G__param*, int) () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#8  0x00002ad7b9b4d50f in Cint::G__CallFunc::Execute(void*) () from /afs/slac/package/cernroot/53426/lib/libCint.so
+#9  0x00002ad7b8eff427 in PyROOT::TIntExecutor::Execute(Cint::G__CallFunc*, void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#10 0x00002ad7b8f0582b in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::CallSafe(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#11 0x00002ad7b8f059b1 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::Execute(void*, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#12 0x00002ad7b8f031f6 in PyROOT::TMethodHolder<PyROOT::TScopeAdapter, PyROOT::TMemberAdapter>::operator()(PyROOT::ObjectProxy*, _object*, _object*, long, bool) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#13 0x00002ad7b8f081a3 in PyROOT::(anonymous namespace)::mp_call(PyROOT::MethodProxy*, _object*, _object*) () from /afs/slac/package/cernroot/53426/lib/libPyROOT.so
+#14 0x000000000041aac3 in PyObject_Call ()
+#15 0x000000000048b614 in PyEval_EvalFrameEx ()
+#16 0x000000000048d770 in PyEval_EvalFrameEx ()
+#17 0x000000000048e269 in PyEval_EvalCodeEx ()
+#18 0x000000000048e382 in PyEval_EvalCode ()
+#19 0x00000000004a854c in run_mod ()
+#20 0x00000000004a8620 in PyRun_FileExFlags ()
+#21 0x00000000004a9b5c in PyRun_SimpleFileExFlags ()
+#22 0x00000000004165b4 in Py_Main ()
+#23 0x00002ad7b10ced5d in __libc_start_main () from /lib64/libc.so.6
+#24 0x0000000000415599 in _start ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+If they do not help you then please submit a bug report at
+http://root.cern.ch/bugs. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#5  0x00002ad7bd671a02 in HpsParticle::getCharge() const () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+#6  0x00002ad7bd67734c in SvtTrack::getCharge() () from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+===========================================================
+
+
+Traceback (most recent call last):
+  File "tridentAnalysis_pass2.py", line 393, in <module>
+    main()
+  File "tridentAnalysis_pass2.py", line 242, in main
+    if track.getCharge()>0 :
+SystemError: problem in C++; program state has been reset
+
+------------------------------------------------------------
+Sender: LSF System <lsf@bullet0005>
+Subject: Job 523429: <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <bullet0005>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Sep 25 08:16:22 2015
+Results reported on Fri Sep 25 08:16:52 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -o OutputHistograms/Data/pass2/hps_005791_09252015.root pass2-dst/hps_005791
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.40 sec.
+    Max Memory :                                 143 MB
+    Average Memory :                             5.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   31 sec.
+    Turnaround time :                            32 sec.
+
+The output (if any) is above this job summary.
+

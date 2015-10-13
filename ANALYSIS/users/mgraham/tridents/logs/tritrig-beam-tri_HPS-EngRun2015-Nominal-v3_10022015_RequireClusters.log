@@ -1,0 +1,46 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_RequireClusters.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3
+Event 10000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		12386 			1.0 			1.0
+N(particle) Cuts:		6608 			0.533505570806 			0.533505570806
+V0 Vertex   Cuts:		5034 			0.761803874092 			0.406426610689
+Tracking    Cuts:		3651 			0.7252681764 			0.294768286775
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0266>
+Subject: Job 35322: <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_RequireClusters.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_RequireClusters.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0266>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Thu Oct  8 21:34:05 2015
+Results reported on Thu Oct  8 21:34:19 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_RequireClusters.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   6.22 sec.
+    Max Memory :                                 120 MB
+    Average Memory :                             18.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   14 sec.
+    Turnaround time :                            24 sec.
+
+The output (if any) is above this job summary.
+

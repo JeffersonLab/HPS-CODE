@@ -1,0 +1,156 @@
+Loading libHpsEvent.so
+
+Processing runAnalysis.cc(4)...
+Number of entries = 1234567890
+# Passed previous file = 0
+0
+# Passed previous file = 0
+# Passed previous file = 4
+# Passed previous file = 2
+# Passed previous file = 1
+10000
+# Passed previous file = 0
+# Passed previous file = 2
+# Passed previous file = 1
+# Passed previous file = 1
+20000
+# Passed previous file = 2
+# Passed previous file = 1
+# Passed previous file = 3
+# Passed previous file = 3
+30000
+# Passed previous file = 0
+# Passed previous file = 1
+# Passed previous file = 2
+# Passed previous file = 3
+40000
+# Passed previous file = 1
+# Passed previous file = 1
+# Passed previous file = 0
+# Passed previous file = 2
+# Passed previous file = 3
+50000
+# Passed previous file = 3
+# Passed previous file = 1
+# Passed previous file = 2
+# Passed previous file = 1
+60000
+# Passed previous file = 0
+# Passed previous file = 0
+# Passed previous file = 2
+# Passed previous file = 3
+70000
+# Passed previous file = 2
+# Passed previous file = 1
+# Passed previous file = 0
+# Passed previous file = 3
+80000
+# Passed previous file = 1
+# Passed previous file = 2
+# Passed previous file = 2
+# Passed previous file = 0
+# Passed previous file = 0
+90000
+# Passed previous file = 1
+# Passed previous file = 1
+# Passed previous file = 2
+# Passed previous file = 0
+100000
+# Passed previous file = 0
+# Passed previous file = 3
+# Passed previous file = 4
+# Passed previous file = 4
+110000
+# Passed previous file = 0
+# Passed previous file = 0
+# Passed previous file = 0
+# Passed previous file = 0
+120000
+# Passed previous file = 3
+# Passed previous file = 2
+# Passed previous file = 4
+# Passed previous file = 0
+# Passed previous file = 0
+130000
+# Passed previous file = 1
+# Passed previous file = 1
+# Passed previous file = 2
+# Passed previous file = 4
+140000
+# Passed previous file = 0
+# Passed previous file = 0
+# Passed previous file = 0
+# Passed previous file = 1
+150000
+# Passed previous file = 2
+# Passed previous file = 0
+# Passed previous file = 1
+# Passed previous file = 1
+160000
+# Passed previous file = 3
+# Passed previous file = 2
+# Passed previous file = 2
+# Passed previous file = 1
+170000
+# Passed previous file = 1
+# Passed previous file = 0
+# Passed previous file = 1
+# Passed previous file = 1
+# Passed previous file = 0
+180000
+# Passed previous file = 3
+# Passed previous file = 0
+# Passed previous file = 1
+# Passed previous file = 3
+190000
+# Passed previous file = 1
+# Passed previous file = 0
+# Passed previous file = 1
+# Passed previous file = 0
+200000
+# Passed previous file = 0
+# Passed previous file = 0
+# Passed previous file = 1
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		207470			1			1
+N(particle) Cuts:		855			0.00412108			0.00412108
+V0 Momentum Cuts:		453			0.529825			0.00218345
+V0 Vertex   Cuts:		279			0.615894			0.00134477
+Tracking    Cuts:		115			0.412186			0.000554297
+.....done....
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0169>
+Subject: Job 887591: <root -l -b -q runAnalysis.cc\(4\)> in cluster <slac> Done
+
+Job <root -l -b -q runAnalysis.cc\(4\)> was submitted from host <rhel6-64c> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0169>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Wed Aug 12 10:48:41 2015
+Results reported on Wed Aug 12 10:49:04 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+root -l -b -q runAnalysis.cc\(4\)
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   12.57 sec.
+    Max Memory :                                 199 MB
+    Average Memory :                             28.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   23 sec.
+    Turnaround time :                            61 sec.
+
+The output (if any) is above this job summary.
+

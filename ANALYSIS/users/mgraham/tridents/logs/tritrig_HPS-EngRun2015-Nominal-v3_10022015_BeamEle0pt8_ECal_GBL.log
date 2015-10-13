@@ -1,0 +1,253 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/tritrig_HPS-EngRun2015-Nominal-v3_10022015_BeamEle0pt8_ECal_GBL.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig/*HPS-EngRun2015-Nominal-v3
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+Event 110000
+Event 120000
+Event 130000
+Event 140000
+Event 150000
+Event 160000
+Event 170000
+Event 180000
+Event 190000
+Event 200000
+Event 210000
+Event 220000
+Event 230000
+Event 240000
+Event 250000
+Event 260000
+Event 270000
+Event 280000
+Event 290000
+Event 300000
+Event 310000
+Event 320000
+Event 330000
+Event 340000
+Event 350000
+Event 360000
+Event 370000
+Event 380000
+Event 390000
+Event 400000
+Event 410000
+Event 420000
+Event 430000
+Event 440000
+Event 450000
+Event 460000
+Event 470000
+Event 480000
+Event 490000
+Event 500000
+Event 510000
+Event 520000
+Event 530000
+Event 540000
+Event 550000
+Event 560000
+Event 570000
+Event 580000
+Event 590000
+Event 600000
+Event 610000
+Event 620000
+Event 630000
+Event 640000
+Event 650000
+Event 660000
+Event 670000
+Event 680000
+Event 690000
+Event 700000
+Event 710000
+Event 720000
+Event 730000
+Event 740000
+Event 750000
+Event 760000
+Event 770000
+Event 780000
+Event 790000
+Event 800000
+Event 810000
+Event 820000
+Event 830000
+Event 840000
+Event 850000
+Event 860000
+Event 870000
+Event 880000
+Event 890000
+Event 900000
+Event 910000
+Event 920000
+Event 930000
+Event 940000
+Event 950000
+Event 960000
+Event 970000
+Event 980000
+Event 990000
+Event 1000000
+Event 1010000
+Event 1020000
+Event 1030000
+Event 1040000
+Event 1050000
+Event 1060000
+Event 1070000
+Event 1080000
+Event 1090000
+Event 1100000
+Event 1110000
+Event 1120000
+Event 1130000
+Event 1140000
+Event 1150000
+Event 1160000
+Event 1170000
+Event 1180000
+Event 1190000
+Event 1200000
+Event 1210000
+Event 1220000
+Event 1230000
+Event 1240000
+Event 1250000
+Event 1260000
+Event 1270000
+Event 1280000
+Event 1290000
+Event 1300000
+Event 1310000
+Event 1320000
+Event 1330000
+Event 1340000
+Event 1350000
+Event 1360000
+Event 1370000
+Event 1380000
+Event 1390000
+Event 1400000
+Event 1410000
+Event 1420000
+Event 1430000
+Event 1440000
+Event 1450000
+Event 1460000
+Event 1470000
+Event 1480000
+Event 1490000
+Event 1500000
+Event 1510000
+Event 1520000
+Event 1530000
+Event 1540000
+Event 1550000
+Event 1560000
+Event 1570000
+Event 1580000
+Event 1590000
+Event 1600000
+Event 1610000
+Event 1620000
+Event 1630000
+Event 1640000
+Event 1650000
+Event 1660000
+Event 1670000
+Event 1680000
+Event 1690000
+Event 1700000
+Event 1710000
+Event 1720000
+Event 1730000
+Event 1740000
+Event 1750000
+Event 1760000
+Event 1770000
+Event 1780000
+Event 1790000
+Event 1800000
+Event 1810000
+Event 1820000
+Event 1830000
+Event 1840000
+Event 1850000
+Event 1860000
+Event 1870000
+Event 1880000
+Event 1890000
+Event 1900000
+Event 1910000
+Event 1920000
+Event 1930000
+Event 1940000
+Event 1950000
+Event 1960000
+Event 1970000
+Event 1980000
+Event 1990000
+Event 2000000
+Event 2010000
+Event 2020000
+Event 2030000
+Event 2040000
+Event 2050000
+Event 2060000
+Event 2070000
+Event 2080000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		2086617 			1.0 			1.0
+N(particle) Cuts:		1142239 			0.547411911242 			0.547411911242
+V0 Vertex   Cuts:		860587 			0.753421131655 			0.412431701649
+Tracking    Cuts:		727948 			0.84587380474 			0.348865172669
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0184>
+Subject: Job 722386: <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig_HPS-EngRun2015-Nominal-v3_10022015_BeamEle0pt8_ECal_GBL.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig/*HPS-EngRun2015-Nominal-v3> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig_HPS-EngRun2015-Nominal-v3_10022015_BeamEle0pt8_ECal_GBL.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig/*HPS-EngRun2015-Nominal-v3> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0184>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Sat Oct 10 13:20:55 2015
+Results reported on Sat Oct 10 13:33:30 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig_HPS-EngRun2015-Nominal-v3_10022015_BeamEle0pt8_ECal_GBL.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig/*HPS-EngRun2015-Nominal-v3
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   762.88 sec.
+    Max Memory :                                 3034 MB
+    Average Memory :                             1604.28 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   754 sec.
+    Turnaround time :                            764 sec.
+
+The output (if any) is above this job summary.
+

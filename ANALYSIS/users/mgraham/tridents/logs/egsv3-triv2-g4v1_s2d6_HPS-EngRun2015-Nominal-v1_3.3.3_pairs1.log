@@ -1,0 +1,21 @@
+[ HPS ANALYSIS ]: An output file name was not specified. Setting the name to 
+analysis_output.root
+[?1034hEvent 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+Event 110000
+Event 120000
+Event 130000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		138407 			1.0 			1.0
+N(particle) Cuts:		38821 			0.280484368565 			0.280484368565
+V0 Vertex   Cuts:		30321 			0.781046340898 			0.219071289747
+Tracking    Cuts:		25998 			0.857425546651 			0.187837320367

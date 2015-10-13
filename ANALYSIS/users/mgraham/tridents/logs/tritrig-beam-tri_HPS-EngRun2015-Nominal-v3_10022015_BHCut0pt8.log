@@ -1,0 +1,46 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_BHCut0pt8.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3
+Event 10000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		12386 			1.0 			1.0
+N(particle) Cuts:		6608 			0.533505570806 			0.533505570806
+V0 Vertex   Cuts:		2868 			0.43401937046 			0.231551751978
+Tracking    Cuts:		2769 			0.965481171548 			0.223558856774
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0089>
+Subject: Job 376651: <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_BHCut0pt8.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_BHCut0pt8.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0089>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Oct  9 18:53:09 2015
+Results reported on Fri Oct  9 18:53:24 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3_10022015_BHCut0pt8.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7.31 sec.
+    Max Memory :                                 121 MB
+    Average Memory :                             19.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   15 sec.
+    Turnaround time :                            18 sec.
+
+The output (if any) is above this job summary.
+

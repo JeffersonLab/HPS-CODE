@@ -1,0 +1,253 @@
+Loading libHpsEvent.so
+
+Processing runAnalysis.cc(3)...
+Number of entries = 1234567890
+Warning in <TStreamerInfo::BuildCheck>: 
+   The StreamerInfo of class SvtTrack read from file /nfs/slac/g/hps3/users/mgraham/EngRun2015/mc/tritrig/dst/tritrigv1_HPS-EngRun2015-Nominal-v1_3.4.0-20150805_pairs1_1.root
+   has the same version (=1) as the active class but a different checksum.
+   You should update the version to ClassDef(SvtTrack,2).
+   Do not try to write objects with the current class definition,
+   the files will not be readable.
+
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double isolation; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   int n_hits; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   int track_volume; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double d0; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double phi0; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double omega; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double tan_lambda; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double z0; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double chi_squared; //
+Warning in <TStreamerInfo::CompareContent>: The following data member of
+the in-memory layout version 1 of class 'SvtTrack' is missing from 
+the on-file layout version 1:
+   double track_time; //
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 0
+0
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 801
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 782
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 757
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 761
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 749
+10000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 770
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 759
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 723
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 774
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 805
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 769
+20000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 725
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 756
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 799
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 741
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 748
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 724
+30000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 763
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 790
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 761
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 833
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 772
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 740
+40000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 738
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 801
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 767
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 730
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 765
+50000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 770
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 722
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 796
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 742
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 747
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 766
+60000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 774
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 758
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 785
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 798
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 760
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 789
+70000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 752
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 771
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 745
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 755
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 753
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 770
+80000
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 758
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 790
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l1_isolation
+Error in <TTree::SetBranchStatus>: unknown branch -> tracks.l2_isolation
+# Passed previous file = 781
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		86771			1			1
+N(particle) Cuts:		42113			0.485335			0.485335
+V0 Momentum Cuts:		41189			0.978059			0.474686
+V0 Vertex   Cuts:		40503			0.983345			0.46678
+Tracking    Cuts:		38272			0.944918			0.441069
+.....done....
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0062>
+Subject: Job 887579: <root -l -b -q runAnalysis.cc\(3\)> in cluster <slac> Done
+
+Job <root -l -b -q runAnalysis.cc\(3\)> was submitted from host <rhel6-64c> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0062>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Wed Aug 12 10:48:41 2015
+Results reported on Wed Aug 12 10:48:59 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+root -l -b -q runAnalysis.cc\(3\)
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7.12 sec.
+    Max Memory :                                 139 MB
+    Average Memory :                             24.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   18 sec.
+    Turnaround time :                            56 sec.
+
+The output (if any) is above this job summary.
+

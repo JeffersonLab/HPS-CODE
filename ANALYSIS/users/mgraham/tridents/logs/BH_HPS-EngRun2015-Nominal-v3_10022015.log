@@ -1,0 +1,56 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3_10022015.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/BH/*HPS-EngRun2015-Nominal-v3
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		109377 			1.0 			1.0
+N(particle) Cuts:		54301 			0.49645720764 			0.49645720764
+V0 Vertex   Cuts:		35333 			0.650687832637 			0.323038664436
+Tracking    Cuts:		34754 			0.983613052953 			0.317745046948
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0093>
+Subject: Job 350051: <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3_10022015.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/BH/*HPS-EngRun2015-Nominal-v3> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3_10022015.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/BH/*HPS-EngRun2015-Nominal-v3> was submitted from host <rhel6-64j> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0093>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/analysis/tridents> was used as the working directory.
+Started at Fri Oct  2 12:36:44 2015
+Results reported on Fri Oct  2 12:37:49 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass2.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3_10022015.root /nfs/slac/g/hps3/data/engrun2015/pass2/mc/dst/BH/*HPS-EngRun2015-Nominal-v3
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   34.53 sec.
+    Max Memory :                                 61 MB
+    Average Memory :                             60.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   402 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   38 sec.
+    Turnaround time :                            71 sec.
+
+The output (if any) is above this job summary.
+
