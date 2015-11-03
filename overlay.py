@@ -36,14 +36,14 @@ def makenormplots(files,path,name,c):
 	c.Clear()
 	color=1
 	for f in files:
-	    h=f.Get(path)#.Clone()
+	    h=f.Get(path).Clone("blah")
 	    #h.SetDirectory(0)
 	    h.SetLineColor(color)
 	    h.Scale(1/h.Integral())
 	    if color==1:
-		    h.Draw("")
+		    h.DrawCopy("")
 	    else:
-		    h.Draw("same")
+		    h.DrawCopy("same")
 	    color+=1
 	c.SaveAs(sys.argv[1]+"-"+name+".png")
 
@@ -83,7 +83,7 @@ for filename in remainder[1:]:
 makeplots(files,"sigma","sigma",c)
 makeplots(files,"zcut","zcut",c)
 makeplots(files,"mass","mass",c)
-#makenormplots(files,"mass","massnorm",c)
+makenormplots(files,"mass","massnorm",c)
 c.SetLogy(1)
 makedivplots(files,"hightails","mass","hightails",c)
 makedivplots(files,"lowtails","mass","lowtails",c)

@@ -1,13 +1,19 @@
 #!/usr/bin/env python
-import sys, array
+import sys, array,math
 import getopt
 from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D
 
 scale_factor = 1
 lumi_total = 1240
+rad_fraction = 0.2
 
 massres_a = 0.032 #sigma = a*mass + b
 massres_b = 0.001 #units of GeV
+
+def frange(x, y, jump):
+	while x < y:
+		yield x
+		x += jump
 
 options, remainder = getopt.gnu_getopt(sys.argv[1:], 'l:h', ['luminosity','help',])
 
@@ -52,10 +58,22 @@ masshist=totalH.ProjectionX("mass")
 masshist.SetTitle("Radiative vertex mass")
 masshist.Draw()
 c.SaveAs(sys.argv[1]+"-mass.png")
+
+#acceptance = TF1("acceptance","(x>1.05*0.019)/(acos((x>1.05*0.019)*0.019/(x/1.05))/(pi/2))")
+acceptance = TF1("acceptance","(x>[0]*[1])/(acos((x>[0]*[1])*[0]/(x/[1]))/(pi/2))")
+acceptance.SetParameters(1.05,0.0195)
+#acceptance.Draw()
+#c.SaveAs(sys.argv[1]+"-acceptance.png")
+masshistscaled=masshist.Clone()
+masshistscaled.Multiply(acceptance)
+masshistscaled.Draw()
+c.SaveAs(sys.argv[1]+"-massscaled.png")
+
+#sys.exit(0)
+
 gStyle.SetOptFit(1)
 gStyle.SetOptStat(1111)
 c.SetLogy(1)
-
 #fitfunc = TF1("fitfunc","[0]*exp((x-[1])<[3]?-(x-[1])^2/(2*[2]^2):[3]^2/(2*[2]^2)-[3]*(x-[1])/([2]^2))")
 fitfunc = TF1("fitfunc","[0]*exp( ((x-[1])<[3])*(-0.5*(x-[1])^2/[2]^2) + ((x-[1])>=[3])*(-0.5*[3]^2/[2]^2-(x-[1]-[3])/[4]))")
 fitfunc.SetParName(0,"Amplitude")
@@ -105,6 +123,7 @@ zcutmasses=array.array('d')
 zerobackgroundzcut=array.array('d')
 #h1mass=TH1I(
 
+yieldhist=TH2D("yield","yield",totalH.GetNbinsX(),totalH.GetXaxis().GetXmin(),totalH.GetXaxis().GetXmax(),30,-10,-7)
 #resid = TH1D("resid","resid",totalH.GetNbinsY(),totalH.GetXaxis().GetXmin(),totalH.GetXaxis().GetXmax())
 binning=4
 for i in range(0,totalH.GetXaxis().GetNbins()-binning+2):
@@ -113,7 +132,8 @@ for i in range(0,totalH.GetXaxis().GetNbins()-binning+2):
     lowedge = totalH.GetXaxis().GetBinLowEdge(i)
     highedge = totalH.GetXaxis().GetBinUpEdge(i+binning-1)
     massrange=highedge-lowedge
-    reslimited_massrange=2.5*(massres_a*(highedge+lowedge)/2 + massres_b)
+    centermass=(highedge+lowedge)/2.0
+    reslimited_massrange=2.5*(massres_a*centermass + massres_b)
     h1d=totalH.ProjectionY("slice_"+str(i),i,i+binning-1)
     #h1d=h1d.Rebin(2,"slice")
     integrals.append(h1d.Integral())
@@ -161,7 +181,24 @@ for i in range(0,totalH.GetXaxis().GetNbins()-binning+2):
                 zerobackgroundzcut.append(zcut)
                 h1d.Draw("E")
                 c.SaveAs(remainder[0]+"-"+str(i)+".png")
+		for i in range(0,yieldhist.GetYaxis().GetNbins()):
+			
+			eps = yieldhist.GetYaxis().GetBinCenter(i)
+		#for eps in frange(-10,-7,0.1):
+			#print 10**eps
+			gammact = 8*(1.05/10)*1e-8/(10**eps)*(0.1/centermass)**2
+			#print gammact
+			ap_yield= 3*math.pi*10**eps/(2*(1/137.0))*h1d.Integral()*centermass/massrange*rad_fraction
+			#print ap_yield
+			print ap_yield*math.exp(-zcut/gammact)
+			yieldhist.Fill(centermass,eps,ap_yield*math.exp(-zcut/gammact))
 
+c.SetLogy(0)
+c.SetLogx(1)
+yieldhist.Draw("colz")
+c.SaveAs(remainder[0]+"-yield.png")
+c.SetLogy(1)
+c.SetLogx(0)
 cutmasses=masses[:]
 
 cutmasses.append(10)
