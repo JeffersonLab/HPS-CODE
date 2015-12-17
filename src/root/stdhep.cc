@@ -5,6 +5,7 @@
 #include <stdhep.h>
 #include <TFile.h>
 #include <TH2D.h>
+#include <TH1D.h>
 #include <TCanvas.h>
 #include <string.h>
 
@@ -12,12 +13,15 @@
 int main(int argc,char** argv)
 {
 	char outputname[200];
-	if (argc!=4) 
+	if (argc<3 || argc>4) 
 	{
-		printf("<input stdhep filename> <output ROOT filename> <number of events>\n");
+		printf("<input stdhep filename> <output ROOT filename> [number of events]\n");
 		return 1;
 	}
-	int n_events = atoi(argv[3]);
+
+
+	int n_events = 0;
+    if (argc==4) n_events = atoi(argv[3]);
 	printf("Reading %d events from %s\n",n_events,argv[1]);
 	int istream,ilbl;
 	istream=0;
@@ -27,24 +31,26 @@ int main(int argc,char** argv)
 
 	TFile *f = new TFile(argv[2],"RECREATE");
 
-	TH2D *thetaE = new TH2D("thetaE","E vs. theta",100,0.0,0.2,100,0.0,2.2);
-	TH2D *e_thetaE = new TH2D("e_thetaE","electron E vs. theta",100,0.0,0.2,100,0.0,2.2);
-	TH2D *p_thetaE = new TH2D("p_thetaE","positron E vs. theta",100,0.0,0.2,100,0.0,2.2);
-	TH2D *g_thetaE = new TH2D("g_thetaE","gamma E vs. theta",100,0.0,0.2,100,0.0,2.2);
+	TH2D *thetaE = new TH2D("thetaE","E vs. theta",500,0.0,0.2,500,0.0,2.2);
+	TH2D *e_thetaE = new TH2D("e_thetaE","electron E vs. theta",500,0.0,0.2,500,0.0,2.2);
+	TH1D *e_E = new TH1D("e_E","electron E",500,0.0,2.2);
+	TH2D *p_thetaE = new TH2D("p_thetaE","positron E vs. theta",500,0.0,0.2,500,0.0,2.2);
+	TH2D *g_thetaE = new TH2D("g_thetaE","gamma E vs. theta",500,0.0,0.2,500,0.0,2.2);
 
 	double theta;
 	double *phep;
 	char name[100];
-	for (i=0;i<n_events;i++)
+	for (i=0;n_events==0||i<n_events;i++)
 	{
 		do {
 			if (StdHepXdrRead(&ilbl,istream)!=0) {
 				printf("End of file: ilbl = %d\n",ilbl);
-				return(0);
+                break;
 			}
 			if (ilbl!=1)
 				printf("ilbl = %d\n",ilbl);
 		} while (ilbl!=1);
+        if (ilbl!=1) break;
 		printf("Event %d\n",hepevt_.nevhep);
 		for (j = 0; j < hepevt_.nhep; j++)
 		{
@@ -55,6 +61,7 @@ int main(int argc,char** argv)
 			{
 				case 11:
 					e_thetaE->Fill(theta,phep[3]);
+					e_E->Fill(phep[3]);
 					sprintf(name,"e-");
 					break;
 				case -11:
