@@ -7,7 +7,7 @@
 // takes input stdhep file, merges a fixed number of events, and writes to a new stdhep file
 int main(int argc,char** argv)
 {
-	vector<stdhep_entry> new_event;
+	stdhep_event new_event;
 	int istream = 0;
 
 	if (argc<2 || argc>3)
@@ -33,13 +33,17 @@ int main(int argc,char** argv)
 			return(0);
 		}
 
-		int nevhep = read_stdhep(&new_event);
+		read_stdhep(&new_event);
 
-		printf("read event %d: nevhep = %d, nhep = %d\n",i+1,nevhep,new_event.size());
-		for (int j=0;j<new_event.size();j++) {
-			print_entry(new_event[j]);
+		printf("read event %d: nevhep = %d, nhep = %d\n",i+1,new_event.nevhep,new_event.particles.size());
+        if (new_event.has_hepev4)
+        {
+            printf("HEPEV4 information: idruplh = %d, eventweightlh = %E\n",new_event.idruplh,new_event.eventweightlh);
+        }
+		for (int j=0;j<new_event.particles.size();j++) {
+			print_entry(new_event.particles[j]);
 		}
-		new_event.clear();
+		new_event.particles.clear();
 	}
 }
 

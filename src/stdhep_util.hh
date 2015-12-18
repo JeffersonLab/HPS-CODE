@@ -2,6 +2,7 @@
 using namespace std;
 
 extern bool xdr_init_done;
+extern bool has_hepev4;
 
 struct stdhep_entry {
 	int isthep;     /* status code */
@@ -10,10 +11,25 @@ struct stdhep_entry {
 	int jdahep[2];    /* Position of the first daughter... */
 	double phep[5];    /* 4-Momentum, mass */
 	double vhep[4];    /* Vertex information */
+    //double spinlh[3];
+    //double icolorflowlh[2];
+};
+
+struct stdhep_event {
+    vector<stdhep_entry> particles;
+    int nevhep;
+    bool has_hepev4;
+    int idruplh;
+    double eventweightlh;
+    //double alphaqedlh;
+    //double alphaqcdlh;
+    //double scalelh[10];
 };
 
 int read_stdhep(vector<stdhep_entry> *new_event);
+void read_stdhep(stdhep_event *new_event);
 void write_stdhep(vector<stdhep_entry> *new_event, int nevhep);
+void write_stdhep(stdhep_event *new_event);
 void add_filler_particle(vector<stdhep_entry> *new_event);
 int append_stdhep(vector<stdhep_entry> *event, const vector<stdhep_entry> *new_event);
 

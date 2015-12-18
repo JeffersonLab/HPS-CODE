@@ -80,7 +80,7 @@ void displace_vertex(vector<stdhep_entry> *event, gsl_rng *r, double decay_lengt
 int main(int argc,char** argv)
 {
 	int nevhep;             /* The event number */
-	vector<stdhep_entry> new_event;
+	stdhep_event new_event;
 
 	int rseed = 0;
 
@@ -154,12 +154,13 @@ int main(int argc,char** argv)
 		int nup;
 
 		fgets(line,1000,in_file);
-		sscanf(line,"%d %*d %*f %*f %*f %*f",&nup);
+		sscanf(line,"%d %d %lf %*f %*f %*f",&nup,&new_event.idruplh,&new_event.eventweightlh);
+
 		for (int i=0;i<nup;i++) {
 			struct stdhep_entry *temp = new struct stdhep_entry;
 			fgets(line,1000,in_file);
-			int icolup0,icolup1;
-			double phep0 = 100.0;
+			//int icolup0,icolup1;
+			//double phep0 = 100.0;
 			char blah[1000];
 			sscanf(line,"%d %d %d %d %*d %*d %lf %lf %lf %lf %lf %*f %*f",&(temp->idhep),&(temp->isthep),&(temp->jmohep[0]),&(temp->jmohep[1]),&(temp->phep[0]),&(temp->phep[1]),&(temp->phep[2]),&(temp->phep[3]),&(temp->phep[4]));
 			//int status = sscanf(line,"%d %d %d %d %*d %*d %s",&(temp->idhep),&istup,&(temp->jmohep[0]),&(temp->jmohep[1]),blah);
@@ -183,12 +184,14 @@ int main(int argc,char** argv)
 			}
 			for (int j=0;j<4;j++) temp->vhep[j] = 0.0;
 			for (int j=0;j<2;j++) temp->jdahep[j] = 0;
-			new_event.push_back(*temp);
+			new_event.particles.push_back(*temp);
 		}
-		remove_nulls(&new_event);
-		set_jdahep(&new_event);
-		if (decay_length>0) displace_vertex(&new_event,r,decay_length);
-		write_stdhep(&new_event,nevhep);
+		remove_nulls(&new_event.particles);
+		set_jdahep(&new_event.particles);
+		if (decay_length>0) displace_vertex(&new_event.particles,r,decay_length);
+        new_event.nevhep = nevhep;
+        new_event.has_hepev4 = true;
+		write_stdhep(&new_event);
 		write_file(ostream);
 		nevhep++;
 	}
