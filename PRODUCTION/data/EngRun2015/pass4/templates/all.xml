@@ -29,7 +29,7 @@
   
   <Variable name="recon_steer"  value="/org/hps/steering/recon/EngineeringRun2015FullRecon.lcsim"/>
   <Variable name="dq_steer"     value="/org/hps/steering/production/DataQuality.lcsim"/>
-  <Variable name="dqm_steer"    value="/org/hps/steering/production/DataQualityRecon.lcsim"/>
+  <Variable name="dqm_steer"    value="/org/hps/steering/production/DataQualityRecon_Pass2.lcsim"/>
   <Variable name="pulser_steer" value="/org/hps/steering/production/PulserTriggerFilter.lcsim"/>
   <Variable name="moller_steer" value="/org/hps/steering/production/MollerCandidateFilter.lcsim"/>
   <Variable name="v0_steer"     value="/org/hps/steering/production/V0CandidateFilter.lcsim"/>
