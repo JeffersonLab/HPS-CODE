@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# parse the xml submission scripts, and print:
+# runno filno1 filno2 filno3 ....
+
 jsubdir=$1
 
 for xx in $jsubdir/*
