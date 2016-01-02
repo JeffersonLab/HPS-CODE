@@ -1,7 +1,10 @@
 #!/bin/sh
 
-tdir=/mss/hallb/hps/engrun2015/pass4
-ddir=/work/hallb/hps/data/engrun2015/pass4
+scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pass=`echo $scriptDir | awk -F/ '{print$(NF-1)}'`
+
+tdir=/mss/hallb/hps/engrun2015/$pass
+ddir=/work/hallb/hps/data/engrun2015/$pass
 
 nn=0
 tt2dd=''

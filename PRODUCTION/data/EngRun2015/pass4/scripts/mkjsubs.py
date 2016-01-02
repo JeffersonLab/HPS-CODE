@@ -13,7 +13,7 @@ PARS={
     'XMLTEMPLATE':'templates/all.xml',
     'RUNTYPE':'recon',
     'PREFIX':'hps',
-    'DEBUG': 0,
+    'DEBUG': '0',
     'STEERING':'/org/hps/steering/recon/EngineeringRun2015FullRecon.lcsim'
 }
 
@@ -45,19 +45,33 @@ TAPECOOKEDLIST=[]
 DISKCOOKEDLIST=[]
 
 # make the submission script for one run:
-def mkjsub(runno):
+def mkjsub(runno,filnos=None):
     if runno in IGNORERUNS: return
     PARS['RUNNO'] = str(runno)
-    PARS['FILENOS'],PARS['PREFIX'] = getFileNumbers(str(runno))
-    if PARS['FILENOS']=='': return
-    if PARS['DEBUG']>0:
-        print 'DBG: ',runno,PARS['FILENOS']
+    PARS['PREFIX'] = getFilePrefix(str(runno))
+
+    # automatic file numbers generation:
+    if filnos=='' or filnos==None:
+        PARS['FILENOS'] = getFileNumbers(str(runno))
+        jsubfilename = 'jsubs/%s.xml'%(PARS['RUNNO'])
+
+    # manual file numbers generation: 
+    else:
+        PARS['FILENOS'] = filnos
+        jsubfilename = 'jsubs/%s_%d.xml'%(PARS['RUNNO'],len(filnos))
+
+    if PARS['FILENOS']=='' or PARS['FILENOS']==None: return
+    if int(PARS['DEBUG'])>0:
+        print 'DEBUG: ',runno,PARS['FILENOS']
         return
+
     nfiles=len(PARS['FILENOS'].split())
-    if nfiles<2 and not runno in CALIBRUNS: return
+    #if nfiles<2 and not runno in CALIBRUNS: return
+
+    # parse xml template and create jsub/*.xml:
     with open(PARS['XMLTEMPLATE'],'r') as tmp: lines=tmp.readlines()
     if not os.path.exists('jsubs'): os.mkdir('jsubs')
-    with open('jsubs/%s.xml'%(PARS['RUNNO']),'w') as tmp:
+    with open(jsubfilename,'w') as tmp:
         for line in lines:
             for key in PARS.keys():
                 if key == 'DEBUG': continue
@@ -86,7 +100,7 @@ def getPathStub(runtype):
 def updateLists():
     global TAPERAWLIST,TAPECOOKEDLIST,DISKCOOKEDLIST
     listdir = ROOTDIR + '/' + PARS['PASS'] + '/lists'
-    if PARS['DEBUG']==0:
+    if PARS['DEBUG']=='0':
         print 'Generating lists ....'
         subprocess.call(LISTEXE+' '+PARS['PASS']+' >& /dev/null',shell=True)
     with open(listdir+'/tape.txt','r') as tmp:
@@ -98,23 +112,32 @@ def updateLists():
 
 # get file numbers that should be processed:
 def getFileNumbers(runno):
-    prefix=''
     space=''
     filenos=''
     blinded = not int(runno) in CALIBRUNS # and not int(runno) in ECALONLYRUNS
+    prefix=getFilePrefix(runno)
     for file1 in TAPERAWLIST:
         (runno1,filno1) = getRawRunfilno(file1)
         if runno1==None or filno1==None: continue
         if int(runno1) != int(runno): continue
         if not UNBLIND and blinded and int(filno1)%10!=0: continue
-        prefix = re.split('/',file1).pop()
-        prefix = re.split('_',prefix).pop(0)
         stub = getPathStub(PARS['RUNTYPE'])+'/'+prefix
         #if isMissing(file1,stub,DISKCOOKEDLIST):
         if isMissing(file1,stub,TAPECOOKEDLIST):
             filenos += space+filno1
             space=' '
-    return (filenos,prefix)
+    return filenos
+
+# get file prefix (e.g. hps_, hpsecal_, hpssvt_)
+def getFilePrefix(runno):
+    prefix=None
+    for file1 in TAPERAWLIST:
+        (runno1,filno1) = getRawRunfilno(file1)
+        if runno1==None or int(runno1)!=int(runno): continue
+        prefix = re.split('/',file1).pop()
+        prefix = re.split('_',prefix).pop(0)
+        break
+    return prefix
 
 # get run/file numbers from EVIO filenames:
 def getRawRunfilno(filename):
@@ -138,46 +161,82 @@ def isMissing(rawfile,cookedStub,cookedFileList):
         if rawRunno==cookedRunno and rawFilno==cookedFilno: return False
     return True
 
+def printPars():
+    for key in PARS.keys():
+        print key+'='+PARS[key]
 
 if __name__ == '__main__':
     
-    # remove python script name:
-    sys.argv.pop(0)
+    scriptName=sys.argv.pop(0)
+   
+    usage='\nUsage:\n'
+    usage+='\t'+scriptName+' [options]\n'
+    usage+='\t'+scriptName+' [options] runFileListFilename\n'
+    usage+='\t'+scriptName+' [options] run\n'
+    usage+='\t'+scriptName+' [options] runMin runMax\n'
 
     # don't run if -h option present:
     for arg in sys.argv:
-        if arg=='-h': sys.exit(PARS)
+        if arg=='-h':
+            printPars()
+            sys.exit(usage)
 
     # find and remove PAR=VALUE configuration args:
     for arg in sys.argv[:]:
         if arg.find('=')<0: continue
         (key,val) = arg.split('=',1)
-        if not PARS.has_key(key): sys.exit('Missing Key:  '+key)
+        if not PARS.has_key(key): 
+            print('\nInvalid Key:  '+key+'\n\nValid Keys:')
+            printPars()
+            sys.exit(usage)
         PARS[key]=val
         sys.argv.remove(arg)
 
-    # make run list:
-    runs=[]
+    # run/file list:
+    runs={}
+
+    # default, full run range:
     if len(sys.argv)==0:
-        # default, full run range:
-        runs=range(RUNRANGE[0],RUNRANGE[1]+1)
+        for run in range(RUNRANGE[0],RUNRANGE[1]+1): runs[run]=None
+
     elif len(sys.argv)==1:
-        # read run list from file:
+        
+        # read run+file list from file:
         if os.path.exists(sys.argv[0]):
-            runs = open(sys.argv[0],'r').readlines()
-            runs = [int(run.rstrip()) for run in runs]
+            data = open(sys.argv[0],'r').readlines()
+            for line in data:
+                cols=line.strip().split()
+                try: run=int(cols[0])
+                except ValueError: sys.exit('\nInvalid Run Number in File: '+cols[0])
+                cols.pop(0)
+                if len(cols)==0:
+                    if runs.has_key(run): sys.exit('\nInvalid Input File: Duplicate Runs.'+usage)
+                    else: runs[run]=None
+                else:
+                    for fil in cols:
+                        if runs.has_key(run): runs[run]+=' '+fil
+                        else:                 runs[run]=fil
+                
         # single run:
         else:
-            runs.append(int(sys.argv[0]))
-    else:
-        # user-defined run range:
-        runs = [int(sys.argv[0]),int(sys.argv[1])]
-        if runs[1]<runs[0]: 
-            sys.exit('Invalid Run Range:  '+str(runs[0])+' '+str(runs[1]))
-        runs=range(runs[0],runs[1]+1)
+            try: runs[int(sys.argv[0])]=None
+            except ValueError: sys.exit('\nInvalid Run Number on Command Line: '+sys.argv[0]+usage)
+ 
+    # user-defined run range:
+    elif len(sys.argv)==2:
+        try:
+            if int(sys.argv[1])<int(sys.argv[0]):
+                sys.exit('Invalid Run Range:  '+sys.argv[0]+' '+sys.argv[1]+usage)
+            for run in range(int(sys.argv[0]),int(sys.argv[1])+1): runs[run]=None
+        except ValueError:
+            sys.exit('\nInvalid Run Number on Command Line: '+sys.argv[0]+' '+sys.argv[1]+usage)
+
+    # invalid command line:
+    else: sys.exit('\nInvalid Command Line.\n'+usage)
 
     updateLists()
     
     # make all the jsubs:
-    for run in runs: mkjsub(run)
+    for run in runs.keys(): mkjsub(run,runs[run])
+
 

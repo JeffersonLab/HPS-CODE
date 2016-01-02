@@ -1,4 +1,7 @@
 #!/bin/sh
+
+pass=$1
+
 dirs=(\
 logs \
 recon \
@@ -21,7 +24,7 @@ skim/dst/s0 \
 
 for dd in ${dirs[@]};
 do
-  mkdir -p $1/$dd
-  mkdir -p $1'fail'/$dd
+  mkdir -p $pass/$dd
+  mkdir -p $pass'fail'/$dd
 done
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import sys,re
 
+filename=sys.argv[1]
 runmin=int(sys.argv[2])
 runmax=int(sys.argv[3])
 
 runs={}
-for filename in open(sys.argv[1]).readlines():
+for filename in open(filename,'r').readlines():
     filename=filename.strip()
-    match=re.search('hps_00(\d\d\d\d)\.evio\.(\d+)',filename)
+    match=re.search('_00(\d\d\d\d)\.evio\.(\d+)',filename)
     if match==None: continue
     runno,filno=int(match.group(1)),int(match.group(2))
     if not runs.has_key(runno): runs[runno]=[filno]
