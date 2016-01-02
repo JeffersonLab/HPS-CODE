@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# parse the AUGER IDs from the recon log files, and print:
+# runno fileno augerid
+
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pass=`echo $scriptDir | awk -F/ '{print$(NF-1)}'`
 
