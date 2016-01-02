@@ -1,8 +1,8 @@
-mkjsubs.py generates the submission scripts
+mkjsubs.py generates the submission scripts in ./jsubs
 
-jsub.sh submits them
+jsub.sh submits them and moves them to ./jsubs-subbed
 
-generateLists.sh is also needed
+generateLists.sh is used to generate file lists
 
 
-Everything else is for cleanup/diagnostics/testing
+Everything else is for cleanup/diagnostics/testing.
