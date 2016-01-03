@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# creates all the subdirectories for pass outputs in .
+# used by xml template so don't have to do it manually
+
 pass=$1
 
 dirs=(\
