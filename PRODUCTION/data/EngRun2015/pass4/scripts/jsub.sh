@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# submit jobs in ./jsubs, and move the submitted xmls to ./jsubs-subbed
+# args control which of ./jsubs/*.xml to submit
+
 function jsub1
 {
     if [ -e jsubs/$1 ]
