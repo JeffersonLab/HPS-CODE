@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# parse .farm_out stdout logs and print:
+# filename runno walltime
+
 farm_out=$1
 
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
