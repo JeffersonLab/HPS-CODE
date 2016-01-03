@@ -16,4 +16,3 @@ for xx in $dir/skim/*
 do
     ls -l $xx > $xx.list
 done
-
