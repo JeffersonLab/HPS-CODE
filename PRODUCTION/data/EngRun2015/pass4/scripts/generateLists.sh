@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# generate lists in ./lists of existing files on tape and disk
+# outputs used by mkjsub.py
+
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pass=`echo $scriptDir | awk -F/ '{print$(NF-1)}'`
 
