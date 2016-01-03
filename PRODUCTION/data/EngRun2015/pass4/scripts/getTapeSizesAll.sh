@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# wrapper to getTapeSizes.sh for all output subdirs
+
 for xx in \
     recon \
     dst \
