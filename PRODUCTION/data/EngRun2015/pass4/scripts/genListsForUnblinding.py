@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import os
 
+# this was used once to generate lists for scicomp to set blinding tape permissions.
+
 with open('blinded-lessthan3mm.txt','r') as tmp: 
     blinded=tmp.readlines()
 
