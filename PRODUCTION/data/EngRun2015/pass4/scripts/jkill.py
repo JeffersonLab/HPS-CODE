@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import sys,re,os,subprocess
 
+# used to kill all upass4's 1.5 mm jobs since deemed unecessary and hindering pass4
+
 first5mm=5623
 
 for job in open('jobstat.txt','r').readlines():
