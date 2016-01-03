@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# parse tape stub files and generate list of file sizes on tape
+
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pass=`echo $scriptDir | awk -F/ '{print$(NF-1)}'`
 
