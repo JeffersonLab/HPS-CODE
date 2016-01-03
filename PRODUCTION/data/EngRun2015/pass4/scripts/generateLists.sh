@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# generate lists in ./lists of existing files on tape and disk
-# outputs used by mkjsub.py
+# generate lists in ./lists of existing reconstructed files on tape and disk
+# outputs used by mkjsub.py to determine what needs to be submitted
 
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pass=`echo $scriptDir | awk -F/ '{print$(NF-1)}'`
