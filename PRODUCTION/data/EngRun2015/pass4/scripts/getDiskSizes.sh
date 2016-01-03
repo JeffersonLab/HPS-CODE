@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# generate lists of files on disk and their sizes (via `ls -l`)
+
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pass=`echo $scriptDir | awk -F/ '{print$(NF-1)}'`
 
