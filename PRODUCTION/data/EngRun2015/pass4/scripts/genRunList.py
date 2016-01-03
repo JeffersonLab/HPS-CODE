@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import sys,re
 
+# this reads a filelist of all raw EVIO files and just prints:
+# runno nfiles
+
 filename=sys.argv[1]
 runmin=int(sys.argv[2])
 runmax=int(sys.argv[3])
