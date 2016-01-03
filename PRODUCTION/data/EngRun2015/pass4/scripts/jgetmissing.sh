@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# used after pass3 to jget to /work because /work failed during the pass
+# used after pass3 to jget to /work because /work had hardware failures during the pass
 
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pass=`echo $scriptDir | awk -F/ '{print$(NF-1)}'`
