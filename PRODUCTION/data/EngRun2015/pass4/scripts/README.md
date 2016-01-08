@@ -14,4 +14,6 @@ All other scripts are for cleanup/diagnostics/testing.
 
 TODO: Remove dependence on ``generateLists.sh`` by ``mkjsubs.py``
 
+TODO: Let ``mkjsub.py`` regenerate raw tape list every time instead of doing it manually.
+
 TODO: Remove hardcoding of top level dir for next run (e.g. ``/u/group/hps/production/data/EngRun2015`` and ``/work/hallb/hps/data/engrun2015``)
