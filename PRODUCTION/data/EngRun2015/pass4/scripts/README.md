@@ -14,4 +14,4 @@ All other scripts are for cleanup/diagnostics/testing.
 
 TODO: Remove dependence on ``generateLists.sh`` by ``mkjsubs.py``
 
-TODO: Remove hardcoding of top level dir for next run (i.e. ``/u/group/hps/production/data/EngRun2015``)
+TODO: Remove hardcoding of top level dir for next run (e.g. ``/u/group/hps/production/data/EngRun2015`` and ``/work/hallb/hps/data/engrun2015``)
