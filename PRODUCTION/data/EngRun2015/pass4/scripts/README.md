@@ -6,11 +6,11 @@
 
 In all cases ``pwd`` should be at the same level as this ``scripts`` directory.
 
+---
 
 All other scripts are for cleanup/diagnostics/testing.
 
-
-
+---
 
 TODO: Remove dependence on ``generateLists.sh`` by ``mkjsubs.py``
 
