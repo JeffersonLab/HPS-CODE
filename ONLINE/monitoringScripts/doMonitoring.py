@@ -12,6 +12,8 @@ def print_usage():
     print '\t-j: use the jar file at this full path'
     print '\t-p: use this SVT position (default \"Nominal\")'
     print '\t-d: use this detector name (default {}{}{})'.format(detectorprefix,position,detectorsuffix)
+    print '\t-t: use this steering file'
+    print '\t-H: use this host'
     print '\t-h: this help message'
     print
 
@@ -23,8 +25,10 @@ jarpath="/home/hpsrun/hps_software/jars/hps-java.jar"
 
 detectorprefix='HPS-EngRun2015-'
 detectorsuffix='-v1'
-
 position='Nominal'
+
+steeringprefix='/org/hps/steering/monitoring/'
+steeringname=None
 
 detectorname=None
 settingspath=None
@@ -33,7 +37,7 @@ settingsdict = {}
 
 #print sys.argv[0]
 
-options, remainder = getopt.getopt(sys.argv[1:], 's:j:p:d:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 's:j:p:d:t:H:h')
 
 # Parse the command line arguments
 for opt, arg in options:
@@ -45,6 +49,11 @@ for opt, arg in options:
         position = arg
     if opt=='-d':
         detectorname = arg
+    if opt=='-t':
+        steeringname = arg
+        settingsdict['SteeringResource'] = steeringprefix + steeringname
+    if opt=='-H':
+        settingsdict['Host'] = arg
     elif opt=='-h':
         print_usage()
         sys.exit(0)
@@ -63,7 +72,7 @@ else:
         sys.exit(-1)
 
 if (detectorname==None):
-    detectorname= detectorprefix + position + detectorsuffix;
+    detectorname= detectorprefix + position + detectorsuffix
 
 settingsdict['DetectorName']= detectorname;
 
@@ -73,8 +82,8 @@ print tempsettings.name
 for i in f:
     varname = i.split('=')[0].strip()
     if settingsdict.has_key(varname):
-        print i
-        i=varname+'='+settingsdict[varname]
+        #print i
+        i=varname+'='+settingsdict[varname]+'\n'
         print i
     tempsettings.write(i)
 f.close()
