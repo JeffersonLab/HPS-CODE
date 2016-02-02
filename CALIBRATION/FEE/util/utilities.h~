@@ -1,0 +1,24 @@
+typedef long long long64;
+
+const std::string encoder_string = "system:6,layer:2,ix:-8,iy:-6";
+
+///////////////////////////////////////////////////////////////////////////////////////
+float findTime(float y, float a, float b){
+  //y = ax+b
+  float x = (y-b)/a;
+  return x;
+}
+
+//time in ns and energy in GeV
+float correctTimeWalk(float time, float energy){
+
+  const float p0 = 0.9509;
+  const float p1 = -33.21;
+  const float p2 = 0.2614;
+  const float p3 = -0.9128;
+  const float p4 = 0.6251;
+
+  return time - (exp(p0+p1*energy) + p2 + p3*energy + p4*energy*energy);
+
+}
+
