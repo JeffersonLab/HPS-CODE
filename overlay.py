@@ -7,7 +7,9 @@ def makeplots(files,path,name,c):
 	c.Clear()
 	color=1
 	for f in files:
+            print path
 	    h=f.Get(path)
+            #h.Print()
 	    h.SetLineColor(color)
 	    if color==1:
 		    h.Draw("")
@@ -36,7 +38,7 @@ def makenormplots(files,path,name,c):
 	c.Clear()
 	color=1
 	for f in files:
-	    h=f.Get(path).Clone("blah")
+	    h=f.Get(path)#.Clone()
 	    #h.SetDirectory(0)
 	    h.SetLineColor(color)
 	    h.Scale(1/h.Integral())
@@ -47,22 +49,12 @@ def makenormplots(files,path,name,c):
 	    color+=1
 	c.SaveAs(sys.argv[1]+"-"+name+".png")
 
-scale_factor = 1
-lumi_total = 1240
-
-massres_a = 0.032 #sigma = a*mass + b
-massres_b = 0.001 #units of GeV
-
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'l:h', ['luminosity','help',])
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'h', ['help',])
 
 for opt, arg in options:
-    if opt in ('-l', '--luminosity'):
-        lumi = float(arg)
-        scale_factor = lumi/lumi_total
-    elif opt in ('-h', '--help'):
+    if opt in ('-h', '--help'):
         print "\nUsage: "+sys.argv[0]+" <output basename> <root files>"
         print "Arguments: "
-        print "\t-l, --luminosity: luminosity for normalization"
         print "\n"
         sys.exit(0)
 
@@ -85,6 +77,7 @@ makeplots(files,"zcut","zcut",c)
 makeplots(files,"mass","mass",c)
 makenormplots(files,"mass","massnorm",c)
 c.SetLogy(1)
+makenormplots(files,"slice_36","slice-36",c)
 makedivplots(files,"hightails","mass","hightails",c)
 makedivplots(files,"lowtails","mass","lowtails",c)
 
@@ -103,6 +96,8 @@ makedivplots(files,"lowtails","mass","lowtails",c)
 	#print key.GetName()
 	#files[0].GetObjectUnchecked(key.GetName()).Draw()
 	#	print 
+outfile.Write()
+outfile.Close()
 
 sys.exit(0)
 

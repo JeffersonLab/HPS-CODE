@@ -4,8 +4,8 @@ import getopt
 from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D
 
 scale_factor = 1
-lumi_total = 1240
-rad_fraction = 0.2
+lumi_total = 1179
+rad_fraction = 0.083
 
 massres_a = 0.032 #sigma = a*mass + b
 massres_b = 0.001 #units of GeV
@@ -15,11 +15,14 @@ def frange(x, y, jump):
 		yield x
 		x += jump
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'l:h', ['luminosity','help',])
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'l:t:h', ['luminosity','totallumi','help',])
 
 for opt, arg in options:
     if opt in ('-l', '--luminosity'):
         lumi = float(arg)
+        scale_factor = lumi/lumi_total
+    if opt in ('-t', '--totallumi'):
+        lumi_total = float(arg)
         scale_factor = lumi/lumi_total
     elif opt in ('-h', '--help'):
         print "\nUsage: "+sys.argv[0]+" <output basename> <root files>"
@@ -50,24 +53,24 @@ outfile.cd()
 totalH.Sumw2()
 totalH.Scale(1/scale_factor)
 totalH.Draw("colz")
-c.SaveAs(sys.argv[1]+"-zvsmass.png")
+c.SaveAs(remainder[0]+"-zvsmass.png")
 profilehist=totalH.ProfileX("profile")
 profilehist.Draw()
-c.SaveAs(sys.argv[1]+"-profile.png")
+c.SaveAs(remainder[0]+"-profile.png")
 masshist=totalH.ProjectionX("mass")
 masshist.SetTitle("Radiative vertex mass")
 masshist.Draw()
-c.SaveAs(sys.argv[1]+"-mass.png")
+c.SaveAs(remainder[0]+"-mass.png")
 
 #acceptance = TF1("acceptance","(x>1.05*0.019)/(acos((x>1.05*0.019)*0.019/(x/1.05))/(pi/2))")
 acceptance = TF1("acceptance","(x>[0]*[1])/(acos((x>[0]*[1])*[0]/(x/[1]))/(pi/2))")
 acceptance.SetParameters(1.05,0.0195)
 #acceptance.Draw()
-#c.SaveAs(sys.argv[1]+"-acceptance.png")
-masshistscaled=masshist.Clone()
+#c.SaveAs(remainder[0]+"-acceptance.png")
+masshistscaled=masshist.Clone("massscaled")
 masshistscaled.Multiply(acceptance)
 masshistscaled.Draw()
-c.SaveAs(sys.argv[1]+"-massscaled.png")
+c.SaveAs(remainder[0]+"-massscaled.png")
 
 #sys.exit(0)
 
@@ -134,7 +137,7 @@ for i in range(0,totalH.GetXaxis().GetNbins()-binning+2):
     massrange=highedge-lowedge
     centermass=(highedge+lowedge)/2.0
     reslimited_massrange=2.5*(massres_a*centermass + massres_b)
-    h1d=totalH.ProjectionY("slice_"+str(i),i,i+binning-1)
+    h1d=totalH.ProjectionY("slice_{}".format(i),i,i+binning-1)
     #h1d=h1d.Rebin(2,"slice")
     integrals.append(h1d.Integral())
     name="Radiative vertex Z, mass [{}, {}] GeV".format(lowedge,highedge)
@@ -190,8 +193,10 @@ for i in range(0,totalH.GetXaxis().GetNbins()-binning+2):
 			#print gammact
 			ap_yield= 3*math.pi*10**eps/(2*(1/137.0))*h1d.Integral()*centermass/massrange*rad_fraction
 			#print ap_yield
-			print ap_yield*math.exp(-zcut/gammact)
+			#print ap_yield*math.exp(-zcut/gammact)
 			yieldhist.Fill(centermass,eps,ap_yield*math.exp(-zcut/gammact))
+    for func in h1d.GetListOfFunctions():
+        func.Delete()
 
 c.SetLogy(0)
 c.SetLogx(1)
@@ -224,20 +229,20 @@ masshist.SetTitle("Radiative vertex mass, +Z tail")
 masshist.Draw("E")
 hightails=totalH.ProjectionX("hightails",0,-1,"[highzcut]")
 hightails.Draw("E SAME")
-c.SaveAs(sys.argv[1]+"-hightails.png")
+c.SaveAs(remainder[0]+"-hightails.png")
 
 
 masshist.SetTitle("Radiative vertex mass, -Z tail")
 masshist.Draw("E")
 lowtails=totalH.ProjectionX("lowtails",0,-1,"[lowzcut]")
 lowtails.Draw("E SAME")
-c.SaveAs(sys.argv[1]+"-lowtails.png")
+c.SaveAs(remainder[0]+"-lowtails.png")
 
 c.SetLogy(0)
 
 #masshist.SetTitle("Radiative vertex mass")
 #masshist.Draw("")
-#c.SaveAs(sys.argv[1]+"-massnorm.png")
+#c.SaveAs(remainder[0]+"-massnorm.png")
 
 
 sigmagraph=TGraphErrors(len(masses),masses,sigmas,masserrors,sigmaerrors)
@@ -251,7 +256,7 @@ sigmafitfunc.SetParameters(1,-0.5);
 sigmagraph.Draw("AP")
 sigmagraph.Fit("sigmafitfunc","","",0.02,0.06)
 #sigmagraph.Fit("pol5","","",0.02,0.08)
-c.SaveAs(sys.argv[1]+"-sigmas.png")
+c.SaveAs(remainder[0]+"-sigmas.png")
 
 zcutgraph=TGraph(len(zcutmasses),zcutmasses,zerobackgroundzcut)
 zcutgraph.SetTitle("Z cut for 0.5 background events")
@@ -259,7 +264,7 @@ zcutgraph.SetName("zcut")
 zcutgraph.Write()
 zcutgraph.Draw("A*")
 zcutgraph.Fit("pol4")
-c.SaveAs(sys.argv[1]+"-zcut.png")
+c.SaveAs(remainder[0]+"-zcut.png")
 
 outfile.Write()
 outfile.Close()
