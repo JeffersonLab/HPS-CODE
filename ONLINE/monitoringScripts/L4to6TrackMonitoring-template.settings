@@ -1,0 +1,27 @@
+#Mon Apr 20 01:15:03 EDT 2015
+SteeringType=RESOURCE
+DisconnectOnEndRun=true
+AIDAServerName=hps-monitoring-app
+WaitTime=1000000000
+StationName=RECON_MONITOR
+StationPosition=666
+LogLevel=ALL
+EventBuilderClassName=org.hps.evio.LCSimEngRunEventBuilder
+MaxEvents=-1
+WaitMode=TIMED
+ChunkSize=1
+DisconnectOnError=false
+DetectorName=HPS-EngRun2015-TEMPLATEPOSITION-v1
+SteeringResource=org/hps/steering/monitoring/Layers4to6TrackingMonitoring.lcsim
+EtName=/tmp/et_sys_clashps
+Verbose=true
+Port=11111
+LogToFile=false
+DataSourceType=ET_SERVER
+#SteeringFile=/home/hpsrun/hps_software/reconMonitoringSettings/Layers4to6TrackingMonitoring.lcsim
+Host=clondaq5
+QueueSize=0
+LogLevelFilter=ALL
+Prescale=0
+ProcessingStage=LCIO
+Blocking=false
