@@ -75,11 +75,13 @@ for filename in remainder[1:]:
 makeplots(files,"sigma","sigma",c)
 makeplots(files,"zcut","zcut",c)
 makeplots(files,"mass","mass",c)
+c.SetLogy(1)
+makedivplots(files,"hightails","mass","hightails",c)
+makedivplots(files,"lowtails","mass","lowtails",c)
+c.SetLogy(0)
 makenormplots(files,"mass","massnorm",c)
 c.SetLogy(1)
 makenormplots(files,"slice_36","slice-36",c)
-makedivplots(files,"hightails","mass","hightails",c)
-makedivplots(files,"lowtails","mass","lowtails",c)
 
     #keylists.append(f.GetListOfKeys())
     #print filename

@@ -4,6 +4,7 @@ import getopt
 from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D
 
 scale_factor = 1
+lumi = 1
 lumi_total = 1179
 rad_fraction = 0.083
 
@@ -51,6 +52,7 @@ for filename in remainder[1:]:
 
 outfile.cd()
 totalH.Sumw2()
+print "scaling data by {0}".format(1/scale_factor)
 totalH.Scale(1/scale_factor)
 totalH.Draw("colz")
 c.SaveAs(remainder[0]+"-zvsmass.png")
@@ -175,7 +177,7 @@ for i in range(0,totalH.GetXaxis().GetNbins()-binning+2):
             #c.SaveAs(remainder[0]+"-"+str(i)+"_resid.png")
             #c.SetLogy(1)
 
-            if fit.Get().IsValid() and fit.Get().Parameter(4)<10:
+            if fit.Get().IsValid():
                 zcutmasses.append((highedge+lowedge)/2)
                 zcut=fitfunc.GetX(0.5*massrange/reslimited_massrange/fit.Get().Parameter(4),mean,200)
 		#print zcut
