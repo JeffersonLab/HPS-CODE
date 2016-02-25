@@ -10,6 +10,7 @@ def print_usage():
     print "Arguments: "
     print '\t-s: use the settings file at this full path (omit settings name)'
     print '\t-j: use the jar file at this full path'
+    print '\t-J: use the JVM at this full path'
     print '\t-p: use this SVT position (default \"Nominal\")'
     print '\t-d: use this detector name (default {}{}{})'.format(detectorprefix,position,detectorsuffix)
     print '\t-t: use this steering file'
@@ -37,7 +38,7 @@ settingsdict = {}
 
 #print sys.argv[0]
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 's:j:p:d:t:H:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 's:j:J:p:d:t:H:h')
 
 # Parse the command line arguments
 for opt, arg in options:
@@ -45,6 +46,8 @@ for opt, arg in options:
         settingspath = arg
     if opt=='-j':
         jarpath = arg
+    if opt=='-J':
+        javapath = arg
     if opt=='-p':
         position = arg
     if opt=='-d':
