@@ -6,12 +6,12 @@ import os,sys
 import getopt
 
 def print_usage():
-    print "\nUsage: {} <settings name>".format(sys.argv[0])
+    print "\nUsage: {0} <settings name>".format(sys.argv[0])
     print "Arguments: "
     print '\t-s: use the settings file at this full path (omit settings name)'
     print '\t-j: use the jar file at this full path'
     print '\t-p: use this SVT position (default \"Nominal\")'
-    print '\t-d: use this detector name (default {}{}{})'.format(detectorprefix,position,detectorsuffix)
+    print '\t-d: use this detector name (default {0}{1}{2})'.format(detectorprefix,position,detectorsuffix)
     print '\t-t: use this steering file'
     print '\t-H: use this host'
     print '\t-h: this help message'
@@ -23,8 +23,8 @@ settingsdir="/home/hpsrun/hps_software/reconMonitoringSettings"
 jarpath="/home/hpsrun/hps_software/jars/hps-java.jar"
 #settings='TrackAndReconMonitoring-template'
 
-detectorprefix='HPS-EngRun2015-'
-detectorsuffix='-v1'
+detectorprefix='HPS-PhysicsRun2016-'
+detectorsuffix='-v4-4'
 position='Nominal'
 
 steeringprefix='/org/hps/steering/monitoring/'
@@ -65,7 +65,7 @@ if (settingspath==None):
         print_usage()
         sys.exit(-1)
     settings=remainder[0]
-    settingspath='{}/{}.settings'.format(settingsdir,settings)
+    settingspath='{0}/{1}.settings'.format(settingsdir,settings)
 else:
     if (len(remainder) != 0):
         print "don't need settings if -s option used"
