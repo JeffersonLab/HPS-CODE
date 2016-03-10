@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 import time,sys,os,argparse
 from epics import pv
-from ROOT import TH2D,TH2I,gStyle,gPad,TPaveText,TCanvas,TDatime,TText
-from ROOT import TArrow,TBox,TLine,gClient,TGMainFrame,TGVerticalFrame
+from ROOT import TH2D,TH2I,gStyle,gPad,TPaveText,TCanvas
+from ROOT import TArrow,TBox,TLine,TDatime,TText,TGFrame
+from ROOT import gClient,TGMainFrame,TGVerticalFrame
+from ROOT import TGHorizontalFrame,TGLayoutHints
+from ROOT import TRootEmbeddedCanvas,TApplication
+import ROOT
 
 CSVTABLE='''X,Y,APD,PreAmp,LEDchan,LEDdriver,FADCslot,FADCchan,Splitter,HVGroup,JOUT,MB,Channel,Gain
 1,5,514,348,112,1.9,14,2,1,1,1,LT,1,33841
@@ -448,7 +452,6 @@ CSVTABLE='''X,Y,APD,PreAmp,LEDchan,LEDdriver,FADCslot,FADCchan,Splitter,HVGroup,
 21,-1,83,409,213,1.7,3,10,16,23,16,LB,220,33588
 22,-1,463,211,218,1.7,3,5,16,24,16,LB,225,33463'''
 
-
 class ECalChannel:
 
   XOFF=23
@@ -534,9 +537,6 @@ class ECalChannel:
     self.vals['XINDEX'] = ix
     self.vals['YINDEX'] = iy
 
-
-
-
 class ECalChannelCollection:
 
   def __init__(self,csvFileName=None):
@@ -593,8 +593,8 @@ class ECalChannelCollection:
           break
       if match:
         return chan
-    print('Missing:  ')
-    print(keYVALS)
+    #print('Missing:  ')
+    #print(keYVALS)
 
   def findChannelXY(self,x,y):
     return self.findChannel(('X',x,'Y',y))
@@ -659,8 +659,9 @@ def getPVS():
         for slot in SLOTS:
             for chan in CHANS:
                 zz=PVS[crate][slot][chan].get()
-                if not type(zz) is float: 
-                    if len(zz)>1: zz=zz[0]
+                if not type(zz) is float:
+                    if zz is None: zz=0
+                    else:          zz=zz[0]
                 zvals.append(float(zz)/1000)
     return zvals
 
@@ -670,11 +671,11 @@ def calcRates(rates):
         xx=XVALS[ii]
         yy=YVALS[ii]
         zz=rates[ii]
-        total+=zz
         if yy<0: bottom+=zz
         else:    top+=zz
         if yy<3 and (xx>=-11 or xx<=1):
             if zz>maximum: maximum=zz
+    total=top+bottom
     return [total,top,bottom,maximum]
 
 def setupHists(hhh):
@@ -711,20 +712,58 @@ def setupPaveTexts(pts):
         pt.SetBorderSize(0)
         pt.SetLineWidth(0)
 
-def main():
-   
-#    mf=TGMainFrame(gClient.GetRoot(),1500,450)
-#    vf=TGVerticalFrame()
-#    mf.AddFrame(vf)
-#    mf.Draw()
+def pix2xy(pad):
+    px=gPad.GetEventX()
+    py=gPad.GetEventY()
+    tl=[74,44]
+    tr=[1346,44]
+    br=[1346,401]
+    bl=[74,401]
+    x=int(float(px-tl[0])/(tr[0]-tl[0])*46)-23+1
+    y=int(float(py-tl[1])/(bl[1]-tl[1])*11)-5
+    if x<=0: x-=1
+    return [x,-y]
 
+def printChannel(ee):
+    return 'X/Y = %d/%d       FADC = %d/%d       JOUT = %s%d      HV = %s      LED = %d      ID = %s'%(
+            ee.vals['X'],
+            ee.vals['Y'],
+            ee.vals['FADCSLOT'],
+            ee.vals['FADCCHAN'],
+            ee.vals['MB'],
+            ee.vals['JOUT'],
+            ee.vals['HVGROUP'],
+            ee.vals['LEDCHAN'],
+            ee.vals['DBID'])
+
+def main():
+
+    if True:
+        mf=TGMainFrame(gClient.GetRoot(),1500,475)
+        gvf=TGVerticalFrame(mf,1500,475)
+        rec=TRootEmbeddedCanvas("ccc",gvf,1500,450)
+        rec2=TRootEmbeddedCanvas("ccc2",gvf,1500,25)
+        gvf.AddFrame(rec,TGLayoutHints(ROOT.kLHintsExpandX|ROOT.kLHintsTop))
+        gvf.AddFrame(rec2,TGLayoutHints(ROOT.kLHintsExpandX|ROOT.kLHintsBottom))
+        mf.AddFrame(gvf,TGLayoutHints(ROOT.kLHintsExpandX))
+        cc=rec.GetCanvas()
+        cc2=rec2.GetCanvas()
+        mf.SetEditable(0)
+        mf.SetWindowName('HPS ECAL FADC SCALERS')
+        mf.MapSubwindows()
+        mf.Resize(1501,476)#mf.GetDefaultSize())
+        mf.MapWindow()
+    else:
+        cc=TCanvas('cc','',1500,450)
+   
+    cc.cd()
+    cc.SetBorderMode(0)
+    cc.SetFixedAspectRatio(1)
+    cc.FeedbackMode(1)
+    
     gStyle.SetOptStat(0)
     gStyle.SetGridStyle(1)
     gStyle.SetGridColor(11)
-    
-    cc=TCanvas('cc','',1500,450)
-    cc.SetBorderMode(0)
-    cc.SetFixedAspectRatio(1)
 
     hh=TH2D('hh',';X;Y',46,-22,24,11,-5,6)
     hi=TH2I('hi',';X;Y',46,-22,24,11,-5,6)
@@ -742,8 +781,9 @@ def main():
     ttT=TPaveText(-22+13+0.05,6-5,-22+22,7-5-0.05)
     ttB=TPaveText(-22+13+0.05,4-5+0.05,-22+22,5-5)
     ttM=TPaveText(-22+0+0.05,5-5+0.05,-22+13,6-5.01)
-    ttime=TPaveText(-5,-6.5,5,-5.8)
-    setupPaveTexts([tt1,tt2,ttT,ttB,ttM,ttime])
+    ttime=TPaveText(-10,-6.5,10,-5.8)
+    tchan=TPaveText(0,0,0.9,1)
+    setupPaveTexts([tt1,tt2,ttT,ttB,ttM,ttime,tchan])
     ttM.SetTextColor(2)
     
     bb=TBox()
@@ -764,12 +804,16 @@ def main():
     tt.SetTextColor(1)
     tt.SetTextAngle(90)
     tt.SetTextSize(0.08)
-    tt.DrawText(25.2,0,'kHz')
+    tt.DrawText(25.4,0,'kHz')
     tt.SetTextAngle(0)
     tt.SetTextColor(2)
     tt.DrawTextNDC(0.3,0.92,'ECAL FADC SCALERS')
-    
+   
+    cc.cd()
     for xx in [tt2,ttT,ttB,ttM,arrow,tarrow,ttime]: xx.Draw()
+    cc2.cd()
+    tchan.Draw('NDC')
+    cc.cd()
     
     ll=TLine()
     ll.DrawLine(xax.GetXmin(),yax.GetXmin(),xax.GetXmax(),yax.GetXmin())
@@ -800,17 +844,34 @@ def main():
         
         for xx in [ttime,tt2,ttT,ttB,ttM]: xx.Clear()
         [total,top,bottom,maximum]=calcRates(zvals)
-        tt2.AddText('Total:  %.2f MHz'%(total/1000))
-        ttT.AddText('%.2f MHz'%(top/1000))
-        ttB.AddText('%.2f MHz'%(bottom/1000))
+        tt2.AddText('Total:  %.1f MHz'%(total/1000))
+        ttT.AddText('%.1f MHz'%(top/1000))
+        ttB.AddText('%.1f MHz'%(bottom/1000))
         ttM.AddText('MAX SINGLE CRYSTAL = %.0f kHz'%(maximum))
         ttime.AddText(makeTime())
-       
+      
+        if gPad.GetEvent()==11:
+            xy=pix2xy(gPad)
+            ee=ECAL.findChannelXY(xy[0],xy[1])
+            if ee:
+                tchan.Clear()
+                tchan.AddText(printChannel(ee))
+                cc2.Modified()
+                cc2.Update()
+        elif gPad.GetEvent()==12:
+            tchan.Clear()
+            cc2.Modified()
+            cc2.Update()
+
+
         cc.Modified()
         cc.Update()
-       
+    
         time.sleep(1)
 
 if __name__ == '__main__': main()
 
-        
+    
+
+    
+
