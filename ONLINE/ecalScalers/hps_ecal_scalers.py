@@ -666,7 +666,7 @@ def getPVS():
     return zvals
 
 def calcRates(rates):
-    total,top,bottom,maximum=0,0,0,0
+    top,bottom,maximum=0,0,0
     for ii in range(len(XVALS)):
         xx=XVALS[ii]
         yy=YVALS[ii]
@@ -675,8 +675,7 @@ def calcRates(rates):
         else:    top+=zz
         if yy<3 and (xx>=-11 or xx<=1):
             if zz>maximum: maximum=zz
-    total=top+bottom
-    return [total,top,bottom,maximum]
+    return [top,bottom,maximum]
 
 def setupHists(hhh):
     for hh in hhh:
@@ -751,7 +750,7 @@ def main():
         mf.SetEditable(0)
         mf.SetWindowName('HPS ECAL FADC SCALERS')
         mf.MapSubwindows()
-        mf.Resize(1501,476)#mf.GetDefaultSize())
+        mf.Resize(1501,476)# resize to get proper frame placement
         mf.MapWindow()
     else:
         cc=TCanvas('cc','',1500,450)
@@ -836,38 +835,52 @@ def main():
     gPad.SetEditable(0)
 
     while True:
-        
-        zvals=getPVS()
-        for ii in range(len(zvals)):
-            hh.SetBinContent(xax.FindBin(XVALS[ii]),yax.FindBin(YVALS[ii]),zvals[ii])
-            hi.SetBinContent(xax.FindBin(XVALS[ii]),yax.FindBin(YVALS[ii]),zvals[ii])
-        
-        for xx in [ttime,tt2,ttT,ttB,ttM]: xx.Clear()
-        [total,top,bottom,maximum]=calcRates(zvals)
-        tt2.AddText('Total:  %.1f MHz'%(total/1000))
-        ttT.AddText('%.1f MHz'%(top/1000))
-        ttB.AddText('%.1f MHz'%(bottom/1000))
-        ttM.AddText('MAX SINGLE CRYSTAL = %.0f kHz'%(maximum))
-        ttime.AddText(makeTime())
-      
-        if gPad.GetEvent()==11:
-            xy=pix2xy(gPad)
-            ee=ECAL.findChannelXY(xy[0],xy[1])
-            if ee:
+
+#        try:
+
+            zvals=getPVS()
+            for ii in range(len(zvals)):
+                hh.SetBinContent(xax.FindBin(XVALS[ii]),yax.FindBin(YVALS[ii]),zvals[ii])
+                hi.SetBinContent(xax.FindBin(XVALS[ii]),yax.FindBin(YVALS[ii]),zvals[ii])
+            
+            for xx in [ttime,tt2,ttT,ttB,ttM]: xx.Clear()
+            [top,bottom,maximum]=calcRates(zvals)
+            tt2.AddText('Total:  %.1f MHz'%((top+bottom)/1000))
+            ttT.AddText('%.1f MHz'%(top/1000))
+            ttB.AddText('%.1f MHz'%(bottom/1000))
+            ttM.AddText('MAX SINGLE CRYSTAL = %.0f kHz'%(maximum))
+            ttime.AddText(makeTime())
+          
+            if gPad.GetEvent()==11:
+                xy=pix2xy(gPad)
+                ee=ECAL.findChannelXY(xy[0],xy[1])
+                if ee:
+                    tchan.Clear()
+                    tchan.AddText(printChannel(ee))
+                    cc2.Modified()
+                    cc2.Update()
+            elif gPad.GetEvent()==12:
                 tchan.Clear()
-                tchan.AddText(printChannel(ee))
                 cc2.Modified()
                 cc2.Update()
-        elif gPad.GetEvent()==12:
-            tchan.Clear()
-            cc2.Modified()
-            cc2.Update()
-
-
-        cc.Modified()
-        cc.Update()
     
-        time.sleep(1)
+    
+            cc.Modified()
+            cc.Update()
+        
+            time.sleep(1)
+
+#        except BaseException:
+#            sys.exit()
+
+#class HpsEcalScalers(TGMainFrame):
+#
+#
+#def main2():
+#    asdf=TApplication('asdf')
+#    qwer=HpsEcalScalers(gClient.GetRoot())
+#    asdf.Run()
+
 
 if __name__ == '__main__': main()
 
