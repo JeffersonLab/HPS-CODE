@@ -1,8 +1,19 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
-import sys, os, ROOT, re, argparse
+#
+import sys, os, re, argparse
+try:
+    import ROOT
+except:
+    print "We could not successfully load the ROOT package into Python. "
+    print "Please setup your ROOT environment and make sure your Python version is the same as that used when compiling ROOT."
+    sys.exit(1)
+
 
 #list of data: path to histogram and if it should be displayed with a logarithmic y/z-axis
+#
+# You probably want to change this list to your needs, or load this from a file with the -data or -rdata options.
+# 
 data = [('EcalClusters/pairs1/EcalClusters Cluster Count per Event'                    , False),
         ('EcalClusters/pairs1/EcalClusters Cluster Size'                               , False),
         ('EcalClusters/pairs1/EcalClusters Cluster Energy'                             , False),
@@ -195,9 +206,10 @@ def get_entries(f):
 def get_list_from_file(filename):
     try:
         f = get_file(filename)
-        if f:
+        if not f:
             return []
         data = f.readlines()
+        data = map(lambda x: x.rstrip('\n'), data)
         f.close()
         return data
     except IOError:
@@ -298,44 +310,53 @@ def main(argv=None):
 
     parser = argparse.ArgumentParser(description='Compare two root files from the HPS DQM output.')
     parser.add_argument("filename1",type=str, help="Reference root file from DQM, will be shown in red.")
-    parser.add_argument("filenameN",type=str,nargs="+", help="Root file(s) you want to compare, shown in blue and subsequent colors.")
-    parser.add_argument("-f", "--filename", action="append", default=[], help="Optional extra files you want to add to the comparison. Colors vary. Give logarithmic scale with -@l directly after filename.")
-    parser.add_argument("-n", "--rfilename", action="append", default=[], help="Possible extra file containing list of root files to compare written in the same style as in -f.")
+    parser.add_argument("filenameN",type=str,nargs="*", help="Root file(s) you want to compare, shown in blue and subsequent colors.")
+    parser.add_argument("-f", "--files", action="append", default=[], help="Possible extra file containing list of root files to compare written in the same style as in -f.")
     parser.add_argument("-d", "--data", action="append", default=[], help="Optional extra histograms (with path) to compare.")
     parser.add_argument("-t", "--rdata", action="append", default=[], help="Possible extra files containing extra histograms (with path) to compare.")
     parser.add_argument("-s", "--skipdata", action="store_true", default=False, help="Skip all standard histograms, only use what's specified with -d and -rd.")
     parser.add_argument("-o", "--bottomtop", action="store_true", default=False, help="Show bottom and top histograms in the same picture.")
     parser.add_argument("-p", "--savepdf", action="store_true", default=False, help="Save all histograms to result.pdf in stead of displaying them")
     parser.add_argument("-b", action="store_true", help="Bash only mode")
+    parser.add_argument("-v","--verbose", action="store_true", help="Be verbose about what is going on, for debug. ")
     args = parser.parse_args(argv[1:])
 
     #process data from argparse
     tmp = []
     for i in args.rdata:
-        s = get_list_from_file(i)
-        if s.endswith("-@l"):
-            tmp.append((s[:-3], True))
-        else:
-            tmp.append((s, False))
+        ls = get_list_from_file(i)
+        for s in ls:
+            s = s.lstrip("'").rstrip("'")
+            if s.endswith("-log"):
+                tmp.append((s[:-4].strip(), True))
+            else:
+                tmp.append((s.strip(), False))
 
     for i in args.data:
-        if i.endswith("-@l"):
-            tmp.append((i[:-3], True))
+        if i.endswith("-log"):
+            tmp.append((i[:-4].strip(), True))
         else:
-            tmp.append((i, False))
+            tmp.append((i.strip(), False))
                    
     if args.skipdata:
         data = tmp
     else:
         data.extend(tmp)
                     
+    if args.verbose:
+        print "Histograms:"
+        for i in data:
+            if not i[1]:
+                print "'"+i[0]+"'"
+            else:
+                print "'"+i[0]+" -log"+"'"
+
     tmp = []
-    for i in args.rfilename:
+    for i in args.files:
         tmp.extend(get_list_from_file(i))
 
     filenames = [args.filename1]+ args.filenameN
     filenames.extend(tmp)
-    filenames.extend(args.filename)
     
     files = read_files(filenames)
 
@@ -343,7 +364,12 @@ def main(argv=None):
     if len(files) < 2:
         print >> stderr, "Too many invalid files"
         sys.exit(0)
-    
+    else:
+        print "Comparing: ",
+        for f in filenames:
+            print " "+str(f),
+        print
+
     #retrieve and put the compared histo objects in a list with in the first
     #slot a 'pointer' to the current histogram to be displayed    
     histo_compare_obj = [1] + get_histos(data, files, args.bottomtop)
