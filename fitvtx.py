@@ -138,6 +138,8 @@ for i in range(0,totalH.GetXaxis().GetNbins()-binning+2):
     highedge = totalH.GetXaxis().GetBinUpEdge(i+binning-1)
     massrange=highedge-lowedge
     centermass=(highedge+lowedge)/2.0
+    #if centermass<0.015 or centermass>0.06:
+    #    continue
     reslimited_massrange=2.5*(massres_a*centermass + massres_b)
     h1d=totalH.ProjectionY("slice_{}".format(i),i,i+binning-1)
     #h1d=h1d.Rebin(2,"slice")
@@ -263,9 +265,13 @@ c.SaveAs(remainder[0]+"-sigmas.png")
 zcutgraph=TGraph(len(zcutmasses),zcutmasses,zerobackgroundzcut)
 zcutgraph.SetTitle("Z cut for 0.5 background events")
 zcutgraph.SetName("zcut")
+zcutgraph.GetXaxis().SetTitle("Mass [GeV]")
+zcutgraph.GetXaxis().SetRangeUser(0.015,0.06)
+zcutgraph.GetYaxis().SetTitle("Z cut [mm]")
+zcutgraph.GetYaxis().SetRangeUser(0,60)
 zcutgraph.Write()
-zcutgraph.Draw("A*")
-zcutgraph.Fit("pol4")
+zcutgraph.Draw("AC")
+#zcutgraph.Fit("pol4")
 c.SaveAs(remainder[0]+"-zcut.png")
 
 outfile.Write()
