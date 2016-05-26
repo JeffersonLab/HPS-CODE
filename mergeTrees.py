@@ -12,8 +12,8 @@ def print_usage():
     print '\t-h: this help message'
     print
 
-ebeam=1.05
-triCut = "eleP<{0}*0.85&&posP<{0}*0.85&&elePY*posPY<0&&eleP>{0}*0.05&&posP>{0}*0.05&&uncP<{0}*1.25&&abs(eleClT-posClT)<2&&(eleHasL1&&posHasL1)&&(eleHasL2&&posHasL2)&&max(eleMatchChisq,posMatchChisq)<10&&max(eleTrkChisq,posTrkChisq)<100&&uncP>{0}*0.8&&nPos==1"
+ebeam=1.056
+triCut = "eleP<{0}*0.85&&posP<{0}*0.85&&elePY*posPY<0&&eleP>{0}*0.05&&posP>{0}*0.05&&uncP<{0}*1.25&&abs(eleClT-posClT)<2&&(eleHasL1&&posHasL1)&&(eleHasL2&&posHasL2)&&max(eleMatchChisq,posMatchChisq)<10&&max(eleTrkChisq,posTrkChisq)<100"
 mollerCut = "topP<{0}*0.85&&botP<{0}*0.85&&uncP>{0}*0.85&&uncP<{0}*1.1&&abs(topTrkT-botTrkT)<5&&abs(uncPX)<{0}*0.02&&abs(uncPY)<{0}*0.01&&(topHasL1&&botHasL1)&&(topHasL2&&botHasL2)&&vzcChisq<3"
 cut=""
 
