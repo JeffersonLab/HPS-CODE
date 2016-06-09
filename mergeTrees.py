@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 import getopt
-from ROOT import gROOT, TFile, TTree, TChain
+from ROOT import gROOT, TFile, TTree, TChain, gDirectory
 
 def print_usage():
     print "\nUsage: {0} <output ROOT file name> <input ROOT file names>".format(sys.argv[0])
@@ -37,12 +37,11 @@ print remainder[0]
 print remainder[1:]
 chain = TChain("ntuple")
 for i in remainder[1:]:
-	chain.Add(i)
+	chain.Add(i,0)
+print chain.GetEntries()
 #chain.Merge(sys.argv[1])
-outFile = TFile(remainder[0],"RECREATE")
-
 events = chain.CopyTree(cut.format(ebeam))
+print events.GetEntries()
+outFile = TFile(remainder[0],"RECREATE")
 events.Write()
-#print tree.ReadFile(sys.argv[2])
-#tree.Write()
-
+gDirectory.ls()
