@@ -13,11 +13,6 @@ def print_usage():
     print '\t-h: this help message'
     print
 
-def sort_candidates(data,candidates,sortkey,highestBest):
-    sortlist = [(x, data[x][sortkey]) for x in candidates]
-    sorted_sortlist = sorted(sortlist, key=lambda tup:tup[1],reverse=highestBest)
-    return [x[0] for x in sorted_sortlist]
-
 ebeam=1.056
 sortkey="tarChisq"
 highestBest=False
@@ -72,7 +67,7 @@ candidates = []
 
 for i in xrange(0,n):
     if events[i]["event"]!=currentevent:
-        ranked_candidates=sort_candidates(events,candidates,sortkey,highestBest)
+        ranked_candidates = sorted(candidates, key=lambda x:events[x][sortkey],reverse=highestBest)
         rank=1
         for j in ranked_candidates:
             output[j]["nPass"]=len(ranked_candidates)
