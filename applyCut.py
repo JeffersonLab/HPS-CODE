@@ -34,12 +34,30 @@ if len(remainder)!=2:
 print remainder[0]
 print remainder[1]
 
-events = root_numpy.root2array(remainder[1],branches=["event","uncP","tarChisq"])
+events = root_numpy.root2array(remainder[1],branches=["event",
+    "uncP",
+    "tarChisq",
+    "isPair1",
+    "eleMatchChisq",
+    "posMatchChisq",
+    "eleClY",
+    "posClY",
+    "eleClT",
+    "posClT",
+    "nPos"])
 
 n = events.size
 
-#cut = numpy.row_stack((events["uncP"]>0.8*ebeam,events["tarChisq"]>0.1)).all(0)
-cut = events["uncP"]>0.8*ebeam
+#cut = numpy.row_stack((events["isPair1"]==1,
+#    events["eleMatchChisq"]<3,
+#    events["posMatchChisq"]<3,
+#    abs(events["eleClT"]-events["posClT"])<1.6,
+#    events["eleClY"]*events["posClY"]<0,
+#    events["nPos"]==1)).all(0)
+
+#cut = events["uncP"]>0.8*ebeam
+
+cut = numpy.ones(n)
 output = numpy.core.records.fromarrays( [cut, numpy.zeros(n), numpy.zeros(n)], dtype=[("cut",numpy.int8),("nPass",numpy.int8),("rank",numpy.int8)])
 
 currentevent = 0
