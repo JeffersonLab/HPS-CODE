@@ -1,0 +1,43 @@
+Traceback (most recent call last):
+  File "tridentAnalysis_pass4.py", line 24, in <module>
+    from  histograms import myHistograms
+  File "/nfs/slac/g/hps3/users/mgraham/HPS-CODE/ANALYSIS/users/mgraham/tridents/histograms.py", line 6, in <module>
+    class myHistograms:  
+  File "/nfs/slac/g/hps3/users/mgraham/HPS-CODE/ANALYSIS/users/mgraham/tridents/histograms.py", line 62, in myHistograms
+    histogramList.append(eVsSlopEle)
+NameError: name 'eVsSlopEle' is not defined
+
+------------------------------------------------------------
+Sender: LSF System <lsf@kiso0021>
+Subject: Job 446764: <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_killTracks_0pt5.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tri/*HPS-EngRun2015-Nominal-v3-4> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_killTracks_0pt5.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tri/*HPS-EngRun2015-Nominal-v3-4> was submitted from host <rhel6-64e> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <kiso0021>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Sun May  1 13:35:43 2016
+Results reported on Sun May  1 13:36:07 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_killTracks_0pt5.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tri/*HPS-EngRun2015-Nominal-v3-4
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   1.44 sec.
+    Max Memory :                                 89 MB
+    Average Memory :                             13.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   24 sec.
+    Turnaround time :                            25 sec.
+
+The output (if any) is above this job summary.
+

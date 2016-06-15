@@ -1,0 +1,46 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_killTracks.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tri/*HPS-EngRun2015-Nominal-v3-4
+******************************************************************************************
+Number of Events:		6408 			1.0 			1.0
+N(particle) Cuts:		3049 			0.475811485643 			0.475811485643
+V0 Vertex   Cuts:		2186 			0.716956379141 			0.3411360799
+Tracking    Cuts:		1474 			0.67429094236 			0.230024968789
+ECal Match  Cuts:		1417 			0.961329715061 			0.221129837703
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0106>
+Subject: Job 103801: <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_killTracks.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tri/*HPS-EngRun2015-Nominal-v3-4> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_killTracks.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tri/*HPS-EngRun2015-Nominal-v3-4> was submitted from host <rhel6-64b> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0106>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Sat Apr 30 16:42:02 2016
+Results reported on Sat Apr 30 16:42:27 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_killTracks.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tri/*HPS-EngRun2015-Nominal-v3-4
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   13.50 sec.
+    Max Memory :                                 45 MB
+    Average Memory :                             45.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   426 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   25 sec.
+    Turnaround time :                            26 sec.
+
+The output (if any) is above this job summary.
+

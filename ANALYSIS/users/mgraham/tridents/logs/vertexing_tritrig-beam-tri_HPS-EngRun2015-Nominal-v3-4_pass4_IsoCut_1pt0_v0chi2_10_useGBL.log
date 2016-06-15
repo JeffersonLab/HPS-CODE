@@ -1,0 +1,182 @@
+[ HPS ANALYSIS ]:  Output file is VertexHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_IsoCut_1pt0_v0chi2_10_useGBL.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3-4
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Event 70000
+Event 80000
+Event 90000
+Event 100000
+Event 110000
+Event 120000
+Event 130000
+Event 140000
+Event 150000
+Event 160000
+Event 170000
+Event 180000
+Event 190000
+Event 200000
+Event 210000
+Event 220000
+Event 230000
+Event 240000
+Event 250000
+Event 260000
+Event 270000
+Event 280000
+Event 290000
+Event 300000
+Event 310000
+Event 320000
+Event 330000
+Event 340000
+Event 350000
+Event 360000
+Event 370000
+Event 380000
+Event 390000
+Event 400000
+Event 410000
+Event 420000
+Event 430000
+Event 440000
+Event 450000
+Event 460000
+Event 470000
+Event 480000
+Event 490000
+Event 500000
+Event 510000
+Event 520000
+Event 530000
+Event 540000
+Event 550000
+Event 560000
+Event 570000
+Event 580000
+Event 590000
+Event 600000
+Event 610000
+Event 620000
+Event 630000
+Event 640000
+Event 650000
+Event 660000
+Event 670000
+Event 680000
+Event 690000
+Event 700000
+Event 710000
+Event 720000
+Event 730000
+Event 740000
+Event 750000
+Event 760000
+Event 770000
+Event 780000
+Event 790000
+Event 800000
+Event 810000
+Event 820000
+Event 830000
+Event 840000
+Event 850000
+Event 860000
+Event 870000
+Event 880000
+Event 890000
+Event 900000
+Event 910000
+Event 920000
+Event 930000
+Event 940000
+Event 950000
+Event 960000
+Event 970000
+Event 980000
+Event 990000
+Event 1000000
+Event 1010000
+Event 1020000
+Event 1030000
+Event 1040000
+Event 1050000
+Event 1060000
+Event 1070000
+Event 1080000
+Event 1090000
+Event 1100000
+Event 1110000
+Event 1120000
+Event 1130000
+Event 1140000
+Event 1150000
+Event 1160000
+Event 1170000
+Event 1180000
+Event 1190000
+Event 1200000
+Event 1210000
+Event 1220000
+Event 1230000
+Event 1240000
+Event 1250000
+Event 1260000
+Event 1270000
+Event 1280000
+Event 1290000
+Event 1300000
+Event 1310000
+Event 1320000
+Event 1330000
+Event 1340000
+Event 1350000
+Event 1360000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		1367700 			1.0 			1.0
+N(particle) Cuts:		800582 			0.58534912627 			0.58534912627
+ESum        Cuts:		301738 			0.376898306482 			0.220617094392
+V0 Vertex   Cuts:		227460 			0.753832795339 			0.166308400965
+Tracking    Cuts:		92927 			0.408542161259 			0.0679439935658
+
+------------------------------------------------------------
+Sender: LSF System <lsf@kiso0009>
+Subject: Job 145815: <python vertexAnalysis_pass4.py -m True -o VertexHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_IsoCut_1pt0_v0chi2_10_useGBL.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3-4> in cluster <slac> Done
+
+Job <python vertexAnalysis_pass4.py -m True -o VertexHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_IsoCut_1pt0_v0chi2_10_useGBL.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3-4> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <kiso0009>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Wed Feb 10 07:25:38 2016
+Results reported on Wed Feb 10 07:43:54 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python vertexAnalysis_pass4.py -m True -o VertexHistograms/MC/tritrig-beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_IsoCut_1pt0_v0chi2_10_useGBL.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/tritrig-beam-tri/*HPS-EngRun2015-Nominal-v3-4
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1012.59 sec.
+    Max Memory :                                 4544 MB
+    Average Memory :                             2262.05 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   1095 sec.
+    Turnaround time :                            1103 sec.
+
+The output (if any) is above this job summary.
+

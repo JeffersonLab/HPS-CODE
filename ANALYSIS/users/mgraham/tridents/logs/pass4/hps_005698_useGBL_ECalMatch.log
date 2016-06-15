@@ -1,0 +1,46 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/Data/pass4/hps_005698_useGBL_ECalMatch.root
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from pass4-dst/hps_005698
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass4.py", line 335, in <module>
+    main()
+  File "tridentAnalysis_pass4.py", line 320, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0059>
+Subject: Job 558334: <python tridentAnalysis_pass4.py -o OutputHistograms/Data/pass4/hps_005698_useGBL_ECalMatch.root pass4-dst/hps_005698> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass4.py -o OutputHistograms/Data/pass4/hps_005698_useGBL_ECalMatch.root pass4-dst/hps_005698> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0059>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Thu Feb 11 07:36:16 2016
+Results reported on Thu Feb 11 07:36:53 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -o OutputHistograms/Data/pass4/hps_005698_useGBL_ECalMatch.root pass4-dst/hps_005698
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   1.38 sec.
+    Max Memory :                                 39 MB
+    Average Memory :                             26.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   429 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   37 sec.
+    Turnaround time :                            40 sec.
+
+The output (if any) is above this job summary.
+

@@ -1,0 +1,139 @@
+[ HPS ANALYSIS ]:  Output file is VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from pass4-dst/hps_005686
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "vertexAnalysis_pass4.py", line 321, in <module>
+    main()
+  File "vertexAnalysis_pass4.py", line 311, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0106>
+Subject: Job 559103: <python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686> in cluster <slac> Exited
+
+Job <python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0106>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Thu Feb 11 07:39:14 2016
+Results reported on Thu Feb 11 07:39:23 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   2.08 sec.
+    Max Memory :                                 63 MB
+    Average Memory :                             28.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   8 sec.
+    Turnaround time :                            11 sec.
+
+The output (if any) is above this job summary.
+
+[ HPS ANALYSIS ]:  Output file is VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from pass4-dst/hps_005686
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "vertexAnalysis_pass4.py", line 322, in <module>
+    main()
+  File "vertexAnalysis_pass4.py", line 312, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0133>
+Subject: Job 695371: <python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686> in cluster <slac> Exited
+
+Job <python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0133>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Thu Feb 11 14:28:29 2016
+Results reported on Thu Feb 11 14:28:36 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   0.95 sec.
+    Max Memory :                                 16 MB
+    Average Memory :                             16.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   395 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   7 sec.
+    Turnaround time :                            14 sec.
+
+The output (if any) is above this job summary.
+
+[ HPS ANALYSIS ]:  Output file is VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from pass4-dst/hps_005686
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		0 			Traceback (most recent call last):
+  File "vertexAnalysis_pass4.py", line 323, in <module>
+    main()
+  File "vertexAnalysis_pass4.py", line 313, in main
+    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0062>
+Subject: Job 698797: <python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686> in cluster <slac> Exited
+
+Job <python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0062>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Thu Feb 11 14:37:20 2016
+Results reported on Thu Feb 11 14:37:41 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python vertexAnalysis_pass4.py -o VertexHistograms/Data/pass4/hps_005686_IsoCut_1pt0_v0chi2_10_useGBL_ECalMatch.root pass4-dst/hps_005686
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   1.82 sec.
+    Max Memory :                                 114 MB
+    Average Memory :                             12.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   21 sec.
+    Turnaround time :                            25 sec.
+
+The output (if any) is above this job summary.
+

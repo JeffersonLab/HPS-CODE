@@ -1,0 +1,45 @@
+Error in <TRefArray::At>: index 0 out of bounds (size: 0, this: 0x78c13f0)
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/Data/hps_005772_pass4_useGBL.root
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass4/dst//hps_005772
+Traceback (most recent call last):
+  File "tridentAnalysis_pass4.py", line 442, in <module>
+    main()
+  File "tridentAnalysis_pass4.py", line 310, in main
+    eleTrk=GblTrack(electron.getTracks().At(0))
+TypeError: none of the 2 overloaded methods succeeded. Full details:
+  GblTrack::GblTrack() =>
+    takes at most 0 arguments (1 given)
+  GblTrack::GblTrack(const GblTrack&) =>
+    could not convert argument 1
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0244>
+Subject: Job 355021: <python tridentAnalysis_pass4.py -o OutputHistograms/Data/hps_005772_pass4_useGBL.root /nfs/slac/g/hps3/data/engrun2015/pass4/dst//hps_005772> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass4.py -o OutputHistograms/Data/hps_005772_pass4_useGBL.root /nfs/slac/g/hps3/data/engrun2015/pass4/dst//hps_005772> was submitted from host <rhel6-64h> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0244>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps3/HPS-CODE/ANALYSIS/users/mgraham/tridents> was used as the working directory.
+Started at Thu Jan 21 19:48:09 2016
+Results reported on Thu Jan 21 19:48:12 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -o OutputHistograms/Data/hps_005772_pass4_useGBL.root /nfs/slac/g/hps3/data/engrun2015/pass4/dst//hps_005772
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   2.01 sec.
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Run time :                                   3 sec.
+    Turnaround time :                            20 sec.
+
+The output (if any) is above this job summary.
+

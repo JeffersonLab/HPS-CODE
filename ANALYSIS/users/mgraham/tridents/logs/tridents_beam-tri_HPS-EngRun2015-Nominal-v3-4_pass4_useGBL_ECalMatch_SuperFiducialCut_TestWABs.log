@@ -1,0 +1,1530 @@
+TStreamerInfo::BuildCheck:0: RuntimeWarning: 
+   The StreamerInfo of class HpsParticle read from file /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/beam-tri/FIXEDJAR_egsv3-triv2-g4v1_HPS-EngRun2015-Nominal-v3-4-fieldmap_3.5-20160124.015630-32_pairs1_11.root
+   has the same version (=1) as the active class but a different checksum.
+   You should update the version to ClassDef(HpsParticle,2).
+   Do not try to write objects with the current class definition,
+   the files will not be readable.
+
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double px_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_x; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_y; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_z; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_fit_chi2; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double energy; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double mass; //
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root
+[ HPS ANALYSIS ]: Setting to run as MC
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v3-4
+1
+OBJ: GblTrack	GblTrack	
+44.5820884705 1.65567791462
+1
+OBJ: GblTrack	GblTrack	
+40.6403884888 -3.37658452988
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6240081787 -3.74345326424
+40.6240081787 -3.74345326424
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.62317276 -1.91567075253
+42.62317276 -1.91567075253
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6455039978 -2.73729252815
+1
+OBJ: GblTrack	GblTrack	
+42.5689849854 -0.677513062954
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+46.4556427002 3.16124081612
+1
+OBJ: GblTrack	GblTrack	
+42.5826225281 -0.689126253128
+1
+OBJ: GblTrack	GblTrack	
+40.6293525696 -3.22030067444
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6381568909 -0.995034396648
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6638717651 -3.26770019531
+40.6638717651 -3.26770019531
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5124588013 -0.314249753952
+1
+OBJ: GblTrack	GblTrack	
+52.5584220886 8.651263237
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+46.5040740967 3.65083861351
+46.5040740967 3.65083861351
+1
+OBJ: GblTrack	GblTrack	
+38.5525436401 -4.31556892395
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6404418945 -1.74978601933
+1
+OBJ: GblTrack	GblTrack	
+42.5737876892 -0.863775372505
+1
+OBJ: GblTrack	GblTrack	
+44.6325149536 2.18598246574
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6388282776 1.1516597271
+1
+OBJ: GblTrack	GblTrack	
+42.5915870667 -1.82486665249
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.4980888367 -3.31903672218
+1
+OBJ: GblTrack	GblTrack	
+40.5536651611 -3.15325403214
+1
+OBJ: GblTrack	GblTrack	
+44.6461524963 1.86005568504
+1
+OBJ: GblTrack	GblTrack	
+40.6219406128 -3.06515216827
+1
+OBJ: GblTrack	GblTrack	
+42.5717353821 -0.246287241578
+1
+OBJ: GblTrack	GblTrack	
+40.6566162109 -2.89109253883
+1
+OBJ: GblTrack	GblTrack	
+42.6334457397 -0.790196597576
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5916595459 -1.03305888176
+1
+OBJ: GblTrack	GblTrack	
+42.5134048462 -0.449492305517
+1
+OBJ: GblTrack	GblTrack	
+42.6036109924 -0.319098949432
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6753540039 1.03670728207
+1
+OBJ: GblTrack	GblTrack	
+40.628276825 -2.77548527718
+1
+OBJ: GblTrack	GblTrack	
+42.6551094055 -1.13348579407
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 10000
+1
+OBJ: GblTrack	GblTrack	
+40.6249847412 -3.41110634804
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.592502594 -3.79590678215
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.7059593201 -0.553129374981
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6662864685 1.32675623894
+1
+OBJ: GblTrack	GblTrack	
+42.6522521973 0.263910144567
+1
+OBJ: GblTrack	GblTrack	
+44.6208114624 0.431122481823
+1
+OBJ: GblTrack	GblTrack	
+42.6112518311 -0.151131600142
+1
+OBJ: GblTrack	GblTrack	
+40.578212738 -2.98213601112
+1
+OBJ: GblTrack	GblTrack	
+40.6773147583 -2.72216439247
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5304794312 -1.2346675396
+1
+OBJ: GblTrack	GblTrack	
+44.6517677307 1.44510638714
+1
+OBJ: GblTrack	GblTrack	
+40.6325874329 -3.06258654594
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6359558105 1.83813858032
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5643692017 -3.19111204147
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.519618988 -2.44033813477
+40.519618988 -2.44033813477
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5579414368 -3.06845831871
+1
+OBJ: GblTrack	GblTrack	
+48.5852622986 4.22497034073
+1
+OBJ: GblTrack	GblTrack	
+42.5574493408 -1.17688381672
+1
+OBJ: GblTrack	GblTrack	
+44.6739463806 0.935455858707
+1
+OBJ: GblTrack	GblTrack	
+42.5029754639 -2.6452562809
+1
+OBJ: GblTrack	GblTrack	
+38.6430740356 -5.48298311234
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+38.5153274536 -3.6012840271
+38.5153274536 -3.6012840271
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5983886719 -1.26065862179
+1
+OBJ: GblTrack	GblTrack	
+44.6451911926 0.822639942169
+1
+OBJ: GblTrack	GblTrack	
+42.6040267944 -1.16048038006
+1
+OBJ: GblTrack	GblTrack	
+40.599395752 -3.01904654503
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6019515991 -0.514484584332
+42.6019515991 -1.78246247768
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6181945801 -2.8159635067
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+52.6631660461 9.18419742584
+1
+OBJ: GblTrack	GblTrack	
+42.6533889771 -1.01954495907
+1
+OBJ: GblTrack	GblTrack	
+42.6370735168 -1.11296641827
+1
+OBJ: GblTrack	GblTrack	
+44.5956115723 1.1231969595
+1
+OBJ: GblTrack	GblTrack	
+40.6862716675 -3.71143722534
+1
+OBJ: GblTrack	GblTrack	
+40.6239776611 -3.10457086563
+1
+OBJ: GblTrack	GblTrack	
+42.5530891418 -0.856217861176
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+50.2912101746 5.3329949379
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6181983948 -1.15076780319
+1
+OBJ: GblTrack	GblTrack	
+40.64220047 -2.81225466728
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5842208862 -3.07243657112
+1
+OBJ: GblTrack	GblTrack	
+40.5356140137 -2.76824116707
+1
+OBJ: GblTrack	GblTrack	
+42.6733970642 -1.12797474861
+1
+OBJ: GblTrack	GblTrack	
+40.5672302246 -2.84170627594
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.652507782 -1.80349719524
+1
+OBJ: GblTrack	GblTrack	
+42.6204719543 -1.80282604694
+1
+OBJ: GblTrack	GblTrack	
+44.6365242004 1.1249063015
+Event 20000
+1
+OBJ: GblTrack	GblTrack	
+38.5954704285 -4.94624471664
+1
+OBJ: GblTrack	GblTrack	
+42.564163208 -0.808770954609
+1
+OBJ: GblTrack	GblTrack	
+42.4628410339 -0.611826479435
+1
+OBJ: GblTrack	GblTrack	
+40.6416816711 -4.04535293579
+1
+OBJ: GblTrack	GblTrack	
+38.8009643555 -4.0804400444
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.662902832 -0.956355392933
+42.662902832 -0.169660285115
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6041717529 1.12500786781
+1
+OBJ: GblTrack	GblTrack	
+44.6220321655 1.19084811211
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5986785889 -1.10737836361
+42.5986785889 -1.10737836361
+1
+OBJ: GblTrack	GblTrack	
+40.2504653931 -2.64243102074
+1
+OBJ: GblTrack	GblTrack	
+42.5572433472 -1.89365160465
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5615081787 -0.77947229147
+1
+OBJ: GblTrack	GblTrack	
+42.5440444946 -1.44986712933
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6068534851 -1.52444374561
+1
+OBJ: GblTrack	GblTrack	
+40.5062828064 -3.85623216629
+1
+OBJ: GblTrack	GblTrack	
+42.5372467041 -1.72032856941
+1
+OBJ: GblTrack	GblTrack	
+40.5906448364 -3.76561260223
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.61743927 -1.7970687151
+1
+OBJ: GblTrack	GblTrack	
+44.622833252 1.35430645943
+1
+OBJ: GblTrack	GblTrack	
+40.4866447449 -0.941169500351
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6307601929 -0.561793744564
+1
+OBJ: GblTrack	GblTrack	
+42.6620597839 -1.18226516247
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6596221924 -0.5292288661
+44.6596221924 1.63694417477
+44.6596221924 0.469012647867
+1
+OBJ: GblTrack	GblTrack	
+42.5091133118 -0.64186245203
+1
+OBJ: GblTrack	GblTrack	
+42.622341156 -0.519532442093
+1
+OBJ: GblTrack	GblTrack	
+40.6462440491 -2.72942280769
+1
+OBJ: GblTrack	GblTrack	
+44.6563529968 1.0693384409
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5172576904 -1.63297593594
+1
+OBJ: GblTrack	GblTrack	
+42.6126747131 -0.418626725674
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6074943542 -0.95376521349
+1
+OBJ: GblTrack	GblTrack	
+42.6091117859 -1.14410483837
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6203422546 -3.14639377594
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6770706177 -1.89321327209
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 30000
+1
+OBJ: GblTrack	GblTrack	
+42.6957435608 -0.671047210693
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5655326843 -2.95865917206
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5407104492 -3.20207428932
+40.5407104492 -3.97126293182
+1
+OBJ: GblTrack	GblTrack	
+38.564414978 -4.75210618973
+1
+OBJ: GblTrack	GblTrack	
+44.5320549011 0.750434458256
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.656288147 -3.0521876812
+1
+OBJ: GblTrack	GblTrack	
+44.6242103577 0.996424734592
+1
+OBJ: GblTrack	GblTrack	
+42.5743484497 -1.40903258324
+1
+OBJ: GblTrack	GblTrack	
+40.6630973816 -2.01398348808
+1
+OBJ: GblTrack	GblTrack	
+42.6526451111 -1.10717141628
+1
+OBJ: GblTrack	GblTrack	
+40.6706008911 -2.21115779877
+1
+OBJ: GblTrack	GblTrack	
+40.5005836487 -2.0348136425
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5369911194 -1.72004187107
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.656703949 -1.1874717474
+42.656703949 -2.16785621643
+42.656703949 -0.399906694889
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6690406799 1.13588702679
+1
+OBJ: GblTrack	GblTrack	
+42.519859314 -0.225996434689
+1
+OBJ: GblTrack	GblTrack	
+42.6627044678 -2.31238150597
+1
+OBJ: GblTrack	GblTrack	
+40.5254516602 -3.04759955406
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5773696899 -3.06774830818
+1
+OBJ: GblTrack	GblTrack	
+42.5940704346 -2.02970933914
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5674324036 -0.564562022686
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.500705719 -2.88513445854
+1
+OBJ: GblTrack	GblTrack	
+40.6627578735 -3.29307699203
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.7160987854 0.497755765915
+1
+OBJ: GblTrack	GblTrack	
+40.5865249634 -4.96317195892
+1
+OBJ: GblTrack	GblTrack	
+44.5979385376 1.47904598713
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6604690552 -0.461769163609
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6111755371 -1.6035733223
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6204147339 -1.13432848454
+42.6204147339 -1.13432848454
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6153144836 -1.04048645496
+42.6153144836 -1.04048645496
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6057167053 -3.46940636635
+1
+OBJ: GblTrack	GblTrack	
+42.60181427 -0.816185951233
+Event 40000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5307617188 -0.796461999416
+1
+OBJ: GblTrack	GblTrack	
+40.6765136719 -3.42470550537
+1
+OBJ: GblTrack	GblTrack	
+40.601146698 -3.59125232697
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6398887634 -3.41030502319
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5309257507 -1.18113160133
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+38.3802528381 -4.25799798965
+1
+OBJ: GblTrack	GblTrack	
+40.6126403809 -3.54013991356
+1
+OBJ: GblTrack	GblTrack	
+42.6555862427 -0.883406877518
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.3807754517 -0.954502165318
+1
+OBJ: GblTrack	GblTrack	
+40.6094245911 -3.3501803875
+1
+OBJ: GblTrack	GblTrack	
+42.4654426575 -0.627920150757
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.5806312561 -1.06321978569
+1
+OBJ: GblTrack	GblTrack	
+42.6358757019 -0.98153847456
+1
+OBJ: GblTrack	GblTrack	
+42.5921516418 -1.89763689041
+1
+OBJ: GblTrack	GblTrack	
+40.5715332031 -3.7381362915
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6039848328 -1.47391462326
+42.6039848328 -1.47391462326
+1
+OBJ: GblTrack	GblTrack	
+42.6678352356 -0.870303571224
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5746383667 -2.62521910667
+1
+OBJ: GblTrack	GblTrack	
+44.6496200562 -0.348519206047
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.7134170532 -2.4848845005
+40.7134170532 -3.6310107708
+1
+OBJ: GblTrack	GblTrack	
+46.2351608276 2.42005205154
+1
+OBJ: GblTrack	GblTrack	
+44.622341156 0.158535346389
+1
+OBJ: GblTrack	GblTrack	
+40.6012649536 -2.86963224411
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6647148132 -1.2648857832
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5766906738 -1.68623125553
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.636844635 1.05423569679
+1
+OBJ: GblTrack	GblTrack	
+44.6712722778 1.14142537117
+1
+OBJ: GblTrack	GblTrack	
+40.6009483337 -2.81971383095
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.4884567261 -2.21244835854
+1
+OBJ: GblTrack	GblTrack	
+42.6298904419 -0.855928838253
+1
+OBJ: GblTrack	GblTrack	
+42.5050239563 -0.714533507824
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.616809845 -0.989076375961
+1
+OBJ: GblTrack	GblTrack	
+42.6192779541 -0.144991144538
+1
+OBJ: GblTrack	GblTrack	
+42.5158004761 -1.54897117615
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5921325684 -2.2455098629
+1
+OBJ: GblTrack	GblTrack	
+44.6563949585 1.50982344151
+1
+OBJ: GblTrack	GblTrack	
+42.6476097107 -0.306781589985
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 50000
+1
+OBJ: GblTrack	GblTrack	
+40.4740867615 -3.85035634041
+1
+OBJ: GblTrack	GblTrack	
+40.5723800659 -2.70677900314
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6086044312 -4.0245256424
+1
+OBJ: GblTrack	GblTrack	
+42.5678710938 -0.982758820057
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.2904701233 -0.851330459118
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.4630279541 0.671068429947
+1
+OBJ: GblTrack	GblTrack	
+42.5706100464 -1.24085009098
+1
+OBJ: GblTrack	GblTrack	
+42.608341217 -0.375653028488
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6256027222 -1.60238158703
+1
+OBJ: GblTrack	GblTrack	
+42.6325569153 -1.44064939022
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6188430786 -0.689867198467
+42.6188430786 -0.689867198467
+1
+OBJ: GblTrack	GblTrack	
+42.6296234131 -1.56566560268
+1
+OBJ: GblTrack	GblTrack	
+40.6175460815 -3.0744137764
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5260467529 -2.96650528908
+1
+OBJ: GblTrack	GblTrack	
+40.5665435791 -3.28184628487
+1
+OBJ: GblTrack	GblTrack	
+44.6441841125 0.541754007339
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6556282043 -2.44212341309
+1
+OBJ: GblTrack	GblTrack	
+46.6246147156 3.92267537117
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+50.6593208313 6.84588098526
+50.6593208313 6.84588098526
+1
+OBJ: GblTrack	GblTrack	
+42.5170898438 -0.463371306658
+1
+OBJ: GblTrack	GblTrack	
+44.5892944336 0.589623987675
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.5676422119 1.32057678699
+1
+OBJ: GblTrack	GblTrack	
+187.160995483 2.28632521629
+1
+OBJ: GblTrack	GblTrack	
+40.6227531433 -3.02357077599
+1
+OBJ: GblTrack	GblTrack	
+42.703918457 -1.45996391773
+1
+OBJ: GblTrack	GblTrack	
+42.6292953491 -1.28267645836
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5400390625 -2.91613960266
+1
+OBJ: GblTrack	GblTrack	
+42.6685371399 -0.0346829593182
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.654083252 1.66415059566
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6321983337 0.286352396011
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.686580658 -3.18467497826
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6657791138 -1.4868812561
+1
+OBJ: GblTrack	GblTrack	
+42.667552948 -1.29209566116
+1
+OBJ: GblTrack	GblTrack	
+38.6767082214 -4.32188367844
+1
+OBJ: GblTrack	GblTrack	
+44.6133117676 1.20824611187
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+52.6609458923 9.12441921234
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.560344696 -0.24818725884
+1
+OBJ: GblTrack	GblTrack	
+42.6405754089 -0.120859690011
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6322784424 -0.744544625282
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 60000
+1
+OBJ: GblTrack	GblTrack	
+44.6988296509 1.69772422314
+1
+OBJ: GblTrack	GblTrack	
+40.629108429 -2.13242125511
+1
+OBJ: GblTrack	GblTrack	
+44.4869155884 2.53900027275
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5750160217 -2.70102953911
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6109619141 -2.57634973526
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6660499573 -0.115719377995
+1
+OBJ: GblTrack	GblTrack	
+46.593875885 2.20084238052
+1
+OBJ: GblTrack	GblTrack	
+40.5557136536 -3.16263389587
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6091270447 -4.11626386642
+1
+OBJ: GblTrack	GblTrack	
+44.5438079834 0.389354139566
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5553131104 -3.59216237068
+1
+OBJ: GblTrack	GblTrack	
+38.3878059387 -4.68921327591
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+104.058998108 -2.24337744713
+104.058998108 -0.827670931816
+1
+OBJ: GblTrack	GblTrack	
+40.5580978394 -2.4792637825
+1
+OBJ: GblTrack	GblTrack	
+40.5936584473 -3.65798187256
+1
+OBJ: GblTrack	GblTrack	
+42.6697235107 -1.17402994633
+1
+OBJ: GblTrack	GblTrack	
+38.4383277893 -5.24235439301
+1
+OBJ: GblTrack	GblTrack	
+40.5528106689 -3.9092233181
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6270370483 -0.561916828156
+1
+OBJ: GblTrack	GblTrack	
+42.5926094055 -1.41133165359
+1
+OBJ: GblTrack	GblTrack	
+42.6681480408 -0.131982520223
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6203460693 -2.51007294655
+1
+OBJ: GblTrack	GblTrack	
+40.5908584595 -2.62853360176
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6481704712 -0.0452891848981
+42.6481704712 -0.859796762466
+1
+OBJ: GblTrack	GblTrack	
+42.6730194092 -0.924463272095
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6743812561 0.134450569749
+1
+OBJ: GblTrack	GblTrack	
+42.6872367859 -1.71333622932
+1
+OBJ: GblTrack	GblTrack	
+42.6203575134 -1.3749704361
+1
+OBJ: GblTrack	GblTrack	
+40.5887031555 -2.919298172
+1
+OBJ: GblTrack	GblTrack	
+40.5275382996 -3.82576560974
+1
+OBJ: GblTrack	GblTrack	
+40.6503829956 -2.98353624344
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6749458313 0.912413835526
+1
+OBJ: GblTrack	GblTrack	
+44.639465332 1.35482645035
+1
+OBJ: GblTrack	GblTrack	
+42.4101028442 -0.920316815376
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.3659896851 0.402353674173
+44.3659896851 0.402353674173
+Event 70000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.6235961914 1.72855198383
+1
+OBJ: GblTrack	GblTrack	
+38.5842475891 -4.65415334702
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6509056091 -2.71285438538
+1
+OBJ: GblTrack	GblTrack	
+40.4552764893 -3.38526082039
+1
+OBJ: GblTrack	GblTrack	
+40.5577011108 -3.53163766861
+1
+OBJ: GblTrack	GblTrack	
+40.6468276978 -1.81196689606
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+42.6952400208 -1.62120556831
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.6344795227 -3.222645998
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+40.5532035828 -3.20965385437
+1
+OBJ: GblTrack	GblTrack	
+40.6400642395 -2.46928620338
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+44.5532455444 -2.9734172821
+1
+OBJ: GblTrack	GblTrack	
+40.6303329468 -3.05768036842
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 80000
+Event 90000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 100000
+1
+OBJ: GblTrack	GblTrack	
+Event 110000
+Event 120000
+1
+OBJ: GblTrack	GblTrack	
+95.958114624 -2.22257328033
+Event 130000
+Event 140000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 150000
+1
+OBJ: GblTrack	GblTrack	
+50.6666946411 5.82378768921
+1
+OBJ: GblTrack	GblTrack	
+Event 160000
+1
+OBJ: GblTrack	GblTrack	
+51.141872406 3.3556907177
+Event 170000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 180000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 190000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+54.7549972534 3.14706254005
+Event 200000
+Event 210000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 220000
+Event 230000
+1
+OBJ: GblTrack	GblTrack	
+Event 240000
+1
+OBJ: GblTrack	GblTrack	
+Event 250000
+1
+OBJ: GblTrack	GblTrack	
+Event 260000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 270000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 280000
+Event 290000
+1
+OBJ: GblTrack	GblTrack	
+Event 300000
+Event 310000
+Event 320000
+Event 330000
+1
+OBJ: GblTrack	GblTrack	
+171.205001831 3.49880218506
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+48.5075759888 4.15978574753
+Event 340000
+Event 350000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 360000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 370000
+Event 380000
+Event 390000
+Event 400000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 410000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 420000
+1
+OBJ: GblTrack	GblTrack	
+Event 430000
+Event 440000
+1
+OBJ: GblTrack	GblTrack	
+1
+OBJ: GblTrack	GblTrack	
+Event 450000
+1
+OBJ: GblTrack	GblTrack	
+140.054534912 -5.43829011917
+1
+OBJ: GblTrack	GblTrack	
+Event 460000
+Event 470000
+1
+OBJ: GblTrack	GblTrack	
+Traceback (most recent call last):
+  File "tridentAnalysis_pass4.py", line 471, in <module>
+    main()
+  File "tridentAnalysis_pass4.py", line 283, in main
+    tree.GetEntry(entry)
+KeyboardInterrupt
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0027>
+Subject: Job 987897: <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v3-4> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v3-4> was submitted from host <rhel6-64c> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0027>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Thu May 19 10:30:05 2016
+Results reported on Thu May 19 10:33:35 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v3-4
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   191.28 sec.
+    Max Memory :                                 918 MB
+    Average Memory :                             486.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   210 sec.
+    Turnaround time :                            211 sec.
+
+The output (if any) is above this job summary.
+

@@ -1,0 +1,102 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		56379 			1.0 			1.0
+N(particle) Cuts:		27580 			0.489189237127 			0.489189237127
+V0 Vertex   Cuts:		13739 			0.498150833938 			0.243690026428
+Tracking    Cuts:		13416 			0.976490283136 			0.237960942904
+
+------------------------------------------------------------
+Sender: LSF System <lsf@neb-lsf0002.slac.stanford.edu>
+Subject: Job 141102: <python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1> was submitted from host <rhel6-64b> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <neb-lsf0002.slac.stanford.edu>, in queue <short>, as user <mgraham> in cluster <slac>.
+</tmp/.lsbtmp7702> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Wed Oct 21 10:14:35 2015
+Results reported on Wed Oct 21 10:15:23 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   41.37 sec.
+    Max Memory :                                 70 MB
+    Average Memory :                             63.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   457 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   48 sec.
+    Turnaround time :                            52 sec.
+
+The output (if any) is above this job summary.
+
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		56379 			1.0 			1.0
+N(particle) Cuts:		27580 			0.489189237127 			0.489189237127
+V0 Vertex   Cuts:		13739 			0.498150833938 			0.243690026428
+Tracking    Cuts:		13416 			0.976490283136 			0.237960942904
+
+------------------------------------------------------------
+Sender: LSF System <lsf@neb-lsf0001.slac.stanford.edu>
+Subject: Job 141159: <python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1> was submitted from host <rhel6-64b> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <neb-lsf0001.slac.stanford.edu>, in queue <short>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Wed Oct 21 10:14:47 2015
+Results reported on Wed Oct 21 10:15:32 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_lowESum.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   40.43 sec.
+    Max Memory :                                 69 MB
+    Average Memory :                             67.50 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   457 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   45 sec.
+    Turnaround time :                            49 sec.
+
+The output (if any) is above this job summary.
+
