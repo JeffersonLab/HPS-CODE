@@ -27,5 +27,18 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 # Require the ROOT libraries.
 find_package(ROOT REQUIRED)
 
-# Include the ROOT headers
+# Add the ROOT headers to the build
 include_directories(${ROOT_INCLUDE_DIRS})
+
+# Add fit headers to the build
+include_directories("${BUMP_HUNTER_SOURCE_DIR}/include/fit")
+
+# Add utils headers to the build
+include_directories("${BUMP_HUNTER_SOURCE_DIR}/include/utils")
+
+# Add the utils source to the build
+add_subdirectory("${BUMP_HUNTER_SOURCE_DIR}/src/utils")
+
+# Add the fit source to the build
+add_subdirectory("${BUMP_HUNTER_SOURCE_DIR}/src/fit")
+
