@@ -8,22 +8,24 @@ def print_usage():
     print "\nUsage: {0} <output ROOT file name> <input ROOT file name>".format(sys.argv[0])
     print "Arguments: "
     print '\t-e: use this beam energy'
+    #print '\t-c: rank by tarChisq (lowest best)'
+    print '\t-p: rank by uncP (highest best)'
     print '\t-h: this help message'
     print
 
-def sort_candidates(data,candidates,key):
-    sortlist = [(x, data[x][key]) for x in candidates]
-    sorted_sortlist = sorted(sortlist, key=lambda tup:tup[1])
-    return [x[0] for x in sorted_sortlist]
-
 ebeam=1.056
+sortkey="tarChisq"
+highestBest=False
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'pe:h')
 
 # Parse the command line arguments
 for opt, arg in options:
         if opt=='-e':
             ebeam=float(arg)
+        if opt=='-p':
+            sortkey="uncP"
+            highestBest = False
         if opt=='-h':
             print_usage()
             sys.exit(0)
@@ -65,7 +67,7 @@ candidates = []
 
 for i in xrange(0,n):
     if events[i]["event"]!=currentevent:
-        ranked_candidates=sort_candidates(events,candidates,"tarChisq")
+        ranked_candidates = sorted(candidates, key=lambda x:events[x][sortkey],reverse=highestBest)
         rank=1
         for j in ranked_candidates:
             output[j]["nPass"]=len(ranked_candidates)
