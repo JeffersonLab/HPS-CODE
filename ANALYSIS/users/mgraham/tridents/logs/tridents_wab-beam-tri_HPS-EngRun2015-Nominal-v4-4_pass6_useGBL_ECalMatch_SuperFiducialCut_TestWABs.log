@@ -1,0 +1,769 @@
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/wab-beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root
+[ HPS ANALYSIS ]: Setting to run as MC
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/wab-beam-tri/*HPS-EngRun2015-Nominal-v4-4
+TH1.Print Name  = raweleMom, Entries= 2696733, Total sum= 2.69673e+06
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(peleDH): fit range of variable pele expanded to nearest bin boundaries: [0,1] --> [0,1]
+DataStore peleDH (peleDH)
+  Contains 50 entries
+  Observables: 
+    1)  pele = 0.99  L(0 - 1) B(50)  "pele"
+Binned Dataset peleDH (peleDH)
+  Contains 50 bins with a total weight of 2.69673e+06
+  Observables:     1)  pele = 0.99  L(0 - 1) B(50)  "pele"
+pdf is made...printing info
+--- RooAbsArg ---
+  Value State: DIRTY
+  Shape State: DIRTY
+  Attributes: 
+  Address: 0x3f27230
+  Clients: 
+  Servers: 
+    (0x3db65f0,V-) RooRealVar::pele "pele"
+  Proxies: 
+    pdfObs -> 
+      1)  pele
+--- RooAbsReal ---
+
+  Plot label is "extraElectronPdf"
+--- RooAbsPdf ---
+Cached value = 0
+generating events
+ --- RooGenContext --- 
+Using PDF RooHistPdf::extraElectronPdf[ pdfObs=(pele) ]
+Use PDF generator for ()
+Use MC sampling generator RooFoamGenerator for (pele)
+DataStore extraElectronPdfData (Generated From extraElectronPdf)
+  Contains 1000000 entries
+  Observables: 
+    1)  pele = 0.353887  L(0 - 1)  "pele"
+TStreamerInfo::BuildCheck:0: RuntimeWarning: 
+   The StreamerInfo of class HpsParticle read from file /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/wab-beam-tri/wabv1-egsv3-triv2-g4v1_1to1_HPS-EngRun2015-Nominal-v4-4-fieldmap_3.8-fix_pairs1_1.root
+   has the same version (=1) as the active class but a different checksum.
+   You should update the version to ClassDef(HpsParticle,2).
+   Do not try to write objects with the current class definition,
+   the files will not be readable.
+
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double px_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_x; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_y; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_z; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_fit_chi2; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double energy; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double mass; //
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6321678162 3.32164955139
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5923461914 -0.946319758892
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6007347107 -3.00901556015
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5885124207 -2.99297142029
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6834526062 -1.32689678669
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.634311676 -0.544531047344
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5349998474 1.06950616837
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6809387207 -1.47800040245
+42.6809387207 -1.47800040245
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5859222412 -2.35644960403
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6403884888 -2.68013477325
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5601997375 -0.180876642466
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5935211182 -1.22564637661
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6270866394 -3.26166534424
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.618347168 -1.08539044857
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5476226807 0.899848282337
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10000
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Event 20000
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 30000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Event 40000
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 50000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 60000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 70000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Event 80000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+110.031417847 4.22673940659
+60.6558074951 4.43918085098
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 90000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.623714447 -1.42546355724
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 100000
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 110000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 120000
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+******************************************************************************************
+Number of Events:		122355 			1.0 			1.0
+N(particle) Cuts:		524 			0.00428262024437 			0.00428262024437
+V0 Vertex   Cuts:		303 			0.578244274809 			0.00247640063749
+Tracking    Cuts:		47 			0.155115511551 			0.00038412815169
+ECal Match  Cuts:		19 			0.404255319149 			0.000155285848555
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0103>
+Subject: Job 190855: <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/wab-beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/wab-beam-tri/*HPS-EngRun2015-Nominal-v4-4> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/wab-beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/wab-beam-tri/*HPS-EngRun2015-Nominal-v4-4> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0103>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Tue May 31 14:59:49 2016
+Results reported on Tue May 31 15:00:30 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/wab-beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_TestWABs.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/wab-beam-tri/*HPS-EngRun2015-Nominal-v4-4
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   34.58 sec.
+    Max Memory :                                 100 MB
+    Average Memory :                             71.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   521 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   41 sec.
+    Turnaround time :                            42 sec.
+
+The output (if any) is above this job summary.
+

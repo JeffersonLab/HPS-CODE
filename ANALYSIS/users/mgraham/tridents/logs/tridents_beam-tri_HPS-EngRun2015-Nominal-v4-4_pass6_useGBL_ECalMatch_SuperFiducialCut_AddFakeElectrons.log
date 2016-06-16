@@ -1,0 +1,3256 @@
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_AddFakeElectrons.root
+[ HPS ANALYSIS ]: Setting to run as MC
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.19411765039
+Electron Momentum bin i = 0.640336990356
+Electron Momentum bin i = 42.3134460449
+Electron Momentum bin i = 75.9697570801
+Electron Momentum bin i = 90.7932891846
+Electron Momentum bin i = 66.4243621826
+Electron Momentum bin i = 93.3798217773
+Electron Momentum bin i = 139.677337646
+Electron Momentum bin i = 157.426055908
+Electron Momentum bin i = 223.0
+Electron Momentum bin i = 251.549560547
+Electron Momentum bin i = 303.57144165
+Electron Momentum bin i = 365.280670166
+Electron Momentum bin i = 389.763031006
+Electron Momentum bin i = 419.399169922
+Electron Momentum bin i = 452.425201416
+Electron Momentum bin i = 469.400024414
+Electron Momentum bin i = 472.664733887
+Electron Momentum bin i = 439.664733887
+Electron Momentum bin i = 445.761352539
+Electron Momentum bin i = 446.838623047
+Electron Momentum bin i = 433.394104004
+Electron Momentum bin i = 405.30758667
+Electron Momentum bin i = 392.790771484
+Electron Momentum bin i = 371.12689209
+Electron Momentum bin i = 335.721008301
+Electron Momentum bin i = 328.125213623
+Electron Momentum bin i = 301.131072998
+Electron Momentum bin i = 272.709228516
+Electron Momentum bin i = 272.14453125
+Electron Momentum bin i = 205.831085205
+Electron Momentum bin i = 184.448730469
+Electron Momentum bin i = 178.018478394
+Electron Momentum bin i = 160.976470947
+Electron Momentum bin i = 131.735290527
+Electron Momentum bin i = 99.1243743896
+Electron Momentum bin i = 79.4134368896
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+Electron Momentum bin i = 0.0
+TH1.Print Name  = raweleMom, Entries= 9498, Total sum= 9498.14
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(peleDH): fit range of variable pele expanded to nearest bin boundaries: [0,1] --> [0,1]
+DataStore peleDH (peleDH)
+  Contains 50 entries
+  Observables: 
+    1)  pele = 0.99  L(0 - 1) B(50)  "pele"
+Binned Dataset peleDH (peleDH)
+  Contains 50 bins with a total weight of 9498.14
+  Observables:     1)  pele = 0.99  L(0 - 1) B(50)  "pele"
+pdf is made...printing info
+--- RooAbsArg ---
+  Value State: DIRTY
+  Shape State: DIRTY
+  Attributes: 
+  Address: 0x3bb53c0
+  Clients: 
+  Servers: 
+    (0x39f4760,V-) RooRealVar::pele "pele"
+  Proxies: 
+    pdfObs -> 
+      1)  pele
+--- RooAbsReal ---
+
+  Plot label is "extraElectronPdf"
+--- RooAbsPdf ---
+Cached value = 0
+generating events
+ --- RooGenContext --- 
+Using PDF RooHistPdf::extraElectronPdf[ pdfObs=(pele) ]
+Use PDF generator for ()
+Use MC sampling generator RooFoamGenerator for (pele)
+DataStore extraElectronPdfData (Generated From extraElectronPdf)
+  Contains 1000000 entries
+  Observables: 
+    1)  pele = 0.292935  L(0 - 1)  "pele"
+TStreamerInfo::BuildCheck:0: RuntimeWarning: 
+   The StreamerInfo of class HpsParticle read from file /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/egsv3-triv2-g4v1_HPS-EngRun2015-Nominal-v4-4-fieldmap_3.8-fix_pairs1_10.root
+   has the same version (=1) as the active class but a different checksum.
+   You should update the version to ClassDef(HpsParticle,2).
+   Do not try to write objects with the current class definition,
+   the files will not be readable.
+
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double px_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_x; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_y; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_z; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_fit_chi2; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double energy; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double mass; //
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6680870056 -0.476622134447
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5699996948 -2.44695901871
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6094741821 0.65238070488
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5875320435 -0.697065293789
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.3804855347 -4.08190011978
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5787696838 -4.40673923492
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+48.620765686 5.17536592484
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.640209198 -1.91127741337
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6467704773 -1.3121547699
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5857429504 -1.23022973537
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5673675537 -2.75801849365
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.56483078 -0.545617699623
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5708885193 -2.03795838356
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5446014404 1.09931576252
+44.5446014404 1.9068094492
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+42.6768951416 -1.23486578465
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5062065125 0.367149740458
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6927337646 -0.989224910736
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6454963684 -1.70321702957
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.6495819092 -4.59231615067
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.629283905 -2.00377559662
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6221809387 0.103387020528
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6458587646 -0.51650261879
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4873504639 -2.02843737602
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6302146912 -2.64641404152
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6726150513 0.538096725941
+made a new trident event
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+40.5644950867 -2.26608562469
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.6410369873 -4.78928899765
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.3977546692 -4.89956712723
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.674243927 -0.342584222555
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6727371216 -0.968905746937
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5870628357 -1.76446473598
+made a new trident event
+made a new trident event
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6097679138 -3.95859360695
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5989608765 -1.58099925518
+42.5989608765 -0.632810771465
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6475563049 -0.494325965643
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6333770752 -0.312688201666
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6004829407 0.821498394012
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5936126709 -4.27930355072
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6107902527 -0.911470711231
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6364784241 1.47971475124
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5998077393 -2.73855423927
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5936012268 0.509147107601
+44.5936012268 0.509147107601
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6536979675 0.921247303486
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6684799194 -0.798432171345
+Event 10000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6786384583 -3.38683891296
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+48.6461639404 4.72656774521
+48.6461639404 4.72656774521
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+40.5651435852 -3.44971823692
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6424369812 -2.94180464745
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.593120575 -1.67634677887
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6174697876 -1.70070791245
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.6562843323 -4.77759456635
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5204429626 -3.0398952961
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5775222778 -2.97777032852
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6200828552 -1.4289702177
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6849060059 -3.36893463135
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6813087463 -1.69860351086
+42.6813087463 -1.69860351086
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6697883606 -1.48575735092
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6065368652 -2.81476783752
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5240058899 -1.01233613491
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6352233887 -0.386103183031
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+50.5863037109 6.03482532501
+50.5863037109 4.47931528091
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4748649597 -3.47829818726
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6320228577 -0.4736122787
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+52.6115150452 8.7023601532
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5965614319 -1.00553441048
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5871505737 -2.7707760334
+40.5871505737 -2.7707760334
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5920677185 -3.46338105202
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6277313232 -2.02635908127
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5920944214 -0.841211795807
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5960006714 -3.43990302086
+40.5960006714 -3.43990302086
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5588302612 -3.13838768005
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5878067017 -3.60998177528
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5640983582 0.608109414577
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5567398071 -2.22185850143
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+149.986297607 3.50641679764
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6188583374 -1.36106562614
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.604763031 -4.06903457642
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6012802124 -0.0277131944895
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6671638489 -2.7072429657
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.585521698 -1.20278573036
+Event 20000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5207061768 1.48335647583
+44.5207061768 2.44335579872
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6623649597 -2.58782410622
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6233291626 -2.30185103416
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6524124146 -0.166355088353
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5259361267 2.15170502663
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6887321472 -3.51089978218
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5984191895 -0.674467027187
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6874351501 -2.95459342003
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5978889465 -0.401786625385
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5869865417 1.37382078171
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.2944030762 -3.87635684013
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6816482544 1.25217735767
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.480255127 -3.60502910614
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6383895874 -4.73743438721
+40.6383895874 -5.55612564087
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5838775635 0.869215428829
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.681186676 -0.861653506756
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6320457458 -2.19052028656
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.580909729 -2.74649000168
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5432548523 -0.792952120304
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6561126709 -0.732824087143
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.637928009 -1.13560259342
+42.637928009 -0.282227694988
+42.637928009 -0.282227694988
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4757385254 -2.08356642723
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5362091064 -1.18827164173
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.5907096863 -4.9154548645
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6626548767 -3.22110748291
+40.6626548767 -3.09199976921
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6308670044 -0.124122537673
+42.6308670044 -0.124122537673
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6141204834 -0.915142297745
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5575065613 0.764213144779
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.7055397034 -0.355097681284
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5107955933 -2.63979578018
+40.5107955933 -2.63979578018
+40.5107955933 -2.63979578018
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+85.9779510498 -5.51040697098
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5107574463 -2.86523675919
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6136665344 -2.68269658089
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.668422699 1.70159769058
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4847602844 -2.92341279984
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6598205566 -3.41374373436
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Event 30000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6435203552 0.710616111755
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5416679382 -2.77737617493
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5744552612 -1.60788404942
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6164093018 -3.61271309853
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5047950745 -1.04251110554
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.633846283 -1.61830914021
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6406860352 1.47348833084
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6080741882 -1.20863246918
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6223869324 0.546110630035
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+made a new trident event
+made a new trident event
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6407852173 -0.601152002811
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6579170227 0.848129034042
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.4685630798 0.631217956543
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6368598938 -2.8295173645
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.599571228 -1.76524889469
+42.599571228 -1.76524889469
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.588634491 -1.10503566265
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+52.6302032471 8.49925041199
+52.6302032471 8.74375629425
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6522293091 -3.38779425621
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.5886192322 -4.64737272263
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6229400635 -1.63357818127
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6585578918 -0.272646874189
+42.6585578918 0.784328520298
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6683921814 -1.1689864397
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5272026062 0.0500392690301
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6835899353 -1.59305047989
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6826629639 -1.73094439507
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5633277893 -4.08809041977
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5721054077 1.14692115784
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6400909424 -0.872835636139
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5676193237 -1.77173197269
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6707649231 1.46419286728
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.4264373779 -0.344802737236
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5637359619 -1.42319583893
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.7019767761 -3.73044347763
+Passed v0 cuts
+Passed v0 cuts
+Event 40000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5933151245 0.478352189064
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5868110657 -1.48673117161
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5551185608 -1.91772091389
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6071395874 0.828714191914
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6572151184 -3.07787489891
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6252708435 -1.91418206692
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5347557068 -1.07554996014
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5314254761 -2.85790133476
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6396903992 -3.89278483391
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4888763428 -2.9195728302
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6042137146 -1.07727992535
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5982170105 -0.146864950657
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5689315796 -1.31855356693
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+made a new trident event
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.629360199 1.17727804184
+44.629360199 0.298223346472
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5536766052 -2.11215591431
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.584690094 -1.34191417694
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+44.6351890564 1.165776968
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+46.636051178 4.02888011932
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5368652344 -2.84532761574
+made a new trident event
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6523895264 -3.05162644386
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5723686218 -3.56475234032
+******************************************************************************************
+Number of Events:		47342 			1.0 			1.0
+N(particle) Cuts:		1048 			0.022136791855 			0.022136791855
+V0 Vertex   Cuts:		739 			0.705152671756 			0.0156098179207
+Tracking    Cuts:		418 			0.565629228687 			0.00882936927042
+ECal Match  Cuts:		188 			0.44976076555 			0.00397110388239
+Number of Fake Events Added:  		385 			2.04787234043
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0001>
+Subject: Job 198218: <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_AddFakeElectrons.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_AddFakeElectrons.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0001>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Tue May 31 15:34:02 2016
+Results reported on Tue May 31 15:34:29 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut_AddFakeElectrons.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   21.44 sec.
+    Max Memory :                                 244 MB
+    Average Memory :                             52.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   27 sec.
+    Turnaround time :                            28 sec.
+
+The output (if any) is above this job summary.
+

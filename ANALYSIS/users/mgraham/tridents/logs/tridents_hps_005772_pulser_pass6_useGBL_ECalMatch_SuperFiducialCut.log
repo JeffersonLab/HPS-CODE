@@ -1,0 +1,111 @@
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+TStreamerInfo::BuildCheck:0: RuntimeWarning: 
+   The StreamerInfo of class HpsParticle read from file /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772.202_pulser_R3.8.root
+   has the same version (=1) as the active class but a different checksum.
+   You should update the version to ClassDef(HpsParticle,2).
+   Do not try to write objects with the current class definition,
+   the files will not be readable.
+
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double px_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_x; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_y; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_z; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_fit_chi2; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double energy; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double mass; //
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/Data/hps_005772_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root
+[ HPS ANALYSIS ]: Setting to run from a pulser file
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10000
+******************************************************************************************
+Number of Events:		13536 			1.0 			1.0
+N(particle) Cuts:		6 			0.000443262411348 			0.000443262411348
+V0 Vertex   Cuts:		4 			0.666666666667 			0.000295508274232
+Tracking    Cuts:		0 			0.0 			0.0
+ECal Match  Cuts:		0 			Traceback (most recent call last):
+  File "tridentAnalysis_pass4.py", line 571, in <module>
+    main()
+  File "tridentAnalysis_pass4.py", line 558, in main
+    print "ECal Match  Cuts:\t\t",nPassECalMatch,"\t\t\t",float(nPassECalMatch)/nPassTrkCuts,"\t\t\t",float(nPassECalMatch)/nEvents
+ZeroDivisionError: float division by zero
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0224>
+Subject: Job 640033: <python tridentAnalysis_pass4.py -p True -o OutputHistograms/Data/hps_005772_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772> in cluster <slac> Exited
+
+Job <python tridentAnalysis_pass4.py -p True -o OutputHistograms/Data/hps_005772_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772> was submitted from host <rhel6-64e> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0224>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Wed Jun  1 17:27:01 2016
+Results reported on Wed Jun  1 17:27:11 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -p True -o OutputHistograms/Data/hps_005772_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   3.49 sec.
+    Max Memory :                                 143 MB
+    Average Memory :                             72.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   9 sec.
+    Turnaround time :                            11 sec.
+
+The output (if any) is above this job summary.
+

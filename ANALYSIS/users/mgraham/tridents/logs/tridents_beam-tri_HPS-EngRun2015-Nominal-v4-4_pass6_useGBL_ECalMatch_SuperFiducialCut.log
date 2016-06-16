@@ -1,0 +1,2434 @@
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+TStreamerInfo::BuildCheck:0: RuntimeWarning: 
+   The StreamerInfo of class HpsParticle read from file /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/egsv3-triv2-g4v1_HPS-EngRun2015-Nominal-v4-4-fieldmap_3.8-fix_pairs1_10.root
+   has the same version (=1) as the active class but a different checksum.
+   You should update the version to ClassDef(HpsParticle,2).
+   Do not try to write objects with the current class definition,
+   the files will not be readable.
+
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double px_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_x; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_y; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_z; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_fit_chi2; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double energy; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double mass; //
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut.root
+[ HPS ANALYSIS ]: Setting to run as MC
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.629727162   221.317442436
+160.629727162   189.814076005
+42.6680870056 -0.476622134447
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+169.412074364   189.597519421
+153.807101503   189.597519421
+40.5699996948 -2.44695901871
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.164994212   222.452156029
+166.164994212   280.911469959
+44.6094741821 0.65238070488
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5875320435 -0.697065293789
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+128.004938467   203.386487011
+40.3804855347 -4.08190011978
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5787696838 -4.40673923492
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+140.324311788   193.630216906
+92.5554643453   193.630216906
+48.620765686 5.17536592484
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.640209198 -1.91127741337
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6467704773 -1.3121547699
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+143.946072907   191.115990682
+117.065976772   191.115990682
+42.5857429504 -1.23022973537
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+158.913566211   211.935392484
+40.5673675537 -2.75801849365
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.999606477   221.642558711
+168.999606477   261.065772677
+42.56483078 -0.545617699623
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.525760978   241.001737067
+40.5708885193 -2.03795838356
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+139.208371629   202.428558728
+165.693338561   202.428558728
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+139.208371629   202.428558728
+165.693338561   202.428558728
+44.5446014404 1.09931576252
+44.5446014404 1.9068094492
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+42.6768951416 -1.23486578465
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+153.696878269   209.061485886
+44.5062065125 0.367149740458
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+76.4691096557   196.229788979
+42.6927337646 -0.989224910736
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.972935693   290.787669104
+42.6454963684 -1.70321702957
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.6495819092 -4.59231615067
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.437388089   226.944054156
+42.629283905 -2.00377559662
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.066014307   190.79473789
+161.066014307   218.058402565
+161.066014307   265.900599111
+42.6221809387 0.103387020528
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.02594387   200.49418867
+86.0672904864   200.49418867
+42.6458587646 -0.51650261879
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4873504639 -2.02843737602
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+144.681849964   199.702673511
+171.806839572   199.702673511
+154.3792909   199.702673511
+42.6302146912 -2.64641404152
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.480893811   288.968347088
+164.480893811   206.167375532
+164.480893811   243.479842761
+44.6726150513 0.538096725941
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+40.5644950867 -2.26608562469
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+106.150292113   189.913826621
+38.6410369873 -4.78928899765
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+138.410108105   222.625595445
+38.3977546692 -4.89956712723
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+139.400833305   202.460915001
+105.75224945   202.460915001
+42.674243927 -0.342584222555
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+169.206303982   205.589123448
+57.5748102544   205.589123448
+42.6727371216 -0.968905746937
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5870628357 -1.76446473598
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6097679138 -3.95859360695
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.493957042   222.618593742
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.493957042   222.618593742
+42.5989608765 -1.58099925518
+42.5989608765 -0.632810771465
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+169.4445068   211.698233725
+169.4445068   254.565176224
+169.4445068   264.7901331
+42.6475563049 -0.494325965643
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+18.2445822196   204.243455391
+42.6333770752 -0.312688201666
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6004829407 0.821498394012
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5936126709 -4.27930355072
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+136.286970593   208.839769425
+42.6107902527 -0.911470711231
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+158.444244744   210.696698967
+44.6364784241 1.47971475124
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5998077393 -2.73855423927
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.029314918   240.689729525
+165.029314918   279.500710057
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.029314918   240.689729525
+165.029314918   279.500710057
+44.5936012268 0.509147107601
+44.5936012268 0.509147107601
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+146.850377145   195.34373123
+123.571468612   195.34373123
+123.173047087   195.34373123
+44.6536979675 0.921247303486
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.679769342   223.387016076
+165.679769342   260.183205619
+42.6684799194 -0.798432171345
+Event 10000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+142.518248453   208.47949887
+40.6786384583 -3.38683891296
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+48.6461639404 4.72656774521
+48.6461639404 4.72656774521
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.375789333   203.102229423
+164.375789333   211.333117717
+164.375789333   285.876067577
+Passed v0 cuts
+40.5651435852 -3.44971823692
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.608460397   281.519699682
+40.6424369812 -2.94180464745
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.593120575 -1.67634677887
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+157.619457596   194.768552228
+131.701025076   194.768552228
+42.6174697876 -1.70070791245
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.829067078   195.047558818
+173.898876618   195.047558818
+38.6562843323 -4.77759456635
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5204429626 -3.0398952961
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.1076027811   190.518136064
+40.5775222778 -2.97777032852
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.684782936   203.840547431
+150.177404052   203.840547431
+174.068516206   203.840547431
+42.6200828552 -1.4289702177
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+148.463393702   199.729235958
+40.6849060059 -3.36893463135
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.258108901   191.134079402
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.258108901   191.134079402
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6813087463 -1.69860351086
+42.6813087463 -1.69860351086
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6697883606 -1.48575735092
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6065368652 -2.81476783752
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+153.059974138   201.796886005
+42.5240058899 -1.01233613491
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6352233887 -0.386103183031
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+50.5863037109 6.03482532501
+50.5863037109 4.47931528091
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+150.58898293   212.014343755
+150.58898293   191.223043838
+40.4748649597 -3.47829818726
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.439189269   205.637070436
+42.6320228577 -0.4736122787
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+52.6115150452 8.7023601532
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5965614319 -1.00553441048
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.705107776   199.238386849
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.705107776   199.238386849
+40.5871505737 -2.7707760334
+40.5871505737 -2.7707760334
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5920677185 -3.46338105202
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6277313232 -2.02635908127
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.983064731   222.984495344
+165.983064731   289.061733303
+42.5920944214 -0.841211795807
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.915011937   193.227261015
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.915011937   193.227261015
+40.5960006714 -3.43990302086
+40.5960006714 -3.43990302086
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5588302612 -3.13838768005
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5878067017 -3.60998177528
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.200135512   231.180542707
+162.200135512   210.931800084
+42.5640983582 0.608109414577
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+133.422259843   191.730001585
+28.8599508996   191.730001585
+54.5199505806   191.730001585
+40.5567398071 -2.22185850143
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+149.986297607 3.50641679764
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6188583374 -1.36106562614
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+173.719565901   217.259951374
+40.604763031 -4.06903457642
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.73855984   229.786501536
+42.6012802124 -0.0277131944895
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.831146594   229.436673703
+40.6671638489 -2.7072429657
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+138.634645247   197.763010395
+40.585521698 -1.20278573036
+Event 20000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+131.294979964   201.95039033
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+131.294979964   201.95039033
+44.5207061768 1.48335647583
+44.5207061768 2.44335579872
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6623649597 -2.58782410622
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6233291626 -2.30185103416
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+172.576024041   196.051814628
+42.6524124146 -0.166355088353
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.918453766   255.780140492
+44.5259361267 2.15170502663
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+136.800674484   192.654375252
+40.6887321472 -3.51089978218
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5984191895 -0.674467027187
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+158.870224094   209.854198038
+158.870224094   228.288265966
+40.6874351501 -2.95459342003
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.184391794   198.748909669
+42.5978889465 -0.401786625385
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.985792433   204.616362628
+145.15218123   204.616362628
+103.04017702   204.616362628
+125.577799876   204.616362628
+44.5869865417 1.37382078171
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.2944030762 -3.87635684013
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+56.3336668109   191.244236068
+162.046895904   191.244236068
+44.6816482544 1.25217735767
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+149.547570719   221.197138125
+40.480255127 -3.60502910614
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+88.2378187612   196.705666362
+157.577822869   196.705666362
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+88.2378187612   196.705666362
+157.577822869   196.705666362
+40.6383895874 -4.73743438721
+40.6383895874 -5.55612564087
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+159.015838325   230.302872909
+159.015838325   214.909734463
+44.5838775635 0.869215428829
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+140.94784104   196.235663298
+42.681186676 -0.861653506756
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.927676864   259.7155333
+42.6320457458 -2.19052028656
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+142.483571392   208.399271972
+143.922932821   208.399271972
+40.580909729 -2.74649000168
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5432548523 -0.792952120304
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6561126709 -0.732824087143
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.637928009 -1.13560259342
+42.637928009 -0.282227694988
+42.637928009 -0.282227694988
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4757385254 -2.08356642723
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.647309933   196.238780651
+42.5362091064 -1.18827164173
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+135.237273364   226.67641616
+38.5907096863 -4.9154548645
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+124.994762306   209.717242165
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+124.994762306   209.717242165
+40.6626548767 -3.22110748291
+40.6626548767 -3.09199976921
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+138.352300743   196.540781021
+159.886011088   196.540781021
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+138.352300743   189.644437589
+159.886011088   189.644437589
+42.6308670044 -0.124122537673
+42.6308670044 -0.124122537673
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+167.159283095   280.745412037
+42.6141204834 -0.915142297745
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5575065613 0.764213144779
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+137.0748972   193.383897973
+44.7055397034 -0.355097681284
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+147.940993814   209.105483421
+119.819163349   209.105483421
+127.495803257   209.105483421
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+147.940993814   209.105483421
+119.819163349   209.105483421
+127.495803257   209.105483421
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+147.940993814   209.105483421
+119.819163349   209.105483421
+127.495803257   209.105483421
+40.5107955933 -2.63979578018
+40.5107955933 -2.63979578018
+40.5107955933 -2.63979578018
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+85.9779510498 -5.51040697098
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5107574463 -2.86523675919
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6136665344 -2.68269658089
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.493040308   342.501113182
+168.493040308   203.513294517
+44.668422699 1.70159769058
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4847602844 -2.92341279984
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+158.817943221   197.48921028
+153.709246781   197.48921028
+40.6598205566 -3.41374373436
+Event 30000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+148.784542608   197.319791733
+44.6435203552 0.710616111755
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+158.961857736   239.963743871
+40.5416679382 -2.77737617493
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5744552612 -1.60788404942
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6164093018 -3.61271309853
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+85.9199580725   201.555274257
+132.539164678   201.555274257
+42.5047950745 -1.04251110554
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.633846283 -1.61830914021
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.183279593   196.778236315
+44.6406860352 1.47348833084
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+80.7963772843   204.190205669
+148.997451025   204.190205669
+158.326128249   204.190205669
+42.6080741882 -1.20863246918
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.820784148   211.276477194
+44.6223869324 0.546110630035
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.202417491   193.72419471
+42.6407852173 -0.601152002811
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+152.671408657   201.221684388
+44.6579170227 0.848129034042
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.4685630798 0.631217956543
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6368598938 -2.8295173645
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.599571228 -1.76524889469
+42.599571228 -1.76524889469
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.190005996   222.506875428
+42.588634491 -1.10503566265
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.057690614   197.429939557
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.057690614   197.429939557
+52.6302032471 8.49925041199
+52.6302032471 8.74375629425
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.341887623   251.846017853
+168.341887623   211.927753289
+40.6522293091 -3.38779425621
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.5886192322 -4.64737272263
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6229400635 -1.63357818127
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.95618594   265.929849724
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.95618594   265.929849724
+42.6585578918 -0.272646874189
+42.6585578918 0.784328520298
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6683921814 -1.1689864397
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5272026062 0.0500392690301
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+153.731534761   203.929452278
+153.731534761   324.831498648
+153.731534761   234.955030524
+153.731534761   216.042675373
+42.6835899353 -1.59305047989
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6826629639 -1.73094439507
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+102.367601631   200.776652584
+40.5633277893 -4.08809041977
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5721054077 1.14692115784
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+172.299685908   204.511407809
+152.610775286   204.511407809
+42.6400909424 -0.872835636139
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5676193237 -1.77173197269
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+154.727462224   199.707866607
+44.6707649231 1.46419286728
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.4264373779 -0.344802737236
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.639494587   229.458903942
+42.5637359619 -1.42319583893
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.7019767761 -3.73044347763
+Passed v0 cuts
+Passed v0 cuts
+Event 40000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5933151245 0.478352189064
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.2345018   191.25167141
+42.5868110657 -1.48673117161
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5551185608 -1.91772091389
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6071395874 0.828714191914
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6572151184 -3.07787489891
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6252708435 -1.91418206692
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.710420763   197.21349795
+42.5347557068 -1.07554996014
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+157.713117541   194.906764141
+40.5314254761 -2.85790133476
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6396903992 -3.89278483391
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4888763428 -2.9195728302
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.214214479   203.306443185
+42.6042137146 -1.07727992535
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+149.780077205   200.696625199
+129.104318047   200.696625199
+42.5982170105 -0.146864950657
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5689315796 -1.31855356693
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+159.721894466   222.69005067
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+159.721894466   222.69005067
+44.629360199 1.17727804184
+44.629360199 0.298223346472
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+157.824799893   203.995410795
+40.5536766052 -2.11215591431
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.584690094 -1.34191417694
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+44.6351890564 1.165776968
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+46.636051178 4.02888011932
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5368652344 -2.84532761574
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6523895264 -3.05162644386
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.721300417   244.313331444
+40.5723686218 -3.56475234032
+******************************************************************************************
+Number of Events:		47342 			1.0 			1.0
+N(particle) Cuts:		694 			0.014659287736 			0.014659287736
+V0 Vertex   Cuts:		597 			0.86023054755 			0.0126103671159
+Tracking    Cuts:		325 			0.544388609715 			0.00686494022221
+ECal Match  Cuts:		188 			0.578461538462 			0.00397110388239
+Number of Fake Events Added:  		0 			0.0
+
+------------------------------------------------------------
+Sender: LSF System <lsf@kiso0049>
+Subject: Job 113882: <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4> was submitted from host <rhel6-64e> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <kiso0049>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Thu Jun  2 20:18:57 2016
+Results reported on Thu Jun  2 20:19:26 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/beam-tri_HPS-EngRun2015-Nominal-v4-4_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst/beam-tri/*HPS-EngRun2015-Nominal-v4-4
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   19.72 sec.
+    Max Memory :                                 190 MB
+    Average Memory :                             15.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   28 sec.
+    Turnaround time :                            30 sec.
+
+The output (if any) is above this job summary.
+

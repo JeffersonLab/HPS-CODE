@@ -1,0 +1,51 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_2Tracks_HighESum.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-4
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+******************************************************************************************
+Number of Events:		55176 			1.0 			1.0
+N(particle) Cuts:		25083 			0.454599826011 			0.454599826011
+V0 Vertex   Cuts:		5860 			0.233624367101 			0.106205596636
+Tracking    Cuts:		5814 			0.992150170648 			0.105371900826
+ECal Match  Cuts:		548 			0.094255245958 			0.00993185442946
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hequ0060>
+Subject: Job 829306: <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_2Tracks_HighESum.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-4> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_2Tracks_HighESum.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-4> was submitted from host <rhel6-64h> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <hequ0060>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Mon May 16 15:17:08 2016
+Results reported on Mon May 16 15:17:30 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-4_pass4_useGBL_ECalMatch_SuperFiducialCut_2Tracks_HighESum.root /nfs/slac/g/hps3/data/engrun2015/pass4/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-4
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   14.82 sec.
+    Max Memory :                                 15 MB
+    Average Memory :                             15.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   387 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   22 sec.
+    Turnaround time :                            23 sec.
+
+The output (if any) is above this job summary.
+

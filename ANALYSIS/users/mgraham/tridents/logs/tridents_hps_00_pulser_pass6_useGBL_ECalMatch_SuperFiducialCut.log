@@ -1,0 +1,10241 @@
+Loading HpsEvent Library from /nfs/slac/g/hps3/users/mgraham/hps-dst/hps-dst-0.10/build/lib/libHpsEvent.so
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+TStreamerInfo::BuildCheck:0: RuntimeWarning: 
+   The StreamerInfo of class HpsParticle read from file /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005704.0_pulser_R3.8.root
+   has the same version (=1) as the active class but a different checksum.
+   You should update the version to ClassDef(HpsParticle,2).
+   Do not try to write objects with the current class definition,
+   the files will not be readable.
+
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double px_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double py_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double pz_corr; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_x; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_y; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_z; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double vtx_fit_chi2; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double energy; //
+TStreamerInfo::CompareContent:0: RuntimeWarning: The following data member of
+the in-memory layout version 1 of class 'HpsParticle' is missing from 
+the on-file layout version 1:
+   double mass; //
+Error in <TFile::ReadBuffer>: error reading all requested bytes from file /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772.101_pulser_R3.8.root, got 0 of 300
+Error in <TFile::Init>: /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772.101_pulser_R3.8.root failed to read the file type data.
+Error in <TFile::ReadBuffer>: error reading all requested bytes from file /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772.219_pulser_R3.8.root, got 0 of 300
+Error in <TFile::Init>: /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772.219_pulser_R3.8.root failed to read the file type data.
+Error in <TFile::ReadBuffer>: error reading all requested bytes from file /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772.284_pulser_R3.8.root, got 0 of 300
+Error in <TFile::Init>: /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_005772.284_pulser_R3.8.root failed to read the file type data.
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/Data/hps_00_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root
+[ HPS ANALYSIS ]: Setting to run from a pulser file
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_00
+Passed v0 cuts
+Event 10000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+Event 60000
+Passed v0 cuts
+Event 70000
+Event 80000
+Passed v0 cuts
+Passed v0 cuts
+Event 90000
+Passed v0 cuts
+Event 100000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 110000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 120000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 130000
+Event 140000
+Event 150000
+Event 160000
+Event 170000
+Event 180000
+Event 190000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 200000
+Event 210000
+Passed v0 cuts
+Event 220000
+Event 230000
+Event 240000
+Event 250000
+Event 260000
+Event 270000
+Event 280000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.7020988464 -0.813374459743
+Event 290000
+Passed v0 cuts
+Event 300000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.4784164429 -1.70853960514
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 310000
+Passed v0 cuts
+Event 320000
+Event 330000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 340000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 350000
+Event 360000
+Event 370000
+Event 380000
+Event 390000
+Event 400000
+Event 410000
+Event 420000
+Passed v0 cuts
+Event 430000
+Passed v0 cuts
+Passed v0 cuts
+Event 440000
+Event 450000
+Event 460000
+Event 470000
+Passed v0 cuts
+Event 480000
+Event 490000
+Event 500000
+Event 510000
+Event 520000
+Event 530000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.8974113464 -3.06910324097
+Event 540000
+Passed v0 cuts
+Event 550000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 560000
+Event 570000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+154.687482945   211.183519385
+42.4659156799 -0.963673472404
+Event 580000
+Event 590000
+Passed v0 cuts
+Event 600000
+Event 610000
+Passed v0 cuts
+Passed v0 cuts
+Event 620000
+Event 630000
+Event 640000
+Passed v0 cuts
+Event 650000
+Event 660000
+Event 670000
+Event 680000
+Event 690000
+Event 700000
+Event 710000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.139535938   191.76136401
+166.139535938   189.795634727
+45.2080764771 2.34502959251
+Event 720000
+Passed v0 cuts
+Event 730000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 740000
+Event 750000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 760000
+Event 770000
+Event 780000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 790000
+Event 800000
+Event 810000
+Passed v0 cuts
+Passed v0 cuts
+Event 820000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 830000
+Passed v0 cuts
+Event 840000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+174.403372711   202.562042526
+134.321220923   202.562042526
+44.4141731262 2.15557122231
+Event 850000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+172.18081495   196.61009224
+168.657734766   196.61009224
+147.932013601   196.61009224
+40.8982582092 -2.84402608871
+Event 860000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 870000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 880000
+Event 890000
+Event 900000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 910000
+Event 920000
+Event 930000
+Event 940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 950000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 960000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.165492937   214.355745519
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.165492937   214.355745519
+43.0024375916 1.21494567394
+43.0024375916 1.21494567394
+Event 970000
+Event 980000
+Passed v0 cuts
+Passed v0 cuts
+Event 990000
+Passed v0 cuts
+Event 1000000
+Event 1010000
+Event 1020000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 1030000
+Event 1040000
+Event 1050000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.666967054   304.292338838
+43.328037262 -0.497970491648
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1060000
+Passed v0 cuts
+Event 1070000
+Event 1080000
+Event 1090000
+Passed v0 cuts
+Event 1100000
+Event 1110000
+Passed v0 cuts
+Passed v0 cuts
+Event 1120000
+Event 1130000
+Event 1140000
+Passed v0 cuts
+Passed v0 cuts
+Event 1150000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.456132232   211.938870777
+44.4939308167 0.280393630266
+Passed v0 cuts
+Passed v0 cuts
+Event 1160000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1170000
+Event 1180000
+Passed v0 cuts
+Event 1190000
+Event 1200000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.0535469055 -2.89116477966
+43.0535469055 -2.1675286293
+Event 1210000
+Event 1220000
+Event 1230000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+46.0529136658 2.76383805275
+Event 1240000
+Passed v0 cuts
+Passed v0 cuts
+Event 1250000
+Event 1260000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.61378479 1.0901247263
+Passed v0 cuts
+Passed v0 cuts
+Event 1270000
+Event 1280000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 1290000
+Event 1300000
+Event 1310000
+Event 1320000
+Passed v0 cuts
+Passed v0 cuts
+Event 1330000
+Passed v0 cuts
+Event 1340000
+Event 1350000
+Event 1360000
+Passed v0 cuts
+Event 1370000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.8821640015 -1.67605161667
+Event 1380000
+Event 1390000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1400000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 1410000
+Event 1420000
+Event 1430000
+Event 1440000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1450000
+Passed v0 cuts
+Passed v0 cuts
+Event 1460000
+Passed v0 cuts
+Passed v0 cuts
+Event 1470000
+Event 1480000
+Event 1490000
+Event 1500000
+Event 1510000
+Event 1520000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1530000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+89.1985473633 2.03073167801
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 1540000
+Event 1550000
+Passed v0 cuts
+Passed v0 cuts
+Event 1560000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1570000
+Event 1580000
+Event 1590000
+Passed v0 cuts
+Event 1600000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1610000
+Event 1620000
+Event 1630000
+Event 1640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1650000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+144.345215135   208.818735605
+42.0123176575 -2.0961022377
+Event 1660000
+Passed v0 cuts
+Passed v0 cuts
+Event 1670000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.6028251648 -0.660877764225
+Passed v0 cuts
+Event 1680000
+Event 1690000
+Event 1700000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1710000
+Passed v0 cuts
+Passed v0 cuts
+Event 1720000
+Passed v0 cuts
+Passed v0 cuts
+Event 1730000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.983600607   191.678214294
+162.983600607   215.175988392
+42.8556747437 0.0821698009968
+Event 1740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1750000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1760000
+Passed v0 cuts
+Passed v0 cuts
+Event 1770000
+Event 1780000
+Passed v0 cuts
+Passed v0 cuts
+Event 1790000
+Passed v0 cuts
+Event 1800000
+Passed v0 cuts
+Passed v0 cuts
+Event 1810000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 1820000
+Passed v0 cuts
+Passed v0 cuts
+Event 1830000
+Event 1840000
+Event 1850000
+Event 1860000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.9910850525 -1.47023820877
+Event 1870000
+Passed v0 cuts
+Passed v0 cuts
+Event 1880000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 1890000
+Passed v0 cuts
+Event 1900000
+Passed v0 cuts
+Passed v0 cuts
+Event 1910000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1920000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 1930000
+Event 1940000
+Event 1950000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 1960000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+47.72914505 3.62292909622
+Event 1970000
+Passed v0 cuts
+Event 1980000
+Passed v0 cuts
+Event 1990000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 2000000
+Passed v0 cuts
+Passed v0 cuts
+Event 2010000
+Event 2020000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2030000
+Passed v0 cuts
+Passed v0 cuts
+Event 2040000
+Event 2050000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+168.551763342   214.292296089
+107.68841869   214.292296089
+44.4705543518 2.28338527679
+Event 2060000
+Event 2070000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.066390469   212.688158345
+45.5085144043 4.55091762543
+Passed v0 cuts
+Passed v0 cuts
+Event 2080000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2090000
+Passed v0 cuts
+Passed v0 cuts
+Event 2100000
+Event 2110000
+Passed v0 cuts
+Event 2120000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.6485671997 3.27138900757
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+133.675176281   195.016381388
+45.4893569946 1.46236288548
+Passed v0 cuts
+Event 2130000
+Passed v0 cuts
+Passed v0 cuts
+Event 2140000
+Event 2150000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2160000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.0626983643 -1.67866337299
+Event 2170000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2180000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 2190000
+Event 2200000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2210000
+Passed v0 cuts
+Passed v0 cuts
+Event 2220000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.0752983093 1.79587781429
+Passed v0 cuts
+Event 2230000
+Event 2240000
+Event 2250000
+Event 2260000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2270000
+Passed v0 cuts
+Passed v0 cuts
+Event 2280000
+Event 2290000
+Passed v0 cuts
+Event 2300000
+Event 2310000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+139.918944654   344.389464895
+41.4059181213 1.58439517021
+Event 2320000
+Passed v0 cuts
+Event 2330000
+Event 2340000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 2350000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.950052697   219.697269687
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.950052697   219.697269687
+42.6559829712 0.85990613699
+42.6559829712 0.85990613699
+Event 2360000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2370000
+Event 2380000
+Event 2390000
+Passed v0 cuts
+Event 2400000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+135.817476859   194.772695954
+93.5535243438   194.772695954
+40.5466766357 -0.980735301971
+Event 2410000
+Passed v0 cuts
+Event 2420000
+Event 2430000
+Event 2440000
+Passed v0 cuts
+Event 2450000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.1585731506 0.134518310428
+Event 2460000
+Event 2470000
+Event 2480000
+Event 2490000
+Event 2500000
+Event 2510000
+Passed v0 cuts
+Event 2520000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2530000
+Event 2540000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+109.152577508   200.639076663
+45.1316604614 -0.0355497002602
+Event 2550000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 2560000
+Passed v0 cuts
+Passed v0 cuts
+Event 2570000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.005738646   192.390914922
+43.9222335815 2.04890537262
+Event 2580000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2590000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2600000
+Passed v0 cuts
+Passed v0 cuts
+Event 2610000
+Event 2620000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.878015613   196.66296551
+79.1510266044   196.66296551
+43.1360473633 1.16161513329
+Passed v0 cuts
+Event 2630000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+48.4672737122 4.50285005569
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 2640000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+50.0482635498 7.47720479965
+Event 2650000
+Passed v0 cuts
+Event 2660000
+Event 2670000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+149.738468459   208.185231459
+104.531014807   208.185231459
+42.2933731079 -0.756295442581
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 2680000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.54183584   225.451165594
+41.554019928 0.105953522027
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2690000
+Passed v0 cuts
+Event 2700000
+Event 2710000
+Event 2720000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 2730000
+Event 2740000
+Event 2750000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6775817871 -2.02088403702
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.2886810303 -2.43753695488
+Event 2760000
+Event 2770000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.8936691284 0.168490678072
+42.8936691284 -1.11647748947
+42.8936691284 -2.15236139297
+Passed v0 cuts
+Event 2780000
+Event 2790000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.1807937622 0.645271718502
+Event 2800000
+Event 2810000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.1505699158 2.79055047035
+Event 2820000
+Event 2830000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2840000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 2850000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+28.3091093823   193.400431365
+169.730500758   193.400431365
+40.2900733948 -2.38300395012
+Event 2860000
+Event 2870000
+Event 2880000
+Passed v0 cuts
+Event 2890000
+Passed v0 cuts
+Event 2900000
+Passed v0 cuts
+Event 2910000
+Passed v0 cuts
+Passed v0 cuts
+Event 2920000
+Event 2930000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2940000
+Event 2950000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 2960000
+Passed v0 cuts
+Event 2970000
+Passed v0 cuts
+Passed v0 cuts
+Event 2980000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 2990000
+Event 3000000
+Event 3010000
+Event 3020000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.5392341614 -0.155553534627
+Event 3030000
+Event 3040000
+Event 3050000
+Event 3060000
+Event 3070000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.624526373   214.480539747
+162.624526373   201.383670129
+Passed v0 cuts
+42.9042701721 2.29180836678
+Event 3080000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 3090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+135.801842409   211.699837544
+151.383046304   211.699837544
+79.1446777756   211.699837544
+45.819316864 2.77913427353
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.9515686035 0.696830689907
+44.9515686035 0.696830689907
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3110000
+Passed v0 cuts
+Passed v0 cuts
+Event 3120000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.9512252808 2.12572836876
+Event 3130000
+Passed v0 cuts
+Event 3140000
+Event 3150000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+44.9430809021 1.13649082184
+44.9430809021 1.3266056776
+Event 3160000
+Passed v0 cuts
+Event 3170000
+Event 3180000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.6257362366 -1.23251354694
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3190000
+Event 3200000
+Event 3210000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 3220000
+Event 3230000
+Passed v0 cuts
+Passed v0 cuts
+Event 3240000
+Event 3250000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.7883148193 0.0621063001454
+Event 3260000
+Passed v0 cuts
+Event 3270000
+Passed v0 cuts
+Event 3280000
+Event 3290000
+Passed v0 cuts
+Passed v0 cuts
+Event 3300000
+Event 3310000
+Passed v0 cuts
+Passed v0 cuts
+Event 3320000
+Event 3330000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+148.783093767   203.914323807
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+148.783093767   203.914323807
+43.2185935974 0.490490972996
+43.2185935974 0.509797215462
+Event 3340000
+Passed v0 cuts
+Event 3350000
+Passed v0 cuts
+Event 3360000
+Event 3370000
+Passed v0 cuts
+Passed v0 cuts
+Event 3380000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.3348464966 -1.75204885006
+Event 3390000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.8364753723 0.533679068089
+Event 3400000
+Passed v0 cuts
+Event 3410000
+Event 3420000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3430000
+Event 3440000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.5799064636 1.45246100426
+Event 3450000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3470000
+Passed v0 cuts
+Passed v0 cuts
+Event 3480000
+Event 3490000
+Event 3500000
+Event 3510000
+Event 3520000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+92.7926018233   203.982618852
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+92.7926018233   203.982618852
+43.8974685669 -0.403575986624
+43.8974685669 -0.403575986624
+Event 3530000
+Event 3540000
+Event 3550000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3560000
+Passed v0 cuts
+Event 3570000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 3580000
+Event 3590000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.2420578003 -1.74474656582
+Event 3600000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 3610000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 3620000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+145.742038643   196.365086383
+41.2299385071 -2.28760504723
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3630000
+Passed v0 cuts
+Event 3640000
+Event 3650000
+Passed v0 cuts
+Event 3660000
+Event 3670000
+Passed v0 cuts
+Passed v0 cuts
+Event 3680000
+Passed v0 cuts
+Passed v0 cuts
+Event 3690000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3700000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 3710000
+Passed v0 cuts
+Event 3720000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3730000
+Passed v0 cuts
+Event 3740000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 3750000
+Event 3760000
+Passed v0 cuts
+Passed v0 cuts
+Event 3770000
+Passed v0 cuts
+Event 3780000
+Passed v0 cuts
+Event 3790000
+Passed v0 cuts
+Passed v0 cuts
+Event 3800000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.5572547913 -1.96420192719
+Event 3810000
+Passed v0 cuts
+Passed v0 cuts
+Event 3820000
+Event 3830000
+Event 3840000
+Passed v0 cuts
+Passed v0 cuts
+Event 3850000
+Passed v0 cuts
+Passed v0 cuts
+Event 3860000
+Event 3870000
+Passed v0 cuts
+Passed v0 cuts
+Event 3880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3890000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+136.295779533   216.955394998
+44.9403800964 2.17605233192
+Event 3900000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 3910000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.801612854 1.29011511803
+Passed v0 cuts
+Passed v0 cuts
+Event 3920000
+Event 3930000
+Event 3940000
+Event 3950000
+Event 3960000
+Passed v0 cuts
+Passed v0 cuts
+Event 3970000
+Passed v0 cuts
+Event 3980000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 3990000
+Event 4000000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4010000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 4020000
+Event 4030000
+Passed v0 cuts
+Passed v0 cuts
+Event 4040000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.4096946716 0.840593397617
+Event 4050000
+Passed v0 cuts
+Passed v0 cuts
+Event 4060000
+Event 4070000
+Event 4080000
+Event 4090000
+Passed v0 cuts
+Event 4100000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+157.995539052   185.283902624
+157.995539052   188.734963537
+44.0641059875 0.0370842777193
+Event 4110000
+Passed v0 cuts
+Event 4120000
+Passed v0 cuts
+Passed v0 cuts
+Event 4130000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.1657371521 0.312564879656
+Event 4140000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4150000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.424446106 -0.751955330372
+45.424446106 -0.584029257298
+45.424446106 -1.48406362534
+Event 4160000
+Passed v0 cuts
+Passed v0 cuts
+Event 4170000
+Event 4180000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 4190000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+149.169177771   195.222962846
+123.376749385   195.222962846
+45.5742950439 2.82018327713
+Event 4200000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 4210000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 4220000
+Event 4230000
+Event 4240000
+Event 4250000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+174.681511178   196.630760393
+41.381061554 -3.3784725666
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 4260000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.078826911   191.905563831
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.078826911   191.905563831
+44.5326042175 1.34986102581
+44.5326042175 1.34986102581
+Event 4270000
+Passed v0 cuts
+Event 4280000
+Event 4290000
+Passed v0 cuts
+Passed v0 cuts
+Event 4300000
+Event 4310000
+Passed v0 cuts
+Passed v0 cuts
+Event 4320000
+Event 4330000
+Passed v0 cuts
+Passed v0 cuts
+Event 4340000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 4350000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.8418884277 2.47007489204
+Event 4360000
+Event 4370000
+Passed v0 cuts
+Event 4380000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4390000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.285373775   224.637201757
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.285373775   224.637201757
+41.5260505676 -1.53112077713
+41.5260505676 -1.53112077713
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 4400000
+Event 4410000
+Passed v0 cuts
+Passed v0 cuts
+Event 4420000
+Event 4430000
+Event 4440000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.4261932373 0.980429172516
+Event 4450000
+Event 4460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4470000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.9079170227 1.71868312359
+45.9079170227 2.73151397705
+Event 4480000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 4490000
+Event 4500000
+Event 4510000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4520000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4530000
+Event 4540000
+Passed v0 cuts
+Event 4550000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 4560000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.4305114746 -0.904133021832
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4570000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 4580000
+Passed v0 cuts
+Event 4590000
+Event 4600000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4610000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 4620000
+Passed v0 cuts
+Event 4630000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 4640000
+Event 4650000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4660000
+Passed v0 cuts
+Event 4670000
+Passed v0 cuts
+Event 4680000
+Event 4690000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4700000
+Passed v0 cuts
+Passed v0 cuts
+Event 4710000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 4720000
+Event 4730000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+112.658211838   206.690392227
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+112.658211838   206.690392227
+41.0401344299 -2.40963673592
+41.0401344299 -3.21438741684
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 4740000
+Event 4750000
+Passed v0 cuts
+Event 4760000
+Passed v0 cuts
+Event 4770000
+Passed v0 cuts
+Event 4780000
+Passed v0 cuts
+Passed v0 cuts
+Event 4790000
+Event 4800000
+Event 4810000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+41.1795120239 -1.56197667122
+Event 4820000
+Event 4830000
+Passed v0 cuts
+Event 4840000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+145.645870803   213.171827469
+44.3295478821 2.69205117226
+Passed v0 cuts
+Passed v0 cuts
+Event 4850000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4860000
+Passed v0 cuts
+Event 4870000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 4880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.7216262817 -0.379694014788
+Event 4890000
+Passed v0 cuts
+Event 4900000
+Passed v0 cuts
+Event 4910000
+Event 4920000
+Event 4930000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.692128721   213.992245022
+40.258731842 -2.14246082306
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 4940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4950000
+Event 4960000
+Event 4970000
+Passed v0 cuts
+Event 4980000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 4990000
+Passed v0 cuts
+Event 5000000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+41.2866096497 -2.28317308426
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 5010000
+Event 5020000
+Passed v0 cuts
+Passed v0 cuts
+Event 5030000
+Event 5040000
+Event 5050000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.3442153931 -2.73973608017
+Event 5060000
+Event 5070000
+Passed v0 cuts
+Event 5080000
+Passed v0 cuts
+Event 5090000
+Passed v0 cuts
+Passed v0 cuts
+Event 5100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+167.207695682   237.277015143
+43.0466156006 -1.10725104809
+Event 5110000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 5120000
+Event 5130000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 5140000
+Event 5150000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 5160000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 5170000
+Passed v0 cuts
+Passed v0 cuts
+Event 5180000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 5190000
+Event 5200000
+Event 5210000
+Event 5220000
+Event 5230000
+Event 5240000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 5250000
+Passed v0 cuts
+Event 5260000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.9147872925 2.07092642784
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 5270000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.5085983276 2.25400590897
+43.5085983276 2.25400590897
+Event 5280000
+Passed v0 cuts
+Passed v0 cuts
+Event 5290000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+107.59387207 -6.72853469849
+Event 5300000
+Passed v0 cuts
+Event 5310000
+Event 5320000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 5330000
+Event 5340000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 5350000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 5360000
+Event 5370000
+Event 5380000
+Event 5390000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.5420570374 0.372451275587
+43.5420570374 1.32327663898
+Event 5400000
+Event 5410000
+Event 5420000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 5430000
+Event 5440000
+Event 5450000
+Event 5460000
+Passed v0 cuts
+Passed v0 cuts
+Event 5470000
+Event 5480000
+Event 5490000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 5500000
+Event 5510000
+Event 5520000
+Event 5530000
+Event 5540000
+Event 5550000
+Event 5560000
+Event 5570000
+Event 5580000
+Event 5590000
+Event 5600000
+Event 5610000
+Event 5620000
+Event 5630000
+Event 5640000
+Passed v0 cuts
+Event 5650000
+Event 5660000
+Event 5670000
+Event 5680000
+Event 5690000
+Event 5700000
+Event 5710000
+Event 5720000
+Event 5730000
+Event 5740000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+170.368299308   195.62451101
+Passed v0 cuts
+52.1661529541 7.41254901886
+Event 5750000
+Event 5760000
+Passed v0 cuts
+Event 5770000
+Event 5780000
+Event 5790000
+Passed v0 cuts
+Passed v0 cuts
+Event 5800000
+Passed v0 cuts
+Event 5810000
+Event 5820000
+Event 5830000
+Passed v0 cuts
+Event 5840000
+Passed v0 cuts
+Event 5850000
+Event 5860000
+Event 5870000
+Event 5880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 5890000
+Passed v0 cuts
+Event 5900000
+Passed v0 cuts
+Event 5910000
+Passed v0 cuts
+Event 5920000
+Event 5930000
+Event 5940000
+Event 5950000
+Event 5960000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 5970000
+Passed v0 cuts
+Event 5980000
+Event 5990000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6000000
+Event 6010000
+Passed v0 cuts
+Event 6020000
+Event 6030000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.921480679   196.68096933
+44.0513114929 0.816151916981
+Event 6040000
+Passed v0 cuts
+Event 6050000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6060000
+Event 6070000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6080000
+Event 6090000
+Passed v0 cuts
+Event 6100000
+Passed v0 cuts
+Passed v0 cuts
+Event 6110000
+Passed v0 cuts
+Event 6120000
+Passed v0 cuts
+Event 6130000
+Event 6140000
+Event 6150000
+Event 6160000
+Passed v0 cuts
+Event 6170000
+Event 6180000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6190000
+Passed v0 cuts
+Passed v0 cuts
+Event 6200000
+Event 6210000
+Passed v0 cuts
+Event 6220000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 6230000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.3243751526 -0.0351778678596
+42.3243751526 -0.0351778678596
+Event 6240000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.651305103   216.265651489
+164.651305103   189.923859779
+45.9667053223 5.07093715668
+Event 6250000
+Event 6260000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.170482308   230.044000918
+163.170482308   204.893261486
+43.1554374695 -0.521403968334
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6270000
+Event 6280000
+Event 6290000
+Event 6300000
+Passed v0 cuts
+Passed v0 cuts
+Event 6310000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 6320000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6330000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 6340000
+Event 6350000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6360000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+152.579771903   216.72840261
+43.4100990295 1.29104137421
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.09349823 -1.56139707565
+42.09349823 -1.56139707565
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.148301152   197.50256966
+43.7746391296 0.960525393486
+Event 6370000
+Event 6380000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6390000
+Event 6400000
+Event 6410000
+Event 6420000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+171.944182948   203.68575338
+105.808860012   203.68575338
+43.9607696533 1.09178555012
+Passed v0 cuts
+Event 6430000
+Event 6440000
+Passed v0 cuts
+Passed v0 cuts
+Event 6450000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 6460000
+Passed v0 cuts
+Event 6470000
+Event 6480000
+Event 6490000
+Event 6500000
+Event 6510000
+Event 6520000
+Event 6530000
+Passed v0 cuts
+Event 6540000
+Event 6550000
+Event 6560000
+Passed v0 cuts
+Event 6570000
+Passed v0 cuts
+Event 6580000
+Passed v0 cuts
+Passed v0 cuts
+Event 6590000
+Event 6600000
+Event 6610000
+Event 6620000
+Passed v0 cuts
+Passed v0 cuts
+Event 6630000
+Event 6640000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6650000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6660000
+Event 6670000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 6680000
+Event 6690000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.1608467102 -0.788516402245
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6098365784 2.33471417427
+44.6098365784 2.33471417427
+Passed v0 cuts
+Event 6700000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.3488311768 1.1286367178
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6710000
+Passed v0 cuts
+Event 6720000
+Event 6730000
+Passed v0 cuts
+Event 6740000
+Event 6750000
+Passed v0 cuts
+Passed v0 cuts
+Event 6760000
+Event 6770000
+Passed v0 cuts
+Passed v0 cuts
+Event 6780000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6790000
+Event 6800000
+Passed v0 cuts
+Passed v0 cuts
+Event 6810000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6820000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6830000
+Event 6840000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+159.834865192   221.364234066
+159.834865192   191.399075116
+46.0877571106 2.51857113838
+Event 6850000
+Event 6860000
+Passed v0 cuts
+Passed v0 cuts
+Event 6870000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6880000
+Event 6890000
+Passed v0 cuts
+Event 6900000
+Event 6910000
+Passed v0 cuts
+Event 6920000
+Event 6930000
+Passed v0 cuts
+Event 6940000
+Event 6950000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.731598358   239.164897239
+40.2735404968 -3.23830246925
+Event 6960000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 6970000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 6980000
+Event 6990000
+Event 7000000
+Passed v0 cuts
+Event 7010000
+Event 7020000
+Event 7030000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.368589339   195.143867465
+43.5095443726 0.369903534651
+Event 7040000
+Event 7050000
+Passed v0 cuts
+Event 7060000
+Event 7070000
+Event 7080000
+Event 7090000
+Event 7100000
+Event 7110000
+Event 7120000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 7130000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.6957931519 2.14527440071
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7140000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.845976195   185.432366616
+44.5070381165 3.08102989197
+Event 7150000
+Event 7160000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 7170000
+Passed v0 cuts
+Passed v0 cuts
+Event 7180000
+Event 7190000
+Event 7200000
+Event 7210000
+Event 7220000
+Event 7230000
+Passed v0 cuts
+Event 7240000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.0310592651 0.542383313179
+Passed v0 cuts
+Passed v0 cuts
+Event 7250000
+Passed v0 cuts
+Event 7260000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7270000
+Passed v0 cuts
+Event 7280000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7290000
+Passed v0 cuts
+Event 7300000
+Event 7310000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 7320000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.3623580933 -2.16394329071
+Event 7330000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+134.386694276   207.515364774
+44.4747467041 3.53753018379
+Event 7340000
+Event 7350000
+Event 7360000
+Passed v0 cuts
+Event 7370000
+Event 7380000
+Event 7390000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.6952362061 -1.10001218319
+Event 7400000
+Passed v0 cuts
+Event 7410000
+Event 7420000
+Event 7430000
+Event 7440000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 7450000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.4399681091 2.4084508419
+45.4399681091 3.10674571991
+Passed v0 cuts
+Passed v0 cuts
+Event 7460000
+Passed v0 cuts
+Event 7470000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7480000
+Event 7490000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7500000
+Passed v0 cuts
+Passed v0 cuts
+Event 7510000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.179134154   203.564562959
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.179134154   203.564562959
+43.2069854736 0.091747790575
+43.2069854736 0.964360535145
+Passed v0 cuts
+Event 7520000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7530000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7540000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.612417058   214.264682566
+42.1780166626 0.126810729504
+Event 7550000
+Passed v0 cuts
+Passed v0 cuts
+Event 7560000
+Passed v0 cuts
+Event 7570000
+Event 7580000
+Event 7590000
+Passed v0 cuts
+Event 7600000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7610000
+Event 7620000
+Event 7630000
+Event 7640000
+Event 7650000
+Event 7660000
+Event 7670000
+Passed v0 cuts
+Event 7680000
+Event 7690000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.140448188   206.576628022
+42.4601631165 -0.827935099602
+Event 7700000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.3546218872 -1.99889779091
+Event 7710000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.971459836   189.377903888
+42.3649482727 -0.481098890305
+Event 7720000
+Event 7730000
+Event 7740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.249461935   187.982600151
+45.0666503906 4.75799894333
+Event 7750000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 7760000
+Event 7770000
+Event 7780000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.544967107   205.322468779
+43.3025436401 -2.21694612503
+Event 7790000
+Event 7800000
+Passed v0 cuts
+Event 7810000
+Event 7820000
+Event 7830000
+Event 7840000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 7850000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 7860000
+Event 7870000
+Passed v0 cuts
+Event 7880000
+Passed v0 cuts
+Event 7890000
+Passed v0 cuts
+Passed v0 cuts
+Event 7900000
+Event 7910000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+135.779372438   219.255685597
+135.779372438   187.975733134
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+135.779372438   219.255685597
+135.779372438   187.975733134
+42.6457481384 0.432582050562
+42.6457481384 0.432582050562
+Event 7920000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 7930000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+145.682830238   195.625097079
+40.8461227417 -1.40789210796
+Event 7940000
+Event 7950000
+Event 7960000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 7970000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+155.004866377   225.867840643
+155.004866377   299.612820804
+42.5760574341 2.45330381393
+Event 7980000
+Event 7990000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8000000
+Event 8010000
+Event 8020000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8030000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+130.117398023   194.858361746
+43.5742950439 1.76505613327
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+167.577172698   203.943386397
+45.649848938 4.04267024994
+Passed v0 cuts
+Event 8040000
+Passed v0 cuts
+Event 8050000
+Passed v0 cuts
+Passed v0 cuts
+Event 8060000
+Passed v0 cuts
+Event 8070000
+Event 8080000
+Event 8090000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+92.3357346945   204.194586222
+150.049861811   204.194586222
+42.2016639709 -2.74038505554
+Event 8100000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+154.933355089   216.964580623
+45.7490463257 2.25288963318
+Event 8110000
+Passed v0 cuts
+Passed v0 cuts
+Event 8120000
+Passed v0 cuts
+Event 8130000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+166.271016328   196.810729863
+138.836447753   196.810729863
+39.9193954468 -2.12317109108
+Event 8140000
+Event 8150000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.905960083 0.436523258686
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.1994819641 1.0886528492
+Event 8160000
+Passed v0 cuts
+Passed v0 cuts
+Event 8170000
+Event 8180000
+Event 8190000
+Passed v0 cuts
+Passed v0 cuts
+Event 8200000
+Event 8210000
+Passed v0 cuts
+Event 8220000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.4433288574 1.09166491032
+Passed v0 cuts
+Event 8230000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+143.373121843   207.202913749
+167.342522777   207.202913749
+42.0379829407 -0.352538436651
+Event 8240000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8250000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5460891724 0.956985771656
+Passed v0 cuts
+Event 8260000
+Event 8270000
+Event 8280000
+Passed v0 cuts
+Passed v0 cuts
+Event 8290000
+Passed v0 cuts
+Event 8300000
+Event 8310000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 8320000
+Event 8330000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8340000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+139.0522076   225.938535573
+43.2126159668 0.476066499949
+Event 8350000
+Event 8360000
+Passed v0 cuts
+Event 8370000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 8380000
+Event 8390000
+Event 8400000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+39.9944343567 -2.74211573601
+Passed v0 cuts
+Passed v0 cuts
+Event 8410000
+Event 8420000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 8430000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.848241899   204.193182859
+44.9165534973 3.82745671272
+Event 8440000
+Event 8450000
+Event 8460000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+167.891641811   225.945231864
+46.1507873535 0.856463849545
+Event 8470000
+Event 8480000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.234712695   274.400184824
+141.234712695   199.486209515
+44.3358421326 2.13736987114
+Event 8490000
+Event 8500000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.0762138367 -0.969729423523
+Event 8510000
+Event 8520000
+Passed v0 cuts
+Passed v0 cuts
+Event 8530000
+Event 8540000
+Event 8550000
+Event 8560000
+Passed v0 cuts
+Event 8570000
+Passed v0 cuts
+Event 8580000
+Event 8590000
+Event 8600000
+Passed v0 cuts
+Event 8610000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 8620000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8630000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8640000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.0623168945 2.57492733002
+Event 8650000
+Event 8660000
+Passed v0 cuts
+Event 8670000
+Passed v0 cuts
+Event 8680000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8690000
+Passed v0 cuts
+Event 8700000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.4120788574 -2.18544268608
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 8710000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 8720000
+Event 8730000
+Passed v0 cuts
+Passed v0 cuts
+Event 8740000
+Event 8750000
+Event 8760000
+Passed v0 cuts
+Event 8770000
+Event 8780000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.4960174561 -0.869623959064
+Event 8790000
+Event 8800000
+Passed v0 cuts
+Event 8810000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.578887031   205.837140581
+42.796459198 -0.955466151237
+Passed v0 cuts
+Event 8820000
+Passed v0 cuts
+Event 8830000
+Event 8840000
+Event 8850000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 8860000
+Event 8870000
+Event 8880000
+Event 8890000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 8900000
+Passed v0 cuts
+Passed v0 cuts
+Event 8910000
+Event 8920000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.112537384 -0.350081533194
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.37915802 1.34554624557
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+49.0529785156 5.35515069962
+49.0529785156 4.65362024307
+Event 8930000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 8940000
+Event 8950000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.9081001282 0.0262883845717
+Passed v0 cuts
+Passed v0 cuts
+Event 8960000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 8970000
+Event 8980000
+Event 8990000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9000000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9010000
+Passed v0 cuts
+Event 9020000
+Event 9030000
+Passed v0 cuts
+Passed v0 cuts
+Event 9040000
+Event 9050000
+Event 9060000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9070000
+Event 9080000
+Event 9090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.563802542   207.649015669
+40.3916053772 -1.4360563755
+Event 9100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 9110000
+Passed v0 cuts
+Event 9120000
+Passed v0 cuts
+Passed v0 cuts
+Event 9130000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 9140000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.2942123413 -0.228316068649
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+152.461168267   207.443281769
+44.5778999329 1.00534236431
+Event 9150000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.7135009766 0.401945441961
+Event 9160000
+Event 9170000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 9180000
+Passed v0 cuts
+Event 9190000
+Event 9200000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5901412964 -0.666824162006
+Passed v0 cuts
+Event 9210000
+Event 9220000
+Event 9230000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9240000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9250000
+Event 9260000
+Event 9270000
+Event 9280000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 9290000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9300000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9310000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9320000
+Event 9330000
+Passed v0 cuts
+Passed v0 cuts
+Event 9340000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9350000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+171.284862589   203.339438908
+144.226736665   203.339438908
+42.507976532 0.0439163297415
+Event 9360000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 9370000
+Event 9380000
+Event 9390000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+154.558893492   224.454566958
+44.1011314392 2.04055571556
+Event 9400000
+Passed v0 cuts
+Event 9410000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+152.241378784 -4.84623527527
+Event 9420000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 9430000
+Event 9440000
+Event 9450000
+Passed v0 cuts
+Event 9460000
+Event 9470000
+Event 9480000
+Passed v0 cuts
+Event 9490000
+Passed v0 cuts
+Event 9500000
+Event 9510000
+Passed v0 cuts
+Event 9520000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+154.691940048   243.104590898
+43.0230903625 0.00797286722809
+Event 9530000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.985351391   304.339949604
+41.4590187073 -0.0512802302837
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.2335586548 -0.908795714378
+Event 9540000
+Event 9550000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9560000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 9570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9580000
+Passed v0 cuts
+Passed v0 cuts
+Event 9590000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 9600000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+156.337195903   216.83880078
+42.6107711792 -0.353346318007
+Event 9610000
+Event 9620000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9630000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9650000
+Event 9660000
+Event 9670000
+Event 9680000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9690000
+Event 9700000
+Event 9710000
+Event 9720000
+Event 9730000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9750000
+Event 9760000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.442508076   290.767850909
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.442508076   290.767850909
+42.8254318237 1.67787849903
+42.8254318237 1.67787849903
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+157.914482885   223.237076984
+157.914482885   230.273800533
+40.0011444092 -3.06845974922
+Event 9770000
+Passed v0 cuts
+Event 9780000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9790000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.441028595 1.40330171585
+44.441028595 1.40330171585
+Event 9800000
+Event 9810000
+Passed v0 cuts
+Event 9820000
+Event 9830000
+Event 9840000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+111.178239242   218.729335687
+44.5471458435 1.16251051426
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+143.04559976   205.782898438
+44.0768127441 1.25855338573
+Passed v0 cuts
+Event 9850000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9860000
+Event 9870000
+Event 9880000
+Event 9890000
+Event 9900000
+Passed v0 cuts
+Passed v0 cuts
+Event 9910000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 9920000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 9930000
+Event 9940000
+Event 9950000
+Event 9960000
+Event 9970000
+Event 9980000
+Event 9990000
+Event 10000000
+Event 10010000
+Passed v0 cuts
+Event 10020000
+Event 10030000
+Event 10040000
+Passed v0 cuts
+Event 10050000
+Passed v0 cuts
+Event 10060000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.7049636841 1.60172152519
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5050849915 -1.46047782898
+Passed v0 cuts
+Event 10070000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.1728439331 1.10095059872
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10080000
+Event 10090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+169.674663976   202.115969302
+44.2912139893 1.84431087971
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 10100000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 10110000
+Passed v0 cuts
+Event 10120000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+142.608017946   194.60488553
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+42.6664161682 -1.48194110394
+Event 10130000
+Event 10140000
+Event 10150000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.720085144 -0.502433955669
+41.720085144 -1.48544299603
+Event 10160000
+Passed v0 cuts
+Event 10170000
+Passed v0 cuts
+Event 10180000
+Event 10190000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10200000
+Event 10210000
+Passed v0 cuts
+Passed v0 cuts
+Event 10220000
+Passed v0 cuts
+Event 10230000
+Event 10240000
+Event 10250000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.4230422974 3.72548222542
+45.4230422974 3.72548222542
+Passed v0 cuts
+Passed v0 cuts
+Event 10260000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+46.3736000061 3.63708901405
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10270000
+Event 10280000
+Passed v0 cuts
+Passed v0 cuts
+Event 10290000
+Event 10300000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10310000
+Event 10320000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10330000
+Passed v0 cuts
+Event 10340000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.9020576477 0.622704088688
+Event 10350000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.8902816772 0.82842618227
+Event 10360000
+Passed v0 cuts
+Passed v0 cuts
+Event 10370000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.8200798035 1.74303245544
+Event 10380000
+Event 10390000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10400000
+Event 10410000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 10420000
+Event 10430000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.6439399719 -0.39015480876
+Event 10440000
+Event 10450000
+Passed v0 cuts
+Passed v0 cuts
+Event 10460000
+Passed v0 cuts
+Event 10470000
+Event 10480000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 10490000
+Passed v0 cuts
+Event 10500000
+Event 10510000
+Event 10520000
+Passed v0 cuts
+Event 10530000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 10540000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 10550000
+Passed v0 cuts
+Passed v0 cuts
+Event 10560000
+Event 10570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10580000
+Passed v0 cuts
+Event 10590000
+Passed v0 cuts
+Passed v0 cuts
+Event 10600000
+Passed v0 cuts
+Event 10610000
+Passed v0 cuts
+Passed v0 cuts
+Event 10620000
+Passed v0 cuts
+Passed v0 cuts
+Event 10630000
+Passed v0 cuts
+Event 10640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10650000
+Passed v0 cuts
+Event 10660000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10670000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10680000
+Passed v0 cuts
+Event 10690000
+Event 10700000
+Event 10710000
+Event 10720000
+Event 10730000
+Event 10740000
+Event 10750000
+Event 10760000
+Passed v0 cuts
+Event 10770000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10780000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 10790000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 10800000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+122.377128601 -0.536318898201
+Event 10810000
+Passed v0 cuts
+Event 10820000
+Passed v0 cuts
+Event 10830000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10840000
+Event 10850000
+Passed v0 cuts
+Event 10860000
+Event 10870000
+Passed v0 cuts
+Passed v0 cuts
+Event 10880000
+Event 10890000
+Passed v0 cuts
+Passed v0 cuts
+Event 10900000
+Event 10910000
+Passed v0 cuts
+Passed v0 cuts
+Event 10920000
+Event 10930000
+Event 10940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10950000
+Event 10960000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 10970000
+Passed v0 cuts
+Event 10980000
+Event 10990000
+Passed v0 cuts
+Event 11000000
+Event 11010000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 11020000
+Event 11030000
+Passed v0 cuts
+Event 11040000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 11050000
+Passed v0 cuts
+Event 11060000
+Event 11070000
+Passed v0 cuts
+Event 11080000
+Passed v0 cuts
+Event 11090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 11100000
+Event 11110000
+Event 11120000
+Passed v0 cuts
+Event 11130000
+Event 11140000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+253.658004761 -1.11814951897
+Event 11150000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 11160000
+Event 11170000
+Passed v0 cuts
+Event 11180000
+Event 11190000
+Event 11200000
+Event 11210000
+Event 11220000
+Event 11230000
+Event 11240000
+Event 11250000
+Event 11260000
+Event 11270000
+Event 11280000
+Event 11290000
+Event 11300000
+Event 11310000
+Event 11320000
+Event 11330000
+Event 11340000
+Event 11350000
+Event 11360000
+Event 11370000
+Event 11380000
+Event 11390000
+Event 11400000
+Event 11410000
+Event 11420000
+Event 11430000
+Event 11440000
+Event 11450000
+Event 11460000
+Event 11470000
+Event 11480000
+Event 11490000
+Event 11500000
+Event 11510000
+Event 11520000
+Event 11530000
+Event 11540000
+Event 11550000
+Event 11560000
+Event 11570000
+Event 11580000
+Event 11590000
+Event 11600000
+Event 11610000
+Event 11620000
+Event 11630000
+Event 11640000
+Event 11650000
+Event 11660000
+Event 11670000
+Event 11680000
+Event 11690000
+Event 11700000
+Event 11710000
+Event 11720000
+Event 11730000
+Event 11740000
+Event 11750000
+Event 11760000
+Event 11770000
+Event 11780000
+Event 11790000
+Event 11800000
+Event 11810000
+Event 11820000
+Event 11830000
+Event 11840000
+Event 11850000
+Event 11860000
+Event 11870000
+Event 11880000
+Event 11890000
+Event 11900000
+Event 11910000
+Event 11920000
+Event 11930000
+Event 11940000
+Event 11950000
+Event 11960000
+Event 11970000
+Event 11980000
+Event 11990000
+Event 12000000
+Event 12010000
+Event 12020000
+Event 12030000
+Event 12040000
+Event 12050000
+Passed v0 cuts
+Passed v0 cuts
+Event 12060000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12070000
+Passed v0 cuts
+Event 12080000
+Event 12090000
+Passed v0 cuts
+Passed v0 cuts
+Event 12100000
+Passed v0 cuts
+Event 12110000
+Event 12120000
+Event 12130000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12140000
+Event 12150000
+Event 12160000
+Event 12170000
+Event 12180000
+Event 12190000
+Event 12200000
+Passed v0 cuts
+Event 12210000
+Event 12220000
+Passed v0 cuts
+Event 12230000
+Event 12240000
+Passed v0 cuts
+Passed v0 cuts
+Event 12250000
+Passed v0 cuts
+Passed v0 cuts
+Event 12260000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12270000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12280000
+Passed v0 cuts
+Passed v0 cuts
+Event 12290000
+Event 12300000
+Event 12310000
+Event 12320000
+Event 12330000
+Passed v0 cuts
+Event 12340000
+Event 12350000
+Event 12360000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12370000
+Event 12380000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12390000
+Event 12400000
+Event 12410000
+Event 12420000
+Passed v0 cuts
+Event 12430000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.478034906   196.222323382
+43.3543930054 1.51882243156
+Event 12440000
+Passed v0 cuts
+Passed v0 cuts
+Event 12450000
+Passed v0 cuts
+Event 12460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12470000
+Event 12480000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+132.568460229   198.895823848
+59.5051307678 0.00491271680221
+Event 12490000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12500000
+Passed v0 cuts
+Event 12510000
+Event 12520000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 12530000
+Passed v0 cuts
+Event 12540000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12550000
+Passed v0 cuts
+Passed v0 cuts
+Event 12560000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12570000
+Event 12580000
+Passed v0 cuts
+Event 12590000
+Event 12600000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 12610000
+Passed v0 cuts
+Event 12620000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12630000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12640000
+Event 12650000
+Passed v0 cuts
+Event 12660000
+Passed v0 cuts
+Event 12670000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12680000
+Passed v0 cuts
+Passed v0 cuts
+Event 12690000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12700000
+Event 12710000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 12720000
+Event 12730000
+Event 12740000
+Event 12750000
+Passed v0 cuts
+Event 12760000
+Passed v0 cuts
+Passed v0 cuts
+Event 12770000
+Event 12780000
+Event 12790000
+Event 12800000
+Passed v0 cuts
+Passed v0 cuts
+Event 12810000
+Passed v0 cuts
+Passed v0 cuts
+Event 12820000
+Passed v0 cuts
+Event 12830000
+Event 12840000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12850000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12860000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12870000
+Event 12880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12890000
+Passed v0 cuts
+Event 12900000
+Event 12910000
+Passed v0 cuts
+Event 12920000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 12930000
+Event 12940000
+Passed v0 cuts
+Event 12950000
+Event 12960000
+Passed v0 cuts
+Passed v0 cuts
+Event 12970000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 12980000
+Passed v0 cuts
+Event 12990000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13000000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13010000
+Event 13020000
+Passed v0 cuts
+Event 13030000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+340.419158936 -1.93015313148
+Passed v0 cuts
+Event 13040000
+Event 13050000
+Event 13060000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 13070000
+Event 13080000
+Event 13090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 13100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13110000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+171.011469671   207.426067163
+47.7882728577 3.26552009583
+Event 13120000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13130000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13140000
+Event 13150000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13160000
+Passed v0 cuts
+Event 13170000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 13180000
+Event 13190000
+Passed v0 cuts
+Event 13200000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13210000
+Passed v0 cuts
+Passed v0 cuts
+Event 13220000
+Event 13230000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13240000
+Event 13250000
+Passed v0 cuts
+Event 13260000
+Event 13270000
+Event 13280000
+Event 13290000
+Event 13300000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 13310000
+Passed v0 cuts
+Event 13320000
+Passed v0 cuts
+Passed v0 cuts
+Event 13330000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13340000
+Event 13350000
+Event 13360000
+Event 13370000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13380000
+Passed v0 cuts
+Event 13390000
+Event 13400000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13410000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13420000
+Passed v0 cuts
+Event 13430000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13440000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 13450000
+Passed v0 cuts
+Event 13460000
+Event 13470000
+Event 13480000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13490000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 13500000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13510000
+Passed v0 cuts
+Event 13520000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13530000
+Passed v0 cuts
+Event 13540000
+Event 13550000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 13560000
+Passed v0 cuts
+Passed v0 cuts
+Event 13570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13580000
+Passed v0 cuts
+Event 13590000
+Passed v0 cuts
+Event 13600000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 13610000
+Passed v0 cuts
+Event 13620000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13630000
+Passed v0 cuts
+Event 13640000
+Event 13650000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 13660000
+Event 13670000
+Passed v0 cuts
+Event 13680000
+Event 13690000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 13700000
+Event 13710000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13720000
+Passed v0 cuts
+Passed v0 cuts
+Event 13730000
+Passed v0 cuts
+Passed v0 cuts
+Event 13740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13750000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13760000
+Event 13770000
+Event 13780000
+Event 13790000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13800000
+Passed v0 cuts
+Event 13810000
+Passed v0 cuts
+Passed v0 cuts
+Event 13820000
+Event 13830000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13840000
+Passed v0 cuts
+Passed v0 cuts
+Event 13850000
+Event 13860000
+Event 13870000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 13880000
+Event 13890000
+Passed v0 cuts
+Passed v0 cuts
+Event 13900000
+Passed v0 cuts
+Event 13910000
+Event 13920000
+Event 13930000
+Passed v0 cuts
+Passed v0 cuts
+Event 13940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13950000
+Event 13960000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 13970000
+Passed v0 cuts
+Passed v0 cuts
+Event 13980000
+Passed v0 cuts
+Event 13990000
+Event 14000000
+Event 14010000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14020000
+Passed v0 cuts
+Event 14030000
+Event 14040000
+Passed v0 cuts
+Passed v0 cuts
+Event 14050000
+Event 14060000
+Event 14070000
+Event 14080000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 14100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14110000
+Passed v0 cuts
+Event 14120000
+Event 14130000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14140000
+Event 14150000
+Event 14160000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14170000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14180000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14190000
+Passed v0 cuts
+Event 14200000
+Passed v0 cuts
+Passed v0 cuts
+Event 14210000
+Event 14220000
+Passed v0 cuts
+Event 14230000
+Event 14240000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14250000
+Event 14260000
+Event 14270000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14280000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14290000
+Passed v0 cuts
+Passed v0 cuts
+Event 14300000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 14310000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14320000
+Event 14330000
+Event 14340000
+Passed v0 cuts
+Event 14350000
+Passed v0 cuts
+Passed v0 cuts
+Event 14360000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 14370000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14380000
+Passed v0 cuts
+Passed v0 cuts
+Event 14390000
+Event 14400000
+Passed v0 cuts
+Passed v0 cuts
+Event 14410000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 14420000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 14430000
+Event 14440000
+Passed v0 cuts
+Passed v0 cuts
+Event 14450000
+Passed v0 cuts
+Event 14460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14470000
+Event 14480000
+Event 14490000
+Passed v0 cuts
+Event 14500000
+Passed v0 cuts
+Passed v0 cuts
+Event 14510000
+Event 14520000
+Event 14530000
+Event 14540000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 14550000
+Event 14560000
+Passed v0 cuts
+Event 14570000
+Passed v0 cuts
+Passed v0 cuts
+Event 14580000
+Passed v0 cuts
+Event 14590000
+Passed v0 cuts
+Event 14600000
+Passed v0 cuts
+Event 14610000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 14620000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+303.527008057 1.57733261585
+Event 14630000
+Event 14640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14650000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14660000
+Passed v0 cuts
+Passed v0 cuts
+Event 14670000
+Event 14680000
+Event 14690000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14700000
+Passed v0 cuts
+Event 14710000
+Passed v0 cuts
+Event 14720000
+Event 14730000
+Event 14740000
+Passed v0 cuts
+Event 14750000
+Event 14760000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14770000
+Passed v0 cuts
+Passed v0 cuts
+Event 14780000
+Passed v0 cuts
+Passed v0 cuts
+Event 14790000
+Event 14800000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 14810000
+Event 14820000
+Passed v0 cuts
+Passed v0 cuts
+Event 14830000
+Event 14840000
+Event 14850000
+Passed v0 cuts
+Passed v0 cuts
+Event 14860000
+Passed v0 cuts
+Event 14870000
+Passed v0 cuts
+Passed v0 cuts
+Event 14880000
+Passed v0 cuts
+Event 14890000
+Passed v0 cuts
+Event 14900000
+Passed v0 cuts
+Passed v0 cuts
+Event 14910000
+Passed v0 cuts
+Passed v0 cuts
+Event 14920000
+Passed v0 cuts
+Passed v0 cuts
+Event 14930000
+Passed v0 cuts
+Event 14940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14950000
+Event 14960000
+Passed v0 cuts
+Passed v0 cuts
+Event 14970000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 14980000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 14990000
+Event 15000000
+Passed v0 cuts
+Event 15010000
+Passed v0 cuts
+Passed v0 cuts
+Event 15020000
+Passed v0 cuts
+Event 15030000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+326.767883301 1.31671786308
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15040000
+Event 15050000
+Passed v0 cuts
+Event 15060000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15070000
+Event 15080000
+Passed v0 cuts
+Event 15090000
+Passed v0 cuts
+Event 15100000
+Event 15110000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15120000
+Event 15130000
+Passed v0 cuts
+Passed v0 cuts
+Event 15140000
+Event 15150000
+Passed v0 cuts
+Event 15160000
+Event 15170000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15180000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+49.1946296692 5.28074073792
+Event 15190000
+Passed v0 cuts
+Event 15200000
+Event 15210000
+Event 15220000
+Passed v0 cuts
+Event 15230000
+Passed v0 cuts
+Passed v0 cuts
+Event 15240000
+Event 15250000
+Passed v0 cuts
+Event 15260000
+Passed v0 cuts
+Event 15270000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15280000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15290000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15300000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15310000
+Event 15320000
+Passed v0 cuts
+Passed v0 cuts
+Event 15330000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15340000
+Passed v0 cuts
+Passed v0 cuts
+Event 15350000
+Passed v0 cuts
+Passed v0 cuts
+Event 15360000
+Event 15370000
+Event 15380000
+Event 15390000
+Passed v0 cuts
+Event 15400000
+Event 15410000
+Event 15420000
+Passed v0 cuts
+Event 15430000
+Passed v0 cuts
+Event 15440000
+Passed v0 cuts
+Passed v0 cuts
+Event 15450000
+Passed v0 cuts
+Event 15460000
+Event 15470000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15480000
+Passed v0 cuts
+Event 15490000
+Event 15500000
+Event 15510000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15520000
+Event 15530000
+Event 15540000
+Passed v0 cuts
+Passed v0 cuts
+Event 15550000
+Passed v0 cuts
+Event 15560000
+Passed v0 cuts
+Passed v0 cuts
+Event 15570000
+Passed v0 cuts
+Passed v0 cuts
+Event 15580000
+Event 15590000
+Event 15600000
+Event 15610000
+Passed v0 cuts
+Passed v0 cuts
+Event 15620000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15630000
+Event 15640000
+Passed v0 cuts
+Event 15650000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15660000
+Event 15670000
+Passed v0 cuts
+Passed v0 cuts
+Event 15680000
+Event 15690000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 15700000
+Passed v0 cuts
+Passed v0 cuts
+Event 15710000
+Passed v0 cuts
+Event 15720000
+Passed v0 cuts
+Event 15730000
+Passed v0 cuts
+Passed v0 cuts
+Event 15740000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 15750000
+Passed v0 cuts
+Passed v0 cuts
+Event 15760000
+Passed v0 cuts
+Passed v0 cuts
+Event 15770000
+Passed v0 cuts
+Event 15780000
+Event 15790000
+Event 15800000
+Event 15810000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15820000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+170.479135051   205.768744767
+49.2791252136 7.05215072632
+Event 15830000
+Passed v0 cuts
+Passed v0 cuts
+Event 15840000
+Event 15850000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15860000
+Passed v0 cuts
+Event 15870000
+Passed v0 cuts
+Event 15880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15890000
+Event 15900000
+Passed v0 cuts
+Event 15910000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15920000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 15930000
+Passed v0 cuts
+Event 15940000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 15950000
+Event 15960000
+Event 15970000
+Passed v0 cuts
+Passed v0 cuts
+Event 15980000
+Event 15990000
+Passed v0 cuts
+Event 16000000
+Event 16010000
+Event 16020000
+Passed v0 cuts
+Event 16030000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 16040000
+Event 16050000
+Passed v0 cuts
+Event 16060000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16070000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 16080000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16090000
+Event 16100000
+Passed v0 cuts
+Event 16110000
+Event 16120000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 16130000
+Passed v0 cuts
+Event 16140000
+Passed v0 cuts
+Event 16150000
+Event 16160000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16170000
+Event 16180000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16190000
+Event 16200000
+Passed v0 cuts
+Passed v0 cuts
+Event 16210000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 16220000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16230000
+Event 16240000
+Event 16250000
+Event 16260000
+Passed v0 cuts
+Event 16270000
+Event 16280000
+Event 16290000
+Passed v0 cuts
+Event 16300000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16310000
+Event 16320000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 16330000
+Event 16340000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16350000
+Event 16360000
+Passed v0 cuts
+Event 16370000
+Passed v0 cuts
+Event 16380000
+Passed v0 cuts
+Event 16390000
+Passed v0 cuts
+Event 16400000
+Passed v0 cuts
+Passed v0 cuts
+Event 16410000
+Event 16420000
+Event 16430000
+Passed v0 cuts
+Passed v0 cuts
+Event 16440000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.0468406677 -4.86215686798
+Event 16450000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+39.8168830872 -2.70555448532
+Event 16460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16470000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+264.743011475 2.47284150124
+Event 16480000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16490000
+Event 16500000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16510000
+Event 16520000
+Event 16530000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+106.398857117 4.16990089417
+Event 16540000
+Passed v0 cuts
+Event 16550000
+Event 16560000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 16570000
+Event 16580000
+Event 16590000
+Event 16600000
+Event 16610000
+Passed v0 cuts
+Passed v0 cuts
+Event 16620000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16630000
+Event 16640000
+Event 16650000
+Event 16660000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 16670000
+Event 16680000
+Passed v0 cuts
+Passed v0 cuts
+Event 16690000
+Event 16700000
+Event 16710000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16720000
+Passed v0 cuts
+Event 16730000
+Passed v0 cuts
+Event 16740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16750000
+Event 16760000
+Passed v0 cuts
+Passed v0 cuts
+Event 16770000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16780000
+Event 16790000
+Passed v0 cuts
+Event 16800000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16810000
+Event 16820000
+Passed v0 cuts
+Event 16830000
+Event 16840000
+Passed v0 cuts
+Event 16850000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.647570329   198.609733482
+Passed v0 cuts
+186.444824219 6.55228900909
+Event 16860000
+Passed v0 cuts
+Passed v0 cuts
+Event 16870000
+Event 16880000
+Event 16890000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16900000
+Passed v0 cuts
+Passed v0 cuts
+Event 16910000
+Event 16920000
+Passed v0 cuts
+Passed v0 cuts
+Event 16930000
+Passed v0 cuts
+Passed v0 cuts
+Event 16940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16950000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16960000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 16970000
+Event 16980000
+Event 16990000
+Passed v0 cuts
+Passed v0 cuts
+Event 17000000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17010000
+Event 17020000
+Event 17030000
+Event 17040000
+Event 17050000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17060000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 17070000
+Event 17080000
+Passed v0 cuts
+Passed v0 cuts
+Event 17090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17110000
+Passed v0 cuts
+Event 17120000
+Event 17130000
+Event 17140000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17150000
+Event 17160000
+Event 17170000
+Passed v0 cuts
+Event 17180000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17190000
+Passed v0 cuts
+Event 17200000
+Passed v0 cuts
+Event 17210000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17220000
+Event 17230000
+Event 17240000
+Passed v0 cuts
+Event 17250000
+Event 17260000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17270000
+Passed v0 cuts
+Passed v0 cuts
+Event 17280000
+Event 17290000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17300000
+Passed v0 cuts
+Event 17310000
+Passed v0 cuts
+Passed v0 cuts
+Event 17320000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17330000
+Event 17340000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17350000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17360000
+Event 17370000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 17380000
+Passed v0 cuts
+Event 17390000
+Event 17400000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17410000
+Passed v0 cuts
+Passed v0 cuts
+Event 17420000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17430000
+Passed v0 cuts
+Event 17440000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17450000
+Event 17460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 17470000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17480000
+Passed v0 cuts
+Event 17490000
+Event 17500000
+Event 17510000
+Passed v0 cuts
+Event 17520000
+Passed v0 cuts
+Passed v0 cuts
+Event 17530000
+Passed v0 cuts
+Event 17540000
+Passed v0 cuts
+Event 17550000
+Passed v0 cuts
+Passed v0 cuts
+Event 17560000
+Passed v0 cuts
+Event 17570000
+Event 17580000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17590000
+Event 17600000
+Event 17610000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17620000
+Passed v0 cuts
+Event 17630000
+Event 17640000
+Event 17650000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17660000
+Event 17670000
+Passed v0 cuts
+Event 17680000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17690000
+Passed v0 cuts
+Passed v0 cuts
+Event 17700000
+Passed v0 cuts
+Event 17710000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 17720000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17730000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17740000
+Event 17750000
+Passed v0 cuts
+Event 17760000
+Event 17770000
+Passed v0 cuts
+Passed v0 cuts
+Event 17780000
+Passed v0 cuts
+Event 17790000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17800000
+Passed v0 cuts
+Passed v0 cuts
+Event 17810000
+Event 17820000
+Passed v0 cuts
+Event 17830000
+Passed v0 cuts
+Passed v0 cuts
+Event 17840000
+Passed v0 cuts
+Passed v0 cuts
+Event 17850000
+Passed v0 cuts
+Event 17860000
+Event 17870000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17880000
+Event 17890000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17900000
+Passed v0 cuts
+Event 17910000
+Event 17920000
+Event 17930000
+Event 17940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17950000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17960000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 17970000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.283558931   197.867203332
+Passed v0 cuts
+308.911560059 -1.64408016205
+Passed v0 cuts
+Passed v0 cuts
+Event 17980000
+Event 17990000
+Event 18000000
+Passed v0 cuts
+Passed v0 cuts
+Event 18010000
+Event 18020000
+Event 18030000
+Event 18040000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18050000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18060000
+Event 18070000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18080000
+Passed v0 cuts
+Event 18090000
+Passed v0 cuts
+Event 18100000
+Passed v0 cuts
+Event 18110000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18120000
+Event 18130000
+Event 18140000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18150000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18160000
+Event 18170000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18180000
+Passed v0 cuts
+Event 18190000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 18200000
+Event 18210000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 18220000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18230000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18240000
+Passed v0 cuts
+Passed v0 cuts
+Event 18250000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 18260000
+Passed v0 cuts
+Event 18270000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18280000
+Event 18290000
+Passed v0 cuts
+Passed v0 cuts
+Event 18300000
+Event 18310000
+Event 18320000
+Event 18330000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18340000
+Passed v0 cuts
+Event 18350000
+Event 18360000
+Passed v0 cuts
+Event 18370000
+Passed v0 cuts
+Event 18380000
+Event 18390000
+Passed v0 cuts
+Event 18400000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 18410000
+Event 18420000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18430000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18440000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18450000
+Event 18460000
+Event 18470000
+Passed v0 cuts
+Event 18480000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 18490000
+Event 18500000
+Event 18510000
+Event 18520000
+Passed v0 cuts
+Passed v0 cuts
+Event 18530000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18540000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18550000
+Event 18560000
+Event 18570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18580000
+Passed v0 cuts
+Event 18590000
+Passed v0 cuts
+Event 18600000
+Event 18610000
+Passed v0 cuts
+Event 18620000
+Event 18630000
+Passed v0 cuts
+Event 18640000
+Passed v0 cuts
+Event 18650000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18660000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 18670000
+Event 18680000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18690000
+Passed v0 cuts
+Event 18700000
+Event 18710000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18720000
+Event 18730000
+Passed v0 cuts
+Passed v0 cuts
+Event 18740000
+Event 18750000
+Passed v0 cuts
+Passed v0 cuts
+Event 18760000
+Passed v0 cuts
+Passed v0 cuts
+Event 18770000
+Passed v0 cuts
+Passed v0 cuts
+Event 18780000
+Event 18790000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18800000
+Passed v0 cuts
+Event 18810000
+Event 18820000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+159.591103478   191.660355336
+Passed v0 cuts
+280.374359131 5.71340560913
+Event 18830000
+Event 18840000
+Passed v0 cuts
+Passed v0 cuts
+Event 18850000
+Event 18860000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18870000
+Event 18880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18890000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 18900000
+Passed v0 cuts
+Event 18910000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+146.433862987   197.422025357
+171.3286374   197.422025357
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+146.433862987   197.422025357
+171.3286374   197.422025357
+333.277832031 7.80825662613
+333.277832031 7.80825662613
+Event 18920000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+8.07904552687   194.32822842
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+8.07904552687   194.32822842
+49.8580932617 -5.85194921494
+49.8580932617 -6.50450277328
+Event 18930000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 18940000
+Event 18950000
+Event 18960000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 18970000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 18980000
+Passed v0 cuts
+Passed v0 cuts
+Event 18990000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19000000
+Event 19010000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19020000
+Event 19030000
+Event 19040000
+Event 19050000
+Event 19060000
+Passed v0 cuts
+Event 19070000
+Event 19080000
+Event 19090000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19110000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19120000
+Event 19130000
+Passed v0 cuts
+Passed v0 cuts
+Event 19140000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 19150000
+Passed v0 cuts
+Passed v0 cuts
+Event 19160000
+Passed v0 cuts
+Event 19170000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 19180000
+Passed v0 cuts
+Passed v0 cuts
+Event 19190000
+Event 19200000
+Event 19210000
+Passed v0 cuts
+Event 19220000
+Event 19230000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19240000
+Event 19250000
+Passed v0 cuts
+Event 19260000
+Passed v0 cuts
+Event 19270000
+Passed v0 cuts
+Event 19280000
+Passed v0 cuts
+Event 19290000
+Event 19300000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+145.728374284   263.833360427
+171.772551866   263.833360427
+42.9340019226 1.35015308857
+Passed v0 cuts
+Passed v0 cuts
+Event 19310000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19320000
+Passed v0 cuts
+Event 19330000
+Passed v0 cuts
+Passed v0 cuts
+Event 19340000
+Passed v0 cuts
+Passed v0 cuts
+Event 19350000
+Event 19360000
+Passed v0 cuts
+Event 19370000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 19380000
+Event 19390000
+Event 19400000
+Event 19410000
+Event 19420000
+Event 19430000
+Event 19440000
+Event 19450000
+Event 19460000
+Event 19470000
+Event 19480000
+Event 19490000
+Event 19500000
+Event 19510000
+Event 19520000
+Event 19530000
+Event 19540000
+Event 19550000
+Event 19560000
+Event 19570000
+Event 19580000
+Event 19590000
+Event 19600000
+Event 19610000
+Event 19620000
+Event 19630000
+Event 19640000
+Event 19650000
+Event 19660000
+Passed v0 cuts
+Passed v0 cuts
+Event 19670000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19680000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19690000
+Event 19700000
+Passed v0 cuts
+Event 19710000
+Event 19720000
+Event 19730000
+Event 19740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 19750000
+Passed v0 cuts
+Passed v0 cuts
+Event 19760000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19770000
+Event 19780000
+Event 19790000
+Passed v0 cuts
+Passed v0 cuts
+Event 19800000
+Event 19810000
+Event 19820000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19830000
+Passed v0 cuts
+Event 19840000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+172.712316729   200.319178067
+41.171207428 -3.78787350655
+Event 19850000
+Event 19860000
+Passed v0 cuts
+Passed v0 cuts
+Event 19870000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19890000
+Passed v0 cuts
+Event 19900000
+Passed v0 cuts
+Event 19910000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19920000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 19930000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 19940000
+Passed v0 cuts
+Event 19950000
+Event 19960000
+Event 19970000
+Event 19980000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 19990000
+Event 20000000
+Passed v0 cuts
+Passed v0 cuts
+Event 20010000
+Passed v0 cuts
+Passed v0 cuts
+Event 20020000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.153390172   229.93716277
+161.153390172   317.923495604
+36.8012886047 -6.43858718872
+Passed v0 cuts
+Passed v0 cuts
+Event 20030000
+Passed v0 cuts
+Passed v0 cuts
+Event 20040000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20050000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20060000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20070000
+Event 20080000
+Event 20090000
+Passed v0 cuts
+Event 20100000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20110000
+Passed v0 cuts
+Passed v0 cuts
+Event 20120000
+Event 20130000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+170.017562362   199.964740878
+144.539132718   199.964740878
+292.014923096 -5.49710273743
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20140000
+Passed v0 cuts
+Event 20150000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 20160000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 20170000
+Passed v0 cuts
+Event 20180000
+Event 20190000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20200000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 20210000
+Passed v0 cuts
+Event 20220000
+Passed v0 cuts
+Event 20230000
+Event 20240000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20250000
+Passed v0 cuts
+Event 20260000
+Event 20270000
+Passed v0 cuts
+Event 20280000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20290000
+Event 20300000
+Event 20310000
+Event 20320000
+Event 20330000
+Passed v0 cuts
+Event 20340000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 20350000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 20360000
+Event 20370000
+Event 20380000
+Event 20390000
+Event 20400000
+Event 20410000
+Event 20420000
+Event 20430000
+Event 20440000
+Event 20450000
+Event 20460000
+Event 20470000
+Event 20480000
+Event 20490000
+Event 20500000
+Event 20510000
+Event 20520000
+Event 20530000
+Event 20540000
+Event 20550000
+Event 20560000
+Event 20570000
+Event 20580000
+Event 20590000
+Event 20600000
+Event 20610000
+Event 20620000
+Event 20630000
+Event 20640000
+Event 20650000
+Event 20660000
+Event 20670000
+Event 20680000
+Event 20690000
+Event 20700000
+Event 20710000
+Event 20720000
+Event 20730000
+Event 20740000
+Event 20750000
+Event 20760000
+Event 20770000
+Event 20780000
+Event 20790000
+Event 20800000
+Event 20810000
+Event 20820000
+Event 20830000
+Event 20840000
+Event 20850000
+Event 20860000
+Event 20870000
+Event 20880000
+Event 20890000
+Event 20900000
+Event 20910000
+Event 20920000
+Event 20930000
+Event 20940000
+Event 20950000
+Event 20960000
+Event 20970000
+Event 20980000
+Event 20990000
+Event 21000000
+Event 21010000
+Event 21020000
+Event 21030000
+Event 21040000
+Event 21050000
+Event 21060000
+Event 21070000
+Event 21080000
+Event 21090000
+Event 21100000
+Event 21110000
+Event 21120000
+Event 21130000
+Event 21140000
+Event 21150000
+Event 21160000
+Event 21170000
+Event 21180000
+Event 21190000
+Event 21200000
+Event 21210000
+Event 21220000
+Event 21230000
+Event 21240000
+Event 21250000
+Passed v0 cuts
+Event 21260000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+78.543521921   196.984887939
+42.2881278992 -0.293636053801
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 21270000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.4268226624 2.28108310699
+Event 21280000
+Event 21290000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 21300000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+48.616394043 5.23454999924
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 21310000
+Event 21320000
+Passed v0 cuts
+Passed v0 cuts
+Event 21330000
+Passed v0 cuts
+Event 21340000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Event 21350000
+Event 21360000
+Passed v0 cuts
+Passed v0 cuts
+Event 21370000
+Event 21380000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21390000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.6039085388 -1.42924976349
+42.6039085388 -1.42924976349
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.1510391235 -0.364703416824
+Passed v0 cuts
+Event 21400000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+39.1979522705 -3.69594144821
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 21410000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.485229571   189.233211637
+164.485229571   253.874831459
+41.1989707947 -2.27320384979
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21420000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+144.172656659   201.949004626
+48.5630149841 6.39180278778
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 21430000
+Event 21440000
+Event 21450000
+Event 21460000
+Passed v0 cuts
+Passed v0 cuts
+Event 21470000
+Event 21480000
+Event 21490000
+Event 21500000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21510000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+78.2735907391   203.508320235
+149.243552288   203.508320235
+41.7132987976 0.544828891754
+Event 21520000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+154.694229512   219.520670271
+39.4707489014 -2.89840507507
+Event 21530000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+38.0068740845 -2.65140485764
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 21540000
+Event 21550000
+Event 21560000
+Passed v0 cuts
+Event 21570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21580000
+Passed v0 cuts
+Event 21590000
+Passed v0 cuts
+Passed v0 cuts
+Event 21600000
+Event 21610000
+Passed v0 cuts
+Passed v0 cuts
+Event 21620000
+Passed v0 cuts
+Event 21630000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21640000
+Event 21650000
+Event 21660000
+Passed v0 cuts
+Event 21670000
+Event 21680000
+Event 21690000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 21700000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21710000
+Event 21720000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.8843307495 -0.0545668005943
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 21730000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+154.861775732   222.205591501
+43.8479423523 0.299228310585
+Event 21740000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+162.96912062   248.645668436
+45.4656066895 2.04582595825
+Event 21750000
+Event 21760000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21770000
+Passed v0 cuts
+Event 21780000
+Event 21790000
+Passed v0 cuts
+Event 21800000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+157.950313623   188.237669559
+157.950313623   204.250901732
+157.950313623   218.146640052
+43.020362854 0.736315667629
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 21810000
+Event 21820000
+Passed v0 cuts
+Event 21830000
+Passed v0 cuts
+Event 21840000
+Event 21850000
+Passed v0 cuts
+Event 21860000
+Passed v0 cuts
+Event 21870000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+174.614521179   198.040678743
+44.5790290833 2.13858795166
+Event 21880000
+Passed v0 cuts
+Passed v0 cuts
+Event 21890000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+144.825084327   243.406901833
+144.825084327   226.973664775
+43.2345085144 2.02979326248
+Event 21900000
+Event 21910000
+Passed v0 cuts
+Event 21920000
+Passed v0 cuts
+Event 21930000
+Passed v0 cuts
+Event 21940000
+Event 21950000
+Event 21960000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.1987571716 1.21762049198
+44.1987571716 1.21762049198
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.103099823 2.25081706047
+Event 21970000
+Passed v0 cuts
+Passed v0 cuts
+Event 21980000
+Event 21990000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.512285458   222.592323564
+164.512285458   247.153926081
+164.512285458   264.372026888
+44.1580352783 2.72281622887
+Event 22000000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.9968109131 0.867406666279
+41.9968109131 0.867406666279
+Passed v0 cuts
+Passed v0 cuts
+Event 22010000
+Event 22020000
+Event 22030000
+Passed v0 cuts
+Event 22040000
+Event 22050000
+Passed v0 cuts
+Event 22060000
+Event 22070000
+Event 22080000
+Event 22090000
+Passed v0 cuts
+Event 22100000
+Passed v0 cuts
+Event 22110000
+Event 22120000
+Event 22130000
+Event 22140000
+Event 22150000
+Event 22160000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 22170000
+Event 22180000
+Event 22190000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+89.0023880005 6.41111278534
+Event 22200000
+Event 22210000
+Event 22220000
+Event 22230000
+Event 22240000
+Event 22250000
+Passed v0 cuts
+Event 22260000
+Event 22270000
+Event 22280000
+Event 22290000
+Event 22300000
+Event 22310000
+Event 22320000
+Event 22330000
+Event 22340000
+Event 22350000
+Event 22360000
+Event 22370000
+Event 22380000
+Event 22390000
+Event 22400000
+Event 22410000
+Event 22420000
+Event 22430000
+Event 22440000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 22450000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 22460000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 22470000
+Event 22480000
+Passed v0 cuts
+Event 22490000
+Event 22500000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+142.508668767   198.540522454
+42.1554260254 -0.629963517189
+Passed v0 cuts
+Event 22510000
+Passed v0 cuts
+Passed v0 cuts
+Event 22520000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 22530000
+Event 22540000
+Passed v0 cuts
+Passed v0 cuts
+Event 22550000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 22560000
+Event 22570000
+Event 22580000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 22590000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 22600000
+Event 22610000
+Event 22620000
+Event 22630000
+Event 22640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 22650000
+Event 22660000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 22670000
+Event 22680000
+Passed v0 cuts
+Event 22690000
+Event 22700000
+Event 22710000
+Passed v0 cuts
+Event 22720000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.344581604 -2.4051823616
+41.344581604 -1.60003685951
+Event 22730000
+Event 22740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 22750000
+Event 22760000
+Event 22770000
+Passed v0 cuts
+Passed v0 cuts
+Event 22780000
+Event 22790000
+Passed v0 cuts
+Event 22800000
+Passed v0 cuts
+Event 22810000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+91.5376653441   206.89185499
+44.6088829041 -0.543005526066
+Event 22820000
+Passed v0 cuts
+Passed v0 cuts
+Event 22830000
+Event 22840000
+Passed v0 cuts
+Event 22850000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 22860000
+Event 22870000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 22880000
+Passed v0 cuts
+Passed v0 cuts
+Event 22890000
+Event 22900000
+Event 22910000
+Event 22920000
+Passed v0 cuts
+Event 22930000
+Passed v0 cuts
+Event 22940000
+Event 22950000
+Event 22960000
+Passed v0 cuts
+Event 22970000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6522369385 3.24626374245
+Event 22980000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 22990000
+Passed v0 cuts
+Event 23000000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.5638389587 -2.72553730011
+42.5638389587 -1.89314115047
+Passed v0 cuts
+Passed v0 cuts
+Event 23010000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23020000
+Event 23030000
+Event 23040000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+146.860201053   212.298008197
+43.1739845276 2.91493058205
+Event 23050000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23060000
+Event 23070000
+Event 23080000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.4034118652 -0.89398920536
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+39.6759796143 -1.74324381351
+Event 23090000
+Event 23100000
+Event 23110000
+Passed v0 cuts
+Event 23120000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.988546105   207.421490354
+41.6786270142 -0.837650299072
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+172.305061896   195.736041502
+45.394115448 1.99752652645
+Event 23130000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.194176281   200.464909825
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.194176281   200.464909825
+43.7310180664 3.16882061958
+43.7310180664 3.16882061958
+Event 23140000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.30285519   208.861704986
+41.5531311035 -0.985487401485
+Event 23150000
+Event 23160000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+39.9116592407 -3.36923241615
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 23170000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23180000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 23190000
+Passed v0 cuts
+Event 23200000
+Event 23210000
+Event 23220000
+Event 23230000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.005967822   190.356423406
+163.005967822   200.082268871
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.005967822   190.356423406
+163.005967822   200.082268871
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.005967822   190.356423406
+163.005967822   200.082268871
+46.3590812683 0.864535093307
+46.3590812683 0.864535093307
+46.3590812683 1.64516782761
+Event 23240000
+Event 23250000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+43.1614074707 0.160845264792
+Event 23260000
+Passed v0 cuts
+Event 23270000
+Event 23280000
+Event 23290000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.0658073425 1.76519465446
+Event 23300000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+152.899002075 1.96552729607
+Event 23310000
+Event 23320000
+Event 23330000
+Event 23340000
+Passed v0 cuts
+Event 23350000
+Event 23360000
+Passed v0 cuts
+Event 23370000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.2779083252 -3.71585321426
+Event 23380000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+131.921919171   205.951451175
+174.219447147   205.951451175
+42.113735199 -2.44992399216
+Passed v0 cuts
+Event 23390000
+Event 23400000
+Event 23410000
+Passed v0 cuts
+Event 23420000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 23430000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 23440000
+Event 23450000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 23460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23470000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23480000
+Event 23490000
+Passed v0 cuts
+Event 23500000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 23510000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+50.6665496826 3.51730465889
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+141.58313286   201.65893513
+150.394685306   201.65893513
+42.6408119202 -0.603846371174
+Event 23520000
+Passed v0 cuts
+Passed v0 cuts
+Event 23530000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23540000
+Event 23550000
+Event 23560000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+167.567168855   209.282583357
+43.5370407104 -0.21480487287
+Event 23570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 23580000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.307238104   300.010473363
+160.307238104   225.827517171
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.307238104   300.010473363
+160.307238104   225.827517171
+41.7556686401 -2.79948544502
+41.7556686401 -2.79948544502
+Passed v0 cuts
+Passed v0 cuts
+Event 23590000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23600000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 23610000
+Event 23620000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 23630000
+Event 23640000
+Passed v0 cuts
+Event 23650000
+Event 23660000
+Event 23670000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.8222694397 0.0935126915574
+Event 23680000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+152.932472407   185.281804612
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+152.932472407   185.281804612
+Passed v0 cuts
+43.0802154541 0.333912909031
+43.0802154541 0.333912909031
+Event 23690000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+153.682736465   239.119080525
+153.682736465   227.361738239
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+153.682736465   239.119080525
+153.682736465   227.361738239
+41.5752296448 -1.94026303291
+41.5752296448 -0.985415160656
+Event 23700000
+Event 23710000
+Event 23720000
+Event 23730000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 23740000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Event 23750000
+Event 23760000
+Passed v0 cuts
+Event 23770000
+Event 23780000
+Event 23790000
+Event 23800000
+Event 23810000
+Event 23820000
+Event 23830000
+Event 23840000
+Event 23850000
+Event 23860000
+Event 23870000
+Event 23880000
+Event 23890000
+Event 23900000
+Event 23910000
+Event 23920000
+Event 23930000
+Event 23940000
+Event 23950000
+Event 23960000
+Event 23970000
+Event 23980000
+Event 23990000
+Event 24000000
+Event 24010000
+Event 24020000
+Event 24030000
+Event 24040000
+Event 24050000
+Event 24060000
+Event 24070000
+Event 24080000
+Event 24090000
+Event 24100000
+Event 24110000
+Event 24120000
+Event 24130000
+Event 24140000
+Event 24150000
+Event 24160000
+Event 24170000
+Event 24180000
+Event 24190000
+Event 24200000
+Event 24210000
+Event 24220000
+Event 24230000
+Event 24240000
+Event 24250000
+Event 24260000
+Event 24270000
+Event 24280000
+Event 24290000
+Event 24300000
+Event 24310000
+Event 24320000
+Event 24330000
+Event 24340000
+Event 24350000
+Event 24360000
+Event 24370000
+Event 24380000
+Event 24390000
+Event 24400000
+Event 24410000
+Event 24420000
+Event 24430000
+Event 24440000
+Event 24450000
+Event 24460000
+Event 24470000
+Event 24480000
+Event 24490000
+Event 24500000
+Event 24510000
+Passed v0 cuts
+Event 24520000
+Event 24530000
+Event 24540000
+Passed v0 cuts
+Event 24550000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24560000
+Event 24570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24580000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24590000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24600000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24610000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.3440475464 0.741843104362
+44.3440475464 1.58661210537
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.2750930786 -2.00547814369
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24620000
+Passed v0 cuts
+Event 24630000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+161.061082455   207.532612132
+40.0527114868 -3.17832517624
+Passed v0 cuts
+Event 24640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24650000
+Event 24660000
+Event 24670000
+Event 24680000
+Passed v0 cuts
+Event 24690000
+Event 24700000
+Passed v0 cuts
+Passed v0 cuts
+Event 24710000
+Passed v0 cuts
+Event 24720000
+Event 24730000
+Event 24740000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24750000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24760000
+Passed v0 cuts
+Passed v0 cuts
+Event 24770000
+Event 24780000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+134.974493991   205.040206389
+41.6250228882 -0.536180853844
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24790000
+Passed v0 cuts
+Passed v0 cuts
+Event 24800000
+Event 24810000
+Passed v0 cuts
+Passed v0 cuts
+Event 24820000
+Passed v0 cuts
+Event 24830000
+Event 24840000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.985042572 1.4764829874
+Event 24850000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+140.656524658 -2.03067350388
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24860000
+Event 24870000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 24890000
+Event 24900000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.2802276611 1.66496515274
+42.2802276611 1.66496515274
+Event 24910000
+Passed v0 cuts
+Passed v0 cuts
+Event 24920000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 24930000
+Event 24940000
+Event 24950000
+Passed v0 cuts
+Event 24960000
+Event 24970000
+Event 24980000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+40.8190689087 -1.0937255621
+Event 24990000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25000000
+Passed v0 cuts
+Event 25010000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+165.116851455   349.893601445
+45.5619544983 1.58203709126
+Event 25020000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25030000
+Passed v0 cuts
+Passed v0 cuts
+Event 25040000
+Event 25050000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 25060000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+116.757534003   212.189391538
+44.2781066895 2.99629831314
+Event 25070000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 25080000
+Passed v0 cuts
+Event 25090000
+Event 25100000
+Passed v0 cuts
+Passed v0 cuts
+Event 25110000
+Event 25120000
+Event 25130000
+Passed v0 cuts
+Passed v0 cuts
+Event 25140000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25150000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+46.6350860596 2.16518878937
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.5727005005 -1.87407636642
+40.5727005005 -1.87407636642
+Event 25160000
+Event 25170000
+Passed v0 cuts
+Event 25180000
+Passed v0 cuts
+Event 25190000
+Passed v0 cuts
+Event 25200000
+Event 25210000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25220000
+Passed v0 cuts
+Passed v0 cuts
+Event 25230000
+Event 25240000
+Event 25250000
+Passed v0 cuts
+Passed v0 cuts
+Event 25260000
+Event 25270000
+Event 25280000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.8094329834 -0.257701188326
+Event 25290000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 25300000
+Passed v0 cuts
+Event 25310000
+Passed v0 cuts
+Passed v0 cuts
+Event 25320000
+Event 25330000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+104.367952842   222.660338988
+42.7264976501 1.19885516167
+Event 25340000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25350000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25360000
+Passed v0 cuts
+Passed v0 cuts
+Event 25370000
+Event 25380000
+Passed v0 cuts
+Passed v0 cuts
+Event 25390000
+Passed v0 cuts
+Passed v0 cuts
+Event 25400000
+Event 25410000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25420000
+Passed v0 cuts
+Event 25430000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25440000
+Passed v0 cuts
+Event 25450000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25460000
+Passed v0 cuts
+Passed v0 cuts
+Event 25470000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25480000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+160.656425197   185.279502136
+160.656425197   212.218526695
+44.9194297791 1.64349079132
+Event 25490000
+Passed v0 cuts
+Passed v0 cuts
+Event 25500000
+Event 25510000
+Passed v0 cuts
+Event 25520000
+Event 25530000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 25540000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25550000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25560000
+Passed v0 cuts
+Passed v0 cuts
+Event 25570000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25580000
+Event 25590000
+Passed v0 cuts
+Event 25600000
+Event 25610000
+Passed v0 cuts
+Event 25620000
+Passed v0 cuts
+Event 25630000
+Event 25640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25650000
+Event 25660000
+Event 25670000
+Event 25680000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+40.0983848572 -4.10917186737
+Event 25690000
+Passed v0 cuts
+Passed v0 cuts
+Event 25700000
+Event 25710000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25720000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.8119277954 1.72081434727
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+45.3430633545 0.118813537061
+45.3430633545 1.44878697395
+Event 25730000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25740000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Event 25750000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25760000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 25770000
+Event 25780000
+Event 25790000
+Passed v0 cuts
+Passed v0 cuts
+Event 25800000
+Passed v0 cuts
+Passed v0 cuts
+Event 25810000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25820000
+Passed v0 cuts
+Event 25830000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.0827674866 -0.493668705225
+Event 25840000
+Passed v0 cuts
+Event 25850000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+44.9712104797 4.1655163765
+Event 25860000
+Passed v0 cuts
+Event 25870000
+Event 25880000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25890000
+Event 25900000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25910000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25920000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25930000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 25940000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 25950000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 25960000
+Event 25970000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 25980000
+Passed v0 cuts
+Passed v0 cuts
+Event 25990000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+159.442144402   216.321477158
+159.442144402   323.989959307
+43.5925559998 -0.3464820683
+Passed v0 cuts
+Passed v0 cuts
+Event 26000000
+Passed v0 cuts
+Event 26010000
+Event 26020000
+Event 26030000
+Passed v0 cuts
+Passed v0 cuts
+Event 26040000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26050000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 26060000
+Event 26070000
+Passed v0 cuts
+Event 26080000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 26090000
+Event 26100000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+39.1467704773 -5.37797498703
+39.1467704773 -5.37797498703
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.889213562 2.01081800461
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 26110000
+Passed v0 cuts
+Event 26120000
+Event 26130000
+Event 26140000
+Passed v0 cuts
+Passed v0 cuts
+Event 26150000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 26160000
+Passed v0 cuts
+Event 26170000
+Passed v0 cuts
+Event 26180000
+Passed v0 cuts
+Passed v0 cuts
+Event 26190000
+Event 26200000
+Event 26210000
+Event 26220000
+Event 26230000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+48.1083717346 1.71741390228
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.8043556213 -1.33175671101
+Event 26240000
+Passed v0 cuts
+Event 26250000
+Passed v0 cuts
+Event 26260000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26270000
+Passed v0 cuts
+Passed v0 cuts
+Event 26280000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 26290000
+Passed v0 cuts
+Event 26300000
+Event 26310000
+Passed v0 cuts
+Event 26320000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26330000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+167.362956605   210.876715038
+167.362956605   221.756827064
+41.1686630249 -0.104048863053
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26340000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26350000
+Event 26360000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26370000
+Passed v0 cuts
+Passed v0 cuts
+Event 26380000
+Passed v0 cuts
+Event 26390000
+Event 26400000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26410000
+Event 26420000
+Passed v0 cuts
+Event 26430000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26440000
+Passed v0 cuts
+Event 26450000
+Event 26460000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26470000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.758356358   189.710863862
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+163.758356358   189.710863862
+37.905090332 -2.51246976852
+37.905090332 -3.6393802166
+Event 26480000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26490000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26500000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.4983291626 3.98183178902
+44.4983291626 3.96872758865
+Passed v0 cuts
+Event 26510000
+Passed v0 cuts
+Event 26520000
+Passed v0 cuts
+Passed v0 cuts
+Event 26530000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+41.4917259216 -1.13485062122
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26540000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.8940620422 0.473988056183
+43.8940620422 0.473988056183
+Event 26550000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26560000
+Passed v0 cuts
+Event 26570000
+Event 26580000
+Event 26590000
+Event 26600000
+Event 26610000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+183.322998047 -0.813415586948
+183.322998047 -0.608786165714
+Passed v0 cuts
+Event 26620000
+Passed v0 cuts
+Passed v0 cuts
+Event 26630000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 26640000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 26650000
+Passed v0 cuts
+Event 26660000
+Passed v0 cuts
+Passed v0 cuts
+Event 26670000
+Passed v0 cuts
+Event 26680000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+44.6575927734 1.79868960381
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26690000
+Passed v0 cuts
+Event 26700000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26710000
+Event 26720000
+Event 26730000
+Event 26740000
+Event 26750000
+Event 26760000
+Event 26770000
+Event 26780000
+Event 26790000
+Event 26800000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+164.908903684   188.720114733
+44.961025238 3.32936096191
+Event 26810000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+150.060255429   209.138729115
+150.060255429   191.316486503
+39.1237983704 -2.84407067299
+Event 26820000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+43.6550064087 2.26958656311
+Passed v0 cuts
+Event 26830000
+Passed v0 cuts
+Event 26840000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26850000
+Event 26860000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Event 26870000
+Passed v0 cuts
+Event 26880000
+Event 26890000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26900000
+Event 26910000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.960308075 0.576319634914
+Event 26920000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Event 26930000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26940000
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+46.5778388977 4.97414827347
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26950000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+45.0903930664 3.05851125717
+Passed v0 cuts
+Event 26960000
+Passed v0 cuts
+Event 26970000
+Event 26980000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+42.283203125 -0.0514570809901
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 26990000
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+looking at tracks now
+1
+OBJ: GblTrack	GblTrack	
+satisfied timing cuts...
+Passed v0 cuts
+Passed v0 cuts
+Event 27000000
+Event 27010000
+Event 27020000
+Passed v0 cuts
+Passed v0 cuts
+Event 27030000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+Event 27040000
+Event 27050000
+Passed v0 cuts
+Passed v0 cuts
+Passed v0 cuts
+******************************************************************************************
+Number of Events:		27059000 			1.0 			1.0
+N(particle) Cuts:		7871 			0.000290882885546 			0.000290882885546
+V0 Vertex   Cuts:		4145 			0.526616694194 			0.000153183783584
+Tracking    Cuts:		635 			0.153196622437 			2.34672382571e-05
+ECal Match  Cuts:		330 			0.51968503937 			1.21955726376e-05
+Number of Fake Events Added:  		0 			0.0
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0205>
+Subject: Job 671556: <python tridentAnalysis_pass4.py -p True -o OutputHistograms/Data/hps_00_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_00> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass4.py -p True -o OutputHistograms/Data/hps_00_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_00> was submitted from host <rhel6-64k> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0205>, in queue <long>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Mon Jun  6 15:17:06 2016
+Results reported on Mon Jun  6 16:23:37 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass4.py -p True -o OutputHistograms/Data/hps_00_pulser_pass6_useGBL_ECalMatch_SuperFiducialCut.root /nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser/hps_00
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3631.85 sec.
+    Max Memory :                                 393 MB
+    Average Memory :                             160.80 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   946 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   3993 sec.
+    Turnaround time :                            3992 sec.
+
+The output (if any) is above this job summary.
+

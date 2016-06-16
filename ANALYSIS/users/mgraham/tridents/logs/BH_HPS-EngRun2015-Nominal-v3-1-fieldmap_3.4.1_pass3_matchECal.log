@@ -1,0 +1,50 @@
+[ HPS ANALYSIS ]:  Output file is OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_matchECal.root
+[ HPS ANALYSIS ]: Setting to run as MC
+Loading HpsEvent Library from /nfs/slac/g/hps3/software/hps-dst/build/lib/libHpsEvent.so
+[ HPS ANALYSIS ]: Reading in root chain from /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1
+Event 10000
+Event 20000
+Event 30000
+Event 40000
+Event 50000
+			Trident Selection Summary
+******************************************************************************************
+Number of Events:		56379 			1.0 			1.0
+N(particle) Cuts:		27580 			0.489189237127 			0.489189237127
+V0 Vertex   Cuts:		20834 			0.755402465555 			0.369534755849
+Tracking    Cuts:		17123 			0.821877699914 			0.303712375175
+
+------------------------------------------------------------
+Sender: LSF System <lsf@fell0088>
+Subject: Job 999707: <python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_matchECal.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1> in cluster <slac> Done
+
+Job <python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_matchECal.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1> was submitted from host <rhel6-64f> by user <mgraham> in cluster <slac>.
+Job was executed on host(s) <fell0088>, in queue <short>, as user <mgraham> in cluster <slac>.
+</u/br/mgraham> was used as the home directory.
+</u/br/mgraham/hps-analysis/tridents> was used as the working directory.
+Started at Mon Oct 26 05:08:28 2015
+Results reported on Mon Oct 26 05:09:23 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python tridentAnalysis_pass3.py -m True -o OutputHistograms/MC/BH_HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1_pass3_matchECal.root /nfs/slac/g/hps3/data/engrun2015/pass3/mc/dst/BH/*HPS-EngRun2015-Nominal-v3-1-fieldmap_3.4.1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   36.71 sec.
+    Max Memory :                                 253 MB
+    Average Memory :                             92.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   54 sec.
+    Turnaround time :                            56 sec.
+
+The output (if any) is above this job summary.
+
