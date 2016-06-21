@@ -86,9 +86,9 @@ void overlayDifferentCuts(){
  
 
   for(int k=0;k<nPlots;k++){
-    (overlayDataAndTriTrig(labels,nlabels, plotNames[k],plotXAxis[k],norms[k],logy[k]))->SaveAs("SinglePlots/"+plotNames[k]+"_"+fileLabel+".pdf");  
+    //   (overlayDataAndTriTrig(labels,nlabels, plotNames[k],plotXAxis[k],norms[k],logy[k]))->SaveAs("SinglePlots/"+plotNames[k]+"_"+fileLabel+".pdf");  
     (overlayDataAndBeamTri(labels,nlabels, plotNames[k],plotXAxis[k],norms[k],logy[k]))->SaveAs("SinglePlots/"+plotNames[k]+"_"+fileLabel+"_WABBeamTri.pdf");  
-    (overlayPulserAndBeamTri(labels,nlabels, plotNames[k],plotXAxis[k],norms[k],logy[k]))->SaveAs("SinglePlots/Pulser_"+plotNames[k]+"_"+fileLabel+".pdf");  
+    //    (overlayPulserAndBeamTri(labels,nlabels, plotNames[k],plotXAxis[k],norms[k],logy[k]))->SaveAs("SinglePlots/Pulser_"+plotNames[k]+"_"+fileLabel+".pdf");  
     //    (overlayDataAndBHRad(labels,nlabels, plotNames[k],plotXAxis[k],norms[k],logy[k]))->SaveAs("SinglePlots/"+plotNames[k]+"_"+fileLabel+"_RadBH.pdf");  
   }  
   /*  make 2d plots */
@@ -234,7 +234,7 @@ TCanvas* overlayDataAndBeamTri(TString* labels,int nlabels, TString hname,TStrin
   double btNele=45*5e5*100/1000; // total bunches beam-tri, pass 6 as of May 31, 2016  ... x 1000 
   //  double wbtNele=197*5e5/1000;  //total bunches WAB-beam-tri, pass6 as of May 31, 2016... x 1000 
   //scale wbt to the observed trigger rate
-  double wbtNele=197*5e5/1000*31/18;  //total bunches WAB-beam-tri, pass6 as of May 31, 2016... x 1000 
+  double wbtNele=903*10*5e5/1000;  //total bunches WAB-beam-tri, pass6 as of June 15, 2016... x 1000 
   cout<<btNele<<endl;
 
   TString plotDir = "OutputHistograms";

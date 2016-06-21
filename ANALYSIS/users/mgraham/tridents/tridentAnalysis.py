@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-# @file tridentAnalysis_pass4.py
+# @file tridentAnalysis.py
 # @section purpose:
 #       A PyRoot analysis for the DST selecting trident events and making some plots
 # @author Matt Graham <mgraham@slac.stanford.edu>
@@ -126,6 +126,7 @@ def findWABPair(electron,  hps_event):
     eleEnergy=pMag(electron.getMomentum())
     elePhi=electron.getTracks().At(0).getPhi0() - beamAngle #x angle - beam angle
     eleSlope=electron.getTracks().At(0).getTanLambda() #sin(y angle)
+    print beamEnergy
     projPhotonEnergy=beamEnergy-eleEnergy
     projPhotonPhi = math.asin(-math.sin(elePhi)*eleEnergy/projPhotonEnergy)
     projPhotonTheta = math.asin(-eleSlope*eleEnergy/projPhotonEnergy)
@@ -183,12 +184,14 @@ def findWABPair(electron,  hps_event):
 #------------#
 
 def main():
+    global beamEnergy
     # Parse all command line arguments using the argparse module.
     parser = argparse.ArgumentParser(description='PyRoot analysis demostrating the us of a DST.')
     parser.add_argument("dst_file",  help="ROOT DST file to process")
     parser.add_argument("-o", "--output",  help="Name of output pdf file")
     parser.add_argument("-m", "--mc",  help="is MonteCarlo")
     parser.add_argument("-p", "--pulser",  help="is Pulser")
+    parser.add_argument("-e","--energy",help="beam energy")
     args = parser.parse_args()
 
     # If an output file name was not specified, set a default name and warn
@@ -213,7 +216,10 @@ def main():
         print  "[ HPS ANALYSIS ]: Setting to run from a pulser file"
         isPulser=True
 
-
+    if args.energy : 
+        print 'Setting beam energy to '+args.energy
+        beamEnergy=float(args.energy)
+        myhist.setEnergyScales(beamEnergy)
 
 
 #################################
@@ -236,8 +242,8 @@ def main():
     #v0 cuts   
     v0Chi2=10
     #ESum -- full region
-    v0PzMax=1.2
-    v0PzMin=0.55
+    v0PzMax=1.2*beamEnergy
+    v0PzMin=0.55*beamEnergy
     #ESum -- Radiative region
 #    v0PzMax=1.2
 #    v0PzMin=0.80
@@ -249,7 +255,7 @@ def main():
     v0VxMax=2.0# mm from target
  #  track quality cuts
     trkChi2=10
-    beamCut=0.8
+    beamCut=0.8*beamEnergy
     minPCut=0.05
     trkPyMax=0.2
     trkPxMax=0.2

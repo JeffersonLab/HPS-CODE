@@ -4,6 +4,8 @@ from ROOT import TLorentzVector
 import numpy as np 
 me=0.000000511 #kev
 class myHistograms:  
+
+    
     histogramList=[]
 
     nbinsSmall=50
@@ -375,6 +377,52 @@ class myHistograms:
     beam=[np.sin(0.0305),0,np.cos(0.0305)]
     beamRotAxis=[0,1,0]
     rotAngle=-0.0305
+
+
+    def setEnergyScales(self, ebeam)  :
+        
+        self.tridentMass.GetXaxis().Set(self.nbinsBig,0,0.1*ebeam)
+        self.eSum.GetXaxis().Set(self.nbinsSmall,0.3*ebeam,1.2*ebeam)
+        self.ePosvseEle.GetXaxis().Set(self.nbinsSmall,0.1*ebeam,0.9*ebeam)
+        self.ePosvseEle.GetYaxis().Set(self.nbinsSmall,0.1*ebeam,0.9*ebeam)
+        self.copVseSum.GetXaxis().Set(100,0.3*ebeam,1.2*ebeam)
+        self.openVseSum.GetXaxis().Set(100,0.3*ebeam,1.2*ebeam)
+        
+        self.eleMom.GetXaxis().Set(self.nbinsSmall,0,ebeam)
+        self.posMom.GetXaxis().Set(self.nbinsSmall,0,ebeam)
+        self.raweleMom.GetXaxis().Set(self.nbinsSmall,0,ebeam)
+        self.rawposMom.GetXaxis().Set(self.nbinsSmall,0,ebeam)
+        self.recMom.GetXaxis().Set(self.nbinsSmall,0,ebeam)
+
+        self.eleChi2vsMom.GetYaxis().Set(self.nbinsSmall,0,ebeam)
+        self.posChi2vsMom.GetYaxis().Set(self.nbinsSmall,0,ebeam)
+
+        self.eVsSlopeEle.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.eVsSlopePos.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.eVsPhiEle.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.eVsPhiPos.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        
+        self.eVsPhiEleTop.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.eVsPhiPosTop.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.eVsPhiEleBottom.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.eVsPhiPosBottom.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        
+        self.EclEPtrkEle.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.EclEPtrkEle.GetYaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.EclEPtrkPos.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.EclEPtrkPos.GetYaxis().Set(100,0.1*ebeam,0.8*ebeam)
+
+        self.EclXPtrkEle.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.EclXPtrkPos.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+
+        self.EclTimePtrkEle.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+        self.EclTimePtrkPos.GetXaxis().Set(100,0.1*ebeam,0.8*ebeam)
+
+        self.wabPredictedVsMeasuredE.GetXaxis().Set(100,0,ebeam*1.2)
+        self.wabPredictedVsMeasuredE.GetYaxis().Set(100,0,ebeam*1.2)
+
+
+
     #takes in an HpsParticle candidate and makes plots
     #use this for reconstructed events
     def fillCandidateHistograms(self,particle, ucparticle = None) :
@@ -454,7 +502,7 @@ class myHistograms:
             self.trkCluTimeDiffPos.Fill(posDt)
             self.EclTimePtrkPos.Fill(posBeam.E(),posCluster.getClusterTime()-43.5)
             self.TrkTimeEclTimePos.Fill(posCluster.getClusterTime()-43.5,posTrk.getTrackTime())
-            print str(posCluster.getClusterTime()) + " " +str(posTrk.getTrackTime())
+#            print str(posCluster.getClusterTime()) + " " +str(posTrk.getTrackTime())
         if electron.getClusters().GetEntries() != 0 :
             eleCluster=electron.getClusters().First()
             self.EclXEclYEle.Fill(eleCluster.getPosition()[0],eleCluster.getPosition()[1])
