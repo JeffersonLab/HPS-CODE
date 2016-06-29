@@ -83,24 +83,18 @@ def makePlots(name,var,nbins,xmin,xmax,cut,forward):
     #c.Update()
     #c.SaveAs(sys.argv[1]+"_{0}_roc.png".format(name))
     c.Modified()
-    c.SaveAs(sys.argv[1]+"_{0}.png".format(name))
+    c.Print(sys.argv[1]+".pdf".format(name),"Title:"+name)
 
-    #goodHist.AddBinContent(1,goodHist.GetBinContent(0))
-    #goodHist.SetBinContent(0,0)
-    #badHist.AddBinContent(1,badHist.GetBinContent(0))
-    #badHist.SetBinContent(0,0)
-    #goodHist.AddBinContent(nbins,goodHist.GetBinContent(nbins+1))
-    #goodHist.SetBinContent(nbins+1,0)
-    #badHist.AddBinContent(nbins,badHist.GetBinContent(nbins+1))
-    #badHist.SetBinContent(nbins+1,0)
-    #goodHist.Scale(1.0/goodHist.Integral())
-    #goodHist.GetYaxis().SetRangeUser(0,1)
-    #goodHistIntegral = goodHist.GetCumulative(forward)
-    #goodHistIntegral.Draw("")
-    #badHist.SetLineColor(2)
-    #badHist.Scale(1.0/badHist.Integral())
-    #badHistIntegral = badHist.GetCumulative(forward)
-    #badHistIntegral.Draw("same")
+def allBut(cuts,i):
+    return cuts[:i]+cuts[i+1:]
+def makeCutString(cuts):
+    return reduce(lambda a,b:a+"&&"+b,[str(i) for i in cuts])
+
+cuts=["bscChisq<5",
+        "max(eleTrkChisq,posTrkChisq)<20",
+        "minIso>0.5",
+        "abs(bscPX)<0.5",
+        "abs(bscPY)<0.1"]
 
 cut0="bscChisq<5"
 cut1="max(eleTrkChisq,posTrkChisq)<20"
@@ -108,32 +102,31 @@ cut2="minIso>0.5"
 cut3="abs(bscPX)<0.5"
 cut4="abs(bscPY)<0.1"
 
-makePlots("bscChisq","bscChisq",100,0,50,"{0}&&{1}&&{2}&&{3}".format(cut1,cut2,cut3,cut4),True)
+c.Print(sys.argv[1]+".pdf[")
+makePlots("bscChisq","bscChisq",100,0,50,makeCutString(allBut(cuts,0)),True)
 
-makePlots("trkChisq","max(eleTrkChisq,posTrkChisq)",100,0,50,"{0}&&{1}&&{2}&&{3}".format(cut0,cut2,cut3,cut4),True)
+makePlots("trkChisq","max(eleTrkChisq,posTrkChisq)",100,0,50,makeCutString(allBut(cuts,1)),True)
 
-makePlots("minIso","minIso",200,0,5,"{0}&&{1}&&{2}&&{3}".format(cut0,cut1,cut3,cut4),False)
+makePlots("minIso","minIso",200,0,5,makeCutString(allBut(cuts,2)),False)
+makePlots("minPosIso","minPositiveIso",200,0,5,makeCutString(allBut(cuts,2),False)
+makePlots("minNegIso","minNegativeIso",200,0,5,makeCutString(allBut(cuts,2)),False)
 
-#makePlots("bscPX","abs(bscPX/bscP)",100,0,0.05,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
-makePlots("bscPX","abs(bscPX)",100,0,0.05,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
+makePlots("bscPX","abs(bscPX/bscP)",100,0,0.05,makeCutString(allBut(cuts,3)),True)
 
-#makePlots("bscPY","abs(bscPY/bscP)",100,0,0.025,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
-makePlots("bscPY","abs(bscPY)",100,0,0.025,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
+makePlots("bscPY","abs(bscPY/bscP)",100,0,0.025,makeCutString(allBut(cuts,4)),True)
 
-makePlots("fda","(bscChisq/5.0)+(0.5/minIso)",100,0,10,"{0}&&{1}&&{2}".format(cut1,cut3,cut4),True)
+makePlots("fda","(bscChisq/5.0)+(0.5/minIso)",100,0,10,makeCutString(cuts[:2]),True)
 
-makePlots("cut","max(bscChisq/5.0,0.5/minIso)",100,0,5,"{0}&&{1}&&{2}".format(cut1,cut3,cut4),True)
+makePlots("cut","max(bscChisq/5.0,0.5/minIso)",100,0,5,makeCutString(cuts[:2]),True)
 
-makePlots("minPosIso","minPositiveIso",200,0,5,"{0}&&{1}&&{2}&&{3}".format(cut0,cut1,cut3,cut4),False)
 
-makePlots("minNegIso","minNegativeIso>100?-9999:minNegativeIso",200,-5,0,"{0}&&{1}&&{2}&&{3}".format(cut0,cut1,cut3,cut4),True)
-
-makePlots("hitX","eleFirstHitX-posFirstHitX",200,-20,20,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
-makePlots("abs_hitX","abs(eleFirstHitX-posFirstHitX+2)",200,-20,20,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
+makePlots("hitX","eleFirstHitX-posFirstHitX",200,-20,20,makeCutString(cuts),True)
+makePlots("abs_hitX","abs(eleFirstHitX-posFirstHitX+2)",200,-20,20,makeCutString(cuts),True)
 #makePlots("bscVX","abs(bscVX)",200,0,2,"{0}&&{1}&&{2}&&{3}".format(cut0,cut1,cut2,cut4),True)
 #makePlots("bscVY","abs(bscVY)",200,0,0.5,"{0}&&{1}&&{2}&&{3}".format(cut0,cut1,cut2,cut3),True)
-makePlots("elePhiKink","abs(elePhiKink2+elePhiKink3)",200,0,0.01,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
+makePlots("elePhiKink","abs(elePhiKink2+elePhiKink3)",200,0,0.01,makeCutString(cuts),True)
 
-makePlots("pdiff","abs(eleP-posP)/(eleP+posP)",200,0,1,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
-makePlots("trkP_ele","abs(eleP-1.05*0.5)",200,0,0.5,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
-makePlots("trkP_pos","abs(posP-1.05*0.5)",200,0,0.5,"{0}&&{1}&&{2}&&{3}&&{4}".format(cut0,cut1,cut2,cut3,cut4),True)
+makePlots("pdiff","abs(eleP-posP)/(eleP+posP)",200,0,1,makeCutString(cuts),True)
+makePlots("trkP_ele","abs(eleP-1.05*0.5)",200,0,0.5,makeCutString(cuts),True)
+makePlots("trkP_pos","abs(posP-1.05*0.5)",200,0,0.5,makeCutString(cuts),True)
+c.Print(sys.argv[1]+".pdf]")

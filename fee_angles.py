@@ -147,6 +147,13 @@ hnew_1.Fit("pol1","","",-0.05,-0.03)
 hnew_1.GetYaxis().SetRangeUser(0.95*ebeam,1.05*ebeam)
 c.Print(remainder[0]+".pdf)","Title:bot_py")
 
+outfile = TFile(remainder[0]+".root","RECREATE")
+events.Draw("fspP+0.25*(fspPX/fspP-0.02)+1.25*abs(fspPX/fspP-0.02)+0.02>>fee_bot(100,{0},{1})".format(0.7*ebeam,1.3*ebeam),"(isSingle0||isSingle1)&&fspTrkHits==6&&fspMatchChisq<3&&fspClE>0.85*{0}&&fspPY/fspP<-0.03".format(ebeam),"colz")
+events.Draw("fspP+0.05*(fspPX/fspP-0.02)-0.05*abs(fspPX/fspP-0.02)+0.02>>fee_top(100,{0},{1})".format(0.7*ebeam,1.3*ebeam),"(isSingle0||isSingle1)&&fspTrkHits==6&&fspMatchChisq<3&&fspClE>0.85*{0}&&fspPY/fspP>0.03".format(ebeam),"colz")
+events.Draw("fspP+0.25*(fspPX/fspP-0.02)+1.25*abs(fspPX/fspP-0.02)+0.02>>fee_single0_bot(100,{0},{1})".format(0.7*ebeam,1.3*ebeam),"(isSingle0)&&fspTrkHits==6&&fspMatchChisq<3&&fspClE>0.85*{0}&&fspPY/fspP<-0.03".format(ebeam),"colz")
+events.Draw("fspP+0.05*(fspPX/fspP-0.02)-0.05*abs(fspPX/fspP-0.02)+0.02>>fee_single0_top(100,{0},{1})".format(0.7*ebeam,1.3*ebeam),"(isSingle0)&&fspTrkHits==6&&fspMatchChisq<3&&fspClE>0.85*{0}&&fspPY/fspP>0.03".format(ebeam),"colz")
+outfile.Write()
+outfile.Close()
 #c.Clear()
 #c.Divide(4,2)
 #for i in xrange(1,5):

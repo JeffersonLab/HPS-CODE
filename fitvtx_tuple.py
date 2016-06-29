@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import sys, array,math
 import getopt
-from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D, gDirectory
+import ROOT
+from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D, gDirectory, RooDataSet, RooRealVar, RooArgSet, RooFormulaVar, RooWorkspace, RooAbsData, RooGlobalFunc, RooFit, RooAbsReal, RooArgList
 
 scale_factor = 1
 lumi = 1
@@ -16,25 +17,31 @@ def frange(x, y, jump):
 		yield x
 		x += jump
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'l:t:h', ['luminosity','totallumi','help',])
+def print_usage():
+    print "\nUsage: {0} <output basename> <input ROOT file> [cuts ROOT file]".format(sys.argv[0])
+    print "Arguments: "
+    print "\t-l: luminosity for normalization"
+    print '\t-h: this help message'
+    print "\n"
+
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'l:t:c:h')
+
+cutfile=""
 
 for opt, arg in options:
-    if opt in ('-l', '--luminosity'):
+    if opt=='-l':
         lumi = float(arg)
         scale_factor = lumi/lumi_total
-    if opt in ('-t', '--totallumi'):
+    if opt=='-t':
         lumi_total = float(arg)
         scale_factor = lumi/lumi_total
-    elif opt in ('-h', '--help'):
-        print "\nUsage: "+sys.argv[0]+" <output basename> <root files>"
-        print "Arguments: "
-        print "\t-l, --luminosity: luminosity for normalization"
-        print "\n"
+    elif opt=='-h':
+        print_usage()
         sys.exit(0)
 
 
 if (len(remainder)<2):
-        print sys.argv[0]+' <output basename> <root files>'
+        print_usage()
         sys.exit()
 
 cuts="bscChisq<5&&minIso>0.5&&eleFirstHitX-posFirstHitX<2&&abs(eleP-posP)/(eleP+posP)<0.4&&abs(bscPY)<0.01&&abs(bscPX)<0.01"
@@ -44,7 +51,16 @@ outfile = TFile(remainder[0]+"-plots.root","RECREATE")
 
 inFile = TFile(remainder[1])
 events = inFile.Get("ntuple")
-events.Draw("uncVZ:uncM>>hnew(100,0,0.1,100,-50,50)",cuts,"goff,colz")
+if events==None:
+    events = inFile.Get("cut")
+events.Print()
+events.Draw("uncVZ:uncM>>hnew(100,0,0.1,100,-50,50)","","goff,colz")
+
+hasCutFile = False
+if len(remainder)==3:
+    hasCutFile=True
+    events.AddFriend("cut",remainder[2])
+
 totalH = gDirectory.Get("hnew")
 
 outfile.cd()
@@ -127,10 +143,59 @@ zerobackgroundzcut=array.array('d')
 
 #yieldhist=TH2D("yield","yield",totalH.GetNbinsX(),totalH.GetXaxis().GetXmin(),totalH.GetXaxis().GetXmax(),30,-10,-7)
 n_massbins=20
-minmass=0.01
-maxmass=0.05
+minmass=0.015
+maxmass=0.06
 yieldhist=TH2D("yield","yield",n_massbins,minmass,maxmass,30,-10,-7)
+
+w = RooWorkspace("w")
+w.factory("uncM[0,0.1]")
+w.factory("uncVZ[-100,100]")
+w.factory("uncP[0,10]")
+w.factory("bscChisq[-100,100]")
+w.factory("minIso[-100,100]")
+w.factory("eleFirstHitX[-100,100]")
+w.factory("posFirstHitX[-100,100]")
+w.factory("eleP[-100,100]")
+w.factory("posP[-100,100]")
+w.factory("bscPY[-100,100]")
+w.factory("bscPX[-100,100]")
+w.factory("cut[0,1]")
+
+#uncM = RooRealVar("uncM","uncM",0,0.1)
+#uncVZ = RooRealVar("uncVZ","uncVZ",-100,100)
+w.defineSet("allVars","uncM,uncVZ,uncP,bscChisq,minIso,eleFirstHitX,posFirstHitX,eleP,posP,bscPY,bscPX")
+w.defineSet("myVars","uncM,uncVZ,cut")
+myVars = w.set("myVars")
+#myVars = RooArgSet(uncM,uncVZ)
+#cutVar = w.factory("expr::cutFunc('bscChisq<5&&minIso>0.5&&eleFirstHitX-posFirstHitX<2&&abs(eleP-posP)/(eleP+posP)<0.4&&abs(bscPY)<0.01&&abs(bscPX)<0.01',bscChisq,minIso,eleFirstHitX,posFirstHitX,eleP,posP,bscPY,bscPX)")
+#cutVar = w.factory("expr::cutFunc('bscChisq<5&&minIso>0.5',bscChisq,minIso,eleFirstHitX,posFirstHitX,eleP,posP,bscPY,bscPX)")
+#cutVar = w.function("cutFunc")
+w.Print()
+#cutVar = RooFormulaVar("cut","","bscChisq<5&&minIso>0.5&&eleFirstHitX-posFirstHitX<2&&abs(eleP-posP)/(eleP+posP)<0.4&&abs(bscPY)<0.01&&abs(bscPX)<0.01",RooArgList(
+#dataset = RooDataSet("data","data",events,myVars,cutVar)
+#dataset = RooDataSet("data","data",events,w.set("allVars"),cuts)
+
+#RooDataSet.setDefaultStorageType(RooAbsData.Tree)
+
+dataset = RooDataSet("data","data",events,w.set("myVars"),"cut==1")
+
+#frame=w.var("uncVZ").frame()
+#c.SetLogy()
+#dataset.plotOn(frame)
+#frame.Draw()
+#c.SaveAs("test.png")
 #binning=3
+w.factory("Gaussian::vtx_model(uncVZ,mean[-50,50],sigma[0,50])")
+gauss_pdf = w.pdf("vtx_model")
+w.factory("EXPR::gaussExp('exp( ((@0-@1)<@3)*(-0.5*(@0-@1)^2/@2^2) + ((@0-@1)>=@3)*(-0.5*@3^2/@2^2-(@0-@1-@3)/@4))',uncVZ,gauss_mean[-5,-20,20],gauss_sigma[5,1,50],exp_breakpoint[10,0,50],exp_length[3,0.5,20])")
+gaussexp_pdf = w.pdf("gaussExp")
+w.defineSet("obs_1d","uncVZ")
+obs=w.set("obs_1d")
+uncVZ = w.var("uncVZ")
+uncVZ.setBins(1000)
+gauss_params = gauss_pdf.getParameters(obs)
+gaussexp_params = gaussexp_pdf.getParameters(obs)
+
 for i in range(1,n_massbins):
 #for i in range(0,totalH.GetXaxis().GetNbins()-binning+2,binning):
     print i
@@ -138,15 +203,82 @@ for i in range(1,n_massbins):
     massrange=2.5*(massres_a*centermass + massres_b)
     lowedge = centermass-massrange/2.0
     highedge = centermass+massrange/2.0
-    events.Draw("uncVZ>>hnew(100,-50,50)",cuts+"&&uncM>{0}&&uncM<{1}".format(lowedge,highedge),"goff")
-    h1d = gDirectory.Get("hnew")
+    name="Radiative vertex Z, mass [{}, {}] GeV".format(lowedge,highedge)
+    #dataset = RooDataSet("data","data",events,w.set("myVars"),"abs(uncM-{0})<{1}".format(centermass,massrange/2))
+    dataInRange = dataset.reduce(obs,"abs(uncM-{0})<{1}".format(centermass,massrange/2))
+    if dataInRange.sumEntries()<100:
+        continue
+
+    frame=uncVZ.frame()
+    frame.SetTitle(name)
+
+    binnedData = dataInRange.binnedClone()
+    binnedData.plotOn(frame)
+    mean = binnedData.mean(uncVZ)
+    sigma = binnedData.sigma(uncVZ)
+    print "before gaussian fit: mean={0}, sigma={1}".format(mean,sigma)
+    uncVZ.setRange("fitRange",mean-3*sigma,mean+3*sigma)
+    gauss_params.setRealValue("mean",mean)
+    gauss_params.setRealValue("sigma",sigma)
+    #gauss_params.printLatex()
+    gauss_pdf.fitTo(binnedData,RooFit.Range("fitRange"),RooFit.PrintLevel(-1))
+    #gauss_params.printLatex()
+    #gauss_pdf.plotOn(frame)
+    mean= gauss_params.getRealValue("mean")
+    sigma= gauss_params.getRealValue("sigma")
+    print "after gaussian fit: mean={0}, sigma={1}".format(mean,sigma)
+    gaussexp_params.setRealValue("gauss_mean",mean)
+    gaussexp_params.setRealValue("gauss_sigma",sigma)
+    gaussexp_params.setRealValue("exp_breakpoint",10)
+    gaussexp_params.setRealValue("exp_length",10/sigma)
+    uncVZ.setRange("fitRange",mean-2*sigma,50)
+    result = gaussexp_pdf.fitTo(binnedData,RooFit.Range("fitRange"),RooFit.PrintLevel(-1),RooFit.Minimizer("Minuit","Minimize"),RooFit.Save())
+    print result.status()
+    result.printValue(ROOT.cout)
+    #gaussexp_pdf.fitTo(binnedData,RooFit.Range("fitRange"),RooFit.PrintLevel(-1))
+    gaussexp_pdf.plotOn(frame,RooFit.Range("fitRange"),RooFit.NormRange("fitRange"),RooFit.LineColor(result.status()+1))
+
+    func = gaussexp_pdf.createCdf(obs).asTF(RooArgList(obs),RooArgList(gaussexp_params))
+    zcut_frac = 0.5/(dataInRange.sumEntries()/scale_factor)
+    print func.GetX(1-zcut_frac,0,50)
+
+    #dataInRange.plotOn(frame)
+    #gauss_params.setRealValue("mean",dataInRange.mean(uncVZ))
+    #gauss_params.setRealValue("sigma",dataInRange.sigma(uncVZ))
+    #gauss_pdf.fitTo(dataInRange,RooFit.PrintLevel(-1))
+    #gauss_params.printLatex()
+    #mean= gauss_params.getRealValue("mean")
+    #sigma= gauss_params.getRealValue("sigma")
+    #gaussexp_params.setRealValue("gauss_mean",mean)
+    #gaussexp_params.setRealValue("gauss_sigma",sigma)
+    #gaussexp_params.setRealValue("exp_breakpoint",10)
+    #gaussexp_params.setRealValue("exp_length",5)
+    #gaussexp_params.printLatex()
+    #uncVZ.setRange("fitRange",mean-2*sigma,50)
+    #result = gaussexp_pdf.fitTo(dataInRange,RooFit.Range("fitRange"),RooFit.PrintLevel(-1),RooFit.Save())
+    #gaussexp_params.printLatex()
+    gaussexp_pdf.paramOn(frame)
+    #gaussexp_pdf.plotOn(frame,RooFit.Range("fitRange"),RooFit.NormRange("fitRange"))
+    #gaussexp_pdf.plotOn(frame,RooFit.Range("fitRange"),RooFit.NormRange("fitRange"),RooFit.LineColor(result.status()+1))
+
+    frame.SetAxisRange(-50,50)
+    frame.SetMinimum(0.5)
+    frame.Draw()
+    c.SaveAs(remainder[0]+"-"+str(i)+"_roofit.png")
+
+
+    #h1d = dataInRange.createHistogram("data_in_range",w.var("uncVZ"),"Binning(100,-50,50)")
+    #h1d = dataInRange.createHistogram("data_in_range",w.var("uncVZ"))
+    h1d = RooAbsData.createHistogram(dataInRange,"data_in_range",w.var("uncVZ"),RooFit.Binning(100,-50,50))
+    print h1d.GetEntries()
+    #events.Draw("uncVZ>>hnew(100,-50,50)",cuts+"&&uncM>{0}&&uncM<{1}".format(lowedge,highedge),"goff")
+    #h1d = gDirectory.Get("hnew")
     h1d.Sumw2()
     h1d.Scale(1/scale_factor)
 
     #h1d=totalH.ProjectionY("slice_{}".format(i),i,i+binning-1)
     #h1d=h1d.Rebin(2,"slice")
     integrals.append(h1d.Integral())
-    name="Radiative vertex Z, mass [{}, {}] GeV".format(lowedge,highedge)
     h1d.SetTitle(name)
     print name
     if (h1d.GetEntries()>100):
@@ -194,14 +326,15 @@ for i in range(1,n_massbins):
 			#print 10**eps
 			gammact = 8*(1.05/10)*1e-8/(10**eps)*(0.1/centermass)**2
 			#print gammact
-			ap_yield= 3*math.pi*10**eps/(2*(1/137.0))*h1d.Integral()*centermass/massrange*rad_fraction
+			ap_yield= 3*math.pi*10**eps/(2*(1/137.0))*h1d.Integral()*(centermass/massrange)*rad_fraction
 			#print ap_yield
 			#print ap_yield*math.exp(-zcut/gammact)
-                        if ap_yield*math.exp(-zcut/gammact)>1:
+                        if ap_yield*math.exp(-zcut/gammact)>0.1:
                             print "{0} {1} {2} {3}".format(10**eps,gammact,ap_yield,ap_yield*math.exp(-zcut/gammact))
 			yieldhist.Fill(centermass,eps,ap_yield*math.exp(-zcut/gammact))
     for func in h1d.GetListOfFunctions():
         func.Delete()
+    h1d.Delete()
 
 c.SetLogy(0)
 c.SetLogx(1)
