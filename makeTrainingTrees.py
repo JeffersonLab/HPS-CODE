@@ -45,8 +45,9 @@ elif cutType=="moller":
     goodCut="abs(vzcM*{0}/vzcP - {1})<0.003".format(ebeam,molmass)
     badCut="abs(vzcM*{0}/vzcP - {1})>0.005".format(ebeam,molmass)
 elif cutType=="vertexing":
-    goodCut="abs(uncVZ)*uncM<0.1"
-    badCut="uncVZ*uncM>0.5"
+    baseCut="uncP>0.8*{0}".format(ebeam)
+    goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
+    badCut=baseCut+"&&uncVZ*uncM>0.5"
 else:
     print "invalid cut type"
     sys.exit(-1)
