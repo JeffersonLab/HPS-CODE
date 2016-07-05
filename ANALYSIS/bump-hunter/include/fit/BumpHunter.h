@@ -129,9 +129,11 @@ class BumpHunter {
 
         std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis);
 
-        std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis);
+        std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
          
     private: 
+
+        double getWindowSize(double mass_hypo); 
 
         void DrawFit(RooDataHist* data, HpsFitResult* result, double ap_hypothesis); 
 
@@ -174,12 +176,6 @@ class BumpHunter {
 
         std::map <std::string, RooRealVar*> variable_map; 
 
-        /** Signal + bkg model */
-        RooAddPdf* comp_model;  
-
-        /** Bkg only model */
-        RooAddPdf* bkg_model;
-
         /** */
         RooAddPdf* model; 
 
@@ -210,6 +206,9 @@ class BumpHunter {
         /** Polynomial order used to model the background. */
         int bkg_poly_order;
 
+        /** */
+        int mass_res_fac;
+        
         /** Use a model that only includes the background. */
         bool bkg_only; 
 

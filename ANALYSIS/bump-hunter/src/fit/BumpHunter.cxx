@@ -12,9 +12,7 @@
 #include <BumpHunter.h>
 
 BumpHunter::BumpHunter(int poly_order) 
-    : comp_model(nullptr), 
-      bkg_model(nullptr),
-      model(nullptr),
+    : model(nullptr),
       signal(nullptr), 
       bkg(nullptr),
       ofs(nullptr),
@@ -33,6 +31,7 @@ BumpHunter::BumpHunter(int poly_order)
     // Independent variable
     variable_map["invariant mass"] = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.1);
 
+    //----------------//   
     //   Signal PDF   //
     //----------------//   
 
@@ -43,10 +42,11 @@ BumpHunter::BumpHunter(int poly_order)
     signal = new RooGaussian("signal", "signal", *variable_map["invariant mass"],
                              *variable_map["A' mass"], *variable_map["A' mass resolution"]);
 
+    //-------------//
     //   Bkg PDF   //
     //-------------//
 
-    std::string name;
+    std::string name = "";
     for (int order = 1; order <= bkg_poly_order; ++order) {
         name = "t" + std::to_string(order);
         variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -2, 2);
@@ -55,22 +55,22 @@ BumpHunter::BumpHunter(int poly_order)
 
     bkg = new RooChebychev("bkg", "bkg", *variable_map["invariant mass"], arg_list);
 
-    //   Composite Models   //
-    //----------------------//
+    //---------------------//
+    //   Composite Model   //
+    //---------------------//
 
+    // Yields
     variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
     variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 300000, 100, 10000000);
 
-    comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
+    // Build the signal+background model
+    model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
                                RooArgList(*variable_map["signal yield"], *variable_map["bkg yield"]));
-
-    bkg_model = new RooAddPdf("bkg model", "bkg model", 
-                              RooArgList(*bkg), RooArgList(*variable_map["bkg yield"]));
-    model = comp_model;
 }
 
 BumpHunter::~BumpHunter() {
 
+    // Delete all of the RooRealVar objects from the variable map
     for (auto& element : variable_map) { 
        delete element.second; 
     }
@@ -78,7 +78,6 @@ BumpHunter::~BumpHunter() {
 
     delete signal;
     delete bkg;
-    delete comp_model; 
     if (ofs != nullptr) ofs->close();
 }
 
@@ -460,7 +459,6 @@ void BumpHunter::getChi2Prob(double cond_nll, double mle_nll, double &q0, double
 
 void BumpHunter::fitBkgOnly() { 
     this->bkg_only = true; 
-    model = bkg_model; 
 }
 
 void BumpHunter::setBounds(double low_bound, double high_bound) {
@@ -521,7 +519,7 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
     variable_map["invariant mass"]->setRange(window_start, window_start + window_size);
     variable_map["invariant mass"]->setBins(bins); 
     for (int toy_n = 0; toy_n < n_toys; ++toy_n) { 
-          datum.push_back(comp_model->generateBinned(RooArgSet(*variable_map["invariant mass"]), 
+          datum.push_back(model->generateBinned(RooArgSet(*variable_map["invariant mass"]), 
                           integral, RooFit::Extended(kTRUE)));  
     }
 
@@ -532,11 +530,15 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
     return datum;
 }
 
-std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis) { 
-    std::cout << "[ BumpHunter ]: Generating Toys" << std::endl;
-    std::vector<RooDataHist*> datum = this->generateToys(histogram, n_toys, result, ap_hypothesis);
-
+//std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis) { 
+std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
+    
+    std::cout << "[ BumpHunter ]: Generating " << n_toys << " Toys" << std::endl;
+    
+    // Create a container to store the resulting fits
     std::vector<HpsFitResult*> results; 
+    /*std::vector<RooDataHist*> datum = this->generateToys(histogram, n_toys, result, ap_hypothesis);
+
     
     std::cout << "[ BumpHunter ]: Fitting Toys" << std::endl;
     int index = 1;
@@ -554,12 +556,41 @@ std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, Hp
         std::cout << "Finished toy fit " << index << std::endl;
         index++; 
     
-    }
+    }*/
 
-    file->Close(); 
+    //file->Close(); 
     return results;
      
 }
+
+//---------------------//
+//   Private Methods   //
+//---------------------//
+
+double BumpHunter::getWindowSize(double mass_hypo) { 
+  
+    // Get the mass resolution at the mass hypothesis
+    double mass_resolution = this->getMassResolution(mass_hypo);
+
+    // Calculate the window size as mass_sigma*mass_res and adjust the size
+    // such that it falls on the edges of bins. 
+    double win_size = std::trunc(mass_resolution*this->mass_res_fac*10000)/10000 + 0.00005;
+
+    // If the window is being allowed to vary, calculate the window size based
+    // on the mass resolution.
+    //if (!fix_window) { 
+        
+        // If the window size is larger than the max size, set the window size
+        // to the max.
+        /*if (window_size > max_window_size) {
+            this->printDebug("Window size exceeds maximum."); 
+            window_size = max_window_size; 
+        }*/
+    //}
+
+    return win_size;
+}
+
 
 void BumpHunter::DrawFit(RooDataHist* data, HpsFitResult* result, double ap_hypothesis) { 
     
