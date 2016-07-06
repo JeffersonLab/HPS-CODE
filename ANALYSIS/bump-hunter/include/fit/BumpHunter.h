@@ -174,7 +174,18 @@ class BumpHunter {
          */
         //void generateToys(double n_toys); 
 
-        std::map <std::string, RooRealVar*> variable_map; 
+        /** 
+         * A map relating a RooRealVar to its name.  This allows quick access
+         * to a RooRealVar by name.
+         */ 
+        std::unordered_map <std::string, RooRealVar*> var_map;
+        
+        /**
+         * A map relating the default value of a RooRealVar to its name.  This
+         * is used when resetting a RooRealVar to its default value.
+         */
+        std::unordered_map <std::string, double> var_default_map;
+
 
         /** */
         RooAddPdf* model; 
