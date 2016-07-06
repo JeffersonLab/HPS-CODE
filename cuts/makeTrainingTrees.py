@@ -36,7 +36,7 @@ print "good: "+remainder[0]
 print "bad: "+remainder[1]
 
 if cutType=="bumphunt":
-    baseCut="max(eleMatchChisq,posMatchChisq)<10&&eleClY*posClY<0&&uncP>0.8*{0}".format(ebeam)
+    baseCut="isPair1&&max(eleMatchChisq,posMatchChisq)<30&&eleClY*posClY<0&&tarP>0.8*{0}".format(ebeam)
     goodCut=baseCut+"&&abs(eleClT-posClT)<1"
     badCut=baseCut+"&&abs(eleClT-posClT)>3"
 elif cutType=="moller":
@@ -48,6 +48,14 @@ elif cutType=="vertexing":
     baseCut="uncP>0.8*{0}".format(ebeam)
     goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
     badCut=baseCut+"&&uncVZ*uncM>0.5"
+elif cutType=="vertexing_L1":
+    baseCut="uncP>0.8*{0}&&!eleHasL1&&!posHasL1".format(ebeam)
+    goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
+    badCut=baseCut+"&&uncVZ>70"
+elif cutType=="vertexing2":
+    baseCut="uncP>0.8*{0}&&!eleHasL1&&!posHasL1".format(ebeam)
+    goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
+    badCut=baseCut+"&&uncVZ*uncM>1&&uncVZ<70"
 else:
     print "invalid cut type"
     sys.exit(-1)

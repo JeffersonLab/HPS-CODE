@@ -9,7 +9,9 @@ def print_usage():
     print "Arguments: "
     print '\t-e: use this beam energy'
     print '\t-t: cut type (bumphunt, vertexing) - bumphunt is default'
-    print '\t-c: only write events that pass cuts'
+    print '\t-c: only write candidates that pass cuts'
+    print '\t-b: only keep best candidate'
+    print '\t-o: only keep candidate if it\'s the only one'
     print '\t-h: this help message'
     print
 
@@ -17,11 +19,13 @@ ebeam=1.056
 #sortkey="tarChisq"
 #highestBest=False
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:ch')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:cboh')
 
 
 cutType = "bumphunt"
 cutOutput = False
+onlyBest = False
+onlyOnly = False
 
 # Parse the command line arguments
 for opt, arg in options:
@@ -31,6 +35,10 @@ for opt, arg in options:
             cutType=arg
         if opt=='-c':
             cutOutput = True
+        if opt=='-b':
+            onlyBest = True
+        if opt=='-o':
+            onlyOnly = True
         if opt=='-h':
             print_usage()
             sys.exit(0)
@@ -43,8 +51,9 @@ print remainder[1]
 
 if cutType=="bumphunt":
     events = root_numpy.root2array(remainder[1],branches=["event",
-        "uncP",
-        "uncM",
+        "run",
+        "tarP",
+        "tarM",
         "uncVZ",
         "tarChisq",
         "isPair1",
@@ -57,6 +66,7 @@ if cutType=="bumphunt":
         "nPos"])
 elif cutType=="vertexing":
     events = root_numpy.root2array(remainder[1],branches=["event",
+        "run",
         "uncP",
         "uncM",
         "uncVZ",
@@ -68,6 +78,8 @@ elif cutType=="vertexing":
         "posMatchChisq",
         "eleClY",
         "posClY",
+        "eleTrkT",
+        "posTrkT",
         "eleClT",
         "posClT",
         "minIso",
@@ -97,37 +109,40 @@ n = events.size
 
 if cutType=="bumphunt":
     #cut = numpy.ones(n)
-    cut = events["uncP"]>0.8*ebeam
+    cut = events["tarP"]>0.8*ebeam
     output = numpy.core.records.fromarrays([
-        events["uncP"],
-        events["uncM"],
+        events["tarP"],
+        events["tarM"],
         events["uncVZ"],
         cut,
         numpy.zeros(n),
         numpy.zeros(n)
         ], dtype=[
-            ("uncP",events.dtype["uncP"]),
-            ("uncM",events.dtype["uncM"]),
+            ("tarP",events.dtype["tarP"]),
+            ("tarM",events.dtype["tarM"]),
             ("uncVZ",events.dtype["uncVZ"]),
             ("cut",numpy.int8),
             ("nPass",numpy.int8),
             ("rank",numpy.int8)])
 elif cutType=="vertexing":
     cut = numpy.row_stack((events["isPair1"]==1,
-        events["eleHasL1"]==1,
-        events["posHasL1"]==1,
-        events["eleHasL2"]==1,
-        events["posHasL2"]==1,
-        events["eleMatchChisq"]<3,
-        events["posMatchChisq"]<3,
+        #events["eleHasL1"]==1,
+        #events["posHasL1"]==1,
+        #events["eleHasL2"]==1,
+        #events["posHasL2"]==1,
+        events["eleMatchChisq"]<5,
+        events["posMatchChisq"]<5,
+        abs(events["eleClT"]-events["eleTrkT"]-43)<4,
+        abs(events["posClT"]-events["posTrkT"]-43)<4,
         abs(events["eleClT"]-events["posClT"])<2,
         events["eleClY"]*events["posClY"]<0,
-        abs(events["bscPY"]/events["bscP"])<0.01,
-        abs(events["bscPX"]/events["bscP"])<0.01,
-        events["eleFirstHitX"]-events["posFirstHitX"]<2,
+        #abs(events["bscPY"]/events["bscP"])<0.01,
+        #abs(events["bscPX"]/events["bscP"])<0.01,
+        abs(events["eleFirstHitX"]-events["posFirstHitX"]+2)<10,
         events["bscChisq"]<5,
         events["minIso"]>0.5,
-        events["eleP"]<0.8*ebeam,
+        events["eleP"]<0.8,
+        events["posP"]>0.3,
         events["uncP"]>0.8*ebeam)).all(0)
     output = numpy.core.records.fromarrays([
         events["run"],
@@ -176,6 +191,10 @@ for i in xrange(0,n):
 
 if cutOutput:
     output = output[output["cut"]!=0]
+    if onlyBest:
+        output = output[output["rank"]==1]
+    if onlyOnly:
+        output = output[output["nPass"]==1]
 
 root_numpy.array2root(output,remainder[0],mode="recreate",treename="cut")
 #newtree=root_numpy.array2tree(output)

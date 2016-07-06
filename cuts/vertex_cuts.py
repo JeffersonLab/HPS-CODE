@@ -3,7 +3,6 @@ import sys,os,array
 import getopt
 import ROOT
 from ROOT import gROOT, gStyle, TFile, TTree, TChain, TMVA, TCut, TCanvas, gDirectory, TH1, TGraph
-import cut_utils
 from cut_utils import makePlots, allBut, makeCutString
 print sys.argv[2]
 print sys.argv[3]
@@ -27,17 +26,19 @@ badEvents = badFile.Get("ntuple")
 #badEvents = events.CopyTree("uncVZ*uncM>0.5")
 outFile = TFile(sys.argv[1]+".root","RECREATE")
 
-cuts=["bscChisq<5",
+cuts=["bscChisq<8",
         "max(eleTrkChisq,posTrkChisq)<30",
         "minIso>0.5",
         "abs(bscPX)<0.5",
         "abs(bscPY)<0.1",
-        "eleP<0.7",
+        "eleP<0.8",
         "posP>0.3",
         "abs(eleFirstHitX-posFirstHitX+2)<10"]
 
 c.Print(sys.argv[1]+".pdf[")
 makePlots(c,goodEvents,badEvents,sys.argv[1],"bscChisq","bscChisq",100,0,50,makeCutString(allBut(cuts,0)),True)
+makePlots(c,goodEvents,badEvents,sys.argv[1],"bsc-uncChisq","bscChisq-uncChisq",200,0,100,makeCutString(allBut(cuts,0)),True)
+makePlots(c,goodEvents,badEvents,sys.argv[1],"uncChisq","uncChisq",100,0,50,makeCutString(allBut(cuts,0)),True)
 
 makePlots(c,goodEvents,badEvents,sys.argv[1],"trkChisq","max(eleTrkChisq,posTrkChisq)",100,0,50,makeCutString(allBut(cuts,1)),True)
 
@@ -54,8 +55,8 @@ makePlots(c,goodEvents,badEvents,sys.argv[1],"posP","posP",200,0,1.5,makeCutStri
 #cut_utils.makePlots(c,goodEvents,badEvents,sys.argv[1],"abs(eleP)","abs(eleP-1.05*0.5)",200,0,0.5,makeCutString(cuts),True)
 #cut_utils.makePlots(c,goodEvents,badEvents,sys.argv[1],"abs(posP)","abs(posP-1.05*0.5)",200,0,0.5,makeCutString(cuts),True)
 
-makePlots(c,goodEvents,badEvents,sys.argv[1],"abs_hitX","abs(eleFirstHitX-posFirstHitX+2)",200,-20,20,makeCutString(allBut(cuts,7)),True)
-makePlots(c,goodEvents,badEvents,sys.argv[1],"hitX","eleFirstHitX-posFirstHitX",200,-20,20,makeCutString(allBut(cuts,7)),True)
+makePlots(c,goodEvents,badEvents,sys.argv[1],"abs_hitXDiff","abs(eleFirstHitX-posFirstHitX+2)",200,-20,20,makeCutString(allBut(cuts,7)),True)
+makePlots(c,goodEvents,badEvents,sys.argv[1],"hitXDiff","eleFirstHitX-posFirstHitX",200,-20,20,makeCutString(allBut(cuts,7)),True)
 
 makePlots(c,goodEvents,badEvents,sys.argv[1],"fda","(bscChisq/5.0)+(0.5/minIso)",100,0,10,makeCutString(cuts[:2]),True)
 makePlots(c,goodEvents,badEvents,sys.argv[1],"cut","max(bscChisq/5.0,0.5/minIso)",100,0,5,makeCutString(cuts[:2]),True)
@@ -66,4 +67,8 @@ makePlots(c,goodEvents,badEvents,sys.argv[1],"cut","max(bscChisq/5.0,0.5/minIso)
 makePlots(c,goodEvents,badEvents,sys.argv[1],"elePhiKink","abs(elePhiKink2+elePhiKink3)",200,0,0.01,makeCutString(cuts),True)
 
 makePlots(c,goodEvents,badEvents,sys.argv[1],"pdiff","abs(eleP-posP)/(eleP+posP)",200,0,1,makeCutString(cuts),True)
+
+makePlots(c,goodEvents,badEvents,sys.argv[1],"hitXSum","eleFirstHitX+posFirstHitX",200,-20,20,makeCutString(allBut(cuts,7)),True)
+makePlots(c,goodEvents,badEvents,sys.argv[1],"hitYSum","eleFirstHitY+posFirstHitY",200,-20,20,makeCutString(allBut(cuts,7)),True)
+makePlots(c,goodEvents,badEvents,sys.argv[1],"hitYDiff","abs(eleFirstHitY-posFirstHitY)",200,-20,20,makeCutString(allBut(cuts,7)),True)
 c.Print(sys.argv[1]+".pdf]")
