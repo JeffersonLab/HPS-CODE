@@ -36,7 +36,7 @@ BumpHunter::BumpHunter(int poly_order)
     //   Signal PDF   //
     //----------------//   
 
-    var_map["A' mass"]  = new RooRealVar("A' Mass",  "A' Mass",  0.03);
+    var_map["A' mass"]  = new RooRealVar("A' Mass",  "A' Mass",  var_default_map["A' mass"]);
     var_map["A' mass resolution"] 
         = new RooRealVar("A' Mass Resolution", "A' Mass Resolution", this->getMassResolution(0.03));
 
@@ -50,7 +50,9 @@ BumpHunter::BumpHunter(int poly_order)
     std::string name = "";
     for (int order = 1; order <= bkg_poly_order; ++order) {
         name = "t" + std::to_string(order);
-        var_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -2, 2);
+        var_default_map[name] = 0.;
+        var_map[name] = new RooRealVar(name.c_str(), name.c_str(), var_default_map[name], -2, 2);
+        var_default_err_map[name] = var_map[name]->getError();
         arg_list.add(*var_map[name]);
     } 
 
@@ -61,8 +63,14 @@ BumpHunter::BumpHunter(int poly_order)
     //---------------------//
 
     // Yields
-    var_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
-    var_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 300000, 100, 10000000);
+    var_default_map["signal yield"] = 0;
+    var_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 
+            var_default_map["signal yield"], -100000, 100000);
+    var_default_err_map["signal yield"] = var_map["signal yield"]->getError();
+    var_default_map["bkg yield"] = 300000;
+    var_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 
+            var_default_map["bkg yield"], 100, 10000000);
+    var_default_err_map["bkg yield"] = var_map["bkg yield"]->getError();
 
     // Build the signal+background model
     model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
@@ -107,7 +115,7 @@ std::map<double, HpsFitResult*> BumpHunter::fitWindow(TH1* histogram, double sta
         start += step; 
     
         // Reset all of the parameters to their original values
-        this->resetParameters(result->getRooFitResult()->floatParsInit()); 
+        this->resetParameters(); 
     }
     
     delete data;
@@ -338,16 +346,13 @@ void BumpHunter::printDebug(std::string message) {
     if (debug) std::cout << "[ BumpHunter ]: " << message << std::endl;
 }
 
-void BumpHunter::resetParameters(RooArgList initial_params) { 
+void BumpHunter::resetParameters() { 
     
-    for (auto& element : var_map) { 
-        if (initial_params.find(element.second->GetName()) == NULL) continue;
-
-        RooRealVar* var = (RooRealVar*) initial_params.find(element.second->GetName());
-
-        element.second->setVal(var->getVal());
-        element.second->setError(var->getError()); 
-
+    for (auto& element : var_map) {
+        if (var_default_map.find(element.second->GetName()) == var_default_map.end()) continue;
+        
+        element.second->setVal(var_default_map[element.second->GetName()]);
+        element.second->setError(var_default_err_map[element.second->GetName()]); 
     }
 }
 
@@ -386,7 +391,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
         this->printDebug("Signal yield @ min NLL is < 0. Using NLL when signal yield = 0");
 
         // Reset all of the parameters to their original values
-        this->resetParameters(result->getRooFitResult()->floatParsInit()); 
+        this->resetParameters(); 
     
         // Calculate the NLL when signal yield = 0, which is the null hypothesis.
         var_map["signal yield"]->setVal(0);
@@ -411,7 +416,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
         var_map["signal yield"]->setConstant(kFALSE);
 
         // Reset all of the parameters to their original values
-        this->resetParameters(result->getRooFitResult()->floatParsInit()); 
+        this->resetParameters(); 
 
         if (p_value <= 0.13) signal_yield += 1;
         else if (p_value <= 0.2) signal_yield += 10; 
@@ -478,7 +483,7 @@ void BumpHunter::writeResults() {
     ofs = new std::ofstream(buffer, std::ofstream::out); 
 }
 
-std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys, HpsFitResult* result, double mass_hypo) { 
+std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys, double mass_hypo) { 
 
     // Set the range of the mass variable based on the range of the histogram. 
     var_map["invariant mass"]->setRange(histogram->GetXaxis()->GetXmin(), histogram->GetXaxis()->GetXmax()); 
@@ -494,55 +499,69 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
     // position
     double window_start = mass_hypo - window_size/2;
 
-    // Set the range of the invariant mass distribution to that that will be 
-    // used in the fit
+    // Set the range of the invariant mass distribution that will be used in 
+    // the background only fit.  The results from this fit will be used to 
+    // generate the toys. 
     std::string range_name = "ap_mass_" + std::to_string(mass_hypo); 
     var_map["invariant mass"]->setRange(range_name.c_str(), window_start, window_start + window_size);
 
     // Reset all of the parameters to their original values
-    //this->resetParameters(result->getRooFitResult()->floatParsInit()); 
+    this->resetParameters(); 
 
     // Estimate the background normalization within the window by integrating
     // the histogram within the window range.  This should be close to the 
     // background yield in the case where there is no signal present.
     double integral = data->sumEntries(0, range_name.c_str()); 
     var_map["bkg yield"]->setVal(integral);
-
+    
+    // Calculate the number of bins within the range
     double bins = histogram->GetXaxis()->FindBin((window_start+window_size)) 
                     - histogram->GetXaxis()->FindBin(window_start); 
 
-    // Calculate the NLL when signal yield = 0, which is the null hypothesis.
+    // The background parameters can be estimated by minimizing NLL when the 
+    // signal yield = 0.
     var_map["signal yield"]->setVal(0);
 
-    // Fix the signal yield at 0.
+    // Don't allow the signal yield to float during the fit. 
     var_map["signal yield"]->setConstant(kTRUE);
 
-    // Do the fit
-    HpsFitResult* null_result = this->fit(data, true, range_name);
- 
-    std::vector<RooDataHist*> datum;
+    // Fit the window using a background only model.
+    HpsFitResult* bkg_result = this->fit(data, true, range_name);
+   
+    // Set the range of the invariant mass distribution that will be used to 
+    // generate toys. 
     var_map["invariant mass"]->setRange(window_start, window_start + window_size);
+
+    // Set the number which the toy data will be binned into.
     var_map["invariant mass"]->setBins(bins); 
+
+    // Generate the toys distributions
+    std::vector<RooDataHist*> datum;
     for (int toy_n = 0; toy_n < n_toys; ++toy_n) { 
           datum.push_back(model->generateBinned(RooArgSet(*var_map["invariant mass"]), 
                           integral, RooFit::Extended(kTRUE)));  
     }
 
+    // Now that the background only fit has finished, let the signal yield float 
     var_map["signal yield"]->setConstant(kFALSE);
-    
+
     delete data; 
 
     return datum;
 }
 
 //std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis) { 
-std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
+std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, double mass_hypo) { 
     
     std::cout << "[ BumpHunter ]: Generating " << n_toys << " Toys" << std::endl;
     
     // Create a container to store the resulting fits
     std::vector<HpsFitResult*> results; 
-    /*std::vector<RooDataHist*> datum = this->generateToys(histogram, n_toys, result, ap_hypothesis);
+    
+    // Generate the toy distributions
+    std::vector<RooDataHist*> datum = this->generateToys(histogram, n_toys, mass_hypo);
+    
+    /*
 
     
     std::cout << "[ BumpHunter ]: Fitting Toys" << std::endl;
@@ -553,7 +572,7 @@ std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, do
        
         data->createHistogram(("toy_" + std::to_string(index)).c_str(), *var_map["invariant mass"])->Write(); 
         // Reset all of the parameters to their original values
-        this->resetParameters(result->getRooFitResult()->floatParsInit()); 
+        this->resetParameters(); 
 
         // Construct a window of size x*(A' mass resolution) around the A' mass
         // hypothesis and do a Poisson likelihood fit within the window range. 

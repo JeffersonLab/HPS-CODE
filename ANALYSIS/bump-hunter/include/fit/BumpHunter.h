@@ -15,7 +15,7 @@
 //----------------//  
 #include <cstdio> 
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <fstream>
 #include <cmath>
 #include <exception>
@@ -127,7 +127,7 @@ class BumpHunter {
 
         void getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass);
 
-        std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis);
+        std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
 
         std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
          
@@ -156,12 +156,8 @@ class BumpHunter {
         void printDebug(std::string message); 
          
 
-        /**
-         * Reset the fit parameters to their initial values.
-         *
-         * @param initial_params A list containing the fit parameters.
-         */ 
-        void resetParameters(RooArgList initial_params); 
+        /** Reset the fit parameters to their initial values. */ 
+        void resetParameters(); 
 
         /**
          *
@@ -185,6 +181,12 @@ class BumpHunter {
          * is used when resetting a RooRealVar to its default value.
          */
         std::unordered_map <std::string, double> var_default_map;
+
+        /**
+         * A map relating the default error value of a RooRealVar to its name.
+         * This is used when resetting a RooRealVar to its default value.
+         */
+        std::unordered_map <std::string, double> var_default_err_map;
 
 
         /** */
