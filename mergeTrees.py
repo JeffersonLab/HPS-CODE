@@ -19,7 +19,7 @@ ebeam=1.056
 clusterT = 43.0
 triCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<5&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&max(eleTrkChisq,posTrkChisq)<50&&tarChisq<50&&eleP<{0}*0.75&&tarP<{0}*1.15"
 omarTriCut = "isPair1&&nPos==1&&max(eleMatchChisq,posMatchChisq)<3&&abs(eleClT-posClT)<1.6&&eleClY*posClY<0"
-vertCut = "eleP<{0}*0.85&&posP<{0}*0.85&&elePY*posPY<0&&eleP>{0}*0.05&&posP>{0}*0.05&&uncP<{0}*1.25&&abs(eleClT-posClT)<2&&(eleHasL1&&posHasL1)&&(eleHasL2&&posHasL2)&&max(eleMatchChisq,posMatchChisq)<10&&max(eleTrkChisq,posTrkChisq)<100"
+vertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<5&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&max(eleTrkChisq,posTrkChisq)<50&&bscChisq<10&&eleP<{0}*0.75&&bscP<{0}*1.15"
 mollerCut = "topP<{0}*0.85&&botP<{0}*0.85&&uncP>{0}*0.85&&uncP<{0}*1.1&&abs(topTrkT-botTrkT)<5&&abs(uncPX)<{0}*0.02&&abs(uncPY)<{0}*0.01&&vzcChisq<20"
 cut=""
 
