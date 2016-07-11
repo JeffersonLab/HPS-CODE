@@ -47,7 +47,8 @@ if (len(remainder)<2):
 cuts="bscChisq<5&&minIso>0.5&&eleFirstHitX-posFirstHitX<2&&abs(eleP-posP)/(eleP+posP)<0.4&&abs(bscPY)<0.01&&abs(bscPX)<0.01"
 
 c = TCanvas("c","c",800,600);
-outfile = TFile(remainder[0]+"-plots.root","RECREATE")
+c.Print(remainder[0]+".pdf[")
+outfile = TFile(remainder[0]+".root","RECREATE")
 
 inFile = TFile(remainder[1])
 events = inFile.Get("ntuple")
@@ -68,14 +69,14 @@ totalH.Sumw2()
 print "scaling data by {0}".format(1/scale_factor)
 totalH.Scale(1/scale_factor)
 totalH.Draw("colz")
-c.SaveAs(remainder[0]+"-zvsmass.png")
+c.Print(remainder[0]+".pdf","Title:zvsmass")
 profilehist=totalH.ProfileX("profile")
 profilehist.Draw()
-c.SaveAs(remainder[0]+"-profile.png")
+c.Print(remainder[0]+".pdf","Title:profile")
 masshist=totalH.ProjectionX("mass")
 masshist.SetTitle("Radiative vertex mass")
 masshist.Draw()
-c.SaveAs(remainder[0]+"-mass.png")
+c.Print(remainder[0]+".pdf","Title:mass")
 
 #acceptance = TF1("acceptance","(x>1.05*0.019)/(acos((x>1.05*0.019)*0.019/(x/1.05))/(pi/2))")
 acceptance = TF1("acceptance","(x>[0]*[1])/(acos((x>[0]*[1])*[0]/(x/[1]))/(pi/2))")
@@ -85,7 +86,7 @@ acceptance.SetParameters(1.05,0.0195)
 masshistscaled=masshist.Clone("massscaled")
 masshistscaled.Multiply(acceptance)
 masshistscaled.Draw()
-c.SaveAs(remainder[0]+"-massscaled.png")
+c.Print(remainder[0]+".pdf","Title:massscaled")
 
 #sys.exit(0)
 
@@ -264,7 +265,7 @@ for i in range(1,n_massbins):
     frame.SetAxisRange(-50,50)
     frame.SetMinimum(0.5)
     frame.Draw()
-    c.SaveAs(remainder[0]+"-"+str(i)+"_roofit.png")
+    c.Print(remainder[0]+".pdf","Title:slice_"+str(i)+"_roofit")
 
 
     #h1d = dataInRange.createHistogram("data_in_range",w.var("uncVZ"),"Binning(100,-50,50)")
@@ -314,23 +315,25 @@ for i in range(1,n_massbins):
             if fit.Get().IsValid():
                 zcutmasses.append(centermass)
                 zcut=fitfunc.GetX(0.5/fit.Get().Parameter(4),mean,200)
+                #zcut=35
 		print "zcut {0}".format(zcut)
 		#print 
 		#(log([0]/0.5)-0.5*[3]^2/[2]^2)*[4]-(-[1]-[3]) = x
                 zerobackgroundzcut.append(zcut)
                 h1d.Draw("E")
-                c.SaveAs(remainder[0]+"-"+str(i)+".png")
+                c.Print(remainder[0]+".pdf","Title:slice_"+str(i))
 		for i in range(0,yieldhist.GetYaxis().GetNbins()):
 			eps = yieldhist.GetYaxis().GetBinCenter(i)
 		#for eps in frange(-10,-7,0.1):
 			#print 10**eps
+			ct = 80e-3*1e-8/(10**eps)*(0.1/centermass)
 			gammact = 8*(1.05/10)*1e-8/(10**eps)*(0.1/centermass)**2
 			#print gammact
 			ap_yield= 3*math.pi*10**eps/(2*(1/137.0))*h1d.Integral()*(centermass/massrange)*rad_fraction
 			#print ap_yield
 			#print ap_yield*math.exp(-zcut/gammact)
                         if ap_yield*math.exp(-zcut/gammact)>0.1:
-                            print "{0} {1} {2} {3}".format(10**eps,gammact,ap_yield,ap_yield*math.exp(-zcut/gammact))
+                            print "{0} {1} {2} {3} {4} {5}".format(centermass,10**eps,ct,gammact,ap_yield,ap_yield*math.exp(-zcut/gammact))
 			yieldhist.Fill(centermass,eps,ap_yield*math.exp(-zcut/gammact))
     for func in h1d.GetListOfFunctions():
         func.Delete()
@@ -339,7 +342,7 @@ for i in range(1,n_massbins):
 c.SetLogy(0)
 c.SetLogx(1)
 yieldhist.Draw("colz")
-c.SaveAs(remainder[0]+"-yield.png")
+c.Print(remainder[0]+".pdf","Title:yield")
 c.SetLogy(1)
 c.SetLogx(0)
 cutmasses=masses[:]
@@ -367,14 +370,14 @@ masshist.SetTitle("Radiative vertex mass, +Z tail")
 masshist.Draw("E")
 hightails=totalH.ProjectionX("hightails",0,-1,"[highzcut]")
 hightails.Draw("E SAME")
-c.SaveAs(remainder[0]+"-hightails.png")
+c.Print(remainder[0]+".pdf","Title:hightails")
 
 
 masshist.SetTitle("Radiative vertex mass, -Z tail")
 masshist.Draw("E")
 lowtails=totalH.ProjectionX("lowtails",0,-1,"[lowzcut]")
 lowtails.Draw("E SAME")
-c.SaveAs(remainder[0]+"-lowtails.png")
+c.Print(remainder[0]+".pdf","Title:lowtails")
 
 c.SetLogy(0)
 
@@ -394,7 +397,7 @@ sigmafitfunc.SetParameters(1,-0.5);
 sigmagraph.Draw("AP")
 sigmagraph.Fit("sigmafitfunc","","",0.015,0.06)
 #sigmagraph.Fit("pol5","","",0.02,0.08)
-c.SaveAs(remainder[0]+"-sigmas.png")
+c.Print(remainder[0]+".pdf","Title:sigmas")
 
 zcutgraph=TGraph(len(zcutmasses),zcutmasses,zerobackgroundzcut)
 zcutgraph.SetTitle("Z cut for 0.5 background events")
@@ -406,7 +409,8 @@ zcutgraph.GetYaxis().SetRangeUser(0,60)
 zcutgraph.Write()
 zcutgraph.Draw("AC")
 #zcutgraph.Fit("pol4")
-c.SaveAs(remainder[0]+"-zcut.png")
+c.Print(remainder[0]+".pdf","Title:zcut")
+c.Print(remainder[0]+".pdf]")
 
 outfile.Write()
 outfile.Close()
