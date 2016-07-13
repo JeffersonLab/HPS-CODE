@@ -8,7 +8,7 @@ for filename in sys.argv[1:]:
         for line in file:
             match = re.match(r'Read (\d+) events, wrote (\d+) of them',line)
             if match:
-                print line[:-1]
+                print filename+": "+line[:-1]
                 #print match.groups()
                 file_count += 1
                 input_count += int(match.group(1))
