@@ -15,5 +15,5 @@ for filename in sys.argv[1:]:
                 output_count += int(match.group(2))
                 break
 print "totals from {0} files: {1} input events, {2} output events".format(file_count, input_count, output_count)
-print "average per file: {0} input events, {1} output events".format(float(input_count)/file_count, float(output_count)/file_count)
-print "efficiency: {0} pm {1}".format(float(output_count)/input_count,math.sqrt(output_count)/input_count)
+print "average per file: {0:.1f} input events, {1:.1f} output events".format(float(input_count)/file_count, float(output_count)/file_count)
+print "efficiency: {0:.3f} pm {1:.4f}".format(float(output_count)/input_count,math.sqrt(output_count)/input_count)
