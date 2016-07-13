@@ -70,7 +70,7 @@ class BumpHunter {
 
         /**
          * Fit the given histogram in the window with range 
-         * (window_start, window_start + window_size).  
+         * (window_start, window_start + win_size).  
          * 
          * @param data The RooFit histogram to fit.
          * @param window_start The start of the fit window.
@@ -79,7 +79,7 @@ class BumpHunter {
 
         /**
          * Fit the given histogram in the window with range 
-         * (window_start, window_start + window_size).  
+         * (window_start, window_start + win_size).  
          * 
          * @param histogram The histogram to fit.
          * @param window_start The start of the fit window.
@@ -118,7 +118,7 @@ class BumpHunter {
         /**
          * 
          */
-        void setWindowSize(double window_size) { this->window_size = window_size; }; 
+        void setWindowSize(double win_size) { this->win_size = win_size; }; 
 
         /** Write the fit results to a text file */
         void writeResults(); 
@@ -211,10 +211,10 @@ class BumpHunter {
         double high_bound;
         
         /** Maximum size of the window */
-        double max_window_size; 
+        double max_win_size; 
 
         /** Size of the background window that will be used to fit. */
-        double window_size;
+        double win_size;
 
         /** Polynomial order used to model the background. */
         int bkg_poly_order;
