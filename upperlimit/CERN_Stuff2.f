@@ -327,7 +327,6 @@ C        ACM Trans. Math. Software 5 (1979) 482-489.
   101 FORMAT(1X,'***** Modified RZERO ... TOO MANY FUNCTION CALLS')
       END
 
-C      FUNCTION ALGAMA(X)
       FUNCTION ALOGAM(X)
 C
 C
@@ -370,6 +369,7 @@ C
      2  1.34699 05627 879D+0/
 
 
+c      ENTRY ALOGAM(X)
 
       IF(X .LE. 0) THEN
        H=0
@@ -762,4 +762,77 @@ C       Now IN24 had better be between zero and 23 inclusive
         ENDIF
       ENDIF
       RETURN
+      END
+      SUBROUTINE SORTR(A,NC,NR,NS)
+C
+C CERN PROGLIB# M107    SORTR           .VERSION KERNFOR  4.21  890323
+C ORIG. 15/11/88 FCA.  Modified from CERNLIB source by S. Yellin
+C
+C A has NC columns and NR rows.  If NS > 0 the column number NS is put
+C in increasing order, and all other row entries, if any, move with the
+C row entry of column NS.  If NS < 0 the same thing happens but with decreasing
+C order.  The convention for storage of A is all NC columns of row 1, then of
+C row 2, ..., row NR, which is the Fortran convention for A(NC,NR).  So if
+C NC=NS=1 with a 1-dimensional array A(NR), that array will end up in
+C increasing order.
+C
+      DIMENSION A(NC,NR)
+C
+      NCS=ABS(NS)
+      IF(NCS.EQ.0)  GO TO 999
+      IF(NCS.GT.NC) GO TO 999
+      IF(NR.LE.1)   GO TO 999
+      IF (NS.LE.0)           GO TO 31
+
+C----              Ascending order
+
+      DO 30 J=1,NR-1
+        LMIN = J
+        HMIN = A(NCS,J)
+        DO 10 K=J+1,NR
+          IF(HMIN.GT.A(NCS,K)) THEN
+            HMIN = A(NCS,K)
+            LMIN = K
+          ENDIF
+   10   CONTINUE
+        IF(LMIN.NE.J) THEN
+          DO 25 L=LMIN, J, -1
+            IF(A(NCS,L).EQ.A(NCS,J)) THEN
+              DO 20 K=1,NC
+                TEMP      = A(K,LMIN)
+                A(K,LMIN) = A(K,L)
+                A(K,L)    = TEMP
+   20         CONTINUE
+              LMIN = L
+            ENDIF
+   25     CONTINUE
+        ENDIF
+   30 CONTINUE
+      GO TO 999
+
+C----              Descending order
+
+   31 DO 60 J=1,NR-1
+        LMAX = J
+        HMAX = A(NCS,J)
+        DO 40 K=J+1,NR
+          IF(HMAX.LT.A(NCS,K)) THEN
+            HMAX = A(NCS,K)
+            LMAX = K
+          ENDIF
+   40   CONTINUE
+        IF(LMAX.NE.J) THEN
+          DO 55 L=LMAX, J, -1
+            IF(A(NCS,L).EQ.A(NCS,J)) THEN
+              DO 50 K=1,NC
+                TEMP      = A(K,LMAX)
+                A(K,LMAX) = A(K,L)
+                A(K,L)    = TEMP
+   50         CONTINUE
+              LMAX = L
+            ENDIF
+   55     CONTINUE
+        ENDIF
+   60 CONTINUE
+  999 RETURN
       END

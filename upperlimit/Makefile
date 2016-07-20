@@ -1,7 +1,9 @@
-all: upperlimit.so SimpleExample
+all: upperlimit.so testUpper SimpleExample
 clean:
-	rm upperlimit.so SimpleExample
+	rm upperlimit.so testUpper SimpleExample
 upperlimit.so:
-	f2py -c -m upperlimit UpperLim.pyf UpperLim.f y_vs_CLf.f CMaxinf.f ConfLev.f Cinf.f CERN_Stuff2.f
+	f2py -c -m upperlimit upper.pyf Upper.f UpperLim.f CMaxinf2.f y_vs_CLf.f Cinf.f ConfLev.f CombConf.f C02.f CnMax.f CERN_Stuff2.f
+testUpper:
+	f77 -o testUpper testUpper.f Upper.f UpperLim.f CMaxinf2.f y_vs_CLf.f Cinf.f ConfLev.f CombConf.f C02.f CnMax.f CERN_Stuff2.f
 SimpleExample:
-	f77 -o SimpleExample SimpleExample.f UpperLim.f CMaxinf.f ConfLev.f Cinf.f y_vs_CLf.f CERN_Stuff2.f
+	f77 -o SimpleExample SimpleExample.f UpperLim.f CMaxinf2.f y_vs_CLf.f Cinf.f ConfLev.f C02.f CnMax.f CERN_Stuff2.f

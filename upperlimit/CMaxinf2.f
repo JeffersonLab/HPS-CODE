@@ -36,11 +36,14 @@ C where CMaxinf=C_n(mun,mun).
      1 Imu,ICL,Imu24,Imu14,Imu34,Imustart,NmuMax2,
      2 NCL3s,NmuMax3,Nmus3,N,NCL3sa,NTrials,ICLow,ICHigh,ICMid
       Parameter (NCLmax=40)
-      Parameter (NCL3s=84) ! For CMax.txt
+      Parameter (NCL3s=84)
+c For CMax.txt
       Parameter (NfminMax=7)
       Parameter (NmuMax=50)
-      Parameter (NmuMax2=730) ! 723 should be needed
-      Parameter (NmuMax3=891) ! L=-430 to +460 in CMax.txt mu=exp(.01*L)
+      Parameter (NmuMax2=730)
+c 723 should be needed
+      Parameter (NmuMax3=891)
+c L=-430 to +460 in CMax.txt mu=exp(.01*L)
       Real CLs(NCLmax),mus(NmuMax),Table(NCLmax,NfminMax,NmuMax),
      1 fmins(NfminMax),logmu(NmuMax),lmu,xCL,xmu,sqrtmu,
      2 A(NClmax,NfminMax),B(NClmax,NfminMax),CL3s(NCL3s),
