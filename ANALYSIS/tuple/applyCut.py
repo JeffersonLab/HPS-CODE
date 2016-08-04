@@ -22,7 +22,7 @@ ebeam=1.056
 options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:cboh')
 
 
-cutType = "bumphunt"
+cutType = "none"
 cutOutput = False
 onlyBest = False
 onlyOnly = False
@@ -91,6 +91,21 @@ elif cutType=="vertexing":
         "eleFirstHitX",
         "posFirstHitX",
         "nPos"])
+elif cutType=="none":
+    events = root_numpy.root2array(remainder[1],branches=["event",
+        "run",
+        "tarP",
+        "tarM",
+        "uncVZ",
+        "tarChisq",
+        "isPair1",
+        "eleMatchChisq",
+        "posMatchChisq",
+        "eleClY",
+        "posClY",
+        "eleClT",
+        "posClT",
+        "nPos"])
 else:
     print "invalid cut type"
     sys.exit(-1)
@@ -124,8 +139,8 @@ if cutType=="bumphunt":
             ("rank",numpy.int8)])
 elif cutType=="vertexing":
     cut = numpy.row_stack((#events["isPair1"]==1,
-        #events["eleHasL1"]==1,
-        #events["posHasL1"]==1,
+        events["eleHasL1"]==1,
+        events["posHasL1"]==1,
         #events["eleHasL2"]==1,
         #events["posHasL2"]==1,
         #events["eleMatchChisq"]<5,
@@ -137,8 +152,8 @@ elif cutType=="vertexing":
         #abs(events["bscPY"]/events["bscP"])<0.01,
         #abs(events["bscPX"]/events["bscP"])<0.01,
         abs(events["eleFirstHitX"]-events["posFirstHitX"]+2)<10,
-        events["bscChisq"]<5,
-        events["minIso"]>0.5,
+        events["bscChisq"]<8,
+        events["minPositiveIso"]>0.5,
         events["eleP"]<0.8,
         events["posP"]>0.3,
         events["uncP"]>0.8*ebeam)).all(0)
@@ -160,6 +175,26 @@ elif cutType=="vertexing":
             ("cut",numpy.int8),
             ("nPass",numpy.int8),
             ("rank",numpy.int8)])
+elif cutType=="none":
+    cut = numpy.ones(n)
+    output = numpy.core.records.fromarrays([
+        events["run"],
+        events["event"],
+        events["tarP"],
+        events["tarM"],
+        events["uncVZ"],
+        cut,
+        numpy.zeros(n),
+        numpy.zeros(n)
+        ], dtype=[
+            ("run",events.dtype["run"]),
+            ("event",events.dtype["event"]),
+            ("tarP",events.dtype["tarP"]),
+            ("tarM",events.dtype["tarM"]),
+            ("uncVZ",events.dtype["uncVZ"]),
+            ("cut",numpy.int8),
+            ("nPass",numpy.int8),
+            ("rank",numpy.int8)])
 else:
     print "invalid cut type"
     sys.exit(-1)
@@ -173,6 +208,8 @@ for i in xrange(0,n):
             candidates.sort(key=lambda x:events[x]["tarChisq"],reverse=False)
         elif cutType=="vertexing":
             candidates.sort(key=lambda x:events[x]["bscChisq"],reverse=False)
+        if cutType=="none":
+            candidates.sort(key=lambda x:events[x]["tarChisq"],reverse=False)
         else:
             print "invalid cut type"
             sys.exit(-1)
@@ -189,10 +226,10 @@ for i in xrange(0,n):
 
 if cutOutput:
     output = output[output["cut"]!=0]
-    if onlyBest:
-        output = output[output["rank"]==1]
-    if onlyOnly:
-        output = output[output["nPass"]==1]
+if onlyBest:
+    output = output[output["rank"]==1]
+if onlyOnly:
+    output = output[output["nPass"]==1]
 
 root_numpy.array2root(output,remainder[0],mode="recreate",treename="cut")
 #newtree=root_numpy.array2tree(output)
