@@ -36,26 +36,33 @@ for opt, arg in options:
         sys.exit(0)
 
 
-if (len(remainder)!=3):
+if (len(remainder)!=5):
         print sys.argv[0]+' <output basename> <root files>'
         sys.exit()
 
 c = TCanvas("c","c",800,600);
 print "\nUsage: {0} <output basename> <data ROOT file> <MC ROOT file>".format(sys.argv[0])
-dataFile = TFile(sys.argv[2])
-mcFile = TFile(sys.argv[3])
+dataFile = TFile(remainder[1])
+mcFile = TFile(remainder[2])
+mc2File = TFile(remainder[3])
+mc3File = TFile(remainder[4])
 dataEvents = dataFile.Get("ntuple")
 mcEvents = mcFile.Get("ntuple")
+mc2Events = mc2File.Get("ntuple")
+mc3Events = mc3File.Get("ntuple")
 
 plotList = []
 plotList.append((mcEvents, "mc", 5.65e-3*4862, 2, "tritrig-beam-tri"))
 plotList.append((dataEvents, "data", 119.3, 1, "golden runs"))
+plotList.append((mc2Events, "mc2", 0.0176*81, 3, "tritrig_NOSUMCUT"))
+plotList.append((mc3Events, "mc3", 0.00176*973, 4, "tritrig-wab-beam-tri_NOSUMCUT"))
 
 dataEvents.Draw("tarP>>data(100,0.5,1.2)","","")
 mcEvents.Draw("tarP>>mc(100,0.5,1.2)","","")
 
 c.Print(remainder[0]+".pdf[")
 
+plotStuff(plotList,"tarP>>{0}(100,0,1.2)","", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 plotStuff(plotList,"tarP>>{0}(100,0.5,1.2)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 plotStuff(plotList,"eleP>>{0}(100,0.0,1.0)","tarP>0.5*1.056", remainder[0]+".pdf","Title:eleP", "p [GeV]", "Normalized rate [nb]", False)
 plotStuff(plotList,"posP>>{0}(100,0.0,1.0)","tarP>0.5*1.056", remainder[0]+".pdf","Title:posP", "p [GeV]", "Normalized rate [nb]", False)

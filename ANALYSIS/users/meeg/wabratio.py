@@ -18,7 +18,7 @@ def plotStuff(plotList,plotstring, cutstring, plotfile, plotname, xlabel, ylabel
     w.factory("prod::wabscale(b[0.1,0,10],{0})".format(w.data("wab").sum(False)))
     w.factory("SUM::sumModel(triscale*triPdf,wabscale*wabPdf)")
 
-    w.pdf("sumModel").fitTo(w.data("data"),RooFit.SumW2Error(True),RooFit.Extended(True))
+    w.pdf("sumModel").fitTo(w.data("data"),RooFit.SumW2Error(True),RooFit.Extended(True), RooFit.Verbose(False),RooFit.PrintLevel(-1))
     #w.pdf("sumModel").fitTo(w.data("data"),RooFit.Extended(True))
     #w.pdf("sumModel").fitTo(w.data("data"))
     frame=w.var("x").frame()
@@ -31,8 +31,11 @@ def plotStuff(plotList,plotstring, cutstring, plotfile, plotname, xlabel, ylabel
     c.Print(plotfile,plotname)
     c.Clear()
 
+    dataHist = gDirectory.Get("data")
+    triHist = gDirectory.Get("tri")
+    wabHist = gDirectory.Get("wab")
     leg = TLegend(0.0,0.75,0.2,0.9)
-    hs = THStack("hs","");
+    hs = THStack("hs",dataHist.GetTitle());
     for dataset in plotList:
         hist = gDirectory.Get(dataset[1])
         #hist.Sumw2()
@@ -58,9 +61,6 @@ def plotStuff(plotList,plotstring, cutstring, plotfile, plotname, xlabel, ylabel
 
 
 
-    dataHist = gDirectory.Get("data")
-    triHist = gDirectory.Get("tri")
-    wabHist = gDirectory.Get("wab")
     sumHist = triHist.Clone("sum")
     sumHist.Add(wabHist)
     if unitnorm:
@@ -95,34 +95,63 @@ dataEvents = dataFile.Get("ntuple")
 triEvents = triFile.Get("ntuple")
 wabEvents = wabFile.Get("ntuple")
 dataEvents.SetWeight(1.0/119.3)
-triEvents.SetWeight(1.0/(5.65e-3*4862))
-wabEvents.SetWeight(1.0/(1.248e-5*100))
-#wabEvents.SetWeight(1.0/(2.95e-5*993))
+triEvents.SetWeight(1.0/(0.00176*973))
+wabEvents.SetWeight(1.0/((9.5e4/0.7e9)*899))
+#wabEvents.SetWeight(1.0/((1.9e5/0.7e9)*993))
+
+#wabEvents.SetWeight(1.0/(2*(1.45e5/0.6e9)*993)) #Rafo's wabv1 normalization
 
 plotList = []
 #plotList.append((triEvents, "tri", 5.65e-3*4862, 2, "tritrig-beam-tri"))
 #plotList.append((dataEvents, "data", 119.3, 1, "golden runs"))
-plotList.append((dataEvents, "data", 1.0, 1, "golden runs"))
 #plotList.append((wabEvents, "wab", 1.248e-5*100, 4, "WAB"))
-plotList.append((triEvents, "tri", 1/0.246, 2, "tritrig-beam-tri"))
-plotList.append((wabEvents, "wab", 1/0.087, 4, "WAB"))
+
+#plotList.append((dataEvents, "data", 1/8.13e-3, 1, "golden runs"))
+#plotList.append((triEvents, "tri", 1/8.13e-3, 2, "tritrig-beam-tri"))
+#plotList.append((wabEvents, "wab", 1/8.13e-3, 4, "WAB"))
+
+plotList.append((dataEvents, "data", 1.0, 1, "golden runs"))
+
+#plotList.append((triEvents, "tri", 1.0, 2, "tritrig-beam-tri"))
+plotList.append((triEvents, "tri", 1/0.22, 2, "tritrig-wab-beam-tri_NOSUMCUT"))
+plotList.append((wabEvents, "wab", 1/1.26, 4, "WABv2-4062dz"))
+
+#plotList.append((triEvents, "tri", 1/0.3, 2, "tritrig-beam-tri"))
+#plotList.append((wabEvents, "wab", 1/0.9, 4, "WAB"))
+
+#plotList.append((triEvents, "tri", 1/0.314, 2, "tritrig-beam-tri"))
+#plotList.append((wabEvents, "wab", 1/0.644, 4, "WAB"))
+#plotList.append((wabEvents, "wab", 1/0.5, 4, "WAB"))
 
 c.Print(remainder[0]+".pdf[")
 
-plotStuff(plotList,"tarP>>{0}(20,0.5,1.2)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"posTrkD0>>{0}(20,-3,3)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"tarPY*sign(posPY)>>{0}(20,-0.02,0.02)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"eleP>>{0}(20,0,1.0)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"posP>>{0}(20,0,1.0)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","min(abs(elePY/eleP),abs(posPY/posP))>0.030", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","posHasL1", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","posHasL1&&min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","posHasL1&&min(abs(elePY/eleP),abs(posPY/posP))>0.030", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posTrkD0>>{0}(50,-3,3)","", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posTrkD0>>{0}(50,-3,3)","posHasL1", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","posHasL1", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"eleP>>{0}(50,0,1.0)","", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posP>>{0}(50,0,1.0)","", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+
+plotStuff(plotList,"tarP>>{0}(70,0.5,1.2)","tarP>0.5*1.056&&min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posTrkD0>>{0}(50,-3,3)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"eleP>>{0}(50,0,1.0)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posP>>{0}(50,0,1.0)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"uncVX>>{0}(100,-2,2)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"uncVY>>{0}(100,-1,1)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"uncVZ>>{0}(100,-30,30)","tarP>0.5*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 
-plotStuff(plotList,"tarP>>{0}(20,0.5,1.2)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"posTrkD0>>{0}(20,-3,3)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"tarPY*sign(posPY)>>{0}(20,-0.02,0.02)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"eleP>>{0}(20,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"posP>>{0}(20,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+#plotStuff(plotList,"tarP>>{0}(20,0.5,1.2)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+#plotStuff(plotList,"posTrkD0>>{0}(20,-3,3)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+#plotStuff(plotList,"tarPY*sign(posPY)>>{0}(20,-0.02,0.02)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+#plotStuff(plotList,"eleP>>{0}(20,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+#plotStuff(plotList,"posP>>{0}(20,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"uncVX>>{0}(100,-2,2)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"uncVY>>{0}(100,-1,1)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"uncVZ>>{0}(100,-30,30)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
