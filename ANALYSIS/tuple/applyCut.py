@@ -48,6 +48,7 @@ if len(remainder)!=2:
     sys.exit(0)
 print remainder[0]
 print remainder[1]
+print cutType
 
 if cutType=="bumphunt":
     events = root_numpy.root2array(remainder[1],branches=["event",
@@ -75,12 +76,15 @@ elif cutType=="vertexing":
         "posP",
         "eleMatchChisq",
         "posMatchChisq",
+        "eleTrkChisq",
+        "posTrkChisq",
         "eleTrkT",
         "posTrkT",
         "eleClT",
         "posClT",
         "minIso",
         "minPositiveIso",
+        "posTrkD0",
         "bscPX",
         "bscPY",
         "bscP",
@@ -107,8 +111,7 @@ elif cutType=="none":
         "posClT",
         "nPos"])
 else:
-    print "invalid cut type"
-    sys.exit(-1)
+    raise Exception("invalid cut type")
 
 n = events.size
 
@@ -143,6 +146,8 @@ elif cutType=="vertexing":
         events["posHasL1"]==1,
         #events["eleHasL2"]==1,
         #events["posHasL2"]==1,
+        events["eleTrkChisq"]<30,
+        events["posTrkChisq"]<30,
         #events["eleMatchChisq"]<5,
         #events["posMatchChisq"]<5,
         #abs(events["eleClT"]-events["eleTrkT"]-43)<4,
@@ -151,11 +156,12 @@ elif cutType=="vertexing":
         #events["eleClY"]*events["posClY"]<0,
         #abs(events["bscPY"]/events["bscP"])<0.01,
         #abs(events["bscPX"]/events["bscP"])<0.01,
-        abs(events["eleFirstHitX"]-events["posFirstHitX"]+2)<10,
-        events["bscChisq"]<8,
-        events["minPositiveIso"]>0.5,
+        events["bscChisq"]<10,
+        events["minPositiveIso"]-0.02*events["bscChisq"]>0.5,
         events["eleP"]<0.8,
-        events["posP"]>0.3,
+        abs((events["eleP"]-events["posP"])/(events["eleP"]+events["posP"]))<0.4,
+        abs(events["eleFirstHitX"]-events["posFirstHitX"]+2)<7,
+        events["posTrkD0"]<1.5,
         events["uncP"]>0.8*ebeam)).all(0)
     output = numpy.core.records.fromarrays([
         events["run"],
@@ -196,8 +202,7 @@ elif cutType=="none":
             ("nPass",numpy.int8),
             ("rank",numpy.int8)])
 else:
-    print "invalid cut type"
-    sys.exit(-1)
+    raise Exception("invalid cut type")
 
 currentevent = 0
 candidates = []
@@ -208,11 +213,10 @@ for i in xrange(0,n):
             candidates.sort(key=lambda x:events[x]["tarChisq"],reverse=False)
         elif cutType=="vertexing":
             candidates.sort(key=lambda x:events[x]["bscChisq"],reverse=False)
-        if cutType=="none":
+        elif cutType=="none":
             candidates.sort(key=lambda x:events[x]["tarChisq"],reverse=False)
         else:
-            print "invalid cut type"
-            sys.exit(-1)
+            raise Exception("invalid cut type")
 #        ranked_candidates = sorted(candidates, key=lambda x:events[x][sortkey],reverse=highestBest)
         rank=1
         for j in candidates:
