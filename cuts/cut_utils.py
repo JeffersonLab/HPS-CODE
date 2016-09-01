@@ -1,4 +1,4 @@
-import array
+import array,string
 from ROOT import gROOT, gStyle, TFile, TTree, TChain, TMVA, TCut, TCanvas, gDirectory, TH1, TGraph
 
 def makePlots(c,goodEvents,badEvents,filename,name,var,nbins,xmin,xmax,cut,forward):
@@ -64,5 +64,8 @@ def makePlots(c,goodEvents,badEvents,filename,name,var,nbins,xmin,xmax,cut,forwa
 
 def allBut(cuts,i):
     return cuts[:i]+cuts[i+1:]
-def makeCutString(cuts):
+def makeCutString(cuts,*reject):
+    cuts = [cuts[i] for i in set(xrange(0,len(cuts)))-set(reject)]
     return reduce(lambda a,b:a+"&&"+b,[str(i) for i in cuts])
+def flipCut(cuts,i):
+    return makeCutString(cuts[:i] + [cuts[i].translate(string.maketrans("<>","><"))] + cuts[i+1:])

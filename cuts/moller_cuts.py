@@ -3,6 +3,7 @@ import sys,os,array
 import getopt
 import ROOT
 from ROOT import gROOT, gStyle, TFile, TTree, TChain, TMVA, TCut, TCanvas, gDirectory, TH1, TGraph
+from cut_utils import makePlots, allBut, makeCutString
 print sys.argv[2]
 print sys.argv[3]
 goodFile = TFile(sys.argv[2])
@@ -89,11 +90,6 @@ def makePlots(name,var,nbins,xmin,xmax,cut,forward):
     c.Print(sys.argv[1]+".pdf".format(name),"Title:"+name)
 
 
-def allBut(cuts,i):
-    return cuts[:i]+cuts[i+1:]
-def makeCutString(cuts):
-    return reduce(lambda a,b:a+"&&"+b,[str(i) for i in cuts])
-
 cuts=["uncP>0.85",
         "uncP<1.2",
         "tarChisq<50",
@@ -112,24 +108,24 @@ makePlots("abs(tarP)","abs(tarP-1.056)",100,0,1,makeCutString(cuts[2:]),True)
 
 
 
-makePlots("tarChisq","tarChisq",200,0,200,makeCutString(allBut(cuts,2)),True)
-makePlots("bscChisq","bscChisq",200,0,200,makeCutString(allBut(cuts,2)),True)
-makePlots("vzcChisq","vzcChisq",200,0,100,makeCutString(allBut(cuts,2)),True)
-makePlots("uncChisq","uncChisq",200,0,100,makeCutString(allBut(cuts,2)),True)
-makePlots("tar-uncChisq","tarChisq-uncChisq",200,0,200,makeCutString(allBut(cuts,2)),True)
-makePlots("tar-bscChisq","tarChisq-bscChisq",200,0,100,makeCutString(allBut(cuts,2)),True)
+makePlots("tarChisq","tarChisq",200,0,200,makeCutString(cuts,2),True)
+makePlots("bscChisq","bscChisq",200,0,200,makeCutString(cuts,2),True)
+makePlots("vzcChisq","vzcChisq",200,0,100,makeCutString(cuts,2),True)
+makePlots("uncChisq","uncChisq",200,0,100,makeCutString(cuts,2),True)
+makePlots("tar-uncChisq","tarChisq-uncChisq",200,0,200,makeCutString(cuts,2),True)
+makePlots("tar-bscChisq","tarChisq-bscChisq",200,0,100,makeCutString(cuts,2),True)
 
-makePlots("trkChisq","max(topTrkChisq,botTrkChisq)",100,0,100,makeCutString(allBut(cuts,3)),True)
+makePlots("trkChisq","max(topTrkChisq,botTrkChisq)",100,0,100,makeCutString(cuts,3),True)
 
-makePlots("trkDt","abs(topTrkT-botTrkT)",100,0,10,makeCutString(allBut(cuts,4)),True)
+makePlots("trkDt","abs(topTrkT-botTrkT)",100,0,10,makeCutString(cuts,4),True)
 
-makePlots("tarPX/tarP","abs(tarPX)/tarP",100,0,0.04,makeCutString(allBut(cuts,5)),True)
-makePlots("vzcPX/vzcP","abs(vzcPX)/vzcP",100,0,0.04,makeCutString(allBut(cuts,5)),True)
-makePlots("uncPX/uncP","abs(uncPX)/uncP",100,0,0.04,makeCutString(allBut(cuts,5)),True)
+makePlots("tarPX/tarP","abs(tarPX)/tarP",100,0,0.04,makeCutString(cuts,5),True)
+makePlots("vzcPX/vzcP","abs(vzcPX)/vzcP",100,0,0.04,makeCutString(cuts,5),True)
+makePlots("uncPX/uncP","abs(uncPX)/uncP",100,0,0.04,makeCutString(cuts,5),True)
 
-makePlots("tarPY/tarP","abs(tarPY)/tarP",100,0,0.025,makeCutString(allBut(cuts,6)),True)
-makePlots("vzcPY/vzcP","abs(vzcPY)/vzcP",100,0,0.025,makeCutString(allBut(cuts,6)),True)
-makePlots("uncPY/uncP","abs(uncPY)/uncP",100,0,0.025,makeCutString(allBut(cuts,6)),True)
+makePlots("tarPY/tarP","abs(tarPY)/tarP",100,0,0.025,makeCutString(cuts,6),True)
+makePlots("vzcPY/vzcP","abs(vzcPY)/vzcP",100,0,0.025,makeCutString(cuts,6),True)
+makePlots("uncPY/uncP","abs(uncPY)/uncP",100,0,0.025,makeCutString(cuts,6),True)
 
 makePlots("tarP_XY_ellipse","sqrt((tarPX/0.005)^2+(tarPY/0.003)^2)/tarP",100,0,10,makeCutString(cuts[:5]),True)
 makePlots("tarP_XY_rect","max(abs(tarPX/0.005),abs(tarPY/0.003))/tarP",100,0,10,makeCutString(cuts[:5]),True)

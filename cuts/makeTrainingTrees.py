@@ -49,13 +49,29 @@ elif cutType=="vertexing":
     goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
     badCut=baseCut+"&&uncVZ*uncM>0.5"
 elif cutType=="vertexing_L1":
-    baseCut="uncP>0.8*{0}&&!eleHasL1&&!posHasL1".format(ebeam)
+    baseCut="isPair1&&max(eleMatchChisq,posMatchChisq)<30&&eleClY*posClY<0&&uncP>0.8*{0}&&uncVZ<80&&eleHasL1&&posHasL1".format(ebeam)
     goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
-    badCut=baseCut+"&&uncVZ>70"
-elif cutType=="vertexing2":
-    baseCut="uncP>0.8*{0}&&!eleHasL1&&!posHasL1".format(ebeam)
+    badCut=baseCut+"&&(uncVZ+5)*uncM>0.5"
+elif cutType=="vertexing_L1_08":
+    baseCut="isPair1&&max(eleMatchChisq,posMatchChisq)<30&&eleClY*posClY<0&&uncP>0.8*{0}&&uncVZ<80&&eleHasL1&&posHasL1".format(ebeam)
     goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
-    badCut=baseCut+"&&uncVZ*uncM>1&&uncVZ<70"
+    badCut=baseCut+"&&(uncVZ+5)*uncM>0.8"
+elif cutType=="vertexing_L1_10":
+    baseCut="isPair1&&max(eleMatchChisq,posMatchChisq)<30&&eleClY*posClY<0&&uncP>0.8*{0}&&uncVZ<80&&eleHasL1&&posHasL1".format(ebeam)
+    goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
+    badCut=baseCut+"&&(uncVZ+5)*uncM>1.0"
+elif cutType=="vertexing_noL1":
+    baseCut="uncP>0.8*{0}&&uncVZ<80&&!eleHasL1&&!posHasL1".format(ebeam)
+    goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
+    badCut=baseCut+"&&(uncVZ+5)*uncM>0.5"
+elif cutType=="vertexing_eleL1":
+    baseCut="uncP>0.8*{0}&&uncVZ<80&&eleHasL1&&!posHasL1".format(ebeam)
+    goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
+    badCut=baseCut+"&&(uncVZ+5)*uncM>0.5"
+elif cutType=="vertexing_posL1":
+    baseCut="uncP>0.8*{0}&&uncVZ<80&&!eleHasL1&&posHasL1".format(ebeam)
+    goodCut=baseCut+"&&abs(uncVZ)*uncM<0.1"
+    badCut=baseCut+"&&(uncVZ+5)*uncM>0.5"
 else:
     print "invalid cut type"
     sys.exit(-1)
