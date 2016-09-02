@@ -12,6 +12,7 @@ def print_usage():
     print '\t-c: only write candidates that pass cuts'
     print '\t-b: only keep best candidate'
     print '\t-o: only keep candidate if it\'s the only one'
+    print '\t-m: use MC information'
     print '\t-h: this help message'
     print
 
@@ -19,13 +20,14 @@ ebeam=1.056
 #sortkey="tarChisq"
 #highestBest=False
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:cboh')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:cbomh')
 
 
 cutType = "none"
 cutOutput = False
 onlyBest = False
 onlyOnly = False
+useMC = False
 
 # Parse the command line arguments
 for opt, arg in options:
@@ -39,6 +41,8 @@ for opt, arg in options:
             onlyBest = True
         if opt=='-o':
             onlyOnly = True
+        if opt=='-m':
+            useMC = True
         if opt=='-h':
             print_usage()
             sys.exit(0)
@@ -50,8 +54,9 @@ print remainder[0]
 print remainder[1]
 print cutType
 
+#blah = root_numpy.root2array(remainder[1],branches=["triEndZ"])
 if cutType=="bumphunt":
-    events = root_numpy.root2array(remainder[1],branches=["event",
+    branchlist=["event",
         "run",
         "tarP",
         "tarM",
@@ -64,9 +69,9 @@ if cutType=="bumphunt":
         "posClY",
         "eleClT",
         "posClT",
-        "nPos"])
+        "nPos"]
 elif cutType=="vertexing":
-    events = root_numpy.root2array(remainder[1],branches=["event",
+    branchlist=["event",
         "run",
         "uncP",
         "uncM",
@@ -80,13 +85,13 @@ elif cutType=="vertexing":
         "posTrkChisq",
         "eleTrkT",
         "posTrkT",
+        "eleClY",
+        "posClY",
         "eleClT",
         "posClT",
         "minIso",
         "minPositiveIso",
         "posTrkD0",
-        "bscPX",
-        "bscPY",
         "bscP",
         "eleHasL1",
         "posHasL1",
@@ -94,9 +99,9 @@ elif cutType=="vertexing":
         "posHasL2",
         "eleFirstHitX",
         "posFirstHitX",
-        "nPos"])
+        "nPos"]
 elif cutType=="none":
-    events = root_numpy.root2array(remainder[1],branches=["event",
+    branchlist=["event",
         "run",
         "tarP",
         "tarM",
@@ -109,101 +114,78 @@ elif cutType=="none":
         "posClY",
         "eleClT",
         "posClT",
-        "nPos"])
+        "nPos"]
 else:
     raise Exception("invalid cut type")
 
+if useMC:
+    branchlist.append("triP")
+    branchlist.append("triM")
+    branchlist.append("triEndZ")
+events = root_numpy.root2array(remainder[1],branches=branchlist)
+
 n = events.size
-
-#cut = numpy.row_stack((events["isPair1"]==1,
-#    events["eleMatchChisq"]<3,
-#    events["posMatchChisq"]<3,
-#    abs(events["eleClT"]-events["posClT"])<1.6,
-#    events["eleClY"]*events["posClY"]<0,
-#    events["nPos"]==1)).all(0)
-
 
 if cutType=="bumphunt":
     #cut = numpy.ones(n)
     cut = events["tarP"]>0.8*ebeam
-    output = numpy.core.records.fromarrays([
-        events["tarP"],
-        events["tarM"],
-        events["uncVZ"],
-        cut,
-        numpy.zeros(n),
-        numpy.zeros(n)
-        ], dtype=[
-            ("tarP",events.dtype["tarP"]),
-            ("tarM",events.dtype["tarM"]),
-            ("uncVZ",events.dtype["uncVZ"]),
-            ("cut",numpy.int8),
-            ("nPass",numpy.int8),
-            ("rank",numpy.int8)])
+    names = ["run",
+            "event",
+            "tarP",
+            "tarM",
+            "uncVZ"]
 elif cutType=="vertexing":
     cut = numpy.row_stack((#events["isPair1"]==1,
         events["eleHasL1"]==1,
         events["posHasL1"]==1,
         #events["eleHasL2"]==1,
         #events["posHasL2"]==1,
+        events["eleMatchChisq"]<10,
+        events["posMatchChisq"]<10,
+        abs(events["eleClT"]-events["eleTrkT"]-43)<4,
+        abs(events["posClT"]-events["posTrkT"]-43)<4,
+        abs(events["eleClT"]-events["posClT"])<2,
+        events["eleClY"]*events["posClY"]<0,
+        events["bscChisq"]<10,
         events["eleTrkChisq"]<30,
         events["posTrkChisq"]<30,
-        #events["eleMatchChisq"]<5,
-        #events["posMatchChisq"]<5,
-        #abs(events["eleClT"]-events["eleTrkT"]-43)<4,
-        #abs(events["posClT"]-events["posTrkT"]-43)<4,
-        #abs(events["eleClT"]-events["posClT"])<2,
-        #events["eleClY"]*events["posClY"]<0,
         #abs(events["bscPY"]/events["bscP"])<0.01,
         #abs(events["bscPX"]/events["bscP"])<0.01,
-        events["bscChisq"]<10,
         events["minPositiveIso"]-0.02*events["bscChisq"]>0.5,
-        events["eleP"]<0.8,
+        #abs(events["eleFirstHitX"]-events["posFirstHitX"]+2)<7,
         abs((events["eleP"]-events["posP"])/(events["eleP"]+events["posP"]))<0.4,
-        abs(events["eleFirstHitX"]-events["posFirstHitX"]+2)<7,
         events["posTrkD0"]<1.5,
+        events["eleP"]<0.75*ebeam,
+        events["uncP"]<1.15*ebeam,
         events["uncP"]>0.8*ebeam)).all(0)
-    output = numpy.core.records.fromarrays([
-        events["run"],
-        events["event"],
-        events["uncP"],
-        events["uncM"],
-        events["uncVZ"],
-        cut,
-        numpy.zeros(n),
-        numpy.zeros(n)
-        ], dtype=[
-            ("run",events.dtype["run"]),
-            ("event",events.dtype["event"]),
-            ("uncP",events.dtype["uncP"]),
-            ("uncM",events.dtype["uncM"]),
-            ("uncVZ",events.dtype["uncVZ"]),
-            ("cut",numpy.int8),
-            ("nPass",numpy.int8),
-            ("rank",numpy.int8)])
+    names = ["run",
+            "event",
+            "eleHasL1",
+            "posHasL1",
+            "uncP",
+            "uncM",
+            "uncVZ"]
 elif cutType=="none":
     cut = numpy.ones(n)
-    output = numpy.core.records.fromarrays([
-        events["run"],
-        events["event"],
-        events["tarP"],
-        events["tarM"],
-        events["uncVZ"],
-        cut,
-        numpy.zeros(n),
-        numpy.zeros(n)
-        ], dtype=[
-            ("run",events.dtype["run"]),
-            ("event",events.dtype["event"]),
-            ("tarP",events.dtype["tarP"]),
-            ("tarM",events.dtype["tarM"]),
-            ("uncVZ",events.dtype["uncVZ"]),
-            ("cut",numpy.int8),
-            ("nPass",numpy.int8),
-            ("rank",numpy.int8)])
+    names = ["run",
+            "event",
+            "tarP",
+            "tarM",
+            "uncVZ"]
 else:
     raise Exception("invalid cut type")
 
+if useMC:
+    names.append("triP")
+    names.append("triM")
+    names.append("triEndZ")
+stuff = [[events[i],(i,events.dtype[i])] for i in names]
+stuff.append([cut,("cut",numpy.int8)])
+stuff.append([numpy.zeros(n),("nPass",numpy.int8)])
+stuff.append([numpy.zeros(n),("rank",numpy.int8)])
+dataarray = [i[0] for i in stuff]
+typearray = [i[1] for i in stuff]
+output = numpy.core.records.fromarrays(dataarray,dtype=typearray)
 currentevent = 0
 candidates = []
 
