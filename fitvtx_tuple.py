@@ -140,6 +140,10 @@ lowcutz=array.array('d')
 
 zcutmasses=array.array('d')
 zerobackgroundzcut=array.array('d')
+
+num_tridents=array.array('d')
+num_ap=array.array('d')
+num_ap_pastzcut=array.array('d')
 #h1mass=TH1I(
 
 #yieldhist=TH2D("yield","yield",totalH.GetNbinsX(),totalH.GetXaxis().GetXmin(),totalH.GetXaxis().GetXmax(),30,-10,-7)
@@ -320,6 +324,14 @@ for i in range(1,n_massbins):
 		#print 
 		#(log([0]/0.5)-0.5*[3]^2/[2]^2)*[4]-(-[1]-[3]) = x
                 zerobackgroundzcut.append(zcut)
+
+                eps = math.log10(3)-9
+                num_tridents.append(h1d.Integral())
+                ap_yield= 3*math.pi*10**eps/(2*(1/137.0))*h1d.Integral()*(centermass/massrange)*rad_fraction
+                num_ap.append(ap_yield)
+                gammact = 8*(1.05/10)*1e-8/(10**eps)*(0.1/centermass)**2
+                num_ap_pastzcut.append(ap_yield*math.exp(-zcut/gammact))
+                
                 h1d.Draw("E")
                 c.Print(remainder[0]+".pdf","Title:slice_"+str(i))
 		for i in range(0,yieldhist.GetYaxis().GetNbins()):
@@ -410,6 +422,18 @@ zcutgraph.Write()
 zcutgraph.Draw("AC")
 #zcutgraph.Fit("pol4")
 c.Print(remainder[0]+".pdf","Title:zcut")
+
+num_tridents_graph=TGraph(len(zcutmasses),zcutmasses,num_tridents)
+num_tridents_graph.Draw("AC")
+c.Print(remainder[0]+".pdf","Title:num_tridents")
+num_ap_graph=TGraph(len(zcutmasses),zcutmasses,num_ap)
+num_ap_graph.Draw("AC")
+c.Print(remainder[0]+".pdf","Title:num_ap")
+num_ap_pastzcut_graph=TGraph(len(zcutmasses),zcutmasses,num_ap_pastzcut)
+num_ap_pastzcut_graph.Draw("AC")
+c.Print(remainder[0]+".pdf","Title:num_ap_pastzcut")
+
+
 c.Print(remainder[0]+".pdf]")
 
 outfile.Write()
