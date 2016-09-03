@@ -77,6 +77,7 @@ makePlots(c,goodEvents,badEvents,sys.argv[1],"posMatchChisq","posMatchChisq",100
 #makePlots("bscVX","abs(bscVX)",200,0,2,"{0}&&{1}&&{2}&&{3}".format(cut0,cut1,cut2,cut4),True)
 #makePlots("bscVY","abs(bscVY)",200,0,0.5,"{0}&&{1}&&{2}&&{3}".format(cut0,cut1,cut2,cut3),True)
 makePlots(c,goodEvents,badEvents,sys.argv[1],"elePhiKink","abs(elePhiKink2+elePhiKink3)",200,0,0.01,makeCutString(cuts),True)
+makePlots(c,goodEvents,badEvents,sys.argv[1],"lambdaKink","abs((eleLambdaKink1+eleLambdaKink2)-(posLambdaKink1+posLambdaKink2))",200,0,0.01,makeCutString(cuts),True)
 
 makePlots(c,goodEvents,badEvents,sys.argv[1],"pt","bscPY*sign(posPY)",100,-0.02,0.02,makeCutString(cuts),False)
 makePlots(c,goodEvents,badEvents,sys.argv[1],"posTrkD0","posTrkD0",100,-5,5,makeCutString(cuts,5),True)
