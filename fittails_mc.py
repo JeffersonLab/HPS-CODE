@@ -4,9 +4,6 @@ import getopt
 import ROOT
 from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D, gDirectory, RooDataSet, RooRealVar, RooArgSet, RooFormulaVar, RooWorkspace, RooAbsData, RooGlobalFunc, RooFit, RooAbsReal, RooArgList, gPad
 
-massres_a = 0.032 #sigma = a*mass + b
-massres_b = 0.001 #units of GeV
-
 def frange(x, y, jump):
 	while x < y:
 		yield x

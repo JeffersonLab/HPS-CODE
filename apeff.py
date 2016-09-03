@@ -101,7 +101,7 @@ outfile.cd()
 graph=TGraph(len(massArr),massArr,gammaArr)
 graph.Draw("AL*")
 graph.SetTitle("gamma")
-graph.Fit("pol1")
+graph.Fit("pol0")
 graph.Write("gamma")
 c.Print(remainder[0]+".pdf","Title:test")
 
