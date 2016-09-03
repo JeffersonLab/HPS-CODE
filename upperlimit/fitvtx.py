@@ -14,16 +14,20 @@ def frange(x, y, jump):
 
 def print_usage():
     print "\nUsage: {0} <output basename> <input ROOT file> <acceptance ROOT file> <tails ROOT file> <radfrac ROOT file>".format(sys.argv[0])
+    print "./fitvtx.py stuff ../golden_vertcuts.root ../acceptance/acceptance_data.root ../tails.root ../frac.root -u"
     print "Arguments: "
     print '\t-h: this help message'
     print "\n"
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'uh')
 
 cutfile=""
+uniform_efficiency = False
 
 for opt, arg in options:
-    if opt=='-h':
+    if opt=='-u':
+        uniform_efficiency = True
+    elif opt=='-h':
         print_usage()
         sys.exit(0)
 
@@ -61,7 +65,7 @@ fitfunc.SetParName(4,"Tail length")
 
 
 targetz = -5.0
-maxz = 50 #max Z out to where we have acceptance (fitted acceptance curve may blow up past this)
+maxz = 100 #max Z out to where we have acceptance (fitted acceptance curve may blow up past this)
 
 n_massbins=20
 minmass=0.021
@@ -212,6 +216,9 @@ for i in range(0,n_massbins):
     eff_p3= acceptanceFile.Get("l1_p3").GetFunction("pol4").Eval(mass)
     eff_p4= acceptanceFile.Get("l1_p4").GetFunction("pol4").Eval(mass)
     exppol4.SetParameters(eff_p0,eff_p1,eff_p2,eff_p3,eff_p4)
+    exppol4.Draw()
+    exppol4.GetYaxis().SetRangeUser(0,2)
+    c.Print(remainder[0]+".pdf","Title:mass_{0}_efficiency".format(mass))
     for j in range(0,n_epsbins):
         c.Clear()
         eps = mineps+j*(maxeps-mineps)/(n_epsbins-1)
@@ -227,11 +234,10 @@ for i in range(0,n_massbins):
         #c.Print(remainder[0]+".pdf","Title:mass_{0}_eps_{1}".format(mass,eps))
         blahh = 0
         #print "decay integral {0}".format(exppol4.IntegralOneDim(targetz,100,1e-12,1e-12,ROOT.Double(blahh)))
-        #exppol4.SetParameters(eff_p0,eff_p1,eff_p2,eff_p3,eff_p4)
-        #exppol4.Draw()
-        #c.Print(remainder[0]+".pdf","Title:mass_{0}_eps_{1}".format(mass,eps))
         
         exppol4.SetParameters(eff_p0+targetz/gammact-math.log(gammact),eff_p1-1.0/gammact,eff_p2,eff_p3,eff_p4)
+        if (uniform_efficiency):
+            exppol4.SetParameters(targetz/gammact-math.log(gammact),-1.0/gammact,0,0,0)
         c.SetLogy(0)
         exppol4.Draw()
         #c.Print(remainder[0]+".pdf","Title:mass_{0}_eps{1}".format(mass,eps))
@@ -268,8 +274,6 @@ for i in range(0,n_massbins):
 
 
         #signalCdf = w.pdf("signal").createCdf(w.set("obs_1d"))
-        #sig_integral = exppol4.IntegralOneDim(targetz,maxz,1e-12,1e-12,ROOT.Double(blahh))
-        #print "signal integral {0}".format(sig_integral)
         w.var("uncVZ").setVal(zcut)
         #cdfAtZcut = signalCdf.getVal()
         cdfAtZcut = exppol4.IntegralOneDim(zcut,maxz,1e-12,1e-12,ROOT.Double(blahh))
