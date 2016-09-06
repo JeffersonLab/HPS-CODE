@@ -26,12 +26,13 @@ pulserTriCut = "isPulser&&max(eleMatchChisq,posMatchChisq)<5&&abs(eleClT-posClT)
 omarTriCut = "isPair1&&nPos==1&&max(eleMatchChisq,posMatchChisq)<3&&abs(eleClT-posClT)<1.6&&eleClY*posClY<0"
 looseTriCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<30&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&max(eleTrkChisq,posTrkChisq)<50"
 noVertTriCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<5&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&max(eleTrkChisq,posTrkChisq)<50&&eleP<{0}*0.75&&tarP<{0}*1.15"
-vertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<10&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&bscChisq<10&&max(eleTrkChisq,posTrkChisq)<30&&minPositiveIso-0.02*bscChisq>0.5&&abs(eleP-posP)/(eleP+posP)<0.4&&posTrkD0<1.5&&eleP<{0}*0.75&&uncP<{0}*1.15"
+vertCut = "isPair1&&eleHasL1&&posHasL1&&max(eleMatchChisq,posMatchChisq)<10&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&bscChisq<10&&max(eleTrkChisq,posTrkChisq)<30&&minPositiveIso-0.02*bscChisq>0.5&&abs(eleP-posP)/(eleP+posP)<0.4&&posTrkD0<1.5&&eleP<{0}*0.75&&uncP<{0}*1.15"
+allvertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<10&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&bscChisq<10&&max(eleTrkChisq,posTrkChisq)<30&&minPositiveIso-0.02*bscChisq>0.5&&abs(eleP-posP)/(eleP+posP)<0.4&&posTrkD0<1.5&&eleP<{0}*0.75&&uncP<{0}*1.15"
 mollerCut = "topP<{0}*0.85&&botP<{0}*0.85&&uncP>{0}*0.85&&uncP<{0}*1.1&&abs(topTrkT-botTrkT)<5&&abs(uncPX)<{0}*0.02&&abs(uncPY)<{0}*0.01&&vzcChisq<20"
 wabCut = "isPair1&&abs(phoClT-eleTrkT-{1})<3"
 cut=""
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'tpolVvmwe:c:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'tpolVvamwe:c:h')
 
 # Parse the command line arguments
 for opt, arg in options:
@@ -47,6 +48,8 @@ for opt, arg in options:
             cut=noVertTriCut
         if opt=='-v':
             cut=vertCut
+        if opt=='-a':
+            cut=allvertCut
         if opt=='-m':
             cut=mollerCut
         if opt=='-w':
