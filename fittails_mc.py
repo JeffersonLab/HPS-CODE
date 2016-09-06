@@ -15,12 +15,15 @@ def print_usage():
     print '\t-h: this help message'
     print "\n"
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'mh')
 
 cutfile=""
+correct_mres = False
 
 for opt, arg in options:
-    if opt=='-h':
+    if opt=='-m':
+        correct_mres= True
+    elif opt=='-h':
         print_usage()
         sys.exit(0)
 
@@ -53,23 +56,32 @@ fitfunc.SetParName(3,"Tail Z")
 fitfunc.SetParName(4,"Tail length")
 
 massarray=array.array('d')
+zeroArr=array.array('d')
 breakzarray=array.array('d')
 lengtharray=array.array('d')
+breakzErr=array.array('d')
+lengthErr=array.array('d')
 n_massbins=50
 minmass=0.021
 maxmass=0.06
+
+masscut_nsigma = 2.80
+
 for i in range(0,n_massbins):
     mass = minmass+i*(maxmass-minmass)/(n_massbins-1)
     massarray.append(mass)
-    p0 = acceptanceFile.Get("mres_l1_p0").GetFunction("pol1").Eval(mass)
-    p1 = acceptanceFile.Get("mres_l1_p1").GetFunction("pol1").Eval(mass)
+    zeroArr.append(0)
+    mres_p0 = acceptanceFile.Get("mres_l1_p0").GetFunction("pol1").Eval(mass)
+    mres_p1 = acceptanceFile.Get("mres_l1_p1").GetFunction("pol1").Eval(mass)
+    if correct_mres:
+        mres_p1 = 0
     c.Clear()
     c.Divide(1,2)
     c.cd(1)
-    events.Draw("uncVZ:uncM>>hnew2d(100,0,0.1,100,-50,50)","abs(uncM-{0})<1.25*({1}+{2}*uncVZ)".format(mass,p0,p1),"colz")
+    events.Draw("uncVZ:uncM>>hnew2d(100,0,0.1,100,-50,50)","abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1),"colz")
     c.cd(2)
     gPad.SetLogy(1)
-    events.Draw("uncVZ>>hnew1d(200,-50,50)","abs(uncM-{0})<1.25*({1}+{2}*uncVZ)".format(mass,p0,p1),"colz")
+    events.Draw("uncVZ>>hnew1d(200,-50,50)","abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1),"")
 
     h1d = gDirectory.Get("hnew1d")
     fit=h1d.Fit("gaus","QS")
@@ -84,6 +96,8 @@ for i in range(0,n_massbins):
     fit=h1d.Fit(fitfunc,"LSQIM","",mean-2*sigma,mean+10*sigma)
     breakzarray.append(fit.Get().Parameter(3))
     lengtharray.append(fit.Get().Parameter(4))
+    breakzErr.append(fit.Get().ParError(3))
+    lengthErr.append(fit.Get().ParError(4))
 
 
     c.Print(remainder[0]+".pdf","Title:mass_{0}".format(mass))
@@ -91,14 +105,15 @@ for i in range(0,n_massbins):
 c.Clear()
 outfile.cd()
 graph=TGraph(len(massarray),massarray,breakzarray)
-graph.Draw("AL*")
+graph=TGraphErrors(len(massarray),massarray,breakzarray,zeroArr,breakzErr)
+graph.Draw("A*")
 graph.SetTitle("Tail Z")
 graph.Fit("pol3")
 graph.Write("breakz")
 c.Print(remainder[0]+".pdf","Title:tailz")
 
-graph=TGraph(len(massarray),massarray,lengtharray)
-graph.Draw("AL*")
+graph=TGraphErrors(len(massarray),massarray,lengtharray,zeroArr,lengthErr)
+graph.Draw("A*")
 graph.SetTitle("Tail length")
 graph.Fit("pol3")
 graph.Write("length")
