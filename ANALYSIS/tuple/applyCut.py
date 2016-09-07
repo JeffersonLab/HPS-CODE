@@ -20,15 +20,15 @@ ebeam=1.056
 #sortkey="tarChisq"
 #highestBest=False
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:cbomh')
-
 
 cutType = "none"
 cutOutput = False
 onlyBest = False
 onlyOnly = False
 useMC = False
+tweakVertex = False
 
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:cbomvh')
 # Parse the command line arguments
 for opt, arg in options:
         if opt=='-e':
@@ -43,6 +43,8 @@ for opt, arg in options:
             onlyOnly = True
         if opt=='-m':
             useMC = True
+        if opt=='-v':
+            tweakVertex = True
         if opt=='-h':
             print_usage()
             sys.exit(0)
@@ -79,6 +81,8 @@ elif cutType=="vertexing":
         "bscChisq",
         "eleP",
         "posP",
+        "elePX",
+        "posPX",
         "eleMatchChisq",
         "posMatchChisq",
         "eleTrkChisq",
@@ -179,10 +183,14 @@ if useMC:
     names.append("triP")
     names.append("triM")
     names.append("triEndZ")
+
 stuff = [[events[i],(i,events.dtype[i])] for i in names]
 stuff.append([cut,("cut",numpy.int8)])
 stuff.append([numpy.zeros(n),("nPass",numpy.int8)])
 stuff.append([numpy.zeros(n),("rank",numpy.int8)])
+if tweakVertex:
+    corrM = events["uncM"]-0.15e-3*(events["elePX"]/events["eleP"]-events["posPX"]/events["posP"])*events["uncVZ"]/events["uncM"]
+    stuff.append([corrM,("corrM",events.dtype["uncM"])])
 dataarray = [i[0] for i in stuff]
 typearray = [i[1] for i in stuff]
 output = numpy.core.records.fromarrays(dataarray,dtype=typearray)
