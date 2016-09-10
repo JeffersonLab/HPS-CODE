@@ -66,12 +66,7 @@ modelConfig.SetPdf("model")
 modelConfig.SetParametersOfInterest("strength")
 modelConfig.SetObservables("x")
 
-bkgModel = modelConfig.Clone()
-bkgModel.SetName("bkg only")
-
-
 pdf = w.pdf("model")
-
 
 #data= pdf.generate(w.set("obs"),n)
 data= w.pdf("source").generate(w.set("obs"),n)
@@ -90,7 +85,7 @@ print "PLR p-value {0}, significance {1}".format(hypo.NullPValue(),hypo.Signific
 plc.SetConfidenceLevel(CL)
 interval = plc.GetInterval()
 interval.Print()
-print "likelihood interval: [{0}, {1}]".format(interval.LowerLimit(w.var("strength")), interval.UpperLimit(w.var("strength")))
+print "likelihood interval: [{0}, {1}]".format(n*interval.LowerLimit(w.var("strength")), n*interval.UpperLimit(w.var("strength")))
 #likelihoodPlot = LikelihoodIntervalPlot(interval)
 #likelihoodPlot.SetNPoints(100)
 #likelihoodPlot.SetRange(0,0.005)
@@ -177,7 +172,7 @@ for i in xrange(0,100):
     rawlimit = output[0]
     if output[1]==256:
 	    rawlimit = upperlimit.upperlimcom.exclude_low[0]
-    limit = rawlimit/(1.0-cdfAtZcut)/n
+    limit = rawlimit/(1.0-cdfAtZcut)
     limitArr.append(limit)
 
     outputBkg = upperlimit.upperlim(CL, 1, dataArray, zcut_count, bkgArray)
@@ -187,7 +182,7 @@ for i in xrange(0,100):
 	    rawlimitBkg = upperlimit.upperlimcom.exclude_low[0]
     if outputBkg[1]!=0:
         print outputBkg
-    bkglimit = rawlimitBkg/(1.0-cdfAtZcut)/n
+    bkglimit = rawlimitBkg/(1.0-cdfAtZcut)
     limitBkgArr.append(bkglimit)
 
 
@@ -195,29 +190,29 @@ for i in xrange(0,100):
     countArr.append(eventsPastZcut)
     expectArr.append(zcut_count)
     fractionArr.append(1.0-cdfAtZcut)
-    fcLowerArr.append(fcLower/(1.0-cdfAtZcut)/n)
-    fcUpperArr.append(fcUpper/(1.0-cdfAtZcut)/n)
-    fcUpperNobkgArr.append(fcUpper_nobkg/(1.0-cdfAtZcut)/n)
+    fcLowerArr.append(fcLower/(1.0-cdfAtZcut))
+    fcUpperArr.append(fcUpper/(1.0-cdfAtZcut))
+    fcUpperNobkgArr.append(fcUpper_nobkg/(1.0-cdfAtZcut))
     #print output
     #print "zcut = {0}, expect {1} past zcut, got {2} past zcut, signal fraction past zcut = {3}, limit = {4}".format(zcut,zcut_count,eventsPastZcut,1.0-cdfAtZcut,limit)
 
 graph=TGraph(len(zcutArr),zcutArr,fcUpperArr)
 graph.GetXaxis().SetTitle("zcut")
-graph.GetYaxis().SetRangeUser(0,0.01)
+graph.GetYaxis().SetRangeUser(0,100)
 graph.SetTitle("Feldman-Cousins upper limit")
 graph.Draw("AL*")
 c.Print(remainder[0]+".pdf","Title:test")
 
 graph=TGraph(len(zcutArr),zcutArr,fcLowerArr)
 graph.GetXaxis().SetTitle("zcut")
-graph.GetYaxis().SetRangeUser(0,0.01)
+graph.GetYaxis().SetRangeUser(0,100)
 graph.SetTitle("Feldman-Cousins lower limit")
 graph.Draw("AL*")
 c.Print(remainder[0]+".pdf","Title:test")
 
 graph=TGraph(len(zcutArr),zcutArr,limitArr)
 graph.GetXaxis().SetTitle("zcut")
-graph.GetYaxis().SetRangeUser(0,0.01)
+graph.GetYaxis().SetRangeUser(0,100)
 graph.SetTitle("Optimum interval limit")
 graph.Draw("AL*")
 c.Print(remainder[0]+".pdf","Title:test")
@@ -225,7 +220,8 @@ c.Print(remainder[0]+".pdf","Title:test")
 leg = TLegend(0.1,0.75,0.5,0.9)
 graph=TGraph(len(zcutArr),zcutArr,fcUpperArr)
 graph.GetXaxis().SetTitle("zcut")
-graph.GetYaxis().SetRangeUser(0,0.005)
+graph.GetYaxis().SetTitle("limit [events]")
+graph.GetYaxis().SetRangeUser(0,50)
 graph.SetTitle("Upper limits")
 leg.AddEntry(graph,"Feldman-Cousins upper limit, background subtracted")
 graph.Draw("AL*")
