@@ -25,6 +25,7 @@ uniform_efficiency = False
 no_candidates = False
 scale_factor = 1.0
 correct_mres = False
+massVar = "uncM"
 
 n_massbins=50
 minmass=0.02
@@ -33,7 +34,7 @@ n_epsbins=50
 mineps=-10.0
 maxeps=-7.5
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'unms:b:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'unmcs:b:h')
 for opt, arg in options:
     if opt=='-u':
         uniform_efficiency = True
@@ -41,6 +42,8 @@ for opt, arg in options:
         no_candidates = True
     if opt=='-m':
         correct_mres= True
+    if opt=='-c':
+        massVar= "corrM"
     if opt=='-s':
         scale_factor = float(arg)
     if opt=='-b':
@@ -68,7 +71,7 @@ outfile = TFile(remainder[0]+".root","RECREATE")
 inFile = TFile(remainder[1])
 events = inFile.Get("cut")
 #events.Print()
-events.Draw("uncVZ:uncM>>hnew(100,0,0.1,100,-50,50)","","colz")
+events.Draw("uncVZ:{0}>>hnew(100,0,0.1,100,-50,50)".format(massVar),"","colz")
 gDirectory.Get("hnew").SetTitle("vertexing data")
 gDirectory.Get("hnew").GetXaxis().SetTitle("mass [GeV]")
 gDirectory.Get("hnew").GetYaxis().SetTitle("vertex z [mm]")
@@ -118,14 +121,12 @@ plrSigHist=TH2D("plrSig","plrSig",n_massbins,xedges,n_epsbins,yedges)
 logplrHist=TH2D("logplr","logplr",n_massbins,xedges,n_epsbins,yedges)
 
 w = RooWorkspace("w")
-w.factory("uncM[0,0.1]")
+w.factory("{0}[0,0.1]".format(massVar))
 w.factory("uncVZ[-100,100]")
 w.factory("uncP[0,10]")
 w.factory("cut[0,1]")
 
-w.defineSet("allVars","uncM,uncVZ,uncP")
-w.defineSet("myVars","uncM,uncVZ")
-myVars = w.set("myVars")
+w.defineSet("myVars","{0},uncVZ".format(massVar))
 
 dataset = RooDataSet("data","data",events,w.set("myVars"),"")
 
@@ -170,7 +171,7 @@ for i in range(0,n_massbins):
     #gPad.SetLogy(1)
     
     deltaM = 0.001
-    events.Draw("uncM>>mass(100,{0}-{1},{0}+{1})".format(mass,0.5*deltaM),"abs(uncM-{0})<{1}".format(mass,0.5*deltaM),"")
+    events.Draw("{0}>>mass(100,{1}-{2},{1}+{2})".format(massVar,mass,0.5*deltaM),"abs({0}-{1})<{2}".format(massVar,mass,0.5*deltaM),"")
     #c.Print(remainder[0]+".pdf","Title:mass_{0}".format(mass))
 
     num_pairs = gDirectory.Get("mass").GetEntries()*scale_factor
@@ -186,7 +187,7 @@ for i in range(0,n_massbins):
     c.cd(2)
     gPad.SetLogy()
     frame=uncVZ.frame()
-    dataInRange = dataset.reduce(obs,"abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1))
+    dataInRange = dataset.reduce(obs,"abs({0}-{1})<{2}/2*({3}+{4}*uncVZ)".format(massVar,mass,masscut_nsigma,mres_p0,mres_p1))
     binnedData = dataInRange.binnedClone()
     binnedData.plotOn(frame)
     mean = binnedData.mean(uncVZ)
@@ -450,8 +451,8 @@ for i in xrange(0,len(massArr)):
             nbkg = 0.5
         poiBkgArr.append(nbkg)
         pval = 1.0-TMath.Prob(2*nbkg,2*int(candArr[i]))
-        if pval>0.5:
-            pval = 0.5
+        #if pval>0.5:
+        #    pval = 0.5
         zscore = TMath.NormQuantile(1.0-pval)
         poiMassArr.append(mass)
         poiPvalArr.append(pval)
@@ -480,6 +481,30 @@ c.Print(remainder[0]+"_output.pdf","Title:test")
 graph.Fit("pol4")
 graph.Write("zcut")
 c.Print(remainder[0]+"_output.pdf","Title:test")
+
+
+zcutMassArr = massArr[:]
+zcutZcutArr = zcutArr[:]
+zcutMassArr.append(0.1)
+zcutZcutArr.append(zcutArr[-1])
+zcutMassArr.append(0.1)
+zcutZcutArr.append(100)
+zcutMassArr.append(0)
+zcutZcutArr.append(100)
+zcutMassArr.append(0)
+zcutZcutArr.append(zcutArr[0])
+zcutMassArr.append(massArr[0])
+zcutZcutArr.append(zcutArr[0])
+zcutTcut=TCutG("highzcut",len(zcutMassArr),zcutMassArr,zcutZcutArr)
+zcutTcut.SetVarX(massVar)
+zcutTcut.SetVarY("uncVZ")
+
+c.SetLogx(0)
+events.Draw("uncVZ:{0}>>hnew(100,0,0.1,100,-50,50)".format(massVar),"highzcut","colz")
+zcutTcut.Draw("L")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+c.SetLogx(1)
+
 
 graph = drawGraph(massArr,candArr,"candidate events","A*")
 graph.GetYaxis().SetTitle("counts")

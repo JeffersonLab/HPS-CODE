@@ -15,14 +15,17 @@ def print_usage():
     print '\t-h: this help message'
     print "\n"
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'mh')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'mch')
 
 cutfile=""
 correct_mres = False
+massVar = "uncM"
 
 for opt, arg in options:
     if opt=='-m':
         correct_mres= True
+    if opt=='-c':
+        massVar= "corrM"
     elif opt=='-h':
         print_usage()
         sys.exit(0)
@@ -43,7 +46,7 @@ outfile = TFile(remainder[0]+".root","RECREATE")
 inFile = TFile(remainder[1])
 events = inFile.Get("cut")
 #events.Print()
-events.Draw("uncVZ:uncM>>hnew(100,0,0.1,100,-50,50)","","colz")
+events.Draw("uncVZ:{0}>>hnew(100,0,0.1,100,-50,50)".format(massVar),"","colz")
 c.Print(remainder[0]+".pdf")
 
 acceptanceFile = TFile(remainder[2])
@@ -78,10 +81,10 @@ for i in range(0,n_massbins):
     c.Clear()
     c.Divide(1,2)
     c.cd(1)
-    events.Draw("uncVZ:uncM>>hnew2d(100,0,0.1,100,-50,50)","abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1),"colz")
+    events.Draw("uncVZ:{0}>>hnew2d(100,0,0.1,100,-50,50)".format(massVar),"abs({0}-{1})<{2}/2*({3}+{4}*uncVZ)".format(massVar,mass,masscut_nsigma,mres_p0,mres_p1),"colz")
     c.cd(2)
     gPad.SetLogy(1)
-    events.Draw("uncVZ>>hnew1d(200,-50,50)","abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1),"")
+    events.Draw("uncVZ>>hnew1d(200,-50,50)","abs({0}-{1})<{2}/2*({3}+{4}*uncVZ)".format(massVar,mass,masscut_nsigma,mres_p0,mres_p1),"")
 
     h1d = gDirectory.Get("hnew1d")
     fit=h1d.Fit("gaus","QS")
@@ -108,6 +111,8 @@ graph=TGraph(len(massarray),massarray,breakzarray)
 graph=TGraphErrors(len(massarray),massarray,breakzarray,zeroArr,breakzErr)
 graph.Draw("A*")
 graph.SetTitle("Tail Z")
+graph.GetXaxis().SetTitle("mass [GeV]")
+graph.GetYaxis().SetTitle("tail Z [mm]")
 graph.Fit("pol3")
 graph.Write("breakz")
 c.Print(remainder[0]+".pdf","Title:tailz")
@@ -115,6 +120,8 @@ c.Print(remainder[0]+".pdf","Title:tailz")
 graph=TGraphErrors(len(massarray),massarray,lengtharray,zeroArr,lengthErr)
 graph.Draw("A*")
 graph.SetTitle("Tail length")
+graph.GetXaxis().SetTitle("mass [GeV]")
+graph.GetYaxis().SetTitle("tail length [mm]")
 graph.Fit("pol3")
 graph.Write("length")
 c.Print(remainder[0]+".pdf","Title:length")
