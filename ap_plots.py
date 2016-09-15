@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
 import getopt
+import math
 from ROOT import gROOT, gStyle, TFile, TTree, TChain, TMVA, TCut, TCanvas, gDirectory, TH1, TGraph, gPad, TF1
 
 def print_usage():
@@ -13,13 +14,16 @@ def print_usage():
 ebeam=1.056
 mass=0.030
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:ch')
+useCorrM = False
 
 # Parse the command line arguments
 for opt, arg in options:
         if opt=='-e':
             ebeam=float(arg)
-        if opt=='-h':
+        elif opt=='-c':
+            useCorrM = True
+        elif opt=='-h':
             print_usage()
             sys.exit(0)
 
@@ -85,6 +89,7 @@ eff.Fit("exppol4","QL")
 eff.Fit("exppol4","QLN")
 eff.Fit("exppol4","IM")
 effAtZero=exppol4.Eval(-5)
+exppol4.SetParameter(0,exppol4.GetParameter(0)-math.log(effAtZero))
 eff.Write("eff_all_unscaled")
 eff.Scale(1.0/effAtZero)
 eff.Fit("exppol4","QL")
@@ -134,6 +139,26 @@ hnew_1.Fit("pol1","","",-5,100)
 hnew_1.GetYaxis().SetRangeUser(0,0.01)
 hnew_1.Write("mres_all")
 c.Print(remainder[0]+".pdf","Title:top_yz")
+
+if useCorrM:
+    c.Clear()
+    c.Divide(1,2)
+    c.cd(1)
+    gPad.SetLogz(1)
+    events.Draw("corrM-triM:triEndZ>>hnew(50,-5,100,50,-0.02,0.02)","triP>0.8*1.056&&uncP>0.8*1.056","colz")
+    hnew = gDirectory.Get("hnew")
+    hnew.GetXaxis().SetTitle("vertex Z [mm]");
+    hnew.GetYaxis().SetTitle("mass residual [GeV]");
+    hnew.FitSlicesY()
+    hnew_1 = gDirectory.Get("hnew_2")
+    c.cd(2)
+    hnew_1.GetXaxis().SetTitle("vertex Z [mm]");
+    hnew_1.GetYaxis().SetTitle("mass resolution [GeV]");
+    hnew_1.Draw()
+    hnew_1.Fit("pol1","","",-5,100)
+    hnew_1.GetYaxis().SetRangeUser(0,0.01)
+    hnew_1.Write("mres_all")
+    c.Print(remainder[0]+".pdf","Title:top_yz")
 
 if isFullTuple:
     c.Clear()

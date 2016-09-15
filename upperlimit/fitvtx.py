@@ -4,7 +4,7 @@ import getopt
 import upperlimit
 import numpy
 import ROOT
-from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D, gDirectory, RooDataSet, RooRealVar, RooArgSet, RooFormulaVar, RooWorkspace, RooAbsData, RooFit, RooAbsReal, RooArgList, gPad, TFeldmanCousins
+from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D, gDirectory, RooDataSet, RooRealVar, RooArgSet, RooFormulaVar, RooWorkspace, RooAbsData, RooFit, RooAbsReal, RooArgList, gPad, TFeldmanCousins, RooDataHist, RooHistPdf, TMath
 from ROOT.RooStats import ModelConfig, ProfileLikelihoodCalculator, LikelihoodIntervalPlot
 
 def frange(x, y, jump):
@@ -25,15 +25,16 @@ uniform_efficiency = False
 no_candidates = False
 scale_factor = 1.0
 correct_mres = False
+massVar = "uncM"
 
 n_massbins=50
-minmass=0.015
+minmass=0.02
 maxmass=0.06
 n_epsbins=50
 mineps=-10.0
 maxeps=-7.5
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'unms:b:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'unmcs:b:h')
 for opt, arg in options:
     if opt=='-u':
         uniform_efficiency = True
@@ -41,6 +42,8 @@ for opt, arg in options:
         no_candidates = True
     if opt=='-m':
         correct_mres= True
+    if opt=='-c':
+        massVar= "corrM"
     if opt=='-s':
         scale_factor = float(arg)
     if opt=='-b':
@@ -55,7 +58,8 @@ if (len(remainder)!=5):
         print_usage()
         sys.exit()
 
-CL = 0.9
+#CL = 0.97725 #2-sigma
+CL = 0.90
 
 gROOT.SetBatch(True)
 gStyle.SetOptFit(1)
@@ -67,7 +71,10 @@ outfile = TFile(remainder[0]+".root","RECREATE")
 inFile = TFile(remainder[1])
 events = inFile.Get("cut")
 #events.Print()
-events.Draw("uncVZ:uncM>>hnew(100,0,0.1,100,-50,50)","","colz")
+events.Draw("uncVZ:{0}>>hnew(100,0,0.1,100,-50,50)".format(massVar),"","colz")
+gDirectory.Get("hnew").SetTitle("vertexing data")
+gDirectory.Get("hnew").GetXaxis().SetTitle("mass [GeV]")
+gDirectory.Get("hnew").GetYaxis().SetTitle("vertex z [mm]")
 c.Print(remainder[0]+".pdf")
 
 acceptanceFile = TFile(remainder[2])
@@ -98,7 +105,9 @@ for j in range(0,n_epsbins+1):
 
 outfile.cd()
 massArr = array.array('d')
+massWindowArr = array.array('d')
 zcutArr = array.array('d')
+candArr = array.array('d')
 limitHist=TH2D("limit","limit",n_massbins,xedges,n_epsbins,yedges)
 detectableHist=TH2D("detectable","detectable",n_massbins,xedges,n_epsbins,yedges)
 gammactHist=TH2D("gammact","gammact",n_massbins,xedges,n_epsbins,yedges)
@@ -107,16 +116,17 @@ prodHist=TH2D("production","production",n_massbins,xedges,n_epsbins,yedges)
 candHist=TH1D("candidates","candidates",n_massbins,xedges)
 fcLowerHist=TH2D("fcLowerLimit","fcLowerLimit",n_massbins,xedges,n_epsbins,yedges)
 fcUpperHist=TH2D("fcUpperLimit","fcUpperLimit",n_massbins,xedges,n_epsbins,yedges)
+plrPvalHist=TH2D("plrPval","plrPval",n_massbins,xedges,n_epsbins,yedges)
+plrSigHist=TH2D("plrSig","plrSig",n_massbins,xedges,n_epsbins,yedges)
+logplrHist=TH2D("logplr","logplr",n_massbins,xedges,n_epsbins,yedges)
 
 w = RooWorkspace("w")
-w.factory("uncM[0,0.1]")
+w.factory("{0}[0,0.1]".format(massVar))
 w.factory("uncVZ[-100,100]")
 w.factory("uncP[0,10]")
 w.factory("cut[0,1]")
 
-w.defineSet("allVars","uncM,uncVZ,uncP")
-w.defineSet("myVars","uncM,uncVZ")
-myVars = w.set("myVars")
+w.defineSet("myVars","{0},uncVZ".format(massVar))
 
 dataset = RooDataSet("data","data",events,w.set("myVars"),"")
 
@@ -135,12 +145,13 @@ exppol4=TF1("exppol4","exp(pol4(0))",-5,100)
 w.factory("EXPR::signal('(@0>{0})*exp(@1 + @2*@0 + @3*@0^2 + @4*@0^3 + @5*@0^4)',uncVZ,eff_p0[-1,1],eff_p1[-1,1],eff_p2[-1,1],eff_p3[-1,1],eff_p4[-1,1])".format(targetz))
 w.factory("SUM::model(strength[0,1]*signal,gaussExp)")
 
+w.defineSet("poi","strength")
+w.factory("nbkg[0,1e6]")
+nbins_histpdf = 200
+bkgHist = TH1D("bkgHist","bkgHist",nbins_histpdf,-100,100)
+sigHist = TH1D("sigHist","sigHist",nbins_histpdf,-100,100)
+
 pdf = w.pdf("model")
-modelConfig = ModelConfig("test")
-modelConfig.SetWorkspace(w)
-modelConfig.SetPdf("model")
-modelConfig.SetParametersOfInterest("strength")
-modelConfig.SetObservables("uncVZ")
 
 fc = TFeldmanCousins()
 fc.SetCL(CL)
@@ -152,16 +163,17 @@ for i in range(0,n_massbins):
     mres_p1 = acceptanceFile.Get("mres_l1_p1").GetFunction("pol1").Eval(mass)
     if correct_mres:
         mres_p1 = 0
+    massWindowArr.append(0.5*masscut_nsigma*mres_p0)
     c.Clear()
     c.Divide(1,2)
     c.cd(1)
-    events.Draw("uncVZ:uncM>>hnew2d(100,0,0.1,100,-50,50)","abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1),"colz")
-    c.cd(2)
+    #events.Draw("uncVZ:uncM>>hnew2d(100,0,0.1,100,-50,50)","abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1),"colz")
     #gPad.SetLogy(1)
     
     deltaM = 0.001
-    events.Draw("uncM>>mass(100,{0}-{1},{0}+{1})".format(mass,0.5*deltaM),"abs(uncM-{0})<{1}".format(mass,0.5*deltaM),"")
-    c.Print(remainder[0]+".pdf","Title:mass_{0}".format(mass))
+    events.Draw("{0}>>mass(100,{1}-{2},{1}+{2})".format(massVar,mass,0.5*deltaM),"abs({0}-{1})<{2}".format(massVar,mass,0.5*deltaM),"")
+    #c.Print(remainder[0]+".pdf","Title:mass_{0}".format(mass))
+
     num_pairs = gDirectory.Get("mass").GetEntries()*scale_factor
     radfrac = radfracFile.Get("radfrac").GetFunction("pol3").Eval(mass)
     num_rad = radfrac*num_pairs
@@ -169,27 +181,13 @@ for i in range(0,n_massbins):
     print "{0} pairs, {1} radfrac, {2} rad, {3} A'".format(num_pairs,radfrac,num_rad,ap_yield)
 
 
-    #events.Draw("uncVZ>>hnew1d(100,-50,50)","abs(uncM-{0})<1.25*({1}+{2}*uncVZ)".format(mass,mres_p0,mres_p1),"colz")
-    #h1d = gDirectory.Get("hnew1d")
-    #fit=h1d.Fit("gaus","QSN")
-    #peak=fit.Get().Parameter(0)
-    #mean=fit.Get().Parameter(1)
-    #sigma=fit.Get().Parameter(2)
-    #fit=h1d.Fit("gaus","QSN","",mean-3*sigma,mean+3*sigma)
-    #peak=fit.Get().Parameter(0)
-    #mean=fit.Get().Parameter(1)
-    #sigma=fit.Get().Parameter(2)
     breakz = tailsFile.Get("breakz").GetFunction("pol3").Eval(mass)
     length = tailsFile.Get("length").GetFunction("pol3").Eval(mass)
-    #fitfunc.SetParameters(peak,mean,sigma,breakz,length);
-    #fitfunc.Draw("same")
-    #zcut=fitfunc.GetX(0.5/length,mean,200)
-    #print fitfunc.Eval(zcut)
 
-    c.cd(1)
+    c.cd(2)
     gPad.SetLogy()
     frame=uncVZ.frame()
-    dataInRange = dataset.reduce(obs,"abs(uncM-{0})<{1}/2*({2}+{3}*uncVZ)".format(mass,masscut_nsigma,mres_p0,mres_p1))
+    dataInRange = dataset.reduce(obs,"abs({0}-{1})<{2}/2*({3}+{4}*uncVZ)".format(massVar,mass,masscut_nsigma,mres_p0,mres_p1))
     binnedData = dataInRange.binnedClone()
     binnedData.plotOn(frame)
     mean = binnedData.mean(uncVZ)
@@ -216,18 +214,22 @@ for i in range(0,n_massbins):
     zcutArr.append(zcut)
 
     gaussexp_pdf.plotOn(frame)
+    #gaussexp_pdf.paramOn(frame)
     frame.SetAxisRange(-50,50)
     frame.SetMinimum(0.5)
-    name="Radiative vertex Z, mass {0} GeV, zcut {1} mm".format(mass,zcut)
+    name="vertex Z, mass {0} +/- {1} GeV, zcut {2} mm".format(mass,0.5*masscut_nsigma*mres_p0,zcut)
     frame.SetTitle(name)
     frame.Draw()
+    c.Print(remainder[0]+".pdf","Title:mass {0} zcut {1}".format(mass,zcut))
 #
     c.cd(2)
     gPad.SetLogy(0)
 
     #zcut2_frac = 20.0/(dataInRange.sumEntries()/scale_factor)
     #zcut2 = func.GetX(1-zcut2_frac,0,50)
-    #dataPastCut2 = dataInRange.reduce(w.set("obs_1d"),"uncVZ>{0}".format(zcut2))
+    tailcut = targetz-2.0*sigma
+    print "tailcut "+str(tailcut)
+    dataPastCut2 = dataInRange.reduce(w.set("obs_1d"),"uncVZ>{0}".format(tailcut)).binnedClone()
 
     n_candidates = dataPastCut.numEntries()
     if (no_candidates):
@@ -235,9 +237,11 @@ for i in range(0,n_massbins):
     print n_candidates
     for k in range(0,n_candidates):
         candHist.Fill(mass)
+    candArr.append(n_candidates)
     #candHist.Fill(mass,n_candidates)
     fcLower = fc.CalculateLowerLimit(n_candidates,zcut_count)
     fcUpper = fc.CalculateUpperLimit(n_candidates,zcut_count)
+
 
     gamma = acceptanceFile.Get("gamma").GetFunction("pol0").Eval(mass)
     eff_p0= acceptanceFile.Get("l1_p0").GetFunction("pol1").Eval(mass)
@@ -249,7 +253,35 @@ for i in range(0,n_massbins):
     exppol4.SetParameters(eff_p0,eff_p1,eff_p2,eff_p3,eff_p4)
     exppol4.Draw()
     exppol4.GetYaxis().SetRangeUser(0,2)
-    c.Print(remainder[0]+".pdf","Title:mass {0} zcut {1}".format(mass,zcut))
+
+    fitfunc.SetParameters(1.0,mean,sigma,breakz,length)
+    bkgHist.Reset()
+    for binnum in xrange(1,nbins_histpdf+1):
+        bkgHist.SetBinContent(binnum,fitfunc.Eval(bkgHist.GetXaxis().GetBinCenter(binnum)))
+#    bkgHist.Draw()
+    bkgDataHist = RooDataHist("bkgDataHist_{0}".format(i),"bkgDataHist_{0}".format(i),RooArgList(w.set("obs_1d")),bkgHist)
+    bkgPdf = RooHistPdf("bkgPdf_{0}".format(i),"bkgPdf_{0}".format(i),w.set("obs_1d"),bkgDataHist)
+    getattr(w,'import')(bkgPdf,RooFit.Silence())
+
+    #w.factory("Exponential::bkg_{0}(uncVZ,{0})".format(i,-1.0/length))
+    #w.factory("EXPR::gaussExp_{0}('exp( ((@0-{1})<{3})*(-0.5*(@0-{1})^2/{2}^2) + ((@0-{1})>={3})*(-0.5*{3}^2/{2}^2-(@0-{1}-{3})/{4}))',uncVZ)".format(i,mean,sigma,breakz,length))
+
+    c.Clear()
+    c.SetLogy()
+    uncVZ.setRange("fitRange",tailcut,50)
+    frame=uncVZ.frame()
+    frame.SetAxisRange(tailcut,50)
+    frame.SetTitle(name)
+    dataPastCut2.plotOn(frame)
+    thispdf = w.pdf("bkgPdf_{0}".format(i))
+    fitresult = thispdf.fitTo(dataPastCut2,RooFit.Range("fitRange"),RooFit.PrintLevel(-1),RooFit.Save())
+    bkgNLL = fitresult.minNll()
+    thispdf.plotOn(frame,RooFit.Range("fitRange"),RooFit.NormRange("fitRange"))
+    #thispdf.paramOn(frame)
+    frame.SetMinimum(0.1)
+    frame.Draw()
+    c.Print(remainder[0]+".pdf","Title:test2")
+
     for j in range(0,n_epsbins):
         c.Clear()
         eps = mineps+j*(maxeps-mineps)/(n_epsbins-1)
@@ -259,6 +291,8 @@ for i in range(0,n_massbins):
         ct = hbar_c*3.0/(mass*(1/137.036)*10**eps)
         gammact = hbar_c*3.0*1.056*gamma/(mass*mass*(1/137.036)*10**eps)
         #print "epsq {0} ct {1} gammact {2}".format(eps,ct,gammact)
+        #if (gammact<1):
+        #    continue
 
         #exppol4.SetParameters(targetz/gammact-math.log(gammact),-1.0/gammact,0,0,0)
         #exppol4.Draw()
@@ -275,6 +309,18 @@ for i in range(0,n_massbins):
         sig_integral = exppol4.IntegralOneDim(targetz,maxz,1e-12,1e-12,ROOT.Double(blahh))
         #print "signal integral {0}".format(sig_integral) #this is production-weighted efficiency
 
+        sigHist.Reset()
+        for binnum in xrange(1,nbins_histpdf+1):
+            #print exppol4.Eval(sigHist.GetXaxis().GetBinCenter(binnum))
+            if sigHist.GetXaxis().GetBinCenter(binnum)>=targetz:
+                sigHist.SetBinContent(binnum,exppol4.Eval(sigHist.GetXaxis().GetBinCenter(binnum)))
+        #sigHist.Draw()
+        sigDataHist = RooDataHist("sigDataHist_{0}_{1}".format(i,j),"sigDataHist_{0}_{1}".format(i,j),RooArgList(w.set("obs_1d")),sigHist)
+        sigPdf = RooHistPdf("sigPdf_{0}_{1}".format(i,j),"sigPdf_{0}_{1}".format(i,j),w.set("obs_1d"),sigDataHist)
+        getattr(w,'import')(sigPdf,RooFit.Silence())
+        #w.Print()
+
+        #w.factory("EXPR::signal_{0}_{1}('(@0>{2})*exp({3} + {4}*@0 + {5}*@0^2 + {6}*@0^3 + {7}*@0^4)',uncVZ)".format(i,j,targetz,eff_p0+targetz/gammact-math.log(gammact),eff_p1-1.0/gammact,eff_p2,eff_p3,eff_p4))
 
         #w.var("eff_p0").setVal(eff_p0+targetz/gammact-math.log(gammact))
         #w.var("eff_p1").setVal(eff_p1-1.0/gammact)
@@ -286,19 +332,51 @@ for i in range(0,n_massbins):
         #w.var("eff_p2").setConstant(True)
         #w.var("eff_p3").setConstant(True)
         #w.var("eff_p4").setConstant(True)
-        #c.SetLogy()
+        c.SetLogy()
 
-        #uncVZ.setRange("fitRange",zcut,50)
+        #w.factory("SUM::model_{0}_{1}(strength*sigPdf_{0}_{1},bkgPdf_{0})".format(i,j))
+        #w.factory("SUM::null_{0}_{1}(nbkg*bkgPdf_{0})".format(i,j))
+        w.factory("SUM::model_{0}_{1}(strength*sigPdf_{0}_{1},bkgPdf_{0})".format(i,j))
+        #w.factory("SUM::null_{0}(nbkg*bkg_{0})".format(i))
+        w.var("strength").setVal(0.0001)
+        #w.var("nbkg").setVal(0.5*dataInRange.sumEntries())
+
+        #modelConfig = ModelConfig("test")
+        #modelConfig.SetWorkspace(w)
+        #modelConfig.SetPdf("model_{0}_{1}".format(i,j))
+        #modelConfig.SetParametersOfInterest("strength")
+        #modelConfig.SetObservables("uncVZ")
+
+        #plc = ProfileLikelihoodCalculator(dataPastCut2,modelConfig)
+        #plc = ProfileLikelihoodCalculator(binnedData,modelConfig)
+
+        #nullParams = w.set("poi").snapshot()
+        #nullParams.setRealValue("strength",0)
+        #plc.SetNullParameters(nullParams)
+
+        #hypo = plc.GetHypoTest()
+        #print "PLR p-value {0}, significance {1}".format(hypo.NullPValue(),hypo.Significance())
+        #plrPvalHist.Fill(mass,10**eps,hypo.NullPValue())
+        #plrSigHist.Fill(mass,10**eps,hypo.NullPValue())
+        #hypo.SetPValueIsRightTail(True)
+
+        #if gammact>length:
+        uncVZ.setRange("fitRange",tailcut,50)
+        #uncVZ.setRange(tailcut,50)
         #frame=uncVZ.frame()
         #frame.SetTitle(name)
-        #binnedData.plotOn(frame)
         #dataPastCut2.plotOn(frame)
-        #fitresult = pdf.fitTo(binnedData)
-        #fitresult = pdf.fitTo(dataPastCut2,RooFit.Range("fitRange"))
-        #pdf.plotOn(frame)
+        thispdf = w.pdf("model_{0}_{1}".format(i,j))
+        fitresult = thispdf.fitTo(dataPastCut2,RooFit.Range("fitRange"),RooFit.PrintLevel(-1),RooFit.Save())
+        sigNLL = fitresult.minNll()
+        #thispdf.plotOn(frame,RooFit.Range("fitRange"),RooFit.NormRange("fitRange"))
+        #thispdf.paramOn(frame)
         #frame.SetMinimum(0.1)
         #frame.Draw()
         #c.Print(remainder[0]+".pdf","Title:test2")
+        print "bkg-only NLL {0}, sig+bkg NLL {1}".format(bkgNLL,sigNLL)
+        logplrHist.Fill(mass,10**eps,bkgNLL-sigNLL)
+
 
 
 
@@ -312,11 +390,11 @@ for i in range(0,n_massbins):
         else:
             dataArray=numpy.zeros(dataPastCut.numEntries()+2)
             dataArray[0] = 0.0
-            for i in xrange(0,dataPastCut.numEntries()):
-                thisX = dataPastCut.get(i).getRealValue("uncVZ")
+            for k in xrange(0,dataPastCut.numEntries()):
+                thisX = dataPastCut.get(k).getRealValue("uncVZ")
                 w.var("uncVZ").setVal(thisX)
                 #dataArray[i+1]=(signalCdf.getVal()-cdfAtZcut)
-                dataArray[i+1]=(cdfAtZcut-exppol4.IntegralOneDim(thisX,maxz,1e-12,1e-12,ROOT.Double(blahh)))
+                dataArray[k+1]=(cdfAtZcut-exppol4.IntegralOneDim(thisX,maxz,1e-12,1e-12,ROOT.Double(blahh)))
                 #print "thisX={0}, cdf={1}".format(thisX,dataArray[i+1])
             dataArray[dataPastCut.numEntries()+1] = cdfAtZcut
         dataArray/= (cdfAtZcut)
@@ -328,7 +406,7 @@ for i in range(0,n_massbins):
         allzHist.Fill(mass,10**eps,ap_yield*10**eps*sig_integral)
         detectableHist.Fill(mass,10**eps,ap_yield*10**eps*sig_integral*cdfAtZcut)
         gammactHist.Fill(mass,10**eps,gammact)
-        limit_detectable = output[0] # this is a limit on number of detectable A'
+        limit_detectable = output[0] # this is a limit on number of detectable A' (past zcut, within mass cut)
         limit_allz = limit_detectable/(cdfAtZcut*masscut_eff) # this is a limit on number of detectable A' if we didn't have zcut or mass cut
         limit_production = limit_allz/sig_integral # limit on number of produced A'
         limit_eps = limit_production/ap_yield
@@ -338,6 +416,47 @@ for i in range(0,n_massbins):
         fcLowerHist.Fill(mass,10**eps,fcLower/cdfAtZcut/masscut_eff/sig_integral/ap_yield/10**eps)
         fcUpperHist.Fill(mass,10**eps,fcUpper/cdfAtZcut/masscut_eff/sig_integral/ap_yield/10**eps)
 
+poiMassArr = array.array('d')
+poiPvalArr = array.array('d')
+poiSigArr = array.array('d')
+poiBkgArr = array.array('d')
+
+c.SetLogy(0)
+for i in xrange(0,len(massArr)):
+    mass = massArr[i]
+    sigMassArr = array.array('d')
+    sigCandArr = array.array('d')
+    hasLowSide = False
+    hasHighSide = False
+    for j in xrange(0,len(massArr)):
+        if abs(mass-massArr[j])>massWindowArr[i]+massWindowArr[j]:
+            #print "{0} {1} {2} {3}".format(mass,massArr[j],massWindowArr[i],massWindowArr[j])
+            if j<i:
+                hasLowSide = True
+            if i<j:
+                hasHighSide = True
+            sigMassArr.append(massArr[j])
+            sigCandArr.append(candArr[j])
+    if (hasLowSide and hasHighSide):
+
+        graph=TGraph(len(sigMassArr),sigMassArr,sigCandArr)
+        graph.SetTitle("background")
+        graph.Draw("A*")
+        graph.Fit("pol2")
+        graph.GetXaxis().SetMoreLogLabels()
+        #graph.Write("zcut")
+        c.Print(remainder[0]+".pdf","Title:test")
+        nbkg = graph.GetFunction("pol2").Eval(mass)
+        if nbkg<0.5:
+            nbkg = 0.5
+        poiBkgArr.append(nbkg)
+        pval = 1.0-TMath.Prob(2*nbkg,2*int(candArr[i]))
+        #if pval>0.5:
+        #    pval = 0.5
+        zscore = TMath.NormQuantile(1.0-pval)
+        poiMassArr.append(mass)
+        poiPvalArr.append(pval)
+        poiSigArr.append(zscore)
 
 c.Clear()
 
@@ -346,20 +465,82 @@ c.Print(remainder[0]+".pdf]")
 c.Print(remainder[0]+"_output.pdf[")
 gStyle.SetOptStat(0)
 c.SetLogy(0)
-graph=TGraph(len(massArr),massArr,zcutArr)
-graph.SetTitle("zcut")
-graph.Draw("AL*")
+
+def drawGraph(xdata,ydata,title,drawopt):
+    graph=TGraph(len(xdata),xdata,ydata)
+    graph.SetTitle(title)
+    graph.Draw(drawopt)
+    graph.GetXaxis().SetMoreLogLabels()
+    graph.GetXaxis().SetTitle("mass [GeV]")
+    return graph
+
+c.SetLogx(1)
+graph = drawGraph(massArr,zcutArr,"zcut","AL*")
+graph.GetYaxis().SetTitle("zcut [mm]")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+graph.Fit("pol4")
 graph.Write("zcut")
 c.Print(remainder[0]+"_output.pdf","Title:test")
 
+
+zcutMassArr = massArr[:]
+zcutZcutArr = zcutArr[:]
+zcutMassArr.append(0.1)
+zcutZcutArr.append(zcutArr[-1])
+zcutMassArr.append(0.1)
+zcutZcutArr.append(100)
+zcutMassArr.append(0)
+zcutZcutArr.append(100)
+zcutMassArr.append(0)
+zcutZcutArr.append(zcutArr[0])
+zcutMassArr.append(massArr[0])
+zcutZcutArr.append(zcutArr[0])
+zcutTcut=TCutG("highzcut",len(zcutMassArr),zcutMassArr,zcutZcutArr)
+zcutTcut.SetVarX(massVar)
+zcutTcut.SetVarY("uncVZ")
+
+c.SetLogx(0)
+events.Draw("uncVZ:{0}>>hnew(100,0,0.1,100,-50,50)".format(massVar),"highzcut","colz")
+zcutTcut.Draw("L")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+c.SetLogx(1)
+
+
+graph = drawGraph(massArr,candArr,"candidate events","A*")
+graph.GetYaxis().SetTitle("counts")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+graph.Fit("pol2")
+graph.Write("n_candidates")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+
+graph = drawGraph(poiMassArr,poiSigArr,"cut-and-count significance","A*")
+graph.GetYaxis().SetTitle("Nsigma")
+graph.Write("poiSig")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+
+graph = drawGraph(poiMassArr,poiBkgArr,"cut-and-count estimated background","A*")
+graph.GetYaxis().SetTitle("counts")
+graph.Write("poiSig")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+
+c.SetLogy(1)
+graph = drawGraph(poiMassArr,poiPvalArr,"cut-and-count p-value","A*")
+graph.GetYaxis().SetMoreLogLabels()
+graph.Write("poiPval")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+
 def drawContour(hist,nlevels):
-    minValue = hist.GetBinContent(hist.GetMinimumBin())
+    #minValue = hist.GetBinContent(hist.GetMinimumBin())
+    minValue = hist.GetMinimum(0)
     bottom = int(math.floor(math.log10(minValue)))
     limitLevels = array.array('d')
     for i in range(bottom,bottom+nlevels):
         for j in range(1,10):
             limitLevels.append((10**i)*j)
     hist.SetContour(len(limitLevels),limitLevels)
+    hist.GetXaxis().SetMoreLogLabels()
+    hist.GetXaxis().SetTitle("mass [GeV]")
+    hist.GetYaxis().SetTitle("epsilon^2")
     hist.Draw("cont1z")
     hist.GetZaxis().SetRangeUser(10**bottom,10**(bottom+nlevels))
 def drawMaxContour(hist,nlevels):
@@ -370,13 +551,23 @@ def drawMaxContour(hist,nlevels):
         for j in range(1,10):
             limitLevels.append((10**i)*j)
     hist.SetContour(len(limitLevels),limitLevels)
+    hist.GetXaxis().SetMoreLogLabels()
+    hist.GetXaxis().SetTitle("mass [GeV]")
+    hist.GetYaxis().SetTitle("epsilon^2")
     hist.Draw("cont1z")
     hist.GetZaxis().SetRangeUser(10**bottom,10**(bottom+nlevels))
+def drawHist(hist,nlevels,minz,maxz):
+    hist.SetContour(nlevels)
+    hist.Draw("colz")
+    hist.GetXaxis().SetMoreLogLabels()
+    hist.GetXaxis().SetTitle("mass [GeV]")
+    hist.GetYaxis().SetTitle("epsilon^2")
+    hist.GetZaxis().SetRangeUser(minz,maxz)
+
 
 c.SetLogy(1)
 c.SetLogz(1)
-fcLowerHist.Draw("colz")
-fcLowerHist.GetZaxis().SetRangeUser(1,1e3)
+drawHist(fcLowerHist,20,1,1e3)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
 drawContour(fcUpperHist,3)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
@@ -384,22 +575,33 @@ drawContour(limitHist,3)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
 drawMaxContour(detectableHist,3)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
-detectableHist.SetContour(20)
-detectableHist.Draw("colz")
-detectableHist.GetZaxis().SetRangeUser(1e-2,2.4)
+
+drawHist(detectableHist,20,1e-2,2.4)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
-allzHist.Draw("colz")
-allzHist.GetZaxis().SetRangeUser(1e-2,1e2)
+
+drawHist(allzHist,20,1e-2,1e2)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
+
 drawContour(gammactHist,4)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
-prodHist.Draw("colz")
-prodHist.GetZaxis().SetRangeUser(1e-2,1e2)
+
+drawHist(prodHist,20,1e-2,1e2)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
-c.SetLogy(0)
-candHist.Draw()
+
+drawContour(plrPvalHist,3)
 c.Print(remainder[0]+"_output.pdf","Title:tada")
-outfile.cd()
+
+drawHist(plrSigHist,20,1e-2,1e2)
+c.Print(remainder[0]+"_output.pdf","Title:tada")
+
+#c.SetLogz(0)
+drawHist(logplrHist,20,1e-2,1e2)
+c.Print(remainder[0]+"_output.pdf","Title:tada")
+
+#c.SetLogy(0)
+#candHist.Draw()
+#c.Print(remainder[0]+"_output.pdf","Title:tada")
+#outfile.cd()
 
 
 c.Print(remainder[0]+"_output.pdf]")

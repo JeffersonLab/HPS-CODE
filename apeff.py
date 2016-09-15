@@ -111,6 +111,17 @@ graph.GetYaxis().SetTitle("constant term [GeV]");
 graph.Fit("pol1")
 graph.Write("mres_l1_p0")
 c.Print(remainder[0]+".pdf","Title:test")
+
+molmassArr=array.array('d')
+molmresArr=array.array('d')
+molmassArr.append(0.03285)
+molmresArr.append(0.002168)
+molgraph=TGraph(len(molmassArr),molmassArr,molmresArr)
+molgraph.SetMarkerColor(4)
+molgraph.Draw("*")
+c.Update()
+c.Print(remainder[0]+".pdf","Title:test")
+
 graph=TGraphErrors(len(massArr),massArr,mresL1p1Arr,zeroArr,mresL1p1Err)
 graph.Draw("A*")
 graph.SetTitle("Slope of mass resolution vs. Z")
