@@ -28,11 +28,13 @@ cuts=["triP>0.8*1.056&&eleHasL1&&posHasL1&&uncP>0.8*1.056",
         "max(eleMatchChisq,posMatchChisq)<10&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&uncP<1.15*1.056",
         "bscChisq<10",
         "max(eleTrkChisq,posTrkChisq)<30",
-        "minPositiveIso-0.02*bscChisq>0.5",
+        #"minPositiveIso-0.02*bscChisq>0.5",
         "eleP<0.8",
         #"abs(eleFirstHitX-posFirstHitX+2)<7",
         "abs(eleP-posP)/(eleP+posP)<0.4",
-        "posTrkD0<1.5"]
+        "posTrkD0-5*posPX/posP<1.5",
+        "min(eleMinPositiveIso+0.5*(eleTrkZ0-5*elePY/eleP)*sign(elePY),posMinPositiveIso+0.5*(posTrkZ0-5*posPY/posP)*sign(posPY))>0",
+        "bscChisq-uncChisq<5"]
 
 c.Print(sys.argv[1]+".pdf[")
 
