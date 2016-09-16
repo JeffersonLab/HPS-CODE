@@ -25,6 +25,14 @@ def plotStuff(plotList,plotstring, cutstring, plotfile, plotname, xlabel, ylabel
             hist.Draw("same")
         isFirst = False
     #leg.Draw()
+    data1Hist = gDirectory.Get("data1")
+    data2Hist = gDirectory.Get("data2")
+    data3Hist = gDirectory.Get("data3")
+    data1Hist.Divide(data3Hist)
+    data2Hist.Divide(data3Hist)
+    data1Hist.Draw()
+    data2Hist.Draw("same")
+
     c.Print(plotfile,plotname)
 
 options, remainder = getopt.gnu_getopt(sys.argv[1:], 'h', ['help',])
