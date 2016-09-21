@@ -140,9 +140,10 @@ if cutType=="bumphunt":
             "tarM",
             "uncVZ"]
 elif cutType=="vertexing":
-    cut = numpy.row_stack((#events["isPair1"]==1,
-        events["eleHasL1"]==1,
-        events["posHasL1"]==1,
+    cut = events["uncP"]>0.8*ebeam
+    #cut = numpy.row_stack((#events["isPair1"]==1,
+        #events["eleHasL1"]==1,
+        #events["posHasL1"]==1,
         #events["eleHasL2"]==1,
         #events["posHasL2"]==1,
         #events["eleMatchChisq"]<10,
@@ -162,7 +163,8 @@ elif cutType=="vertexing":
         #events["posTrkD0"]<1.5,
         #events["eleP"]<0.75*ebeam,
         #events["uncP"]<1.15*ebeam,
-        events["uncP"]>0.8*ebeam)).all(0)
+    #    events["uncP"]>0.8*ebeam)).all(0)
+    #print cut
     names = ["run",
             "event",
             "eleHasL1",
