@@ -105,7 +105,9 @@ for j in range(0,n_epsbins+1):
 
 outfile.cd()
 massArr = array.array('d')
+minMassArr = array.array('d')
 massWindowArr = array.array('d')
+zresArr = array.array('d')
 zcutArr = array.array('d')
 candArr = array.array('d')
 limitHist=TH2D("limit","limit",n_massbins,xedges,n_epsbins,yedges)
@@ -119,6 +121,8 @@ fcUpperHist=TH2D("fcUpperLimit","fcUpperLimit",n_massbins,xedges,n_epsbins,yedge
 plrPvalHist=TH2D("plrPval","plrPval",n_massbins,xedges,n_epsbins,yedges)
 plrSigHist=TH2D("plrSig","plrSig",n_massbins,xedges,n_epsbins,yedges)
 logplrHist=TH2D("logplr","logplr",n_massbins,xedges,n_epsbins,yedges)
+candRescaledHist=TH1D("candidates_rescaled","candidates_rescaled",100,0,1.0)
+candRescaled2DHist=TH2D("candidates_rescaled_2d","candidates_rescaled_2d",n_massbins,xedges,100,0,1.0)
 
 w = RooWorkspace("w")
 w.factory("{0}[0,0.1]".format(massVar))
@@ -164,6 +168,7 @@ for i in range(0,n_massbins):
     if correct_mres:
         mres_p1 = 0
     massWindowArr.append(0.5*masscut_nsigma*mres_p0)
+    minMassArr.append(mass - 0.5*masscut_nsigma*mres_p0)
     c.Clear()
     c.Divide(1,2)
     c.cd(1)
@@ -192,7 +197,7 @@ for i in range(0,n_massbins):
     binnedData.plotOn(frame)
     mean = binnedData.mean(uncVZ)
     sigma = binnedData.sigma(uncVZ)
-    uncVZ.setRange("fitRange",mean-3*sigma,mean+3*sigma)
+    uncVZ.setRange("fitRange",mean-2*sigma,mean+2*sigma)
     gauss_params.setRealValue("mean",mean)
     gauss_params.setRealValue("sigma",sigma)
     gauss_pdf.fitTo(binnedData,RooFit.Range("fitRange"),RooFit.PrintLevel(-1))
@@ -211,6 +216,7 @@ for i in range(0,n_massbins):
     zcut = func.GetX(1-zcut_frac,0,50)
     print "zcut {}".format(zcut)
     dataPastCut = dataInRange.reduce(w.set("obs_1d"),"uncVZ>{0}".format(zcut))
+    zresArr.append(sigma)
     zcutArr.append(zcut)
 
     gaussexp_pdf.plotOn(frame)
@@ -222,8 +228,20 @@ for i in range(0,n_massbins):
     frame.Draw()
     c.Print(remainder[0]+".pdf","Title:mass {0} zcut {1}".format(mass,zcut))
 #
-    c.cd(2)
+    #c.cd(2)
+    c.Clear()
     gPad.SetLogy(0)
+    candRescaledHist.Reset()
+    for k in xrange(0,dataPastCut.numEntries()):
+        thisX = dataPastCut.get(k).getRealValue("uncVZ")
+        #print math.exp((zcut-thisX)/length)
+        candRescaledHist.Fill((1-math.exp((zcut-thisX)/length)))
+        candRescaled2DHist.Fill(mass,(1-math.exp((zcut-thisX)/length)))
+    candRescaledHist.GetXaxis().SetTitle("background cdf")
+    candRescaledHist.SetTitle("mass {0}".format(mass))
+    candRescaledHist.Draw()
+    c.Print(remainder[0]+".pdf","Title:mass {0} zcut {1}".format(mass,zcut))
+
 
     #zcut2_frac = 20.0/(dataInRange.sumEntries()/scale_factor)
     #zcut2 = func.GetX(1-zcut2_frac,0,50)
@@ -476,14 +494,21 @@ def drawGraph(xdata,ydata,title,drawopt):
 
 c.SetLogx(1)
 graph = drawGraph(massArr,zcutArr,"zcut","AL*")
+graph.GetXaxis().SetTitle("mass [GeV]")
 graph.GetYaxis().SetTitle("zcut [mm]")
 c.Print(remainder[0]+"_output.pdf","Title:test")
 graph.Fit("pol4")
 graph.Write("zcut")
 c.Print(remainder[0]+"_output.pdf","Title:test")
 
+graph = drawGraph(massArr,zresArr,"zres","AL*")
+graph.GetXaxis().SetTitle("mass [GeV]")
+graph.GetYaxis().SetTitle("sigma_z [mm]")
+graph.Write("zres")
+c.Print(remainder[0]+"_output.pdf","Title:test")
 
-zcutMassArr = massArr[:]
+
+zcutMassArr = minMassArr[:]
 zcutZcutArr = zcutArr[:]
 zcutMassArr.append(0.1)
 zcutZcutArr.append(zcutArr[-1])
@@ -493,7 +518,7 @@ zcutMassArr.append(0)
 zcutZcutArr.append(100)
 zcutMassArr.append(0)
 zcutZcutArr.append(zcutArr[0])
-zcutMassArr.append(massArr[0])
+zcutMassArr.append(minMassArr[0])
 zcutZcutArr.append(zcutArr[0])
 zcutTcut=TCutG("highzcut",len(zcutMassArr),zcutMassArr,zcutZcutArr)
 zcutTcut.SetVarX(massVar)
@@ -503,8 +528,18 @@ c.SetLogx(0)
 events.Draw("uncVZ:{0}>>hnew(100,0,0.1,100,-50,50)".format(massVar),"highzcut","colz")
 zcutTcut.Draw("L")
 c.Print(remainder[0]+"_output.pdf","Title:test")
+events.Draw("{0}>>hnew(100,0,0.1)".format(massVar),"highzcut","colz")
+c.Print(remainder[0]+"_output.pdf","Title:test")
+gDirectory.Get("hnew").Fit("pol2","L")
+c.Print(remainder[0]+"_output.pdf","Title:test")
 c.SetLogx(1)
 
+candRescaled2DHist.Draw("colz")
+candRescaled2DHist.SetTitle("Candidate events")
+candRescaled2DHist.GetXaxis().SetMoreLogLabels()
+candRescaled2DHist.GetXaxis().SetTitle("mass [GeV]")
+candRescaled2DHist.GetYaxis().SetTitle("background cdf")
+c.Print(remainder[0]+"_output.pdf","Title:test")
 
 graph = drawGraph(massArr,candArr,"candidate events","A*")
 graph.GetYaxis().SetTitle("counts")

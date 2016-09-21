@@ -102,13 +102,33 @@ fcLowerArr=array.array('d')
 fcUpperArr=array.array('d')
 fcUpperNobkgArr=array.array('d')
 
-print "zcut for 0.5 events = {0}".format(bkg_lambda*math.log(n/0.5))
-
 fc = TFeldmanCousins()
 fc.SetCL(CL)
 fc.SetMuMax(100)
 signalCdf = w.pdf("signal").createCdf(w.set("obs"))
 bkgCdf = w.pdf("bkg").createCdf(w.set("obs"))
+
+print "zcut for 0.5 events = {0}".format(bkg_lambda*math.log(n/0.5))
+
+zcut_count = 10
+zcut = bkg_lambda*math.log(n/zcut_count)
+print zcut
+sigCdfHist = TH1D("sigCdfHist","sigCdfHist",100,0,1.0)
+w.var("x").setVal(zcut)
+cdfAtZcut = signalCdf.getVal()
+bkgCdfAtZcut = bkgCdf.getVal()
+dataPastCut = data.reduce(w.set("obs"),"x>{0}".format(zcut))
+for i in xrange(0,dataPastCut.numEntries()):
+    thisX = dataPastCut.get(i).getRealValue("x")
+    w.var("x").setVal(thisX)
+    sigCdfHist.Fill((signalCdf.getVal()-cdfAtZcut)/(1.0-cdfAtZcut))
+sigCdfHist.Draw()
+sigCdfHist.SetTitle("Points for optimum interval test")
+sigCdfHist.GetXaxis().SetTitle("x/mu")
+c.Print(remainder[0]+".pdf","Title:test")
+
+
+
 for i in xrange(0,100):
     #zcut_count = 0.1+0.1*i
     #zcut = bkg_lambda*math.log(n/zcut_count)
@@ -268,6 +288,7 @@ c.Print(remainder[0]+".pdf","Title:test")
 c.SetLogy(0)
 
 
+w.var("strength").setVal(signal_strength)
 frame=w.var("x").frame()
 c.SetLogy()
 data.plotOn(frame)
