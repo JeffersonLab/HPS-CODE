@@ -16,10 +16,11 @@ def print_usage():
     print '\t-h: this help message'
     print "\n"
 
+outputname = "mgraham_signal"
 gROOT.SetBatch(True)
 c = TCanvas("c","c",800,600);
-c.Print("plots.pdf[")
-outfile = TFile("plots.root","RECREATE")
+c.Print(outputname+".pdf[")
+outfile = TFile(outputname+".root","RECREATE")
 n_massbins=10
 minmass=0.010
 maxmass=0.028
@@ -41,6 +42,9 @@ for j in range(0,n_epsbins+1):
     yedges.append((firsteps + (j-0.5)*epsstep)**2)
 
 yedges[0] = 0.8*(firsteps**2)
+xedges[n_massbins] = 0.03
+xedges.append(0.06)
+n_massbins+=1
 print xedges
 print yedges
 detectableHist=TH2D("detectable","detectable",n_massbins,xedges,n_epsbins,yedges)
@@ -90,14 +94,23 @@ def drawHist(hist,nlevels,minz,maxz):
 
 
 gStyle.SetOptStat(0)
+c.SetLogx(1)
 c.SetLogy(1)
 c.SetLogz(1)
+detectableHist.GetXaxis().SetRangeUser(0.01,0.03)
 drawMaxContour(detectableHist,3)
-c.Print("plots.pdf","Title:tada")
-
+c.Print(outputname+".pdf","Title:tada")
 drawHist(detectableHist,20,1e-2,2.4)
-c.Print("plots.pdf","Title:tada")
+c.Print(outputname+".pdf","Title:tada")
 
-c.Print("plots.pdf]")
+detectableHist.GetXaxis().SetRangeUser(0.02,0.06)
+drawMaxContour(detectableHist,3)
+c.Print(outputname+".pdf","Title:tada")
+drawHist(detectableHist,20,1e-2,2.4)
+c.Print(outputname+".pdf","Title:tada")
+
+c.Print(outputname+".pdf]")
+outfile.Write()
+outfile.Close()
 sys.exit(0)
 
