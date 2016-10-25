@@ -63,7 +63,7 @@ CL = 0.90
 
 gROOT.SetBatch(True)
 gStyle.SetOptFit(1)
-gStyle.SetOptStat(1111)
+gStyle.SetOptStat(0)
 c = TCanvas("c","c",800,600);
 c.Print(remainder[0]+".pdf[")
 outfile = TFile(remainder[0]+".root","RECREATE")
@@ -76,6 +76,7 @@ gDirectory.Get("hnew").SetTitle("vertexing data")
 gDirectory.Get("hnew").GetXaxis().SetTitle("mass [GeV]")
 gDirectory.Get("hnew").GetYaxis().SetTitle("vertex z [mm]")
 c.Print(remainder[0]+".pdf")
+gStyle.SetOptStat(1111)
 
 acceptanceFile = TFile(remainder[2])
 tailsFile = TFile(remainder[3])
@@ -225,6 +226,7 @@ for i in range(0,n_massbins):
     frame.SetMinimum(0.5)
     name="vertex Z, mass {0} +/- {1} GeV, zcut {2} mm".format(mass,0.5*masscut_nsigma*mres_p0,zcut)
     frame.SetTitle(name)
+    frame.GetXaxis().SetTitle("Vertex Z [mm]")
     frame.Draw()
     c.Print(remainder[0]+".pdf","Title:mass {0} zcut {1}".format(mass,zcut))
 #
@@ -290,6 +292,7 @@ for i in range(0,n_massbins):
     frame=uncVZ.frame()
     frame.SetAxisRange(tailcut,50)
     frame.SetTitle(name)
+    frame.GetXaxis().SetTitle("Vertex Z [mm]")
     dataPastCut2.plotOn(frame)
     thispdf = w.pdf("bkgPdf_{0}".format(i))
     fitresult = thispdf.fitTo(dataPastCut2,RooFit.Range("fitRange"),RooFit.PrintLevel(-1),RooFit.Save())
@@ -526,6 +529,7 @@ zcutTcut.SetVarY("uncVZ")
 
 c.SetLogx(0)
 events.Draw("uncVZ:{0}>>hnew(100,0,0.1,100,-50,50)".format(massVar),"highzcut","colz")
+gDirectory.Get("hnew").SetTitle("")
 zcutTcut.Draw("L")
 c.Print(remainder[0]+"_output.pdf","Title:test")
 events.Draw("{0}>>hnew(100,0,0.1)".format(massVar),"highzcut","colz")
