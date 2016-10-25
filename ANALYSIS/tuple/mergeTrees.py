@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 import sys
+tmpargv = sys.argv
+sys.argv = []
 import getopt
 from ROOT import gROOT, TFile, TTree, TChain, gDirectory
+sys.argv = tmpargv
 
 def print_usage():
     print "\nUsage: {0} <output ROOT file name> <input ROOT file names>".format(sys.argv[0])

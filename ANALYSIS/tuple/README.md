@@ -13,7 +13,7 @@ The file is written in the format required by `TTree::ReadFile()`.
 For MC, or data without event flags, use `MakeTuplesMC.lcsim`.
 To make a tuple with MC truth information, one entry per event, use `MakeTuplesSlic.lcsim' (can be run on SLIC output, readout or recon)
 
-The trident tuple has cuts applied: $p(e^-), p(e^+)<0.9E_{beam}$, $p(e^-)+p(e^+)<1.3E_{beam}$.
+The trident tuple has cuts applied as part of the hps-java driver: $p(e^-), p(e^+)<0.9E_{beam}$, $p(e^-)+p(e^+)<1.3E_{beam}$.
 
 Convert the text file to a ROOT tree:
 ```
