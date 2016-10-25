@@ -45,16 +45,16 @@ c.Print(sys.argv[1]+".pdf[")
 #base1d = gDirectory.Get("base1d")
 
 def plotstuff(cut1,cut2,cut3,cutname):
-    events.Draw("eleClT-posClT>>h1(100,-10,10)",cut1,"goff")
-    events.Draw("eleClT-posClT>>h2(100,-10,10)",cut2,"goff")
-    events.Draw("eleClT-posClT>>h3(100,-10,10)",cut3,"goff")
+    events.Draw("eleClT-posClT>>h1(200,-10,10)",cut1,"goff")
+    events.Draw("eleClT-posClT>>h2(200,-10,10)",cut2,"goff")
+    events.Draw("eleClT-posClT>>h3(200,-10,10)",cut3,"goff")
 
-    hs = THStack("hs",cutname);
+    hs = THStack("hs","Effect of "+cutname+" cut");
     hs.Add(gDirectory.Get("h1"))
     hs.Add(gDirectory.Get("h2"))
     hs.Add(gDirectory.Get("h3"))
     hs.Draw("nostack")
-    leg = TLegend(0.7,0.75,0.9,0.9)
+    leg = TLegend(0.6,0.75,0.9,0.9)
     leg.AddEntry(gDirectory.Get("h1"),"passed all but this cut")
     leg.AddEntry(gDirectory.Get("h2"),"passed all cuts")
     leg.AddEntry(gDirectory.Get("h3"),"failed this cut")
@@ -63,30 +63,32 @@ def plotstuff(cut1,cut2,cut3,cutname):
     gDirectory.Get("h2").SetLineColor(4)
     gDirectory.Get("h3").SetLineColor(2)
     hs.GetXaxis().SetTitle("tEle-tPos [ns]")
+    hs.GetYaxis().SetTitle("events/(0.1 ns)")
     c.Print(sys.argv[1]+".pdf")
 
 def plotstuff2(cut1,cut2,cutname):
-    events.Draw("eleClT-posClT>>h1(100,-10,10)",cut1,"goff")
-    events.Draw("eleClT-posClT>>h2(100,-10,10)",cut2,"goff")
+    events.Draw("eleClT-posClT>>h1(200,-10,10)",cut1,"goff")
+    events.Draw("eleClT-posClT>>h2(200,-10,10)",cut2,"goff")
 
     hs = THStack("hs",cutname);
     hs.Add(gDirectory.Get("h1"))
     hs.Add(gDirectory.Get("h2"))
     hs.Draw("nostack")
-    leg = TLegend(0.7,0.75,0.9,0.9)
+    leg = TLegend(0.6,0.75,0.9,0.9)
     leg.AddEntry(gDirectory.Get("h1"),"after base cuts")
     leg.AddEntry(gDirectory.Get("h2"),"after vertexing cuts")
     leg.Draw()
     gDirectory.Get("h1").SetLineColor(1)
     gDirectory.Get("h2").SetLineColor(2)
     hs.GetXaxis().SetTitle("tEle-tPos [ns]")
+    hs.GetYaxis().SetTitle("events/(0.1 ns)")
     c.Print(sys.argv[1]+".pdf")
 
 def plotstuff3(cuts,cutname):
     hs = THStack("hs",cutname);
     hs.Add(gDirectory.Get("h1"))
-    leg = TLegend(0.7,0.75,0.9,0.9)
-    events.Draw("eleClT-posClT>>h0(100,-10,10)",cuts[0],"goff")
+    leg = TLegend(0.6,0.75,0.9,0.9)
+    events.Draw("eleClT-posClT>>h0(200,-10,10)",cuts[0],"goff")
     leg.AddEntry(gDirectory.Get("h0"),"after base cuts")
     hs.Add(gDirectory.Get("h0"))
     gDirectory.Get("h0").SetLineColor(1)
@@ -100,12 +102,13 @@ def plotstuff3(cuts,cutname):
     hs.Draw("nostack")
     leg.Draw()
     hs.GetXaxis().SetTitle("tEle-tPos [ns]")
+    hs.GetYaxis().SetTitle("events/(0.1 ns)")
     c.Print(sys.argv[1]+".pdf")
 
 c.SetLogy(1)
-plotstuff2(cuts[0],makeCutString(cuts),"allcuts")
+plotstuff2(cuts[0],makeCutString(cuts),"Effect of cuts")
 #plotstuff(makeCutString(cuts),"allcuts")
-plotstuff3(cuts,"cuts")
+plotstuff3(cuts,"Effect of cuts")
 
 for i in range(1,len(cuts)):
     cutstring = flipCut(cuts,i)

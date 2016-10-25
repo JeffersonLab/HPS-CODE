@@ -51,7 +51,7 @@ def plotstuff(cut1,cut2,cut3,cutname):
     events.Draw("uncVZ>>h2(150,-50,100)",cut2,"colz,same")
     events.Draw("uncVZ>>h3(150,-50,100)",cut3,"colz,same")
 
-    leg = TLegend(0.7,0.75,0.9,0.9)
+    leg = TLegend(0.6,0.75,0.9,0.9)
     leg.AddEntry(gDirectory.Get("h1"),"passed all but this cut")
     leg.AddEntry(gDirectory.Get("h2"),"passed all cuts")
     leg.AddEntry(gDirectory.Get("h3"),"failed this cut")
@@ -59,15 +59,16 @@ def plotstuff(cut1,cut2,cut3,cutname):
     gDirectory.Get("h1").SetLineColor(1)
     gDirectory.Get("h2").SetLineColor(4)
     gDirectory.Get("h3").SetLineColor(2)
-    gDirectory.Get("h1").SetTitle(cutname)
+    gDirectory.Get("h1").SetTitle("Effect of "+cutname+" cut")
     gDirectory.Get("h1").GetXaxis().SetTitle("vertex Z [mm]")
+    gDirectory.Get("h1").GetYaxis().SetTitle("events/mm")
     c.Print(sys.argv[1]+".pdf")
 
 def plotstuff2(cut1,cut2,cutname):
     events.Draw("uncVZ>>h1(150,-50,100)",cut1,"colz")
     events.Draw("uncVZ>>h2(150,-50,100)",cut2,"colz,same")
 
-    leg = TLegend(0.7,0.75,0.9,0.9)
+    leg = TLegend(0.6,0.75,0.9,0.9)
     leg.AddEntry(gDirectory.Get("h1"),"after base cuts")
     leg.AddEntry(gDirectory.Get("h2"),"after vertexing cuts")
     leg.Draw()
@@ -75,14 +76,15 @@ def plotstuff2(cut1,cut2,cutname):
     gDirectory.Get("h2").SetLineColor(2)
     gDirectory.Get("h1").SetTitle(cutname)
     gDirectory.Get("h1").GetXaxis().SetTitle("vertex Z [mm]")
+    gDirectory.Get("h1").GetYaxis().SetTitle("events/mm")
     c.Print(sys.argv[1]+".pdf")
 
 def plotstuff3(cuts,cutname):
-    leg = TLegend(0.7,0.75,0.9,0.9)
+    leg = TLegend(0.6,0.75,0.9,0.9)
     events.Draw("uncVZ>>h1(150,-50,100)",makeCutString(cuts[0:2]),"colz")
     leg.AddEntry(gDirectory.Get("h1"),"after base cuts")
     gDirectory.Get("h1").SetLineColor(1)
-    gDirectory.Get("h1").SetTitle(cutname)
+    gDirectory.Get("h1").SetTitle("Effect of "+cutname+" cut")
     for i in range(2,len(cuts)):
         events.Draw("uncVZ>>h{0}(150,-50,100)".format(i),makeCutString(cuts[0:i+1]),"colz,same")
         leg.AddEntry(gDirectory.Get("h{0}".format(i)),"after {0} cut".format(cutnames[i]))
@@ -91,12 +93,13 @@ def plotstuff3(cuts,cutname):
     leg.Draw()
     gDirectory.Get("h1").SetTitle(cutname)
     gDirectory.Get("h1").GetXaxis().SetTitle("vertex Z [mm]")
+    gDirectory.Get("h1").GetYaxis().SetTitle("events/mm")
     c.Print(sys.argv[1]+".pdf")
 
 c.SetLogy(1)
-plotstuff2(makeCutString(cuts[0:2]),makeCutString(cuts),"|m(e+e-)-0.03|<0.0026")
+plotstuff2(makeCutString(cuts[0:2]),makeCutString(cuts),"vertex Z, |m(e+e-)-0.03|<0.0026 GeV")
 #plotstuff(makeCutString(cuts),"allcuts")
-plotstuff3(cuts,"cuts")
+plotstuff3(cuts,"vertex Z, |m(e+e-)-0.03|<0.0026 GeV")
 
 for i in range(2,len(cuts)):
     cutstring = flipCut(cuts,i)

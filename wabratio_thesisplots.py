@@ -35,7 +35,10 @@ def plotStuff(plotList,plotstring, cutstring, plotfile, plotname, xlabel, ylabel
     dataHist = gDirectory.Get("data")
     triHist = gDirectory.Get("tri")
     wabHist = gDirectory.Get("wab")
-    leg = TLegend(0.4,0.75,0.6,0.9)
+    if legendright:
+        leg = TLegend(0.7,0.75,0.9,0.9)
+    else:
+        leg = TLegend(0.1,0.75,0.3,0.9)
     hs = THStack("hs",plotname);
     for dataset in plotList:
         hist = gDirectory.Get(dataset[1])
@@ -112,7 +115,7 @@ plotList = []
 #plotList.append((triEvents, "tri", 1/8.13e-3, 2, "tritrig-beam-tri"))
 #plotList.append((wabEvents, "wab", 1/8.13e-3, 4, "WAB"))
 
-plotList.append((dataEvents, "data", 0.65, 1, "data/0.65"))
+plotList.append((dataEvents, "data", 1.0, 1, "data"))
 
 #plotList.append((triEvents, "tri", 1.0, 2, "tritrig-beam-tri"))
 #plotList.append((triEvents, "tri", 1/0.65, 2, "trident MC"))
@@ -129,31 +132,36 @@ plotList.append((wabEvents, "wab", 1.0, 4, "WAB MC"))
 
 c.Print(remainder[0]+".pdf[")
 
+legendright = True
+plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","", remainder[0]+".pdf","All pairs", "momentum sum [GeV]", "Normalized rate [nb]", False)
+plotList[0]=(dataEvents, "data", 0.65, 1, "data/0.65")
+legendright = False
 plotStuff(plotList,"posHasL1>>{0}(2,-0.5,1.5)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam", "positron L1 hit", "Normalized rate [nb]", False)
 plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam", "momentum sum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","tarP>0.8*1.056&&min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","tarP>0.8*1.056&&min(abs(elePY/eleP),abs(posPY/posP))>0.030", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-plotStuff(plotList,"posTrkD0>>{0}(50,-3,3)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beamP", "positron X DOCA [mm]", "Normalized rate [nb]", False)
-plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam", "missing pT_y [GeV]", "Normalized rate [nb]", False)
-#plotStuff(plotList,"eleP>>{0}(50,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-#plotStuff(plotList,"posP>>{0}(50,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posTrkD0>>{0}(50,-3,3)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam", "positron X DOCA [mm]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam", "p(e+e-)_y towards positron side [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"eleP>>{0}(50,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam", "Electron momentum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posP>>{0}(50,0,1.0)","tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam", "Positron momentum [GeV]", "Normalized rate [nb]", False)
 
 plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with L1 positron hit", "momentum sum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","posHasL1&&tarP>0.8*1.056&&min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","posHasL1&&tarP>0.8*1.056&&min(abs(elePY/eleP),abs(posPY/posP))>0.030", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 plotStuff(plotList,"posTrkD0>>{0}(50,-3,3)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with L1 positron hit", "positron X DOCA [mm]", "Normalized rate [nb]", False)
-plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with L1 positron hit", "missing pT_y [GeV]", "Normalized rate [nb]", False)
-#plotStuff(plotList,"eleP>>{0}(50,0,1.0)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-#plotStuff(plotList,"posP>>{0}(50,0,1.0)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with L1 positron hit", "p(e+e-)_y towards positron side [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"eleP>>{0}(50,0,1.0)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with L1 positron hit", "Electron momentum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posP>>{0}(50,0,1.0)","posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with L1 positron hit", "Positron momentum [GeV]", "Normalized rate [nb]", False)
 
 plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with no L1 positron hit", "momentum sum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","!posHasL1&&tarP>0.8*1.056&&min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","!posHasL1&&tarP>0.8*1.056&&min(abs(elePY/eleP),abs(posPY/posP))>0.030", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 plotStuff(plotList,"posTrkD0>>{0}(50,-3,3)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with no L1 positron hit", "positron X DOCA [mm]", "Normalized rate [nb]", False)
-plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with no L1 positron hit", "missing pT_y [GeV]", "Normalized rate [nb]", False)
-#plotStuff(plotList,"eleP>>{0}(50,0,1.0)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
-#plotStuff(plotList,"posP>>{0}(50,0,1.0)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"tarPY*sign(posPY)>>{0}(50,-0.02,0.02)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with no L1 positron hit", "p(e+e-)_y towards positron side [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"eleP>>{0}(50,0,1.0)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with no L1 positron hit", "Electron momentum [GeV]", "Normalized rate [nb]", False)
+plotStuff(plotList,"posP>>{0}(50,0,1.0)","!posHasL1&&tarP>0.8*1.056", remainder[0]+".pdf","p(e+e-)>0.8E_beam with no L1 positron hit", "Positron momentum [GeV]", "Normalized rate [nb]", False)
 
+legendright = True
 plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","", remainder[0]+".pdf","All pairs", "momentum sum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","min(abs(elePY/eleP),abs(posPY/posP))>0.030", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
@@ -170,6 +178,7 @@ plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","posHasL1", remainder[0]+".pdf","Pair
 #plotStuff(plotList,"eleP>>{0}(50,0,1.0)","posHasL1", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"posP>>{0}(50,0,1.0)","posHasL1", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 
+legendright = False
 plotStuff(plotList,"tarP>>{0}(80,0.4,1.2)","!posHasL1", remainder[0]+".pdf","Pairs with no L1 positron hit", "momentum sum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","!posHasL1&&min(abs(elePY/eleP),abs(posPY/posP))>0.025", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
 #plotStuff(plotList,"tarP>>{0}(70,0.4,1.1)","!posHasL1&&min(abs(elePY/eleP),abs(posPY/posP))>0.030", remainder[0]+".pdf","Title:tarP", "Esum [GeV]", "Normalized rate [nb]", False)
