@@ -53,7 +53,7 @@ c.Print(remainder[0]+".pdf","Title:data_1d")
 
 totalHist.Draw()
 totalHist.SetLineColor(1)
-totalHist.SetTitle("Pair rates")
+totalHist.SetTitle("Pair cross-sections")
 totalHist.GetXaxis().SetTitle("pair invariant mass [GeV]")
 totalHist.GetYaxis().SetTitle("cross-section [mb/GeV]")
 radHist.Draw("same")

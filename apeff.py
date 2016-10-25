@@ -78,9 +78,9 @@ for filenum in range(0,len(remainder)-1):
     effAtTarget = effAll.GetFunction("exppol4").Eval(-5.0)
     effTargetArr.append(effAtTarget)
 
-    effL1 = inFile.Get("eff_all")
-    effL1.Draw()
-    func = effL1.GetFunction("exppol4")
+    effAll.Draw()
+    effAll.SetTitle("Efficiency vs. Z, m_A'={0}".format(masses[filenum]))
+    func = effAll.GetFunction("exppol4")
     effL1p0Arr.append(func.GetParameter(0))
     effL1p1Arr.append(func.GetParameter(1))
     effL1p2Arr.append(func.GetParameter(2))

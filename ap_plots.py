@@ -57,16 +57,18 @@ c.cd(1)
 gPad.SetLogy(1)
 events2.Draw("triEndZ>>prodZ(50,-5,100)","triP>0.8*1.056","colz,goff")
 prodZ = gDirectory.Get("prodZ")
+prodZ.SetTitle("Generated heavy photons")
 prodZ.GetXaxis().SetTitle("vertex Z [mm]");
-prodZ.GetYaxis().SetTitle("generated events");
+prodZ.GetYaxis().SetTitle("events/bin");
 prodZ.Fit("expo","L")
 prodZ.Draw()
 prodZ.Write("prodz")
 c.cd(2)
 events2.Draw("triP>>hnew(100,0,1.5)","","colz,goff")
 hnew = gDirectory.Get("hnew")
+hnew.SetTitle("")
 hnew.GetXaxis().SetTitle("p(A') [GeV]");
-hnew.GetYaxis().SetTitle("generated events");
+hnew.GetYaxis().SetTitle("events/bin");
 hnew.Draw()
 hnew.Write("esum")
 c.Print(remainder[0]+".pdf","Title:top_yz")
@@ -78,8 +80,9 @@ c.cd(1)
 #gPad.SetLogy(1)
 events.Draw("triEndZ>>hnew(50,-5,100)","triP>0.8*1.056&&uncP>0.8*1.056","colz,goff")
 hnew = gDirectory.Get("hnew")
+prodZ.SetTitle("Reconstructed heavy photons")
 hnew.GetXaxis().SetTitle("vertex Z [mm]");
-hnew.GetYaxis().SetTitle("reconstructed events");
+hnew.GetYaxis().SetTitle("events/bin");
 hnew.Draw()
 c.cd(2)
 eff=hnew.Clone("eff")
@@ -95,6 +98,7 @@ eff.Scale(1.0/effAtZero)
 eff.Fit("exppol4","QL")
 eff.Fit("exppol4","QLN")
 eff.Fit("exppol4","IM")
+eff.SetTitle("")
 eff.GetXaxis().SetTitle("vertex Z [mm]");
 eff.GetYaxis().SetTitle("efficiency");
 eff.Draw()
@@ -127,11 +131,13 @@ c.cd(1)
 gPad.SetLogz(1)
 events.Draw("uncM-triM:triEndZ>>hnew(50,-5,100,50,-0.02,0.02)","triP>0.8*1.056&&uncP>0.8*1.056","colz")
 hnew = gDirectory.Get("hnew")
+hnew.SetTitle("Mass resolution, true and reconstructed p(e+e-)>0.8*Ebeam")
 hnew.GetXaxis().SetTitle("vertex Z [mm]");
 hnew.GetYaxis().SetTitle("mass residual [GeV]");
 hnew.FitSlicesY()
 hnew_1 = gDirectory.Get("hnew_2")
 c.cd(2)
+hnew_1.SetTitle("")
 hnew_1.GetXaxis().SetTitle("vertex Z [mm]");
 hnew_1.GetYaxis().SetTitle("mass resolution [GeV]");
 hnew_1.Draw()
@@ -147,11 +153,13 @@ if useCorrM:
     gPad.SetLogz(1)
     events.Draw("corrM-triM:triEndZ>>hnew(50,-5,100,50,-0.02,0.02)","triP>0.8*1.056&&uncP>0.8*1.056","colz")
     hnew = gDirectory.Get("hnew")
+    hnew.SetTitle("Mass resolution, true and reconstructed p(e+e-)>0.8*Ebeam")
     hnew.GetXaxis().SetTitle("vertex Z [mm]");
     hnew.GetYaxis().SetTitle("mass residual [GeV]");
     hnew.FitSlicesY()
     hnew_1 = gDirectory.Get("hnew_2")
     c.cd(2)
+    hnew_1.SetTitle("")
     hnew_1.GetXaxis().SetTitle("vertex Z [mm]");
     hnew_1.GetYaxis().SetTitle("mass resolution [GeV]");
     hnew_1.Draw()
