@@ -113,7 +113,7 @@ For MC recon:
 3. Merge with `mergeTrees.py -v file_vert.root file1_dq_tri.root file2_dq_tri.root`
 4. Cut down to a single trident candidate per event using `applyCut.py -t vertexing -mbv file_vertcuts.root file_vert.root`
 
-For SLIC output, only do steps 1 and 2.
+For SLIC output, only do steps 1 and 2 of the above.
 
 ## Radiative fraction
 The integrated luminosities of the MC samples are hard-coded in `radfrac.py`.
@@ -128,7 +128,9 @@ By hand:
 ./radfrac.py frac rad_vertcuts.root tritrig_vertcuts.root wab_vertcuts.root
 ```
 
-## Mass resolution
+## Mass resolution and acceptance
+This finds the mass resolution and the acceptance dependence on Z.
+
 With scripts (`run.sh` actually runs `mergeTrees.py` and `applyCuts.py` as well):
 ```
 cd acceptance
@@ -146,6 +148,9 @@ then:
 ```
 
 ## Vertex tails fit
+This fits the vertex distribution as a function of mass.
+Requires the mass resolution data as input.
+
 With scripts:
 ```
 ./run_fittails.sh
