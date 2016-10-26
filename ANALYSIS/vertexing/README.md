@@ -21,7 +21,7 @@ raw tuples: goldentuple/hps_\*_dq_tri.root
 
 after vertexing cuts: golden_vert.root
 
-after applyCuts.py: vertexing/golden_vertcuts.root
+after `applyCuts.py`: vertexing/golden_vertcuts.root
 
 ### tritrig
 pure tritrig
@@ -34,7 +34,7 @@ raw tuples: tritrigtuple/tritrig_skim_\*_postfix_dq_tri.root
 
 after vertexing cuts: tritrig_postfix_vert.root
 
-after applyCuts.py: vertexing/tritrig_postfix_vertcuts.root
+after `applyCuts.py`: vertexing/tritrig_postfix_vertcuts.root
 
 ### WAB
 pure WAB
@@ -47,7 +47,7 @@ raw tuples: wabtuple/wabv2postfix_*_dq_tri.root
 
 after vertexing cuts: wabv2postfix_vert.root
 
-after applyCuts.py: vertexing/wabv2postfix_vertcuts.root
+after `applyCuts.py`: vertexing/wabv2postfix_vertcuts.root
 
 ### rad
 pure RAD
@@ -60,7 +60,7 @@ raw tuples: radtuple/rad_dq_tri.root
 
 after vertexing cuts: rad_vert.root
 
-after applyCuts.py: vertexing/rad_vertcuts.root
+after `applyCuts.py`: vertexing/rad_vertcuts.root
 
 ### ap (recon)
 pure displaced A'
@@ -73,7 +73,7 @@ raw tuples: aptuple/apsignal_displaced_\*_dq_tri.root
 
 after vertexing cuts: vertexing/acceptance/ap_\*_vert.root
 
-after applyCuts.py: vertexing/acceptance/ap_\*_vertcuts.root
+after `applyCuts.py`: vertexing/acceptance/ap_\*_vertcuts.root
 
 ### ap (SLIC output)
 pure displaced A'
@@ -116,6 +116,8 @@ For MC recon:
 For SLIC output, only do steps 1 and 2.
 
 ## Radiative fraction
+The integrated luminosities of the MC samples are hard-coded in `radfrac.py`.
+
 With scripts:
 ```
 ./run_radfrac.sh
@@ -136,7 +138,7 @@ cd acceptance
 
 By hand, for each mass:
 ```
-./acceptance/ap_plots.py acceptance_20 ap_20_vertcuts.root apsignal_slic_displaced_20_dq_truth.root -c
+./acceptance/ap_plots.py acceptance_22 ap_22_vertcuts.root apsignal_slic_displaced_22_dq_truth.root -c
 ```
 then:
 ```
