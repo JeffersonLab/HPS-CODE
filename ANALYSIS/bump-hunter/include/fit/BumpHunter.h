@@ -15,7 +15,7 @@
 //----------------//  
 #include <cstdio> 
 #include <vector>
-#include <unordered_map>
+#include <map>
 #include <fstream>
 #include <cmath>
 #include <exception>
@@ -70,7 +70,7 @@ class BumpHunter {
 
         /**
          * Fit the given histogram in the window with range 
-         * (window_start, window_start + win_size).  
+         * (window_start, window_start + window_size).  
          * 
          * @param data The RooFit histogram to fit.
          * @param window_start The start of the fit window.
@@ -79,7 +79,7 @@ class BumpHunter {
 
         /**
          * Fit the given histogram in the window with range 
-         * (window_start, window_start + win_size).  
+         * (window_start, window_start + window_size).  
          * 
          * @param histogram The histogram to fit.
          * @param window_start The start of the fit window.
@@ -118,7 +118,7 @@ class BumpHunter {
         /**
          * 
          */
-        void setWindowSize(double win_size) { this->win_size = win_size; }; 
+        void setWindowSize(double window_size) { this->window_size = window_size; }; 
 
         /** Write the fit results to a text file */
         void writeResults(); 
@@ -127,15 +127,11 @@ class BumpHunter {
 
         void getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass);
 
-        std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
+        std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis);
 
-        std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
+        std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis);
          
     private: 
-
-        double getWindowSize(double mass_hypo); 
-
-        void DrawFit(RooDataHist* data, HpsFitResult* result, double ap_hypothesis); 
 
         /**
          * Get the HPS mass resolution at the given mass.  The functional form 
@@ -146,6 +142,7 @@ class BumpHunter {
          */
         inline double getMassResolution(double mass) { 
             return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
+            //return -6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373; 
         };
   
         /** 
@@ -156,8 +153,12 @@ class BumpHunter {
         void printDebug(std::string message); 
          
 
-        /** Reset the fit parameters to their initial values. */ 
-        void resetParameters(); 
+        /**
+         * Reset the fit parameters to their initial values.
+         *
+         * @param initial_params A list containing the fit parameters.
+         */ 
+        void resetParameters(RooArgList initial_params); 
 
         /**
          *
@@ -170,24 +171,13 @@ class BumpHunter {
          */
         //void generateToys(double n_toys); 
 
-        /** 
-         * A map relating a RooRealVar to its name.  This allows quick access
-         * to a RooRealVar by name.
-         */ 
-        std::unordered_map <std::string, RooRealVar*> var_map;
-        
-        /**
-         * A map relating the default value of a RooRealVar to its name.  This
-         * is used when resetting a RooRealVar to its default value.
-         */
-        std::unordered_map <std::string, double> var_default_map;
+        std::map <std::string, RooRealVar*> variable_map; 
 
-        /**
-         * A map relating the default error value of a RooRealVar to its name.
-         * This is used when resetting a RooRealVar to its default value.
-         */
-        std::unordered_map <std::string, double> var_default_err_map;
+        /** Signal + bkg model */
+        RooAddPdf* comp_model;  
 
+        /** Bkg only model */
+        RooAddPdf* bkg_model;
 
         /** */
         RooAddPdf* model; 
@@ -211,17 +201,14 @@ class BumpHunter {
         double high_bound;
         
         /** Maximum size of the window */
-        double max_win_size; 
+        double max_window_size; 
 
         /** Size of the background window that will be used to fit. */
-        double win_size;
+        double window_size;
 
         /** Polynomial order used to model the background. */
         int bkg_poly_order;
 
-        /** */
-        int mass_res_fac;
-        
         /** Use a model that only includes the background. */
         bool bkg_only; 
 
