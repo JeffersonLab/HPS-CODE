@@ -43,13 +43,3 @@ target_link_libraries(set_upper_limits
     FlatTupleMaker
     HpsFitResult
 )
-
-add_executable(bump_hunter bump_hunter.cxx)
-target_link_libraries(bump_hunter
-    ${ROOT_CORE_LIB}
-    ${ROOT_RIO_LIB}
-    ${ROOT_HIST_LIB} 
-    ${ROOT_TREE_LIB} 
-    BumpHunter
-    FlatTupleMaker
-)
