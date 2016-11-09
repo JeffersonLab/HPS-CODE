@@ -103,7 +103,7 @@ For data:
 
 1. Run the tuple maker in hps-java using `MakeTuples.lcsim`, which will make a text tuple `file_dq_tri.txt`
 2. Convert each text file to ROOT tuple using `makeTree.py file_dq_tri.root file_dq_tri.txt`
-3. Merge with `mergeTrees.py -v file_vert.root file1_dq_tri.root file2_dq_tri.root`
+3. Merge and apply vertexing cuts with `mergeTrees.py -v file_vert.root file1_dq_tri.root file2_dq_tri.root`
 4. Cut down to a single trident candidate per event using `applyCut.py -t vertexing -bv file_vertcuts.root file_vert.root`
 
 For MC recon:
