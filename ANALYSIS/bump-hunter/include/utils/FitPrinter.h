@@ -1,5 +1,8 @@
 /**
  * @file FitPrinter.h
+ * @brief Class used to print a RooFit result to a file.
+ * @author Omar Moreno
+ *         SLAC National Accelerator Laboratory 
  */
 
 #ifndef __FIT_PRINTER_H__

@@ -6,6 +6,8 @@ find_library(ROOT_PHYSICS_LIB Physics $ENV{ROOTSYS}/lib)
 find_library(ROOT_HIST_LIB Hist $ENV{ROOTSYS}/lib)
 find_library(ROOT_GPAD_LIB Gpad $ENV{ROOTSYS}/lib)
 find_library(ROOT_GRAF_LIB Graf $ENV{ROOTSYS}/lib)
+find_library(ROO_FIT RooFit $ENV{ROOTSYS}/lib)
+find_library(ROO_FIT_CORE RooFitCore $ENV{ROOTSYS}/lib)
 
 add_library(RootFileReader RootFileReader.cxx)
 target_link_libraries(RootFileReader 
@@ -21,4 +23,11 @@ add_library(FlatTupleMaker FlatTupleMaker.cxx)
 target_link_libraries(FlatTupleMaker
     ${ROOT_CORE_LIBRARY}
     ${ROOT_RIO_LIB}
+)
+
+add_library(FitPrinter FitPrinter.cxx)
+target_link_libraries(FitPrinter
+    ${ROOT_GPAD_LIB}
+    ${ROO_FIT}
+    ${ROO_FIT_CORE}
 )
