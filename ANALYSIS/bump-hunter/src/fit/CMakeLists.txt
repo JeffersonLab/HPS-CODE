@@ -16,6 +16,7 @@ target_link_libraries(BumpHunter
     ${ROO_FIT_CORE}
     ${ROOT_MATH_LIB}
     HpsFitResult
+    FitPrinter
 )
 
 add_executable(bump_hunt_evaluator bump_hunt_evaluator.cxx)
