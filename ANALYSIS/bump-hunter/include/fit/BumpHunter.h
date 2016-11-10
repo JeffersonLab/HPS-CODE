@@ -47,6 +47,7 @@
 
 //---//
 #include <HpsFitResult.h>
+#include <FitPrinter.h>
 
 class BumpHunter {
 
@@ -169,6 +170,8 @@ class BumpHunter {
         /**
          *
          */
+
+        FitPrinter* printer{new FitPrinter}; 
         //void generateToys(double n_toys); 
 
         std::map <std::string, RooRealVar*> variable_map; 

@@ -117,9 +117,6 @@ std::map<double, HpsFitResult*> BumpHunter::fitWindow(TH1* histogram, double sta
 
 HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis) { 
 
-    // Set the range of the mass variable based on the range of the histogram. 
-    variable_map["invariant mass"]->setRange(histogram->GetXaxis()->GetXmin(), histogram->GetXaxis()->GetXmax()); 
-
     // Create a histogram object compatible with RooFit.
     RooDataHist* data = new RooDataHist("data", "data", RooArgList(*variable_map["invariant mass"]), histogram);
 
@@ -188,6 +185,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
     // Set the range that will be used in the fit
     std::string range_name = "ap_mass_" + std::to_string(ap_hypothesis); 
     variable_map["invariant mass"]->setRange(range_name.c_str(), window_start, window_start + window_size); 
+    variable_map["invariant mass"]->setRange(window_start, window_start + window_size); 
    
     // Estimate the background normalization within the window by integrating
     // the histogram within the window range.  This should be close to the 
@@ -199,6 +197,8 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
 
     // Fit the distribution in the given range
     HpsFitResult* result = this->fit(data, false, range_name); 
+    
+    printer->print(variable_map["invariant mass"]->frame(), data, model, range_name); 
 
     // Set the window size 
     result->setWindowSize(window_size);
