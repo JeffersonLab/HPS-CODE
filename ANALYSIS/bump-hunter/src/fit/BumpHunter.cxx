@@ -18,7 +18,7 @@ BumpHunter::BumpHunter(int poly_order)
       signal(nullptr), 
       bkg(nullptr),
       ofs(nullptr),
-      low_bound(-9999), 
+      low_bound(0.013), 
       high_bound(-9999),
       max_window_size(0.02205),
       window_size(0.01),
@@ -146,7 +146,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
     // If the window is being allowed to vary, calculate the window size based
     // on the mass resolution.
     if (!fix_window) { 
-        window_size = std::trunc(mass_resolution*15*10000)/10000 + 0.00005;
+        window_size = std::trunc(mass_resolution*13*10000)/10000 + 0.00005;
         
         // If the window size is larger than the max size, set the window size
         // to the max.
