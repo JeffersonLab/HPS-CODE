@@ -15,12 +15,15 @@ def print_usage():
 ebeam=1.056
 mass=0.050
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:h')
+datafile=""
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:d:h')
 
 # Parse the command line arguments
 for opt, arg in options:
         if opt=='-e':
             ebeam=float(arg)
+        if opt=='-d':
+            datafile=arg
         if opt=='-h':
             print_usage()
             sys.exit(0)
@@ -53,6 +56,11 @@ exppol4.SetTitle("Efficiency for 50 MeV heavy photon")
 exppol4.GetXaxis().SetTitle("decay z [mm]")
 exppol4.GetYaxis().SetTitle("eff(z)/eff(target)")
 c.Print(remainder[0]+".pdf","Title:test")
+
+if datafile!="":
+    inFile = TFile(datafile)
+    inFile.Get("eff_all").Draw("same")
+    c.Print(remainder[0]+".pdf","Title:test")
 
 targetz = -5
 gammact = 30
