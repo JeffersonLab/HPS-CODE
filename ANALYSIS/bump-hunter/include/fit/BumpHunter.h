@@ -47,6 +47,7 @@
 
 //---//
 #include <HpsFitResult.h>
+#include <FitPrinter.h>
 
 class BumpHunter {
 
@@ -133,8 +134,6 @@ class BumpHunter {
          
     private: 
 
-        void DrawFit(RooDataHist* data, HpsFitResult* result, double ap_hypothesis); 
-
         /**
          * Get the HPS mass resolution at the given mass.  The functional form 
          * of the mass resolution was determined using MC.
@@ -144,6 +143,7 @@ class BumpHunter {
          */
         inline double getMassResolution(double mass) { 
             return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
+            //return -6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373; 
         };
   
         /** 
@@ -170,6 +170,8 @@ class BumpHunter {
         /**
          *
          */
+
+        FitPrinter* printer{new FitPrinter}; 
         //void generateToys(double n_toys); 
 
         std::map <std::string, RooRealVar*> variable_map; 

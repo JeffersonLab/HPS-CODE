@@ -18,7 +18,7 @@ BumpHunter::BumpHunter(int poly_order)
       signal(nullptr), 
       bkg(nullptr),
       ofs(nullptr),
-      low_bound(-9999), 
+      low_bound(0.013), 
       high_bound(-9999),
       max_window_size(0.02205),
       window_size(0.01),
@@ -117,9 +117,6 @@ std::map<double, HpsFitResult*> BumpHunter::fitWindow(TH1* histogram, double sta
 
 HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis) { 
 
-    // Set the range of the mass variable based on the range of the histogram. 
-    variable_map["invariant mass"]->setRange(histogram->GetXaxis()->GetXmin(), histogram->GetXaxis()->GetXmax()); 
-
     // Create a histogram object compatible with RooFit.
     RooDataHist* data = new RooDataHist("data", "data", RooArgList(*variable_map["invariant mass"]), histogram);
 
@@ -149,7 +146,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
     // If the window is being allowed to vary, calculate the window size based
     // on the mass resolution.
     if (!fix_window) { 
-        window_size = std::trunc(mass_resolution*15*10000)/10000 + 0.00005;
+        window_size = std::trunc(mass_resolution*13*10000)/10000 + 0.00005;
         
         // If the window size is larger than the max size, set the window size
         // to the max.
@@ -188,6 +185,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
     // Set the range that will be used in the fit
     std::string range_name = "ap_mass_" + std::to_string(ap_hypothesis); 
     variable_map["invariant mass"]->setRange(range_name.c_str(), window_start, window_start + window_size); 
+    variable_map["invariant mass"]->setRange(window_start, window_start + window_size); 
    
     // Estimate the background normalization within the window by integrating
     // the histogram within the window range.  This should be close to the 
@@ -199,12 +197,11 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
 
     // Fit the distribution in the given range
     HpsFitResult* result = this->fit(data, false, range_name); 
+    
+    printer->print(variable_map["invariant mass"]->frame(), data, model, range_name); 
 
     // Set the window size 
     result->setWindowSize(window_size);
-
-    /*
-    this->DrawFit(data, result, ap_hypothesis); 
 
     // Check if the resulting fit found a significant bump
     double alpha = 0.05; 
@@ -227,7 +224,6 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
     
     double bkg_window_integral = data->sumEntries("1", bkg_range_name.c_str()); 
     result->setBkgTotal(bkg_window_integral); 
-    */
 
     return result;  
 } 
@@ -559,44 +555,4 @@ std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, Hp
     file->Close(); 
     return results;
      
-}
-
-void BumpHunter::DrawFit(RooDataHist* data, HpsFitResult* result, double ap_hypothesis) { 
-    
-    double window_size = result->getWindowSize(); 
-    
-    // Find the starting position of the window
-    double window_start = ap_hypothesis - window_size/2;
-
-    // Set the range that will be used in the fit
-    std::string range_name = "ap_mass_" + std::to_string(ap_hypothesis); 
-    variable_map["invariant mass"]->setRange(range_name.c_str(), window_start, window_start + window_size);
-
-    variable_map["invariant mass"]->setRange(window_start, window_start + window_size);
-
-    TCanvas* canvas = new TCanvas("canvas", "canvas", 600, 600); 
-    RooPlot* plot = variable_map["invariant mass"]->frame();
-   
-    data->plotOn(plot);
-    model->plotOn(plot,
-                  RooFit::Range(range_name.c_str()), 
-                  RooFit::NormRange(range_name.c_str())); 
-    model->plotOn(plot, 
-                  RooFit::Range(range_name.c_str()), 
-                  RooFit::NormRange(range_name.c_str()),  
-                  RooFit::Components("bkg"), 
-                  RooFit::LineStyle(kDashed),
-                  RooFit::LineColor(kGreen));
-    model->plotOn(plot, 
-                  RooFit::Range(range_name.c_str()), 
-                  RooFit::NormRange(range_name.c_str()),  
-                  RooFit::Components("signal"), 
-                  RooFit::LineStyle(kDashed),
-                  RooFit::LineColor(kRed));
-
-    plot->Draw();
-    std::string output = range_name + "fit.png"; 
-    canvas->SaveAs(output.c_str());
-
-    delete canvas;  
 }
