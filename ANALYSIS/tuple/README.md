@@ -4,7 +4,7 @@ Start with LCIO files from recon.
 Run the tuple maker steering file:
 
 ```
-java -jar hps-distribution-bin.jar -r /org/hps/steering/analysis/TupleMaker.lcsim -i in.slcio -DoutputFile=out
+java -jar hps-distribution-bin.jar -r /org/hps/steering/analysis/MakeTuples.lcsim -i in.slcio -DoutputFile=out
 ```
 
 This will dump data to text files: `out_fee.txt`, `out_moller.txt`, `out_tri.txt`.
@@ -30,5 +30,5 @@ Count and rank trident candidates, applying bumphunt cuts (this code requires nu
 ```
 ./applyCuts.py cuts.root merged_tri.root -t bumphunt
 ```
-This makes a new tree in `cuts.root` that can be added as a friend to `merged_tri.root`.
+This makes a new tree in `cuts.root` that can be used on its own, or added as a friend to `merged_tri.root`.
 Your analysis can cut on `rank==1` to select only the highest-ranked trident candidate in each event.
