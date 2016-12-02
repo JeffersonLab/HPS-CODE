@@ -56,31 +56,6 @@ radian = ROOT.TMath.RadToDeg();
 #--- Functions ---#
 #-----------------#
 
-
-
-def getEffTH1(hfile, hname) : 
-    print 'Getting Efficiency Graph...converting to TH1'
-    effGraph=hfile.Get(hname)
-    xmin=effGraph.GetXaxis().GetXmin()
-    xmax=effGraph.GetXaxis().GetXmax()
-    nbins=effGraph.GetN()
-    x=ROOT.Double(0.0)
-    y=ROOT.Double(0.0)
-    print nbins
-    effHist=ROOT.TH1D(effGraph.GetName(),effGraph.GetTitle(),nbins,xmin,xmax)
-    for i in range(0,nbins) : 
-        effGraph.GetPoint(i,x,y)
-        print str(x)+' ' +str(y)        
-        effHist.SetBinContent(i,y)            
-    return effHist
-
-
-def getEffTH2(hfile, hname) : 
-    print 'Getting efficiency TH2 '+hname
-    
-    effHist=hfile.Get(hname)
-    return effHist
-
 def setupCanvas(canvas):
     canvas.SetFillColor(0)
     canvas.SetBorderMode(0)
@@ -110,7 +85,6 @@ def pSum(p1,p2) :
 def ecalMatchTrack(particleList,ecalCluster) :    
     for particle in particleList :
         if len(particle.getTracks())==0  : continue
-#        print 'track charge = '+str(particle.getTracks()[0].getCharge())+'; track phi0 = '+str(particle.getTracks()[0].getPhi0())
         if len(particle.getClusters())==0 : continue
         if particle.getClusters()[0] is ecalCluster : 
 #            print 'found track match to cluster'
@@ -171,12 +145,17 @@ def findWABPair(electron,  hps_event):
     if electron.getClusters().GetEntries == 0 : 
         return 
     eleCluster= electron.getClusters().First()
+#    print str(projPhotonPhi)+" "+str(projPhotonTheta)
     for uc_index in xrange(0, hps_event.getNumberOfParticles(HpsParticle.FINAL_STATE_PARTICLE)):
         particle = hps_event.getParticle(HpsParticle.FINAL_STATE_PARTICLE, uc_index)  
+#        print 'Found Particle'
         if particle.getTracks().GetEntries()>0 : continue # no tracks!
+#        print 'Found Particle with No Tracks'
         if particle.getClusters().GetEntries() == 0 : continue # yes clusters!        
+#        print 'Found Cluster'
         potentialWABCluster=particle.getClusters().First()
         if potentialWABCluster.getPosition()[1]*eleSlope>0 : continue  #make sure they are on the opposite sides
+#        print 'Found Cluster in right half!!!'
         if eleCluster.getPosition()[1] >0 : 
             topX=eleCluster.getPosition()[0]
             topY=eleCluster.getPosition()[1]
@@ -194,6 +173,7 @@ def findWABPair(electron,  hps_event):
             cl_impact_angleTop = cl_impact_angleTop + 360. 
         if cl_impact_angleBottom < 0. :
             cl_impact_angleBottom = cl_impact_angleBottom + 360.
+#        print  str(cl_impact_angleTop)+'   '+str(cl_impact_angleBottom)
         coplanarity=  cl_impact_angleBottom -  cl_impact_angleTop  
     return None
     
@@ -265,30 +245,6 @@ def main():
         myhist.setSmearEnergy(smearEnergy,smearRes)
 
 
-    trackKiller=False
-    killInMomentum=False
-    killInClusterPosition=True
-#    effFileName='/u/br/mgraham/hps-analysis/TrackEfficiency/cop180_EfficiencyResults.root'
-#    effDataName='h_Ecl_hps_005772_eleEff'
-#    effMCName='h_Ecl_tritrig-NOSUMCUT_HPS-EngRun2015-Nominal-v5-0_eleEff'
-
-    effFileName='/u/br/mgraham/hps-analysis/TrackEfficiency/cop180_midESum_TwoD-EfficiencyResults.root'
-    effDataName='h_XvsY_hps_005772_eleEff'
-    effMCName='h_XvsY_tritrig-NOSUMCUT_HPS-EngRun2015-Nominal-v5-0_eleEff'
-    
-    if trackKiller  : 
-        effFile=ROOT.TFile(effFileName)
-        print 'Getting data efficiency from '+effFileName 
-        #    effData=getEffTH1(effFile,effDataName)
-        #    effMC=getEffTH1(effFile,effMCName)
-        effData=getEffTH2(effFile,effDataName)
-        effMC=getEffTH2(effFile,effMCName)
-        effData.Print("v")
-        effMC.Print("v")
-        effData.Divide(effMC)  # this will be the killing factor
-        effData.Print("V")
-
-
      # Open the ROOT file
     #    root_file = ROOT.TFile(str(args.dst_file))
     # Get the TTree "HPS_EVENT" containing the HpsEvent branch and all
@@ -339,7 +295,7 @@ def main():
     for entry in xrange(0, tree.GetEntries()) : 
                  
         # Print the event number every 500 events
-        if (entry+1)%100 == 0 : print "Event " + str(entry+1)
+        if (entry+1)%10000 == 0 : print "Event " + str(entry+1)
         tree.GetEntry(entry)
         if not hps_event.isPair1Trigger() and not isMC and not isPulser: continue
         nEvents+=1
@@ -350,6 +306,19 @@ def main():
         pairList=[]
         bestCandidate=-99
         pairsFound=0
+        print 'looking at mcparticles' 
+        for i in range(0,hps_event.n_mc_particles) : 
+            mcp=hps_event.getMCParticle(i)
+            print type(mcp)
+            if mcp is None : break            
+            if mcp.getEnergy() is None: 
+                print 'no PDGID'
+                continue
+            else : 
+                print mcp.getEnergy()
+
+        print '....done' 
+
         for  i in range(0,hps_event.getNumberOfEcalClusters()) :
             cl1=hps_event.getEcalCluster(i)
             cl1Position=cl1.getPosition()
@@ -383,12 +352,19 @@ def main():
 
                 cl_dj =math.sqrt( (cl_xj - phot_nom_x)*(cl_xj - phot_nom_x) + cl_yj*cl_yj )
                 Esum = cl_Ei + cl_Ej
+#         //      if(!energySlopeCut(cl_xj,cl_d,cl_Ej))
+#         //        continue
                 if  requireECalFiducial and not myhist.inFiducialRegion(cl_xj,cl_yj): 
                     continue
                 if  requireECalSuperFiducial and not myhist.inSuperFiducialRegion(cl_xj,cl_yj): 
                     continue
                 if not (cl_tj > clTimeMin and cl_tj < clTimeMax ):
                     continue
+#                print 'Found second good cluster'
+#                //if(!fid_ECal(cl_x[j],cl_y[j]))
+#         //  continue
+#         //      if(!(energySlopeCut(cl_xi,cl_di,cl_Ei) || energySlopeCut(cl_xj,cl_dj,cl_Ej)))
+#         //   continue
                 if positronMomentumFromPositionCut and not myhist.momFromPositionEclUpperCut(cl_Ej,myhist.momFromECalPosition(cl_xj,cl_zj,beamAngle,myhist.BEff)) : 
                     continue
 #                print 'Passed the probable positron cut'
@@ -476,11 +452,11 @@ def main():
                 trPos=trTop
                 clPos=clTop
             
-            if trEle is not None and trEle.getPDG() == -11 :# whoops, it's a positron
-                trEle=trBottom
-                trPos=trTop
-                clEle=clBottom
-                clPos=clTop
+#            if trEle is not None and trEle.getPDG() == -11 :# whoops, it's a positron
+#                trEle=trBottom
+#                trPos=trTop
+#                clEle=clBottom
+#                clPos=clTop
 #            if trPos is not None and trPos.getPDG() == 11 : # whoops, it's an electron
 #                trEle=trBottom
 #                trPos=trTop
@@ -492,87 +468,21 @@ def main():
             if topY*botY >0 : 
                 print "both clusters in same half?? How could this happen?"+str(topY)+" vs "+str(botY)
 
-            if trackKiller and isMC: 
-                if killInMomentum : 
-                    p=clEle.getEnergy()
-                    bin=effData.FindBin(p)                    
-                    tkEff=effData.GetBinContent(bin)
-                    print str(p)+ ' '+str(bin)+' '+str(tkEff)
-                    if random.random()>tkEff  :  #high ratio of efficiencies, this hardly  kills...low, kills a lot
-                        print "REJECTING THIS ELECTRON TRACK!!! "+str(p)
-                        trEle=None 
-                #### same thing for positron side
-                    p=clPos.getEnergy()
-                    bin=effData.FindBin(p)                    
-                    tkEff=effData.GetBinContent(bin)
-                    print str(p)+' '+str(bin)+' '+str(tkEff)
-                    if random.random()>tkEff  :  #high ratio of efficiencies, this hardly  kills...low, kills a lot
-                        print "REJECTING THIS ELECTRON TRACK!!! "+str(p)
-                        trPos=None
-                if killInClusterPosition:  
-                    clX=clEle.getPosition()[0]
-                    clY=clEle.getPosition()[1]
-                    bin=effData.FindBin(clX,clY)
-                    tkEff=effData.GetBinContent(bin)
-                    if random.random()>tkEff  and tkEff!=0.0:  
-                        print str(clX)+ ' '+str(clY)+' '+str(bin)+' '+str(tkEff)
-                        print "REJECTING THIS ELECTRON TRACK!!! "+str(clX)
-                        trEle=None
-                    clX=clPos.getPosition()[0]
-                    clY=clPos.getPosition()[1]
-                    bin=effData.FindBin(-clX+80,clY) # flip sign +80mm for positron side (this isn't strictly correct)!!!
-                    tkEff=effData.GetBinContent(bin)                    
-                    if random.random()>tkEff and tkEff!=0.0  :  
-                        print str(clX)+ ' '+str(clY)+' '+str(bin)+' '+str(tkEff)
-                        print "REJECTING THIS POSITRON TRACK!!! "+str(clX)
-                        trPos=None
-
+#            print coplanarity
             myhist.fillBand("_copAll_",trEle,clEle,trPos,clPos)
             
-            if abs(coplanarity-180)<10 :                
-                #  some debugging here...
-                #  for events where there is a positron track and no electron track
-                #  check to see if there maybe is a track that's could be associated with this clus
-                if trEle is None and trPos is not None and trPos.getCharge()>0 : 
-                    nMatchEle=0;
-                    print 'found positron but not electron!  ele energy = '+str(clEle.getEnergy())+'; ele clX = '+str(clEle.getPosition()[0])+'; ele clY = '+str(clEle.getPosition()[1])
-                    #loop through the electrons in event and check to see if on is in the same half
-                    for fsp_n in xrange(0, hps_event.getNumberOfParticles(HpsParticle.FINAL_STATE_PARTICLE)) :            
-                        fsp = hps_event.getParticle(HpsParticle.FINAL_STATE_PARTICLE,fsp_n)
-                        if fsp.getType() !=0 : 
-                            if  fsp.getType() > 32  : continue
-                            track=fsp.getTracks()[0]
-                            slope=track.getTanLambda()
-                            if fsp.getCharge()<0 and slope*clEle.getPosition()[1]>0 and pMag(fsp.getMomentum())<0.8 : 
-                                nMatchEle=nMatchEle+1
-                                print 'found and electron in right half!!'
-                                print 'track p = '+str(pMag(fsp.getMomentum())) 
-                                trkAtEcal=track.getPositionAtEcal()
-                                delX=trkAtEcal[0]-clEle.getPosition()[0]
-                                delY=trkAtEcal[1]-clEle.getPosition()[1]
-                                print 'trk-clEle delX = '+str(delX)+'; delY = '+str(delY)
-                                myhist.h_misEle_delXvsdelY.Fill(delX,delY)
-                                myhist.h_misEle_trkPvsclE.Fill(pMag(fsp.getMomentum()),clEle.getEnergy())
-                                if len(fsp.getClusters())>0 : 
-                                    clThisE=fsp.getClusters()[0]
-                                    print '...this track matched to cluster with ele energy = '+str(clThisE.getEnergy())+'; ele clX = '+str(clThisE.getPosition()[0])+'; ele clY = '+str(clThisE.getPosition()[1])
-########################                    
-                    myhist.h_misEle_eleTrks.Fill(nMatchEle)
+            if abs(coplanarity-180)<10 :                 
                 myhist.fillBand("_cop180_",trEle,clEle,trPos,clPos)
                 if Esum>myhist.midESumLow and Esum<myhist.midESumHigh :
                     myhist.fillBand("_cop180_midESum_",trEle,clEle,trPos,clPos)
-                    if myhist.inSuperFiducialRegion(topX,topY) and myhist.inSuperFiducialRegion(botX,botY):
-                        myhist.fillBand("_cop180_midESum_SuperFid",trEle,clEle,trPos,clPos)  
-                    if not myhist.inSuperFiducialRegion(topX,topY) and not myhist.inSuperFiducialRegion(botX,botY):
-                        myhist.fillBand("_cop180_midESum_AntiSuperFid",trEle,clEle,trPos,clPos)
                 if myhist.inSuperFiducialRegion(topX,topY) and myhist.inSuperFiducialRegion(botX,botY):
                     myhist.fillBand("_cop180_SuperFid",trEle,clEle,trPos,clPos)  
+#                    if  myhist.momFromPositionEclUpperCut(topE,myhist.momFromECalPosition(topX,topZ,beamAngle,myhist.BEff)) and myhist.momFromPositionEclUpperCut(botE,myhist.momFromECalPosition(botX,botZ,beamAngle,myhist.BEff)): 
                     if not myhist.inPhotonHole(topX,topY) and not myhist.inPhotonHole(botX,botY) : 
                         myhist.fillBand("_cop180_SuperFid_CutPhotons",trEle,clEle,trPos,clPos)  
-                if not myhist.inSuperFiducialRegion(topX,topY) and not myhist.inSuperFiducialRegion(botX,botY):
-                    myhist.fillBand("_cop180_AntiSuperFid",trEle,clEle,trPos,clPos)                      
                 if Ediff<0.2 and len(pairList)==1: 
                     myhist.fillBand("_cop180_Holly_",trEle,clEle,trPos,clPos)
+#                if  myhist.momFromPositionEclUpperCut(topE,myhist.momFromECalPosition(topX,topZ,beamAngle,myhist.BEff)) and myhist.momFromPositionEclUpperCut(botE,myhist.momFromECalPosition(botX,botZ,beamAngle,myhist.BEff)): 
                 if not myhist.inPhotonHole(topX,topY) and not myhist.inPhotonHole(botX,botY) : 
                     myhist.fillBand("_cop180_CutPhotons",trEle,clEle,trPos,clPos)  
             elif abs(coplanarity-160)<10 :                 

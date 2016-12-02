@@ -32,15 +32,27 @@ class myHistograms:
 
     tridentMass = ROOT.TH1F("TridentMass","Trident Mass (GeV)", nbinsBig, 0, 0.100)
     histogramList.append(tridentMass)
+    threeTrackMass = ROOT.TH1F("threeTrackMass","3 Track Mass (GeV)", nbinsBig, 0, 0.100)
+    histogramList.append(threeTrackMass)
+    threeTrackDalitz = ROOT.TH2F("threeTrackDalitz","Three Track Dalitz Plot", nbinsSmall, 0, 0.0050, nbinsSmall, 0, 0.0050)
+    histogramList.append(threeTrackDalitz)
     tridentMassVtxCut = ROOT.TH1F( "TridentMassBeforeVertex", "Trident Mass (GeV): Before  VtxCut", nbinsBig, 0, 0.100)
     histogramList.append(tridentMassVtxCut)    
 
     eSum =  ROOT.TH1F("eSum", "Energy Sum", nbinsSmall, 0.3, 1.2)
     histogramList.append(eSum)
+    eSum3Track =  ROOT.TH1F("eSum3Track", "Energy Sum", nbinsSmall, 0.3, 1.2)
+    histogramList.append(eSum3Track)
     eDiff =  ROOT.TH1F("eDiffoverESum", "Energy Difference", nbinsSmall, -0.8, 0.8)    
     histogramList.append(eDiff)
-    ePosvseEle=ROOT.TH2F("ePosvseEle","Positron vs Electron Energy",nbinsSmall,0.1,0.9,50,0.1,0.9)
+    ePosvseEle=ROOT.TH2F("ePosvseEle","Positron vs Electron Energy",100,0.1,0.9,100,0.1,0.9)
     histogramList.append(ePosvseEle)
+    ePosvseEleBig=ROOT.TH2F("ePosvseEleBig","Positron vs Big Electron Energy",100,0.1,0.9,100,0.1,0.9)
+    histogramList.append(ePosvseEleBig)
+    ePosvseEleSmall=ROOT.TH2F("ePosvseEleSmall","Positron vs Small Electron Energy",100,0.1,0.9,100,0.1,0.9)
+    histogramList.append(ePosvseEleSmall)
+    ePosvseEleRandom=ROOT.TH2F("ePosvseEleRandom","Positron vs Random Electron Energy",100,0.1,0.9,100,0.1,0.9)
+    histogramList.append(ePosvseEleRandom)
     openAngle =  ROOT.TH1F("openAngle", "openAngle", nbinsSmall, 0.015, 0.16)
     histogramList.append(openAngle)
     minAngle = ROOT.TH1F("minAngle","Minimum Track Angle",nbinsSmall,0.01,0.03)
@@ -247,7 +259,6 @@ class myHistograms:
         name="posIsoL"+str(i)
         posIso.append(ROOT.TH1F(name,name,nbinsSmall,-7.5,7.5))
         histogramList.append(posIso[i])
-
         
  #plots in slices of Mass    
     eleMomMass=[]
@@ -374,6 +385,24 @@ class myHistograms:
         histogramList.append(massESum[i-1])
         
 
+
+    # 2-candidate plots...
+    vtxChi2P1vsP2=ROOT.TH2F("vtxChi2P1vsP2","vtxChi2P1vsP2",nbinsSmall,0,10,nbinsSmall,0,10)
+    vtxXP1vsP2=ROOT.TH2F("vtxXP1vsP2","vtxXP1vsP2",nbinsSmall,-2,2,nbinsSmall,-2,2)
+    vtxYP1vsP2=ROOT.TH2F("vtxYP1vsP2","vtxYP1vsP2",nbinsSmall,-2,2,nbinsSmall,-2,2)
+    vtxZP1vsP2=ROOT.TH2F("vtxZP1vsP2","vtxZP1vsP2",nbinsSmall,-25,25,nbinsSmall,-25,25)
+    pEle1vsEle2=ROOT.TH2F("pEle1vsEle2","pEle1vsEle2",nbinsSmall,0,1,nbinsSmall,0,1)
+    tEle1vsEle2=ROOT.TH2F("tEle1vsEle2","tEle1vsEle2",nbinsSmall,-10,10,nbinsSmall,-10,10)
+    missingMassSq=ROOT.TH1F("missingMassSq","missingMassSq",nbinsSmall,0,0.0025)
+
+    histogramList.append(vtxChi2P1vsP2)
+    histogramList.append(vtxXP1vsP2)
+    histogramList.append(vtxYP1vsP2)
+    histogramList.append(vtxZP1vsP2)
+    histogramList.append(pEle1vsEle2)
+    histogramList.append(tEle1vsEle2)
+    histogramList.append(missingMassSq)
+
     beam=[np.sin(0.0305),0,np.cos(0.0305)]
     beamRotAxis=[0,1,0]
     rotAngle=-0.0305
@@ -425,7 +454,7 @@ class myHistograms:
 
     #takes in an HpsParticle candidate and makes plots
     #use this for reconstructed events
-    def fillCandidateHistograms(self,particle, ucparticle = None) :
+    def fillCandidateHistograms(self,particle, recoil=None, ucparticle = None) :
         toBeamFrame=self.rotation_matrix(self.beamRotAxis,self.rotAngle)
   #fill the vertex position plots        
         vposition=particle.getVertexPosition()
@@ -454,7 +483,13 @@ class myHistograms:
         
         eleBeam =self.rotateFourMomentum(self.getLorentzVector(pEle),toBeamFrame)
         posBeam =self.rotateFourMomentum(self.getLorentzVector(pPos),toBeamFrame)
-        self.fillHistograms(eleBeam,posBeam)
+        
+        recBeam=None
+        if recoil is not None : 
+            pRec = recoil.getMomentum()
+            recBeam=self.rotateFourMomentum(self.getLorentzVector(pRec),toBeamFrame)
+                    
+        self.fillHistograms(eleBeam,posBeam,recBeam)
         #get tracks
         eleTrk=electron.getTracks().At(0)
         posTrk=positron.getTracks().At(0)
@@ -519,21 +554,44 @@ class myHistograms:
                                           
     # note that pE, pP, and pR are in the BEAM frame!
     # ...for truth MC, use this directly
-    def fillHistograms(self,pE,pP,pR = None) :
+    def fillHistograms(self,pE,pP,pR ) :
+        self.ePosvseEleRandom.Fill(pE.E(),pP.E())  # this assumes the "pE" and "pR" are randomly assigned
+        if pR != None and  pE.E() > pR.E() :  # sorts the primary and recoil electrons by energy 
+            tmp=pR
+            pR=pE
+            pE=tmp
+        pV0=pE+pP
         toDetFrame=self.rotation_matrix(self.beamRotAxis,-self.rotAngle)
         pEDet=self.rotateFourMomentum(pE,toDetFrame)
         pPDet=self.rotateFourMomentum(pP,toDetFrame)
         if pR != None: 
             pRDet=self.rotateFourMomentum(pR,toDetFrame)
-#        print pE
-#        print pEDet
-        mass=math.sqrt(pE.Mag2()+pP.Mag2()+2*(pE*pP))
+        #these two mass calculations give same value!  Good!
+        #mass0=math.sqrt(pE.Mag2()+pP.Mag2()+2*(pE*pP))
+        mass=math.sqrt(pV0.M2())
+        if pR != None: 
+            p3body=pV0+pR
+            pOther=pR+pP
+            massPR=math.sqrt(pR.Mag2()+pP.Mag2()+2*(pR*pP))
+            self.tridentMass.Fill(massPR)
+            #these two mass calculations give same value!  Good!
+#            mass3body0=math.sqrt(pR.Mag2()+pP.Mag2()+pE.Mag2()+2*(pR*pP+pE*pP+pE*pR)) 
+            mass3body=math.sqrt(p3body.M2())
+            esum3body=pE.E()+pP.E()+pR.E()
+            self.eSum.Fill(pOther.E())  
+            self.eSum3Track.Fill(esum3body)
+            self.threeTrackMass.Fill(mass3body)
+            self.threeTrackDalitz.Fill(mass*mass,massPR*massPR)
+            
         self.tridentMass.Fill(mass)
-        pV0=pE+pP
         ediff=(pE.E()-pP.E())/pV0.E()
         self.eSum.Fill(pV0.E())  
         self.eDiff.Fill(ediff)
         self.ePosvseEle.Fill(pE.E(),pP.E())
+        self.ePosvseEleBig.Fill(pE.E(),pP.E())
+        if pR!=None: 
+            self.ePosvseEle.Fill(pR.E(),pP.E())            
+            self.ePosvseEleSmall.Fill(pR.E(),pP.E())            
         self.eleMom.Fill(pE.E())
         self.posMom.Fill(pP.E())
         if pR != None :
@@ -601,6 +659,48 @@ class myHistograms:
         self.phiV0Mass[massBin].Fill(abs(pV0.Phi())) 
         
 
+    def fillThreeTrackPlots(self,cand0,cand1) :
+        
+        candpos=cand0.getParticles().At(0)
+        candele=cand0.getParticles().At(1)
+        if candpos.getCharge()<0 : 
+            candpos=cand0.getParticles().At(1)
+            candele=cand0.getParticles().At(0)    
+            print "swapping cand"
+        recele= cand1.getParticles().At(0)
+        recpos= cand1.getParticles().At(1)
+        if recele.getCharge()> 0 :
+            print "swapping recoil"
+            recele= cand1.getParticles().At(1)
+            recpos= cand1.getParticles().At(0)### shoudl be same as candpos!!!
+
+#        print 'Positron p' +str(pMag(candpos.getMomentum()))
+#        print 'Electron p' +str(pMag(candele.getMomentum()))
+#        print 'Recoil   p' +str(pMag(recoil.getMomentum()))
+#        print 'Recoil Positron   p' +str(pMag(recpos.getMomentum()))
+
+        c0chi2=cand0.getVertexFitChi2()
+        c1chi2=cand1.getVertexFitChi2()
+        self.vtxChi2P1vsP2.Fill(c0chi2,c1chi2)
+        c0vpos=cand0.getVertexPosition()
+        c1vpos=cand1.getVertexPosition()
+        self.vtxXP1vsP2.Fill(c0vpos[0],c1vpos[0])
+        self.vtxYP1vsP2.Fill(c0vpos[1],c1vpos[1])
+        self.vtxZP1vsP2.Fill(c0vpos[2],c1vpos[2])
+
+        self.pEle1vsEle2.Fill(self.pMag(candele.getMomentum()),self.pMag(recele.getMomentum()))
+        self.tEle1vsEle2.Fill(candele.getTracks()[0].getTrackTime(),recele.getTracks()[0].getTrackTime())
+
+
+        toDetFrame=self.rotation_matrix(self.beamRotAxis,-self.rotAngle)
+        pIn=self.rotateFourMomentum(self.getLorentzVector([0,0,1.05]),toDetFrame)
+        pCandEle=self.getLorentzVector(candele.getMomentum())
+        pCandPos=self.getLorentzVector(candpos.getMomentum()) 
+        pRecEle=self.getLorentzVector(recele.getMomentum())
+        pOut=pCandEle+pCandPos+pRecEle
+        pDiff=pIn-pOut
+        self.missingMassSq.Fill(pDiff.M2())
+
     #take a rootfile with already filled histograms 
     #and add them to the current set
     def addHistograms(self, rootfile) : 
@@ -662,7 +762,7 @@ class myHistograms:
         p.SetPx(float(mom[0]))
         p.SetPy(float(mom[1]))
         p.SetPz(float(mom[2]))
-        p.SetE(float(self.pMag(mom)))
+        p.SetE(float(math.sqrt(self.pMag(mom)*self.pMag(mom)+me*me)))
     #    p.Print()
         return p 
 
@@ -769,3 +869,33 @@ class myHistograms:
                 in_fid = True
     
         return in_fid
+
+
+    def getSharedHits(self,trk1,trk2) : 
+        hitsTrk1=trk1.getSvtHits()  
+        hitsTrk2=trk2.getSvtHits()
+        overlap=0
+        for hit1 in hitsTrk1 : 
+            for hit2 in hitsTrk2 : 
+                if hit1 == hit2 : 
+#                    print "found overlapping hit"
+                    overlap+=1
+        return overlap
+
+
+    def checkIfShared(self, fspList,fspCand) : 
+        
+        for ind in range(0,len(fspList)) : 
+            fsp=fspList[ind]
+            trk=fsp.getTracks()[0]
+            trkCand=fspCand.getTracks()[0]
+            if self.getSharedHits(trk,trkCand) > 2 :
+#                print 'found shared track  ' + str(self.getSharedHits(trk,trkCand) )
+                if len(trkCand.getSvtHits()) > len(trk.getSvtHits()): 
+                    #replace element in fspList
+#                    print 'replacing track in list because trkCand has '+str(  len(trkCand.getSvtHits()) ) +' while trk only has '+str(len(trk.getSvtHits()))
+                    fspList[ind]=fspCand  ###  does this work?  
+#                    print '...now trk has '+str(len(fspList[ind].getTracks()[0].getSvtHits()))
+                    return True
+
+        return False

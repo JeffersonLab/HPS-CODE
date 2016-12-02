@@ -52,14 +52,15 @@ def main() :
 #    lines = tmp.readlines()
     
      dataPath="OutputHistograms/Data/"
-#     label="_pass6_useGBL_ECalMatch"
-     label="_pass6_useGBL_ECalMatch_ECalCoincidence"
-     mcTag="_TrackKiller_Position"
+     label="_engrun2015_pass6_TopBot_LeftRight"
+#     label="_pass6_useGBL_ECalMatch_ECalCoincidence"
+#     mcTag="_TrackKiller_Position"
+     mcTag="_TrackKiller_Momentum"
 #     mcTag=""
      dataNorm=[1/iLumi]
      mcPath="OutputHistograms/MC/"
      mcLabel="_HPS-EngRun2015-Nominal-v5-0"
-     prefix="fromscratch_"
+     prefix=""
      run="hps_005772"
 #     mcSamples=["wab","tritrig","wab-beam-tri"]
 #     mcSamples=["wab","tritrig"]

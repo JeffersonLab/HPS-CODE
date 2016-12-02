@@ -18,8 +18,8 @@ data_postfix='.root'
 doMC = True
 doData = False
 doPulser = False
-analysis='tridentAnalysis_pass4.py'
-analysisPulser='pulserAnalysis_pass4.py'
+analysis='tridentAnalysis.py'
+analysisPulser='pulserAnalysis.py'
 anapre='tridents_'
 if doData : 
     for run in runList:
@@ -47,9 +47,9 @@ if doPulser :
         
 #mcTypeList=['RAD','BH','tritrig-beam-tri','beam-tri']
 #mcTypeList=['wab-beam-tri','beam-tri','tritrig','pulser-beam-tri','pulser-wab-beam-tri','tritrig-beam-tri','tritrig-wab-beam-tri' ]
-mcTypeList=['wab-beam-tri']
-#mcTypeList=['tritrig-beam-tri','tritrig-wab-beam-tri']
 #mcTypeList=['wab-beam-tri']
+#mcTypeList=['tritrig-beam-tri','tritrig-wab-beam-tri']
+mcTypeList=['wab']
 mc_dir='/nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst'
 mc_prefix='HPS-EngRun2015-Nominal-v4-4'
 mc_postfix='.root'

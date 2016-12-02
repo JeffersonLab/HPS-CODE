@@ -8,8 +8,8 @@ class myHistograms:
     beam=[np.sin(0.0305),0,np.cos(0.0305)]
     beamRotAxis=[0,1,0]
     rotAngle=-0.0305
-    BEff=0.24
-#    BEff=0.5
+#    BEff=0.24
+    BEff=0.5
     beamAngle = 0.0305
     midESumLow=0.25*2.3/1.05
     midESumHigh=0.70*2.3/1.05
@@ -39,8 +39,10 @@ class myHistograms:
             minESum=0.4
             minESum=2.5
             self.BEff=0.5
-            self.midESumLow=self.midESumLow*2.3/1.05
+#            self.midESumLow=self.midESumLow*2.3/1.05
             self.midESumHigh=self.midESumHigh*0.9*2.3/1.05
+            self.midESumLow=1.1
+            self.midESumHigh=1.9
 
         self.h_coplan_Esum1 = ROOT.TH2D("h_coplan_Esum1", "", 200, minESum, maxESum, 200, 120., 240.)  
         self.h_clTime1vsclTime2 = ROOT.TH2D("h_clTime1vsclTime2", "", 100, 40,70, 100, 40,70)

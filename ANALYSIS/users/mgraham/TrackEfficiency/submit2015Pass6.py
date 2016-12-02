@@ -5,17 +5,18 @@ import string
 import os
 from subprocess import Popen, PIPE
 
-analysis_postfix='engrun2015_pass6'
+#analysis_postfix='engrun2015_pass6_TopBot_LeftRight_TrackKiller_Momentum'
+#analysis_postfix='engrun2015_pass6_TopBot_LeftRight_TrackKiller_Position'
+analysis_postfix='engrun2015_pass6_TopBot_LeftRight'
+#analysis_postfix='foobar' 
 #analysis_postfix='pass6_useGBL_ECalMatch_SuperFiducialCut'
-#analysis_postfix='pass4_useGBL_ECalMatch_SuperFiducialCut_2Tracks'
-#analysis_postfix='pass4_useGBL_ECalMatch_SuperFiducialCut_MoreThan2Tracks_HighESum'
 #mc_dir='mc/tritrig/dst/'
 runList=['5772']
 data_dir='/nfs/slac/g/hps3/data/engrun2015/pass6/dst'
 pulser_dir='/nfs/slac/g/hps3/data/engrun2015/pass6/skim/pulser'
 data_prefix='hps_00'
 data_postfix='.root'
-doMC = False
+doMC = True
 doData = True
 doPulser = False
 analysis='tridentEfficiencyAnalysis.py'
@@ -46,11 +47,12 @@ if doPulser :
         
 #mcTypeList=['RAD','BH','tritrig-beam-tri','beam-tri']
 #mcTypeList=['wab-beam-tri','beam-tri','tritrig','pulser-beam-tri','pulser-wab-beam-tri','tritrig-beam-tri','tritrig-wab-beam-tri' ]
-mcTypeList=['wab-beam-tri']
+#mcTypeList=['wab-beam-tri','wab','tritrig','tritrig-NOSUMCUT','wab-beam-tri-zipFix']
+mcTypeList=['wab','tritrig-NOSUMCUT','wab-beam-tri-zipFix']
 #mcTypeList=['tritrig-beam-tri','tritrig-wab-beam-tri']
 #mcTypeList=['wab-beam-tri']
 mc_dir='/nfs/slac/g/hps3/data/engrun2015/pass6/mc/dst'
-mc_prefix='HPS-EngRun2015-Nominal-v4-4'
+mc_prefix='HPS-EngRun2015-Nominal-v5-0'
 mc_postfix='.root'
 if doMC is True : 
     for mcType in mcTypeList:
@@ -59,6 +61,6 @@ if doMC is True :
         outfile='OutputHistograms/MC/'+mcType+'_'+mc_prefix+'_'+analysis_postfix+'.root'
         dstfile=mc_dir+'/'+mcType+'/'+'*'+mc_prefix #TChain will glob onto this
         print dstfile
-        cmd='bsub -q long -W 5000 -o '+logfile+' python '+analysis+' -m True -e 2.3  -o '+outfile+' '+dstfile
+        cmd='bsub -q long -W 5000 -o '+logfile+' python '+analysis+' -m True -e 1.05  -o '+outfile+' '+dstfile
         print cmd
         os.system(cmd)

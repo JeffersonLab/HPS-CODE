@@ -1,0 +1,14 @@
+
+
+
+def getEfficiencyPlot(num, den ) :
+
+denom =esum_all.Clone();
+denom.Rebin(effRebin);
+denom.Sumw2();
+numer=esum_found_both.Clone();
+numer.Rebin(effRebin);
+numer.Sumw2();
+eff=ROOT.TGraphAsymmErrors()
+eff.Divide(numer,denom)
+
