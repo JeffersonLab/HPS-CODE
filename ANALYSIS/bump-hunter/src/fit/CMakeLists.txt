@@ -16,6 +16,7 @@ target_link_libraries(BumpHunter
     ${ROO_FIT_CORE}
     ${ROOT_MATH_LIB}
     HpsFitResult
+    FitPrinter
 )
 
 add_executable(bump_hunt_evaluator bump_hunt_evaluator.cxx)
@@ -31,8 +32,8 @@ target_link_libraries(bump_hunt_evaluator
     HpsFitResult
 )
 
-add_executable(set_upper_limits set_upper_limits.cxx)
-target_link_libraries(set_upper_limits
+add_executable(bump_hunter bump_hunter.cxx)
+target_link_libraries(bump_hunter
     ${ROOT_CORE_LIB}
     ${ROOT_RIO_LIB}
     ${ROOT_HIST_LIB} 

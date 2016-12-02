@@ -9,19 +9,26 @@
 
 #include <unistd.h>
 
-void rotate_entry(stdhep_entry *entry, double theta)
+void rotate_entry(stdhep_entry *entry, double theta_x, double theta_y)
 {
 	double px = entry->phep[0];
 	double pz = entry->phep[2];
 	double vx = entry->vhep[0];
 	double vz = entry->vhep[2];
-	entry->phep[0] = px*cos(theta) + pz*sin(theta);
-	entry->phep[2] = pz*cos(theta) - px*sin(theta);
-	entry->vhep[0] = vx*cos(theta) + vz*sin(theta);
-	entry->vhep[2] = vz*cos(theta) - vx*sin(theta);
+	entry->phep[0] = px*cos(theta_x) + pz*sin(theta_x);
+	entry->phep[2] = pz*cos(theta_x) - px*sin(theta_x);
+	entry->vhep[0] = vx*cos(theta_x) + vz*sin(theta_x);
+	entry->vhep[2] = vz*cos(theta_x) - vx*sin(theta_x);
+
+    double py = entry->phep[1];
+    double vy = entry->vhep[1];
+    entry->phep[1] = py*cos(theta_y) + pz*sin(theta_y);
+    entry->phep[2] = pz*cos(theta_y) - py*sin(theta_y);
+    entry->vhep[1] = vy*cos(theta_y) + vz*sin(theta_y);
+    entry->vhep[2] = vz*cos(theta_y) - vy*sin(theta_y);
 }
 
-// takes input stdhep file, applies beam rotation and width, and writes to a new stdhep file
+// takes input stdhep file, applies beam rotation and width to each event, and writes to a new stdhep file
 int main(int argc,char** argv)
 {
 	int nevhep;             /* The event number */
@@ -29,14 +36,14 @@ int main(int argc,char** argv)
 
 	int rseed = 0;
 
-	double theta = 0.0305;
+    double theta_x = 0.029463; 
+    double theta_y = -0.000895;
 	double sigma_x = 0.300;
 	double sigma_y = 0.030;
-    double target_z = 0.0;
 
 	int c;
 
-	while ((c = getopt(argc,argv,"hs:x:y:r:z:")) !=-1)
+	while ((c = getopt(argc,argv,"hs:x:y:r:t:")) !=-1)
 		switch (c)
 		{
 			case 'h':
@@ -44,24 +51,24 @@ int main(int argc,char** argv)
 				printf("-s: RNG seed\n");
 				printf("-x: beam sigma_x in mm\n");
 				printf("-y: beam sigma_y in mm\n");
-				printf("-r: beam rotation in radians\n");
-				printf("-z: target Z in mm\n");
+				printf("-r: beam x rotation in radians\n");
+                printf("-t: beam y rotation in radians\n");
 				return(0);
 				break;
 			case 's':
 				rseed = atoi(optarg);
 				break;
 			case 'r':
-				theta = atof(optarg);
+				theta_x = atof(optarg);
 				break;
+            case 't':
+                 theta_y = atof(optarg);
+                break;
 			case 'x':
 				sigma_x = atof(optarg);
 				break;
 			case 'y':
 				sigma_y = atof(optarg);
-				break;
-			case 'z':
-				target_z = atof(optarg);
 				break;
 			case '?':
 				printf("Invalid option or missing option argument; -h to list options\n");
@@ -93,7 +100,7 @@ int main(int argc,char** argv)
 
 	open_write(argv[optind+1],ostream,n_events);
 
-	printf("Rotating by %f radians; beam size %f mm in X, %f mm in Y, target at Z=%f mm\n",theta, sigma_x, sigma_y, target_z);
+	printf("Rotating by %f radians in X and %f radians in Y; beam size %f mm in X, %f mm in Y\n",theta_x, theta_y, sigma_x, sigma_y);
 
 	while (true) {
 		if (!read_next(istream)) {
@@ -108,8 +115,7 @@ int main(int argc,char** argv)
 		if (sigma_y>0) shift_y = sigma_y*gsl_ran_gaussian(r,sigma_y);
 
 		for (int i=0;i<new_event.size();i++) {
-			new_event[i].vhep[2]+=target_z;
-			rotate_entry(&(new_event[i]),theta);
+			rotate_entry(&(new_event[i]),theta_x,theta_y);
 			new_event[i].vhep[0]+=shift_x;
 			new_event[i].vhep[1]+=shift_y;
 		}
