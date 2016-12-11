@@ -18,13 +18,10 @@ BumpHunter::BumpHunter(int poly_order)
       signal(nullptr), 
       bkg(nullptr),
       ofs(nullptr),
-      low_bound(0.013), 
-      high_bound(-9999),
       max_window_size(0.02205),
       window_size(0.01),
       bkg_poly_order(poly_order), 
       bkg_only(false),
-      debug(false), 
       fix_window(false) {
 
     // Turn off all messages except errors
@@ -82,7 +79,7 @@ BumpHunter::~BumpHunter() {
     if (ofs != nullptr) ofs->close();
 }
 
-std::map<double, HpsFitResult*> BumpHunter::fitWindow(TH1* histogram, double start, double end, double step) {
+/*std::map<double, HpsFitResult*> BumpHunter::fitWindow(TH1* histogram, double start, double end, double step) {
 
     // Set the range of the mass variable based on the range of the histogram. 
     variable_map["invariant mass"]->setRange(histogram->GetXaxis()->GetXmin(), histogram->GetXaxis()->GetXmax()); 
@@ -113,9 +110,25 @@ std::map<double, HpsFitResult*> BumpHunter::fitWindow(TH1* histogram, double sta
     delete data;
 
     return results;  
-} 
+}*/
 
 HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis) { 
+
+    // Find the lower bound of the histogram
+    lower_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindFirstBinAbove());
+    this->printDebug("Histogram lower bound: " + std::to_string(lower_bound));
+
+    // Find the upper bound of the histogram
+    upper_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindLastBinAbove());
+    this->printDebug("Histogram upper bound: " + std::to_string(upper_bound));
+   
+    // Set the total number of bins 
+    variable_map["invariant mass"]->setBins(histogram->GetNbinsX());
+
+    // Find the bin center that is closest to the A' mass hypothesis
+    this->printDebug("A' mass hypothesis: " + std::to_string(ap_hypothesis)); 
+    ap_hypothesis = histogram->GetXaxis()->GetBinCenter(histogram->GetXaxis()->FindBin(ap_hypothesis));
+    this->printDebug("Shifting A' mass hypothesis to nearest bin center: " + std::to_string(ap_hypothesis));  
 
     // Create a histogram object compatible with RooFit.
     RooDataHist* data = new RooDataHist("data", "data", RooArgList(*variable_map["invariant mass"]), histogram);
@@ -137,43 +150,53 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
 
     // If the A' hypothesis is below the lower bound, throw an exception.  A 
     // fit cannot be performed using an invalid value for the A' hypothesis.
-    this->printDebug("A' mass hypothesis: " + std::to_string(ap_hypothesis)); 
-    if (ap_hypothesis < low_bound) throw std::runtime_error("A' hypothesis is less than the lower bound!"); 
+    if (ap_hypothesis < lower_bound) throw std::runtime_error("A' hypothesis is less than the lower bound!"); 
 
     // Get the mass resolution at the mass hypothesis
     double mass_resolution = this->getMassResolution(ap_hypothesis);
+    this->printDebug("Mass resolution: " + std::to_string(mass_resolution));
 
-    // If the window is being allowed to vary, calculate the window size based
-    // on the mass resolution.
-    if (!fix_window) { 
-        window_size = std::trunc(mass_resolution*13*10000)/10000 + 0.00005;
-        
-        // If the window size is larger than the max size, set the window size
-        // to the max.
-        if (window_size > max_window_size) {
-            this->printDebug("Window size exceeds maximum."); 
-            window_size = max_window_size; 
-        }
+    // Calculate the fit window size
+    window_size = mass_resolution*res_factor;
+    //window_size = (mass_resolution*res_factor*10000)/10000 + 0.00005;
+    this->printDebug("Window size: " + std::to_string(window_size));
+     
+    // If the window size is larger than the max size, set the window size
+    // to the max.
+    if (window_size > max_window_size) {
+        this->printDebug("Window size exceeds maximum."); 
+        window_size = max_window_size; 
     }
-
-    // Find the starting position of the window
-    double window_start = ap_hypothesis - window_size/2;
     
+    // Find the starting position of the window. This is set to the low edge of 
+    // the bin closest to the calculated value.
+    RooUniformBinning& binning = (RooUniformBinning&) variable_map["invariant mass"]->getBinning(0);
+    double window_start = ap_hypothesis - window_size/2;
+    this->printDebug("Calculated starting position of the window: " + std::to_string(window_start)); 
+    window_start = binning.binLow(binning.binNumber(window_start));
+    this->printDebug("Starting position of the window: " + std::to_string(window_start)); 
+
     // Check that the starting edge of the window is above the boundary.  If not
     // set the starting edge of the window to the boundary.  In this case, the
     // A' hypothesis will not be set to the middle of the window.
-    if ((this->low_bound != -9999) && (window_start < this->low_bound)) { 
+    if (window_start < this->lower_bound) { 
         this->printDebug("Starting edge of window " + std::to_string(window_start) + " is below lower bound.");
-        this->printDebug("Setting edge to lower bound, " + std::to_string(this->low_bound)); 
-        window_start = this->low_bound;
+        this->printDebug("Setting edge to lower bound, " + std::to_string(this->lower_bound)); 
+        window_start = this->lower_bound;
     }
+
+    double window_end = window_start + window_size;
+    this->printDebug("Calculated end position of the window: " + std::to_string(window_end)); 
+    window_end = binning.binHigh(binning.binNumber(window_end));
+    this->printDebug("Ending position of the window: " + std::to_string(window_end)); 
 
     // Check that the end edge of the window is within the high bound.  If not,
     // set the starting edge such that end edge is equal to the high bound.
-    if ((this->high_bound != -9999) && ((window_start + window_size) > this->high_bound)) { 
-        this->printDebug("End of window " + std::to_string(window_start + window_size) + " is above high bound.");
-        this->printDebug("Setting starting edge to " + std::to_string(high_bound - window_size)); 
-        window_start = high_bound - window_size;  
+    // TODO: Check that this calculation makes sense.
+    if (window_end > this->upper_bound) { 
+        this->printDebug("End of window " + std::to_string(window_end) + " is above high bound.");
+        this->printDebug("Setting starting edge to " + std::to_string(upper_bound - window_size)); 
+        window_start = upper_bound - window_size;  
     }
 
     // Set the mean of the Gaussian signal distribution
@@ -184,8 +207,8 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis) {
     
     // Set the range that will be used in the fit
     std::string range_name = "ap_mass_" + std::to_string(ap_hypothesis); 
-    variable_map["invariant mass"]->setRange(range_name.c_str(), window_start, window_start + window_size); 
-    variable_map["invariant mass"]->setRange(window_start, window_start + window_size); 
+    variable_map["invariant mass"]->setRange(range_name.c_str(), window_start, window_end); 
+    variable_map["invariant mass"]->setRange(window_start, window_end); 
    
     // Estimate the background normalization within the window by integrating
     // the histogram within the window range.  This should be close to the 
@@ -459,10 +482,10 @@ void BumpHunter::fitBkgOnly() {
     model = bkg_model; 
 }
 
-void BumpHunter::setBounds(double low_bound, double high_bound) {
-    this->low_bound = low_bound; 
-    this->high_bound = high_bound;
-    printf("Fit bounds set to [ %f , %f ]\n", this->low_bound, this->high_bound);   
+void BumpHunter::setBounds(double lower_bound, double upper_bound) {
+    this->lower_bound = lower_bound; 
+    this->upper_bound = upper_bound;
+    printf("Fit bounds set to [ %f , %f ]\n", this->lower_bound, this->upper_bound);   
 }
 
 void BumpHunter::writeResults() { 

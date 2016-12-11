@@ -67,7 +67,7 @@ class BumpHunter {
          * @param window_end
          * @param window_step 
          */
-        std::map<double, HpsFitResult*> fitWindow(TH1* histogram, double window_start, double window_end, double window_step);
+        //std::map<double, HpsFitResult*> fitWindow(TH1* histogram, double window_start, double window_end, double window_step);
 
         /**
          * Fit the given histogram in the window with range 
@@ -197,14 +197,26 @@ class BumpHunter {
         /** Output file stream */
         std::ofstream* ofs;
 
-        /** The histogram boundary on the lower end. */
-        double low_bound;
+        /** 
+         * The lower bound of the histogram. This is determined by searching
+         * for the first filled bin.
+         */
+        double lower_bound{0};
 
-        /** The histogram boundary on the higher end. */
-        double high_bound;
-        
+        /** 
+         * The upper bound of the histogram. This is determined by searching
+         * for the last filled bin.
+         */
+        double upper_bound{0};
+
         /** Maximum size of the window */
-        double max_window_size; 
+        double max_window_size;
+
+        /** 
+         * Resolution multiplicative factor used in determining the fit window 
+         * size.
+         */
+        double res_factor{13}; 
 
         /** Size of the background window that will be used to fit. */
         double window_size;
@@ -216,7 +228,7 @@ class BumpHunter {
         bool bkg_only; 
 
         /** Debug flag */
-        bool debug;
+        bool debug{false};
 
         /** Fix the size of the window that will be fit. */
         bool fix_window; 
