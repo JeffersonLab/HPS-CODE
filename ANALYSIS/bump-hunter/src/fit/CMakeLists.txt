@@ -19,19 +19,6 @@ target_link_libraries(BumpHunter
     FitPrinter
 )
 
-add_executable(bump_hunt_evaluator bump_hunt_evaluator.cxx)
-target_link_libraries(bump_hunt_evaluator
-    ${ROOT_CORE_LIB}
-    ${ROOT_RIO_LIB}
-    ${ROOT_HIST_LIB}  
-    ${ROO_FIT}
-    ${ROO_FIT_CORE}
-    RootFileReader
-    BumpHunter
-    FlatTupleMaker
-    HpsFitResult
-)
-
 add_executable(bump_hunter bump_hunter.cxx)
 target_link_libraries(bump_hunter
     ${ROOT_CORE_LIB}
