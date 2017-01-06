@@ -260,7 +260,6 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     // nuisance parameters which in this case are the background normalization
     // and polynomial constants.  Since the likelihood is being constructed
     // from a histogram, use an extended likelihood.
-    //RooAbsReal* nll = model->createNLL(*data, cmd_list);  
     RooAbsReal* nll = model->createNLL(*data, 
             RooFit::Extended(kTRUE), 
             RooFit::Verbose(kTRUE), 
@@ -282,17 +281,6 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
         m.simplex();
         status = m.migrad();
     }
-
-    // If a valid minimum was found, then
-    // 1) Run improve to try and find a better minimum.  This is done in case 
-    //    migrad ends up finding a local minium instead of a global one.
-    // 2) Run hesse
-    // 3) Run minos in order to optimize the errors the signal yield.
-    /*if (!migrad_only && status == 0) { 
-        m.improve();
-        m.hesse();
-    //    m.minos(*variable_map["signal yield"]); 
-    }*/
 
     // Save the results of the fit
     RooFitResult* result = m.save(); 
