@@ -31,3 +31,16 @@ target_link_libraries(bump_hunter
     FlatTupleMaker
     HpsFitResult
 )
+
+add_executable(evaluator evaluator.cxx)
+target_link_libraries(evaluator
+    ${ROOT_CORE_LIB}
+    ${ROOT_RIO_LIB}
+    ${ROOT_HIST_LIB} 
+    ${ROOT_TREE_LIB} 
+    ${ROO_FIT}
+    ${ROO_FIT_CORE}
+    BumpHunter
+    FlatTupleMaker
+    HpsFitResult
+)
