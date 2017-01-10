@@ -258,20 +258,20 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     //this->getUpperLimit(data,  result, ap_hypothesis);
     
     // Calculate the size of the background window as 2.56*(mass_resolution)
-    //double bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
-    //result->setBkgWindowSize(bkg_window_size); 
+    double bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
+    result->setBkgWindowSize(bkg_window_size); 
 
     // Find the starting position of the bkg window
-    //double bkg_window_start = ap_hypothesis - bkg_window_size/2;
+    double bkg_window_start = ap_hypothesis - bkg_window_size/2;
 
     // Create a range for the background window
-    //std::string bkg_range_name = "ap_mass_" + std::to_string(ap_hypothesis) + "_bkg_est";
-    //variable_map["invariant mass"]->setRange(bkg_range_name.c_str(), 
-    //        bkg_window_start, bkg_window_start + bkg_window_size);
+    std::string bkg_range_name = "ap_mass_" + std::to_string(ap_hypothesis) + "_bkg_est";
+    variable_map["invariant mass"]->setRange(bkg_range_name.c_str(), 
+            bkg_window_start, bkg_window_start + bkg_window_size);
 
     
-    //double bkg_window_integral = data->sumEntries("1", bkg_range_name.c_str()); 
-    //result->setBkgTotal(bkg_window_integral); 
+    double bkg_window_integral = data->sumEntries("1", bkg_range_name.c_str()); 
+    result->setBkgTotal(bkg_window_integral); 
 
     return result;  
 } 
