@@ -146,7 +146,7 @@ int main(int argc, char **argv) {
     tuple->addVector("toy_bkg_yield_err");  
 
 
-    HpsFitResult* fit_result = bump_hunter->fitWindow(histogram, mass_hypo);
+    HpsFitResult* fit_result = bump_hunter->fitWindow(histogram, mass_hypo, false);
      
     // Retrieve all of the result of interest. 
     double bkg_yield = ((RooRealVar*) fit_result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
@@ -177,25 +177,6 @@ int main(int argc, char **argv) {
     tuple->setVariableValue("p_value", fit_result->getPValue());
     tuple->setVariableValue("q0", fit_result->getQ0()); 
     tuple->setVariableValue("upper_limit", fit_result->getUpperLimit());
-             
-    if (toys != 0) {
-        std::vector<HpsFitResult*> toy_results = bump_hunter->runToys(histogram, toys, fit_result, mass_hypo);  
-
-        for (auto& toy_result : toy_results) { 
-            bkg_yield = ((RooRealVar*) toy_result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
-            bkg_yield_error = ((RooRealVar*) toy_result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getError();
-            signal_yield = ((RooRealVar*) toy_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getVal();
-            signal_yield_error = ((RooRealVar*) toy_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getError();
-        
-            tuple->addToVector("toy_bkg_yield", bkg_yield);  
-            tuple->addToVector("toy_bkg_yield_error", bkg_yield_error);
-            tuple->addToVector("toy_sig_yield", signal_yield);  
-            tuple->addToVector("toy_sig_yield_err", signal_yield_error);
-            tuple->addToVector("toy_upper_limits", toy_result->getUpperLimit());
-            
-        }
-    }
-
 
     // Fill the ntuple
     tuple->fill(); 
