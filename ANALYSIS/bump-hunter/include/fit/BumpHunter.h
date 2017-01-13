@@ -92,7 +92,7 @@ class BumpHunter {
         /**
          *
          */
-        void calculatePValue(RooDataHist* data, HpsFitResult* result, std::string range_name); 
+        void calculatePValue(RooDataHist* data, HpsFitResult* result, double ap_hypothesis); 
 
 
         /** Fit using a background only model. */

@@ -249,12 +249,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
 
     // Set the total number of events within the window
     result->setIntegral(integral); 
-
-    // Check if the resulting fit found a significant bump
-    //this->calculatePValue(data, result, range_name);
-
-    //this->getUpperLimit(data,  result, ap_hypothesis);
-    
+ 
     // Calculate the size of the background window as 2.56*(mass_resolution)
     double bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
     result->setBkgWindowSize(bkg_window_size); 
@@ -271,6 +266,13 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     double bkg_window_integral = data->sumEntries("1", bkg_range_name.c_str()); 
     result->setBkgTotal(bkg_window_integral); 
 
+    // Check if the resulting fit found a significant bump
+    if (!bkg_only) this->calculatePValue(data, result, ap_hypothesis);
+
+    //this->getUpperLimit(data,  result, ap_hypothesis);
+
+    variable_map["signal yield"]->setConstant(kFALSE);
+    
     return result;  
 } 
 
@@ -316,11 +318,11 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
 }
 
 
-void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, std::string range_name) { 
+void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, double ap_hypothesis) {
 
     //  Get the signal yield obtained from the composite fit
     double signal_yield = result->getParameterVal("signal yield");
-    
+
     // We only care if a signal yield is greater than 0.  In the case that it's
     // less than 0, the p-value is set to 1.
     if (signal_yield <= 0) { 
@@ -332,31 +334,26 @@ void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, std::s
     // yield floating.
     double mle_nll = result->getRooFitResult()->minNll();
 
-    // Calculate the NLL when signal yield = 0, which is the null hypothesis.
-    variable_map["signal yield"]->setVal(0);
-    
-    // Fix the signal yield at 0.
-    variable_map["signal yield"]->setConstant(kTRUE);
+    // Reset all parameters to their original values
+    this->resetParameters(); 
    
-    // Do the fit
-    HpsFitResult* cond_result = this->fit(data, true, range_name);
+    // Fit the window assuming a background only hypothesis i.e. the signal
+    // yield is set to 0.
+    HpsFitResult* cond_result = this->fitWindow(data, ap_hypothesis, true);
 
     // Get the NLL obtained from the Bkg only fit.
     double cond_nll = cond_result->getRooFitResult()->minNll();
-    this->printDebug("Cond NLL: " +std::to_string(cond_nll));  
    
-    // 1) Calculate the likelihood ratio whose underlying distribution is a 
-    //    chi2.
+    // 1) Calculate the likelihood ratio which is chi2 distributed. 
     // 2) From the chi2, calculate the p-value.
     double q0 = 0; 
     double p_value = 0; 
     this->getChi2Prob(cond_nll, mle_nll, q0, p_value);  
 
+    // Update the result
     result->setPValue(p_value);
     result->setQ0(q0);  
     
-    variable_map["signal yield"]->setConstant(kFALSE);
-
     delete cond_result; 
 }
 
@@ -375,7 +372,7 @@ void BumpHunter::resetParameters() {
         element.second->setError(default_errors[element.first]);
     }
     variable_map["invariant mass"]->setRange(0.0, 0.1);
-    variable_map["invariant mass"]->setBins(2000); 
+    variable_map["invariant mass"]->setBins(bins); 
 }
 
 void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_mass) { 
