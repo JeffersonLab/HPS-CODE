@@ -148,7 +148,7 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
     return result;
 }
 
-HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only) {
+HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only, bool const_sig) {
 
     this->printDebug("A' mass hypothesis: " + std::to_string(ap_hypothesis)); 
     RooUniformBinning& binning = (RooUniformBinning&) variable_map["invariant mass"]->getBinning(0);
@@ -219,7 +219,9 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
 
     // Set the mean of the Gaussian signal distribution
     variable_map["A' mass"]->setVal(ap_hypothesis);
-    
+
+    if (const_sig) variable_map["signal yield"]->setConstant(kTRUE);
+
     // Set the width of the Gaussian signal distribution
     variable_map["A' mass resolution"]->setVal(this->getMassResolution(ap_hypothesis)); 
     
@@ -267,9 +269,10 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     result->setBkgTotal(bkg_window_integral); 
 
     // Check if the resulting fit found a significant bump
-    if (!bkg_only) this->calculatePValue(data, result, ap_hypothesis);
-
-    //this->getUpperLimit(data,  result, ap_hypothesis);
+    if (!bkg_only) {
+        this->calculatePValue(data, result, ap_hypothesis);
+        //this->getUpperLimit(data,  result, ap_hypothesis);
+    }
 
     variable_map["signal yield"]->setConstant(kFALSE);
     
@@ -375,6 +378,7 @@ void BumpHunter::resetParameters() {
     variable_map["invariant mass"]->setBins(bins); 
 }
 
+/*
 void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_mass) { 
     
     // Set the range of the mass variable based on the range of the histogram. 
@@ -386,8 +390,9 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
     this->getUpperLimit(data, result, ap_mass);
     
     delete data;  
-}
+}*/
 
+/*
 void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass) { 
 
     std::cout << "[ BumpHunter ]: Calculating upper limit @ m_{A'} = "
@@ -412,14 +417,8 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
         // Reset all of the parameters to their original values
         this->resetParameters(); 
     
-        // Calculate the NLL when signal yield = 0, which is the null hypothesis.
-        variable_map["signal yield"]->setVal(0);
-
-        // Fix the signal yield at 0.
-        variable_map["signal yield"]->setConstant(kTRUE);
-
         // Do the fit
-        HpsFitResult* null_result = this->fit(data, true, range_name);
+        HpsFitResult* null_result = this->fitWindow(data, ap_mass, true);
     
         // Get the NLL obtained assuming the background only hypothesis
         mle_nll = null_result->getRooFitResult()->minNll(); 
@@ -430,9 +429,6 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
     double q0 = 0;
     signal_yield = floor(signal_yield);  
     while(true) {
-
-        // Set the signal yield constant.
-        variable_map["signal yield"]->setConstant(kFALSE);
 
         // Reset all of the parameters to their original values
         this->resetParameters(); 
@@ -445,7 +441,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
 
         // Set the signal yield constant.
         variable_map["signal yield"]->setConstant(kTRUE);
-        
+       
         HpsFitResult* current_result = this->fit(data, true, range_name);
         
         double cond_nll = current_result->getRooFitResult()->minNll(); 
@@ -462,11 +458,11 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
             break; 
         }
         
-        delete current_result; 
+        //delete current_result; 
     }
 
     //delete data;
-}
+}*/
 
 void BumpHunter::getChi2Prob(double cond_nll, double mle_nll, double &q0, double &p_value) {
      

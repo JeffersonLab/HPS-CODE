@@ -76,8 +76,7 @@ class BumpHunter {
 
         /**
          */
-        HpsFitResult* fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only);
-
+        HpsFitResult* fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only, bool const_sig = false);
         
         /**
          * Fit the given histogram. If a range is specified, only fit within the 
