@@ -21,7 +21,6 @@ BumpHunter::BumpHunter(int poly_order)
       max_window_size(0.02205),
       window_size(0.01),
       bkg_poly_order(poly_order), 
-      bkg_only(false),
       fix_window(false) {
 
     // Turn off all messages except errors
@@ -130,12 +129,8 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
     this->printDebug("Histogram upper bound: " + std::to_string(upper_bound));
    
     // Set the total number of bins 
-    variable_map["invariant mass"]->setBins(histogram->GetNbinsX());
-
-    // Find the bin center that is closest to the A' mass hypothesis
-    this->printDebug("A' mass hypothesis: " + std::to_string(ap_hypothesis)); 
-    ap_hypothesis = histogram->GetXaxis()->GetBinCenter(histogram->GetXaxis()->FindBin(ap_hypothesis));
-    this->printDebug("Shifting A' mass hypothesis to nearest bin center: " + std::to_string(ap_hypothesis));  
+    bins = histogram->GetNbinsX(); 
+    variable_map["invariant mass"]->setBins(bins);
 
     // Create a histogram object compatible with RooFit.
     RooDataHist* data = new RooDataHist("data", "data", RooArgList(*variable_map["invariant mass"]), histogram);
@@ -154,6 +149,11 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
 }
 
 HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only) {
+
+    this->printDebug("A' mass hypothesis: " + std::to_string(ap_hypothesis)); 
+    RooUniformBinning& binning = (RooUniformBinning&) variable_map["invariant mass"]->getBinning(0);
+    ap_hypothesis = binning.binCenter(binning.binNumber(ap_hypothesis));
+    this->printDebug("Shifting A' mass hypothesis to nearest bin center: " + std::to_string(ap_hypothesis));  
 
     // If the A' hypothesis is below the lower bound, throw an exception.  A 
     // fit cannot be performed using an invalid value for the A' hypothesis.
@@ -176,7 +176,6 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     
     // Find the starting position of the window. This is set to the low edge of 
     // the bin closest to the calculated value.
-    RooUniformBinning& binning = (RooUniformBinning&) variable_map["invariant mass"]->getBinning(0);
     double window_start = ap_hypothesis - window_size/2;
     this->printDebug("Calculated starting position of the window: " + std::to_string(window_start)); 
     window_start = binning.binLow(binning.binNumber(window_start));
@@ -252,8 +251,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     result->setIntegral(integral); 
 
     // Check if the resulting fit found a significant bump
-    //double alpha = 0.05; 
-    //this->calculatePValue(data, result, range_name, alpha);
+    //this->calculatePValue(data, result, range_name);
 
     //this->getUpperLimit(data,  result, ap_hypothesis);
     
@@ -318,7 +316,7 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
 }
 
 
-void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, std::string range_name, double alpha) { 
+void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, std::string range_name) { 
 
     //  Get the signal yield obtained from the composite fit
     double signal_yield = result->getParameterVal("signal yield");
@@ -333,7 +331,6 @@ void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, std::s
     // Get the NLL obtained by minimizing the composite model with the signal
     // yield floating.
     double mle_nll = result->getRooFitResult()->minNll();
-    this->printDebug("MLE NLL: " + std::to_string(mle_nll));
 
     // Calculate the NLL when signal yield = 0, which is the null hypothesis.
     variable_map["signal yield"]->setVal(0);
@@ -354,9 +351,6 @@ void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, std::s
     double q0 = 0; 
     double p_value = 0; 
     this->getChi2Prob(cond_nll, mle_nll, q0, p_value);  
-
-    // If P-value is less than the significance, alpha, a bump was found.
-    if (p_value < alpha) std::cout << "WTF, a Bump was found!" << std::endl;
 
     result->setPValue(p_value);
     result->setQ0(q0);  
@@ -489,11 +483,6 @@ void BumpHunter::getChi2Prob(double cond_nll, double mle_nll, double &q0, double
     this->printDebug("p-value before dividing: " + std::to_string(p_value));  
     p_value *= 0.5;
     this->printDebug("p-value: " + std::to_string(p_value)); 
-}
-
-void BumpHunter::fitBkgOnly() { 
-    this->bkg_only = true; 
-    model = bkg_model; 
 }
 
 void BumpHunter::setBounds(double lower_bound, double upper_bound) {

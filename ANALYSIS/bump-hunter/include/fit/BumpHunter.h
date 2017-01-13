@@ -92,7 +92,7 @@ class BumpHunter {
         /**
          *
          */
-        void calculatePValue(RooDataHist* data, HpsFitResult* result, std::string range_name, double alpha); 
+        void calculatePValue(RooDataHist* data, HpsFitResult* result, std::string range_name); 
 
 
         /** Fit using a background only model. */
@@ -159,7 +159,6 @@ class BumpHunter {
          */
 
         FitPrinter* printer{new FitPrinter}; 
-        //void generateToys(double n_toys); 
 
         /** A mapping between a variable name and its corresponding RooRealVar. */
         std::map <std::string, RooRealVar*> variable_map;
@@ -213,11 +212,11 @@ class BumpHunter {
         /** Size of the background window that will be used to fit. */
         double window_size;
 
+        /** The total number of bins */
+        int bins{2000};
+
         /** Polynomial order used to model the background. */
         int bkg_poly_order;
-
-        /** Use a model that only includes the background. */
-        bool bkg_only; 
 
         /** Debug flag */
         bool debug{true};
