@@ -42,6 +42,20 @@ The project can then be built as follows:
 	cmake ..
 	make
 
+Running the Bump Hunter
+------------------------
+
+Running the bump hunter can be done as follows:
+
+    bump_hunter -i <input_file.root> -m <mass> -n <histogram name> -o <output_file.root> -p <polynomial order>
+
+The arguments to the command are as follows:
+* input_file.root : A file containing a histogram that will be scanned 
+                    for a resonance, <mass> is the mass hypothesis
+* histogram name:  The name of the histogram
+* output_file.root:  The output file where results will be written to 
+* polynomial order: The order to the polynomial that will be used to model the 
+                    background.
 
 Maintainers
 -----------
