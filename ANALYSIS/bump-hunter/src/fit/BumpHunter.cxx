@@ -241,20 +241,25 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     // Fit the distribution in the given range
     HpsFitResult* result = this->fit(data, false, range_name); 
     
-    printer->print(variable_map["invariant mass"]->frame(), data, model, range_name); 
+    if (!const_sig) printer->print(variable_map["invariant mass"]->frame(), data, model, range_name); 
 
     // Set the total number of bins within the fit window
-    result->setNBins(n_bins); 
+    result->setNBins(n_bins);
+    this->printDebug("bins");
+     
 
     // Set the window size 
     result->setWindowSize(window_size);
+    this->printDebug("window size");
 
     // Set the total number of events within the window
     result->setIntegral(integral); 
+    this->printDebug("integral");
  
     // Calculate the size of the background window as 2.56*(mass_resolution)
     double bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
     result->setBkgWindowSize(bkg_window_size); 
+    this->printDebug("bkg size");
 
     // Find the starting position of the bkg window
     double bkg_window_start = ap_hypothesis - bkg_window_size/2;
@@ -267,13 +272,14 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     
     double bkg_window_integral = data->sumEntries("1", bkg_range_name.c_str()); 
     result->setBkgTotal(bkg_window_integral); 
+    this->printDebug("bkg total");
 
-    // Check if the resulting fit found a significant bump
-    if (!bkg_only) {
+    // TODO: These calculations should be moved out of this method.
+    if (!bkg_only & !const_sig) {
         this->calculatePValue(data, result, ap_hypothesis);
-        //this->getUpperLimit(data,  result, ap_hypothesis);
+        this->getUpperLimit(data,  result, ap_hypothesis);
     }
-
+    
     variable_map["signal yield"]->setConstant(kFALSE);
     
     return result;  
@@ -392,19 +398,13 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
     delete data;  
 }*/
 
-/*
 void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass) { 
 
-    std::cout << "[ BumpHunter ]: Calculating upper limit @ m_{A'} = "
-              << ap_mass << std::endl;
+    std::cout << "[ BumpHunter ]: Calculating upper limit @ m_{A'} = " << ap_mass << std::endl;
 
     //  Get the signal yield obtained from the signal+bkg fit
     double signal_yield = result->getParameterVal("signal yield");
     this->printDebug("Signal yield @ min NLL: " + std::to_string(signal_yield));
-
-    // Create the name of the range that will be used.  This assumes
-    // that the full fit was calculated before.
-    std::string range_name = "ap_mass_" + std::to_string(ap_mass); 
 
     // Get the minimum NLL value that will be used for testing upper limits.
     // If the signal yield (mu estimator) at the min NLL is < 0, use the NLL
@@ -433,36 +433,30 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
         // Reset all of the parameters to their original values
         this->resetParameters(); 
 
-        if (p_value <= 0.13) signal_yield += 1;
-        else if (p_value <= 0.2) signal_yield += 10; 
-        else signal_yield += 20;  
+        if (p_value <= 0.053) signal_yield += 1;
+        else if (p_value <= 0.10) signal_yield += 30;
+        else if (p_value <= 0.2) signal_yield += 100; 
+        else signal_yield += 300;  
         this->printDebug("Signal yield: " + std::to_string(signal_yield));
         variable_map["signal yield"]->setVal(signal_yield);
 
-        // Set the signal yield constant.
-        variable_map["signal yield"]->setConstant(kTRUE);
-       
-        HpsFitResult* current_result = this->fit(data, true, range_name);
+        HpsFitResult* current_result = this->fitWindow(data, ap_mass, false, true);
         
         double cond_nll = current_result->getRooFitResult()->minNll(); 
-        // Set the signal yield constant.
-        variable_map["signal yield"]->setConstant(kFALSE);
-        
+
         this->getChi2Prob(cond_nll, mle_nll, q0, p_value);  
 
         this->printDebug("p-value after fit: " + std::to_string(p_value)); 
-        if (p_value <= 0.1) { 
+        if (p_value <= 0.05) { 
             std::cout << "[ BumpHunter ]: Upper limit: " << signal_yield << std::endl;
             result->setUpperLimit(signal_yield); 
             delete current_result; 
             break; 
         }
         
-        //delete current_result; 
+        delete current_result; 
     }
-
-    //delete data;
-}*/
+}
 
 void BumpHunter::getChi2Prob(double cond_nll, double mle_nll, double &q0, double &p_value) {
      

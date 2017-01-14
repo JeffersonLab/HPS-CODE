@@ -218,7 +218,7 @@ class BumpHunter {
         int bkg_poly_order;
 
         /** Debug flag */
-        bool debug{true};
+        bool debug{false};
 
         /** Fix the size of the window that will be fit. */
         bool fix_window; 
