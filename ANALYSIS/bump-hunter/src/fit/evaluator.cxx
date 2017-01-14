@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
      * The number of toys to run for each fit. If toys = 0, the generation 
      * of toys will be skipped.
      */
-    int toys = 0;
+    int toys{10};
 
     /** Flag indicating whether to log all fit results or not. */ 
     bool log_fit = false; 
@@ -117,72 +117,62 @@ int main(int argc, char **argv) {
     
     // Build the string that will be used for the results file name
     if (output_file.empty()) { 
-        output_file = "fit_result_mass" + to_string(mass_hypo) + "_order" +  to_string(poly_order) + ".root"; 
+        output_file = "eval_result_mass" + to_string(mass_hypo) + "_order" +  to_string(poly_order) + ".root"; 
     }
 
     // Create a new flat ntuple and define the variables it will encapsulate.
     FlatTupleMaker* tuple = new FlatTupleMaker(output_file, "results"); 
 
-    tuple->addVariable("ap_mass"); 
-    tuple->addVariable("sig_yield");
-    tuple->addVariable("sig_yield_err");
-    tuple->addVariable("bkg_yield"); 
-    tuple->addVariable("bkg_yield_err");
-    tuple->addVariable("bkg_total");
+    tuple->addVariable("ap_mass");
+    tuple->addVariable("bkg_total"); 
     tuple->addVariable("bkg_window_size");  
-    tuple->addVariable("nll");
-    tuple->addVariable("invalid_nll"); 
-    tuple->addVariable("minuit_status");
+    tuple->addVariable("bkg_yield"); 
+    tuple->addVariable("bkg_yield_err");  
     tuple->addVariable("edm");
-    tuple->addVariable("q0"); 
+    tuple->addVariable("invalid_nll"); 
+    tuple->addVariable("minuit_status"); 
+    tuple->addVariable("nll");
     tuple->addVariable("p_value"); 
-    tuple->addVariable("upper_limit");
+    tuple->addVariable("q0"); 
+    tuple->addVariable("sig_yield");  
+    tuple->addVariable("sig_yield_err");  
     tuple->addVariable("window_size"); 
-    
-    tuple->addVector("toy_upper_limits");
-    tuple->addVector("toy_sig_yield");  
-    tuple->addVector("toy_sig_yield_err");  
-    tuple->addVector("toy_bkg_yield");  
-    tuple->addVector("toy_bkg_yield_err");  
+    tuple->addVariable("upper_limits");
 
 
-    HpsFitResult* fit_result = bump_hunter->fitWindow(histogram, mass_hypo, false);
+    std::vector<HpsFitResult*> results{bump_hunter->runToys(histogram, toys, mass_hypo)}; 
      
-    // Retrieve all of the result of interest. 
-    double bkg_yield = ((RooRealVar*) fit_result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
-    double bkg_yield_error = ((RooRealVar*) fit_result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getError();
-    double nll = fit_result->getRooFitResult()->minNll();
-    double invalid_nll = fit_result->getRooFitResult()->numInvalidNLL();
-    double minuit_status = fit_result->getRooFitResult()->status();
-    double edm = fit_result->getRooFitResult()->edm(); 
-            
-    // Set the values of the results that will be written to the ntuple.
-    tuple->setVariableValue("ap_mass", mass_hypo);  
-    tuple->setVariableValue("bkg_yield", bkg_yield);  
-    tuple->setVariableValue("bkg_yield_error", bkg_yield_error);
-    tuple->setVariableValue("bkg_total", fit_result->getBkgTotal()); 
-    tuple->setVariableValue("bkg_window_size", fit_result->getBkgWindowSize()); 
-    tuple->setVariableValue("nll", nll); 
-    tuple->setVariableValue("invalid_nll", invalid_nll); 
-    tuple->setVariableValue("minuit_status", minuit_status);
-    tuple->setVariableValue("edm", edm); 
-    tuple->setVariableValue("window_size", fit_result->getWindowSize());  
-
+    for (auto& result : results) { 
         
-    // If this isn't a background only fit evaluation, skip it.
-    double signal_yield = ((RooRealVar*) fit_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getVal();
-    double signal_yield_error = ((RooRealVar*) fit_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getError();
-    tuple->setVariableValue("sig_yield", signal_yield);  
-    tuple->setVariableValue("sig_yield_err", signal_yield_error);
-    tuple->setVariableValue("p_value", fit_result->getPValue());
-    tuple->setVariableValue("q0", fit_result->getQ0()); 
-    tuple->setVariableValue("upper_limit", fit_result->getUpperLimit());
+        double bkg_yield     = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
+        double bkg_yield_err = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getError();
+        double sig_yield     = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("signal yield"))->getVal();
+        double sig_yield_err = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("signal yield"))->getError();
+        double nll           = result->getRooFitResult()->minNll();
+        double invalid_nll   = result->getRooFitResult()->numInvalidNLL();
+        double minuit_status = result->getRooFitResult()->status();
+        double edm           = result->getRooFitResult()->edm(); 
+    
 
-    // Fill the ntuple
-    tuple->fill(); 
-
-    // Delete the fit results from memory
-    delete fit_result;  
+        tuple->setVariableValue("ap_mass",          mass_hypo);  
+        tuple->setVariableValue("bkg_total",        result->getBkgTotal()); 
+        tuple->setVariableValue("bkg_window_size",  result->getBkgWindowSize()); 
+        tuple->setVariableValue("bkg_yield",        bkg_yield);  
+        tuple->setVariableValue("bkg_yield_err",    bkg_yield_err);
+        tuple->setVariableValue("edm",              edm); 
+        tuple->setVariableValue("invalid_nll",      invalid_nll); 
+        tuple->setVariableValue("minuit_status",    minuit_status);
+        tuple->setVariableValue("nll",              nll); 
+        tuple->setVariableValue("p_value",          result->getPValue());
+        tuple->setVariableValue("q0",               result->getQ0()); 
+        tuple->setVariableValue("sig_yield",        sig_yield);  
+        tuple->setVariableValue("sig_yield_err",    sig_yield_err);
+        tuple->setVariableValue("window_size",      result->getWindowSize());  
+        tuple->setVariableValue("upper_limit",      result->getUpperLimit());
+    
+        // Fill the ntuple
+        tuple->fill(); 
+    }
 
     // Close the ntuple
     tuple->close(); 

@@ -24,6 +24,12 @@ class HpsFitResult {
         HpsFitResult(RooFitResult* result, double q0 = 0, double p_value = 0, double upper_limit = 0);
 
         ~HpsFitResult(); 
+        
+        /** @return _bins The total number of bins within the fit window. */
+        double getNBins() { return _bins; };
+
+        /** @return _integral The integral within the fit window. */
+        double getIntegral() { return _integral; };
 
         /** */
         double getQ0() { return q0; };
@@ -41,13 +47,25 @@ class HpsFitResult {
 
         double getBkgWindowSize() { return this->bkg_window_size; };  
 
-
         /** */
         double getUpperLimit() { return upper_limit; };
 
         /** @return The size of the fit window used. */
         double getWindowSize() { return this->window_size; }; 
+
+        //-------------//
+        //   Setters   //
+        //-------------//
+
+        /** Set the total number of bins within the fit window. */
+        void setNBins(double bins) { _bins = bins; };
+
+        void setBkgTotal(double bkg_total) { this->bkg_total = bkg_total; };
         
+        void setBkgWindowSize(double bkg_window_size) { this->bkg_window_size = bkg_window_size; };  
+
+        void setIntegral(double integral) { _integral = integral; };
+
         /** */
         double setQ0(double q0) { this->q0 = q0; };
 
@@ -57,9 +75,7 @@ class HpsFitResult {
         /** */
         void setRooFitResult(RooFitResult* result) { this->result = result; }; 
 
-        void setBkgTotal(double bkg_total) { this->bkg_total = bkg_total; };
 
-        void setBkgWindowSize(double bkg_window_size) { this->bkg_window_size = bkg_window_size; };  
 
         /**
          * Set the 2 sigma upper limit.
@@ -82,7 +98,13 @@ class HpsFitResult {
 
         double bkg_total;
 
-        double bkg_window_size; 
+        double bkg_window_size;
+
+        /** Total number of bins within the fit window. */
+        double _bins{0}; 
+
+        /** Total number of events within the fit window. */
+        double _integral{0};
 
         /** q0 value */
         double q0;

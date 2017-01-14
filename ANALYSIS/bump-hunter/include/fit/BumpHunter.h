@@ -67,26 +67,16 @@ class BumpHunter {
          * @param window_end
          * @param window_step 
          */
-        std::map<double, HpsFitResult*> fitWindow(TH1* histogram, double window_start, double window_end, double window_step);
+        //std::map<double, HpsFitResult*> fitWindow(TH1* histogram, double window_start, double window_end, double window_step);
 
         /**
-         * Fit the given histogram in the window with range 
-         * (window_start, window_start + window_size).  
-         * 
-         * @param data The RooFit histogram to fit.
-         * @param window_start The start of the fit window.
          */
-        HpsFitResult* fitWindow(RooDataHist* data, double window_start);
+        HpsFitResult* fitWindow(TH1* histogram, double ap_hypothesis, bool bkg_only);
+
 
         /**
-         * Fit the given histogram in the window with range 
-         * (window_start, window_start + window_size).  
-         * 
-         * @param histogram The histogram to fit.
-         * @param window_start The start of the fit window.
          */
-        HpsFitResult* fitWindow(TH1* histogram, double window_start);
-
+        HpsFitResult* fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only, bool const_sig = false);
         
         /**
          * Fit the given histogram. If a range is specified, only fit within the 
@@ -101,7 +91,7 @@ class BumpHunter {
         /**
          *
          */
-        void calculatePValue(RooDataHist* data, HpsFitResult* result, std::string range_name, double alpha); 
+        void calculatePValue(RooDataHist* data, HpsFitResult* result, double ap_hypothesis); 
 
 
         /** Fit using a background only model. */
@@ -128,9 +118,9 @@ class BumpHunter {
 
         void getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass);
 
-        std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis);
+        std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
 
-        std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, HpsFitResult* result, double ap_hypothesis);
+        std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
          
     private: 
 
@@ -154,12 +144,8 @@ class BumpHunter {
         void printDebug(std::string message); 
          
 
-        /**
-         * Reset the fit parameters to their initial values.
-         *
-         * @param initial_params A list containing the fit parameters.
-         */ 
-        void resetParameters(RooArgList initial_params); 
+        /** Reset the fit parameters to their initial values. */ 
+        void resetParameters(); 
 
         /**
          *
@@ -172,9 +158,13 @@ class BumpHunter {
          */
 
         FitPrinter* printer{new FitPrinter}; 
-        //void generateToys(double n_toys); 
 
-        std::map <std::string, RooRealVar*> variable_map; 
+        /** A mapping between a variable name and its corresponding RooRealVar. */
+        std::map <std::string, RooRealVar*> variable_map;
+
+        std::map <std::string, double> default_values; 
+        
+        std::map <std::string, double> default_errors; 
 
         /** Signal + bkg model */
         RooAddPdf* comp_model;  
@@ -197,26 +187,38 @@ class BumpHunter {
         /** Output file stream */
         std::ofstream* ofs;
 
-        /** The histogram boundary on the lower end. */
-        double low_bound;
+        /** 
+         * The lower bound of the histogram. This is determined by searching
+         * for the first filled bin.
+         */
+        double lower_bound{0};
 
-        /** The histogram boundary on the higher end. */
-        double high_bound;
-        
+        /** 
+         * The upper bound of the histogram. This is determined by searching
+         * for the last filled bin.
+         */
+        double upper_bound{0};
+
         /** Maximum size of the window */
-        double max_window_size; 
+        double max_window_size;
+
+        /** 
+         * Resolution multiplicative factor used in determining the fit window 
+         * size.
+         */
+        double res_factor{13}; 
 
         /** Size of the background window that will be used to fit. */
         double window_size;
 
+        /** The total number of bins */
+        int bins{2000};
+
         /** Polynomial order used to model the background. */
         int bkg_poly_order;
 
-        /** Use a model that only includes the background. */
-        bool bkg_only; 
-
         /** Debug flag */
-        bool debug;
+        bool debug{false};
 
         /** Fix the size of the window that will be fit. */
         bool fix_window; 
