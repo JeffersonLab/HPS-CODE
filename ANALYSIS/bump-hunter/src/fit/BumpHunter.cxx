@@ -191,6 +191,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     }
 
     double window_end = window_start + window_size;
+
     this->printDebug("Calculated end position of the window: " + std::to_string(window_end)); 
     window_end = binning.binHigh(binning.binNumber(window_end));
     this->printDebug("Ending position of the window: " + std::to_string(window_end)); 
@@ -226,7 +227,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     variable_map["A' mass resolution"]->setVal(this->getMassResolution(ap_hypothesis)); 
     
     // Set the range that will be used in the fit
-    std::string range_name = "ap_mass_" + std::to_string(ap_hypothesis); 
+    std::string range_name = "ap_mass_" + std::to_string(ap_hypothesis) + "gev"; 
     variable_map["invariant mass"]->setRange(range_name.c_str(), window_start, window_end); 
     variable_map["invariant mass"]->setRange(window_start, window_end); 
    
@@ -240,8 +241,12 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
 
     // Fit the distribution in the given range
     HpsFitResult* result = this->fit(data, false, range_name); 
-    
-    if (!const_sig) printer->print(variable_map["invariant mass"]->frame(), data, model, range_name); 
+   
+    //  
+    std::string output_path = "fit_result_" + range_name + (bkg_only ? "_bkg" : "_full") + ".png";
+    if (!const_sig) {
+        printer->print(variable_map["invariant mass"]->frame(), data, model, range_name, output_path); 
+    }
 
     // Set the total number of bins within the fit window
     result->setNBins(n_bins);
