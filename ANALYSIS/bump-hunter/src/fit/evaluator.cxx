@@ -33,10 +33,10 @@ int main(int argc, char **argv) {
     string output_file{""};
 
     /** The signal hypothesis to use in the fit. */
-    double mass_hypo = 0; 
+    double mass_hypo{0}; 
 
     /** Polynomial order to use to model the background. */
-    int poly_order = 7;
+    int poly_order{7};
 
     /** 
      * The number of toys to run for each fit. If toys = 0, the generation 
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     int toys{10};
 
     /** Flag indicating whether to log all fit results or not. */ 
-    bool log_fit = false; 
+    bool log_fit{false}; 
 
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
@@ -109,6 +109,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
+    // Get the histogram of interest from the file.
     TH1* histogram = (TH1*) file->Get(name.c_str()); 
 
     // Create a new Bump Hunter instance and set the given properties.
@@ -132,12 +133,13 @@ int main(int argc, char **argv) {
     tuple->addVariable("invalid_nll"); 
     tuple->addVariable("minuit_status"); 
     tuple->addVariable("nll");
-    tuple->addVariable("p_value"); 
+    tuple->addVariable("p_value");
+    tuple->addVariable("poly_order"); 
     tuple->addVariable("q0"); 
     tuple->addVariable("sig_yield");  
     tuple->addVariable("sig_yield_err");  
     tuple->addVariable("window_size"); 
-    tuple->addVariable("upper_limits");
+    tuple->addVariable("upper_limit");
 
 
     std::vector<HpsFitResult*> results{bump_hunter->runToys(histogram, toys, mass_hypo)}; 
@@ -164,6 +166,7 @@ int main(int argc, char **argv) {
         tuple->setVariableValue("minuit_status",    minuit_status);
         tuple->setVariableValue("nll",              nll); 
         tuple->setVariableValue("p_value",          result->getPValue());
+        tuple->setVariableValue("poly_order",       poly_order);
         tuple->setVariableValue("q0",               result->getQ0()); 
         tuple->setVariableValue("sig_yield",        sig_yield);  
         tuple->setVariableValue("sig_yield_err",    sig_yield_err);
