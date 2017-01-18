@@ -20,8 +20,7 @@ BumpHunter::BumpHunter(int poly_order)
       ofs(nullptr),
       max_window_size(0.02205),
       window_size(0.01),
-      bkg_poly_order(poly_order), 
-      fix_window(false) {
+      bkg_poly_order(poly_order) {
 
     // Turn off all messages except errors
     RooMsgService::instance().setGlobalKillBelow(RooFit::ERROR);
@@ -164,7 +163,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     this->printDebug("Mass resolution: " + std::to_string(mass_resolution));
 
     // Calculate the fit window size
-    window_size = mass_resolution*res_factor;
+    window_size = mass_resolution*_res_factor;
     this->printDebug("Window size: " + std::to_string(window_size));
      
     // If the window size is larger than the max size, set the window size

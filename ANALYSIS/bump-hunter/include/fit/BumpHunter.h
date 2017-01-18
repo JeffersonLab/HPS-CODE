@@ -97,19 +97,17 @@ class BumpHunter {
         /** Fit using a background only model. */
         void fitBkgOnly();
 
-        /** Fix the size of the window that will be fit. */
-        void fixWindowSize(bool fix_window = true) { this->fix_window = fix_window; }; 
-
         /** Set the histogram bounds. */
         void setBounds(double low_bound, double high_bound); 
 
         /** Enable/disable debug */
         void setDebug(bool debug = true) { this->debug = debug; }; 
 
-        /**
-         * 
+        /** 
+         * Set the multiplicative factor used in determining the fit window size
+         * i.e. fit_window = res_factor*mass_resolution(A' mass).
          */
-        void setWindowSize(double window_size) { this->window_size = window_size; }; 
+        void setResolutionFactor(double res_factor) { _res_factor = res_factor; };
 
         /** Write the fit results to a text file */
         void writeResults(); 
@@ -156,7 +154,6 @@ class BumpHunter {
         /**
          *
          */
-
         FitPrinter* printer{new FitPrinter}; 
 
         /** A mapping between a variable name and its corresponding RooRealVar. */
@@ -206,7 +203,7 @@ class BumpHunter {
          * Resolution multiplicative factor used in determining the fit window 
          * size.
          */
-        double res_factor{13}; 
+        double _res_factor{13}; 
 
         /** Size of the background window that will be used to fit. */
         double window_size;
@@ -219,9 +216,6 @@ class BumpHunter {
 
         /** Debug flag */
         bool debug{false};
-
-        /** Fix the size of the window that will be fit. */
-        bool fix_window; 
 };
 
 #endif // __BUMP_HUNTER_H__
