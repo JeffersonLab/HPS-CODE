@@ -30,8 +30,8 @@ class FitPrinter {
         /** Destructor */
         ~FitPrinter();
 
-        /** Print the resulting fit */
-        void print(RooPlot* plot, RooDataHist* data, RooAddPdf* model, std::string range); 
+        /** Print the resulting fit and save it to the specified output path. */
+        void print(RooPlot* plot, RooDataHist* data, RooAddPdf* model, std::string range, std::string output_path); 
 
     private:
         

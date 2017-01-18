@@ -14,8 +14,7 @@ FitPrinter::~FitPrinter() {
     delete _canvas;
 }
 
-void FitPrinter::print(RooPlot* plot, RooDataHist* data, RooAddPdf* model, std::string range) {
-
+void FitPrinter::print(RooPlot* plot, RooDataHist* data, RooAddPdf* model, std::string range, std::string output_path) {
     data->plotOn(plot);
     model->plotOn(plot,
                   RooFit::Range(range.c_str()), 
@@ -34,6 +33,7 @@ void FitPrinter::print(RooPlot* plot, RooDataHist* data, RooAddPdf* model, std::
                   RooFit::LineColor(kRed));
 
     plot->Draw();
-    std::string output = range + "fit.png"; 
-    _canvas->SaveAs(output.c_str());
+
+    std::cout << "[ FitPrinter ]: Saving file to: " << output_path << std::endl;
+    _canvas->SaveAs(output_path.c_str());
 }
