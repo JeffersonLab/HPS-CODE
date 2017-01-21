@@ -54,7 +54,7 @@ class BumpHunter {
     public:
 
         /** Default Constructor */
-        BumpHunter(int poly_order);
+        BumpHunter(int poly_order, int res_factor);
 
         /** Destructor */
         ~BumpHunter();
@@ -97,19 +97,11 @@ class BumpHunter {
         /** Fit using a background only model. */
         void fitBkgOnly();
 
-        /** Fix the size of the window that will be fit. */
-        void fixWindowSize(bool fix_window = true) { this->fix_window = fix_window; }; 
-
         /** Set the histogram bounds. */
         void setBounds(double low_bound, double high_bound); 
 
         /** Enable/disable debug */
         void setDebug(bool debug = true) { this->debug = debug; }; 
-
-        /**
-         * 
-         */
-        void setWindowSize(double window_size) { this->window_size = window_size; }; 
 
         /** Write the fit results to a text file */
         void writeResults(); 
@@ -132,8 +124,8 @@ class BumpHunter {
          * @return The mass resolution at the given mass.
          */
         inline double getMassResolution(double mass) { 
-            return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
-            //return -6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373; 
+            //return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
+            return -6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373; 
         };
   
         /** 
@@ -156,7 +148,6 @@ class BumpHunter {
         /**
          *
          */
-
         FitPrinter* printer{new FitPrinter}; 
 
         /** A mapping between a variable name and its corresponding RooRealVar. */
@@ -200,13 +191,13 @@ class BumpHunter {
         double upper_bound{0};
 
         /** Maximum size of the window */
-        double max_window_size;
+        double _max_window_size{1.0};
 
         /** 
          * Resolution multiplicative factor used in determining the fit window 
          * size.
          */
-        double res_factor{13}; 
+        double _res_factor{13}; 
 
         /** Size of the background window that will be used to fit. */
         double window_size;
@@ -215,13 +206,10 @@ class BumpHunter {
         int bins{2000};
 
         /** Polynomial order used to model the background. */
-        int bkg_poly_order;
+        int _poly_order;
 
         /** Debug flag */
         bool debug{false};
-
-        /** Fix the size of the window that will be fit. */
-        bool fix_window; 
 };
 
 #endif // __BUMP_HUNTER_H__
