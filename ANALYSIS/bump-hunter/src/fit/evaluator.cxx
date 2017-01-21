@@ -142,7 +142,8 @@ int main(int argc, char **argv) {
     tuple->addVariable("nll");
     tuple->addVariable("p_value");
     tuple->addVariable("poly_order"); 
-    tuple->addVariable("q0"); 
+    tuple->addVariable("q0");
+    tuple->addVariable("res_factor"); 
     tuple->addVariable("sig_yield");  
     tuple->addVariable("sig_yield_err");  
     tuple->addVariable("window_size"); 
@@ -175,7 +176,8 @@ int main(int argc, char **argv) {
         tuple->setVariableValue("p_value",          result->getPValue());
         tuple->setVariableValue("poly_order",       poly_order);
         tuple->setVariableValue("q0",               result->getQ0()); 
-        tuple->setVariableValue("sig_yield",        sig_yield);  
+        tuple->setVariableValue("sig_yield",        sig_yield); 
+        tuple->setVariableValue("res_factor",       res_factor);  
         tuple->setVariableValue("sig_yield_err",    sig_yield_err);
         tuple->setVariableValue("window_size",      result->getWindowSize());  
         tuple->setVariableValue("upper_limit",      result->getUpperLimit());
