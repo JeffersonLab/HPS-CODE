@@ -54,7 +54,7 @@ class BumpHunter {
     public:
 
         /** Default Constructor */
-        BumpHunter(int poly_order);
+        BumpHunter(int poly_order, int res_factor);
 
         /** Destructor */
         ~BumpHunter();
@@ -102,12 +102,6 @@ class BumpHunter {
 
         /** Enable/disable debug */
         void setDebug(bool debug = true) { this->debug = debug; }; 
-
-        /** 
-         * Set the multiplicative factor used in determining the fit window size
-         * i.e. fit_window = res_factor*mass_resolution(A' mass).
-         */
-        void setResolutionFactor(double res_factor) { _res_factor = res_factor; };
 
         /** Write the fit results to a text file */
         void writeResults(); 
@@ -197,7 +191,7 @@ class BumpHunter {
         double upper_bound{0};
 
         /** Maximum size of the window */
-        double max_window_size;
+        double _max_window_size{1.0};
 
         /** 
          * Resolution multiplicative factor used in determining the fit window 
@@ -212,7 +206,7 @@ class BumpHunter {
         int bins{2000};
 
         /** Polynomial order used to model the background. */
-        int bkg_poly_order;
+        int _poly_order;
 
         /** Debug flag */
         bool debug{false};

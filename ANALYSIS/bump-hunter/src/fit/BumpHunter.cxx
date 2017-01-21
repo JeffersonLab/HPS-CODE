@@ -11,16 +11,19 @@
 
 #include <BumpHunter.h>
 
-BumpHunter::BumpHunter(int poly_order) 
+BumpHunter::BumpHunter(int poly_order, int res_factor) 
     : comp_model(nullptr), 
       bkg_model(nullptr),
       model(nullptr),
       signal(nullptr), 
       bkg(nullptr),
       ofs(nullptr),
-      max_window_size(0.02205),
+      _res_factor(res_factor), 
       window_size(0.01),
-      bkg_poly_order(poly_order) {
+      _poly_order(poly_order) {
+
+    std::cout << "[ BumpHunter ]: Background polynomial: " << _poly_order << std::endl;
+    std::cout << "[ BumpHunter ]: Resolution multiplicative factor: " << _res_factor << std::endl;
 
     // Turn off all messages except errors
     RooMsgService::instance().setGlobalKillBelow(RooFit::ERROR);
@@ -43,7 +46,7 @@ BumpHunter::BumpHunter(int poly_order)
     //-------------//
 
     std::string name;
-    for (int order = 1; order <= bkg_poly_order; ++order) {
+    for (int order = 1; order <= _poly_order; ++order) {
         name = "t" + std::to_string(order);
         variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -2, 2);
         arg_list.add(*variable_map[name]);
@@ -168,9 +171,9 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
      
     // If the window size is larger than the max size, set the window size
     // to the max.
-    if (window_size > max_window_size) {
+    if (window_size > _max_window_size) {
         this->printDebug("Window size exceeds maximum."); 
-        window_size = max_window_size; 
+        window_size = _max_window_size; 
     }
     
     // Find the starting position of the window. This is set to the low edge of 
@@ -486,7 +489,7 @@ void BumpHunter::writeResults() {
     
     // Create the output file name string
     char buffer[100];
-    sprintf(buffer, "results_order%i_window%i.txt", bkg_poly_order, window_size*1000);
+    sprintf(buffer, "results_order%i_window%i.txt", _poly_order, window_size*1000);
 
     // Create a file stream  
     ofs = new std::ofstream(buffer, std::ofstream::out); 

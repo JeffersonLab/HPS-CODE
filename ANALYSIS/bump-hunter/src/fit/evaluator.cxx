@@ -35,6 +35,9 @@ int main(int argc, char **argv) {
     /** The signal hypothesis to use in the fit. */
     double mass_hypo{0}; 
 
+    /** */
+    int res_factor{13};
+
     /** Polynomial order to use to model the background. */
     int poly_order{7};
 
@@ -50,6 +53,7 @@ int main(int argc, char **argv) {
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
+        {"res_factor", required_argument, 0, 'f'},
         {"file_name",  required_argument, 0, 'i'},
         {"help",       no_argument,       0, 'h'},
         {"log",        no_argument,       0, 'l'},
@@ -63,8 +67,11 @@ int main(int argc, char **argv) {
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "i:hlm:n:o:p:t:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "f:i:hlm:n:o:p:t:", long_options, &option_index)) != -1) {
         switch(option_char) {
+            case 'f': 
+                res_factor = atoi(optarg); 
+                break;
             case 'i': 
                 file_name = optarg;
                 break;
@@ -113,7 +120,7 @@ int main(int argc, char **argv) {
     TH1* histogram = (TH1*) file->Get(name.c_str()); 
 
     // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(poly_order);
+    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor);
     if (log_fit) bump_hunter->writeResults();  
     
     // Build the string that will be used for the results file name
