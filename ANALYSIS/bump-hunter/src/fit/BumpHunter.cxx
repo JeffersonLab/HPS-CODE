@@ -497,6 +497,8 @@ void BumpHunter::writeResults() {
 
 std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
 
+    this->resetParameters(); 
+    
     // Begin by performing a fit to the background with the signal yield set to
     // 0.
     HpsFitResult* null_result = this->fitWindow(histogram, ap_hypothesis, true);
@@ -515,7 +517,7 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
 }
 
 std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
-   
+  
     // Begin by fitting the window of interest with a background only model.  The
     // results are then used to generate n_toys that will be used to evaluate the
     // fitter within the window. 
