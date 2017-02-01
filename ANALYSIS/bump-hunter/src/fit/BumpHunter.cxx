@@ -10,17 +10,19 @@
  */
 
 #include <BumpHunter.h>
+//#include <RooExpPoly.h>
+#include "RooExponential.h"
 
-BumpHunter::BumpHunter(int poly_order, int res_factor) 
-    : comp_model(nullptr), 
-      bkg_model(nullptr),
-      model(nullptr),
-      signal(nullptr), 
-      bkg(nullptr),
-      ofs(nullptr),
-      _res_factor(res_factor), 
-      window_size(0.01),
-      _poly_order(poly_order) {
+BumpHunter::BumpHunter(int poly_order, int res_factor, bool exp_poly)
+: comp_model(nullptr), 
+  bkg_model(nullptr),
+  model(nullptr),
+  signal(nullptr), 
+  bkg(nullptr),
+  ofs(nullptr),
+  _res_factor(res_factor), 
+  window_size(0.01),
+  _poly_order(poly_order) {
 
     std::cout << "[ BumpHunter ]: Background polynomial: " << _poly_order << std::endl;
     std::cout << "[ BumpHunter ]: Resolution multiplicative factor: " << _res_factor << std::endl;
@@ -29,7 +31,7 @@ BumpHunter::BumpHunter(int poly_order, int res_factor)
     RooMsgService::instance().setGlobalKillBelow(RooFit::ERROR);
 
     // Independent variable
-    variable_map["invariant mass"] = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.1);
+    variable_map["invariant mass"] = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.6);
 
     //   Signal PDF   //
     //----------------//   
@@ -51,9 +53,13 @@ BumpHunter::BumpHunter(int poly_order, int res_factor)
         variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -2, 2);
         arg_list.add(*variable_map[name]);
     } 
-
-    bkg = new RooChebychev("bkg", "bkg", *variable_map["invariant mass"], arg_list);
-
+    if(!exp_poly)
+    	bkg = new RooChebychev("bkg", "bkg", *variable_map["invariant mass"], arg_list);
+    else{
+        RooChebychev *logbkg = new RooChebychev("logbkg", "logbkg", *variable_map["invariant mass"], arg_list);
+        RooRealVar* one = new RooRealVar("one", "one", 1);
+        bkg = new RooExponential("bkg", "bkg", *logbkg, *one);
+    }
     //   Composite Models   //
     //----------------------//
 

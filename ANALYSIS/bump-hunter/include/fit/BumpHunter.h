@@ -54,7 +54,7 @@ class BumpHunter {
     public:
 
         /** Default Constructor */
-        BumpHunter(int poly_order, int res_factor);
+        BumpHunter(int poly_order, int res_factor, bool exp_poly);
 
         /** Destructor */
         ~BumpHunter();
@@ -170,7 +170,8 @@ class BumpHunter {
         RooGaussian* signal;
 
         /** Bkg PDF */
-        RooChebychev* bkg;
+        //RooChebychev* bkg;
+        RooAbsPdf* bkg;
 
         /** */ 
         RooArgList arg_list;

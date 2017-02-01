@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
     TH1* histogram = (TH1*) file->Get(name.c_str()); 
 
     // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor);
+    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor, false);
     if (log_fit) bump_hunter->writeResults();  
     
     // Build the string that will be used for the results file name

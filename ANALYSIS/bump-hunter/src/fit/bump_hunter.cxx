@@ -50,6 +50,11 @@ int main(int argc, char **argv) {
     /** Flag indicating whether to log all fit results or not. */ 
     bool log_fit = false; 
 
+    /** Flag indicating whether or not to debug*/
+    bool debug = false;
+    /** Flag indicating whether or not to use e^(poly)*/
+    bool exp_poly = false;
+
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
@@ -57,6 +62,8 @@ int main(int argc, char **argv) {
         {"file_name",  required_argument, 0, 'i'},
         {"help",       no_argument,       0, 'h'},
         {"log",        no_argument,       0, 'l'},
+		{"debug",      no_argument,       0, 'd'},
+		{"exp",        no_argument,       0, 'e'},
         {"mass",       required_argument, 0, 'm'}, 
         {"name",       required_argument, 0, 'n'}, 
         {"output",     required_argument, 0, 'o'},
@@ -67,7 +74,7 @@ int main(int argc, char **argv) {
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "f:i:hlm:n:o:p:t:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "f:i:hldem:n:o:p:t:", long_options, &option_index)) != -1) {
         switch(option_char) {
             case 'f': 
                 res_factor = atoi(optarg); 
@@ -80,6 +87,12 @@ int main(int argc, char **argv) {
             case 'l': 
                 log_fit = true;
                 break;
+            case 'd':
+                debug = true;
+                break;
+            case 'e':
+            	exp_poly = true;
+            	break;
             case 'm': 
                 mass_hypo = atof(optarg); 
                 break;
@@ -119,9 +132,9 @@ int main(int argc, char **argv) {
     TH1* histogram = (TH1*) file->Get(name.c_str()); 
 
     // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor);
+    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor, exp_poly);
     if (log_fit) bump_hunter->writeResults();  
-    
+    if (debug) bump_hunter->setDebug(debug);
     // Build the string that will be used for the results file name
     if (output_file.empty()) { 
         output_file = "fit_result_mass" + to_string(mass_hypo) + "_order" +  to_string(poly_order) + ".root"; 
