@@ -393,7 +393,7 @@ void BumpHunter::resetParameters() {
         element.second->setVal(default_values[element.first]);
         element.second->setError(default_errors[element.first]);
     }
-    variable_map["invariant mass"]->setRange(0.0, 0.1);
+    variable_map["invariant mass"]->setRange(0.0, 0.6);
     variable_map["invariant mass"]->setBins(bins); 
 }
 
