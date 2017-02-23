@@ -31,7 +31,7 @@ BumpHunter::BumpHunter(int poly_order, int res_factor, bool exp_poly)
     RooMsgService::instance().setGlobalKillBelow(RooFit::ERROR);
 
     // Independent variable
-    variable_map["invariant mass"] = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.6);
+    variable_map["invariant mass"] = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.3);
 
     //   Signal PDF   //
     //----------------//   
@@ -139,6 +139,7 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
     // Set the total number of bins 
     bins = histogram->GetNbinsX(); 
     variable_map["invariant mass"]->setBins(bins);
+    variable_map["invariant mass"]->setRange(histogram->GetXaxis()->GetXmin(), histogram->GetXaxis()->GetXmax());
 
     // Create a histogram object compatible with RooFit.
     RooDataHist* data = new RooDataHist("data", "data", RooArgList(*variable_map["invariant mass"]), histogram);
@@ -168,7 +169,8 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     if (ap_hypothesis < lower_bound) throw std::runtime_error("A' hypothesis is less than the lower bound!"); 
 
     // Get the mass resolution at the mass hypothesis.  
-    double mass_resolution = this->getMassResolution(ap_hypothesis);
+    //double mass_resolution = this->getMassResolution(ap_hypothesis);
+    double mass_resolution = this->getMassResolution(ap_hypothesis*1.056/beam_energy);
     this->printDebug("Mass resolution: " + std::to_string(mass_resolution));
 
     // Calculate the fit window size
@@ -393,7 +395,7 @@ void BumpHunter::resetParameters() {
         element.second->setVal(default_values[element.first]);
         element.second->setError(default_errors[element.first]);
     }
-    variable_map["invariant mass"]->setRange(0.0, 0.6);
+    variable_map["invariant mass"]->setRange(0.0, 0.3);
     variable_map["invariant mass"]->setBins(bins); 
 }
 

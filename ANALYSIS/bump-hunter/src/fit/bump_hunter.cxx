@@ -35,6 +35,11 @@ int main(int argc, char **argv) {
     /** The signal hypothesis to use in the fit. */
     double mass_hypo = 0; 
 
+    /** The beam energy (default is 1.056 GeV).  Omar fit the mass resolutions using 1.056 GeV
+     MC.  If the beam energy is different than this, then use the resolution
+     for mass*(1.056/beam energy) */
+    double beam_energy = 1.056;
+
     /** */
     int res_factor{13};
 
@@ -64,17 +69,18 @@ int main(int argc, char **argv) {
         {"log",        no_argument,       0, 'l'},
 		{"debug",      no_argument,       0, 'd'},
 		{"exp",        no_argument,       0, 'e'},
+		{"beam_energy",required_argument, 0, 'b'},
         {"mass",       required_argument, 0, 'm'}, 
         {"name",       required_argument, 0, 'n'}, 
         {"output",     required_argument, 0, 'o'},
-        {"poly",       required_argument, 0, 'p'},
+		{"poly",       required_argument, 0, 'p'},
         {"toys",       required_argument, 0, 't'},
         {0, 0, 0, 0}
     };
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "f:i:hldem:n:o:p:t:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "f:i:hldeb:m:n:o:p:t:", long_options, &option_index)) != -1) {
         switch(option_char) {
             case 'f': 
                 res_factor = atoi(optarg); 
@@ -92,6 +98,9 @@ int main(int argc, char **argv) {
                 break;
             case 'e':
             	exp_poly = true;
+            	break;
+            case 'b':
+            	beam_energy = atof(optarg);
             	break;
             case 'm': 
                 mass_hypo = atof(optarg); 
@@ -140,6 +149,7 @@ int main(int argc, char **argv) {
         output_file = "fit_result_mass" + to_string(mass_hypo) + "_order" +  to_string(poly_order) + ".root"; 
     }
 
+    bump_hunter->beam_energy = beam_energy;
     // Create a new flat ntuple and define the variables it will encapsulate.
     FlatTupleMaker* tuple = new FlatTupleMaker(output_file, "results"); 
 

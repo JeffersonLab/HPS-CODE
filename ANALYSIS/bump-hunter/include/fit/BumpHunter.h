@@ -114,6 +114,7 @@ class BumpHunter {
 
         std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
          
+        double beam_energy{1.056};
     private: 
 
         /**
