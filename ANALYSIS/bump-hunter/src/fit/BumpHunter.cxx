@@ -170,7 +170,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
 
     // Get the mass resolution at the mass hypothesis.  
     //double mass_resolution = this->getMassResolution(ap_hypothesis);
-    double mass_resolution = this->getMassResolution(ap_hypothesis*1.056/beam_energy);
+    double mass_resolution = this->getMassResolution(ap_hypothesis);
     this->printDebug("Mass resolution: " + std::to_string(mass_resolution));
 
     // Calculate the fit window size
@@ -442,7 +442,9 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
 
     double p_value = 1;
     double q0 = 0;
-    signal_yield = floor(signal_yield);  
+    signal_yield = floor(signal_yield);
+    int iteration = 0;
+    int max_iterations = 5000;
     while(true) {
 
         // Reset all of the parameters to their original values
@@ -467,6 +469,14 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
             result->setUpperLimit(signal_yield); 
             delete current_result; 
             break; 
+        }
+        this->printDebug("iteration number: " + std::to_string(iteration++));
+        //avoid infinite loops where p value stops changing.
+        if(iteration > max_iterations){
+        	std::cout << "[ BumpHunter ]: Upper limit stuck at: " << signal_yield << std::endl;
+        	result->setUpperLimit(signal_yield);
+        	delete current_result;
+        	break;
         }
         
         delete current_result; 

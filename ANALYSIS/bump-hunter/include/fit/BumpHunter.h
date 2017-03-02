@@ -126,7 +126,9 @@ class BumpHunter {
          */
         inline double getMassResolution(double mass) { 
             //return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
-            return -6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373; 
+            return beam_energy == 1.056 ?
+            		-6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373
+					: 0.00072 + 0.0382*mass; //from sho's dissertation. (NABO: placeholder until I get MC for 2.3 GeV).
         };
   
         /** 

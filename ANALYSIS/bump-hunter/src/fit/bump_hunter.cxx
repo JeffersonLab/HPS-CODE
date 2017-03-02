@@ -59,7 +59,12 @@ int main(int argc, char **argv) {
     bool debug = false;
     /** Flag indicating whether or not to use e^(poly)*/
     bool exp_poly = false;
-
+    
+    /** step size to use (if performing fits on a grid of mass hypotheses).  0 = no looping*/
+    double mass_step = 0;
+    /** maximum mass hypothesis to perform fit on.  0 = no looping.*/
+    double max_mass_hypo = 0;
+    
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
@@ -73,14 +78,16 @@ int main(int argc, char **argv) {
         {"mass",       required_argument, 0, 'm'}, 
         {"name",       required_argument, 0, 'n'}, 
         {"output",     required_argument, 0, 'o'},
-		{"poly",       required_argument, 0, 'p'},
+        {"poly",       required_argument, 0, 'p'},
         {"toys",       required_argument, 0, 't'},
+        {"mass_step", required_argument, 0, 's'},
+        {"max_mass_hypo",required_argument, 0, 'x'},
         {0, 0, 0, 0}
     };
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "f:i:hldeb:m:n:o:p:t:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "f:i:hldeb:m:n:o:p:t:s:x:", long_options, &option_index)) != -1) {
         switch(option_char) {
             case 'f': 
                 res_factor = atoi(optarg); 
@@ -117,6 +124,12 @@ int main(int argc, char **argv) {
             case 't':
                 toys = atoi(optarg);
                 break;
+            case 's':
+            	mass_step = atof(optarg);
+            	break;
+            case 'x':
+            	max_mass_hypo = atof(optarg);
+            	break;
             default: 
                 return EXIT_FAILURE;
         }
@@ -130,6 +143,15 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
+	if(max_mass_hypo== 0 && mass_step==0){
+		max_mass_hypo = 999;
+		mass_step = 9999;
+	} else if(max_mass_hypo ==0 || mass_step == 0){
+		cerr << "[ EVALUATOR ]: Either use single-mass mode (neither -x or -s with args), or loop mode (both -x and -s args)." << endl;
+        cerr << "[ EVALUATOR ]: Use --help for usage." << endl;
+        return EXIT_FAILURE;
+	}
+
     // Open the ROOT file.  If any problems are encountered, warn the user
     // and exit the application.
     TFile* file = new TFile(file_name.c_str());
@@ -140,17 +162,7 @@ int main(int argc, char **argv) {
 
     TH1* histogram = (TH1*) file->Get(name.c_str()); 
 
-    // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor, exp_poly);
-    if (log_fit) bump_hunter->writeResults();  
-    if (debug) bump_hunter->setDebug(debug);
-    // Build the string that will be used for the results file name
-    if (output_file.empty()) { 
-        output_file = "fit_result_mass" + to_string(mass_hypo) + "_order" +  to_string(poly_order) + ".root"; 
-    }
-
-    bump_hunter->beam_energy = beam_energy;
-    // Create a new flat ntuple and define the variables it will encapsulate.
+// Create a new flat ntuple and define the variables it will encapsulate.
     FlatTupleMaker* tuple = new FlatTupleMaker(output_file, "results"); 
 
     tuple->addVariable("ap_mass"); 
@@ -174,6 +186,20 @@ int main(int argc, char **argv) {
     tuple->addVector("toy_sig_yield_err");  
     tuple->addVector("toy_bkg_yield");  
     tuple->addVector("toy_bkg_yield_err");  
+
+	for(;mass_hypo<=max_mass_hypo; mass_hypo+= mass_step){ //loop through the masses in a given range
+    
+    // Create a new Bump Hunter instance and set the given properties.
+    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor, exp_poly);
+    if (log_fit) bump_hunter->writeResults();  
+    if (debug) bump_hunter->setDebug(debug);
+    // Build the string that will be used for the results file name
+    if (output_file.empty()) { 
+        output_file = "fit_result_mass" + to_string(mass_hypo) + "_order" +  to_string(poly_order) + ".root"; 
+    }
+
+    bump_hunter->beam_energy = beam_energy;
+    
 
 
     HpsFitResult* fit_result = bump_hunter->fitWindow(histogram, mass_hypo, false);
@@ -214,9 +240,10 @@ int main(int argc, char **argv) {
     // Delete the fit results from memory
     delete fit_result;  
 
+    delete bump_hunter; 
+    }
     // Close the ntuple
     tuple->close(); 
 
-    delete bump_hunter; 
     delete file;
 }
