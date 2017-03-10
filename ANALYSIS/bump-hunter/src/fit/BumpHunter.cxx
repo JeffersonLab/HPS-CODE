@@ -14,15 +14,15 @@
 #include "RooExponential.h"
 
 BumpHunter::BumpHunter(int poly_order, int res_factor, bool exp_poly)
-: comp_model(nullptr), 
-  bkg_model(nullptr),
-  model(nullptr),
-  signal(nullptr), 
-  bkg(nullptr),
-  ofs(nullptr),
-  _res_factor(res_factor), 
-  window_size(0.01),
-  _poly_order(poly_order) {
+    : comp_model(nullptr), 
+      bkg_model(nullptr),
+      model(nullptr),
+      signal(nullptr), 
+      bkg(nullptr),
+      ofs(nullptr),
+      _res_factor(res_factor), 
+      window_size(0.01),
+      _poly_order(poly_order) {
 
     std::cout << "[ BumpHunter ]: Background polynomial: " << _poly_order << std::endl;
     std::cout << "[ BumpHunter ]: Resolution multiplicative factor: " << _res_factor << std::endl;
@@ -169,7 +169,6 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     if (ap_hypothesis < lower_bound) throw std::runtime_error("A' hypothesis is less than the lower bound!"); 
 
     // Get the mass resolution at the mass hypothesis.  
-    //double mass_resolution = this->getMassResolution(ap_hypothesis);
     double mass_resolution = this->getMassResolution(ap_hypothesis);
     this->printDebug("Mass resolution: " + std::to_string(mass_resolution));
 
@@ -517,6 +516,8 @@ void BumpHunter::writeResults() {
 
 std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
 
+    this->resetParameters(); 
+    
     // Begin by performing a fit to the background with the signal yield set to
     // 0.
     HpsFitResult* null_result = this->fitWindow(histogram, ap_hypothesis, true);
@@ -535,7 +536,7 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
 }
 
 std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
-   
+  
     // Begin by fitting the window of interest with a background only model.  The
     // results are then used to generate n_toys that will be used to evaluate the
     // fitter within the window. 
