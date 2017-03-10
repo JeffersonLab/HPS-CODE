@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
         {"mass",       required_argument, 0, 'm'}, 
         {"name",       required_argument, 0, 'n'}, 
         {"output",     required_argument, 0, 'o'},
-		{"poly",       required_argument, 0, 'p'},
+        {"poly",       required_argument, 0, 'p'},
         {"toys",       required_argument, 0, 't'},
         {0, 0, 0, 0}
     };

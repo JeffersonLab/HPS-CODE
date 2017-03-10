@@ -255,7 +255,9 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     //  
     std::string output_path = "fit_result_" + range_name + (bkg_only ? "_bkg" : "_full") + ".png";
     if (!const_sig) {
-        printer->print(variable_map["invariant mass"]->frame(), data, model, range_name, output_path); 
+    	RooPlot* plot = variable_map["invariant mass"]->frame();
+    	plot->SetName(Form("Invariant mass (A' = %f%s)", ap_hypothesis, bkg_only ? ", background only" : ""));
+        printer->print(plot, data, model, range_name, output_path);
     }
 
     // Set the total number of bins within the fit window
@@ -473,7 +475,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
         this->printDebug("iteration number: " + std::to_string(iteration++));
         //avoid infinite loops where p value stops changing.
         if(iteration > max_iterations){
-        	std::cout << "[ BumpHunter ]: Upper limit stuck at: " << signal_yield << std::endl;
+        	std::cout << "[ BumpHunter ]: Warning: Upper limit stuck at: " << signal_yield << " with p value"<< p_value<< std::endl;
         	result->setUpperLimit(signal_yield);
         	delete current_result;
         	break;
