@@ -182,6 +182,9 @@ int main(int argc, char **argv) {
     tuple->addVariable("sig_yield_err");
     tuple->addVariable("window_size");
     tuple->addVariable("upper_limit");
+    tuple->addVariable("toy_upper_limit_median");
+    tuple->addVariable("toy_sig_yield_mean");
+    tuple->addVariable("toy_sig_yield_sigma");
      
     tuple->addVector("toy_bkg_yield");  
     tuple->addVector("toy_bkg_yield_err");  
@@ -243,6 +246,11 @@ int main(int argc, char **argv) {
 
     std::vector<HpsFitResult*> results{bump_hunter->runToys(histogram, toys, mass_hypo)}; 
 
+    double all_toy_upper_limits[toys];
+    double sum_sig_yield = 0;
+    double sum_sig_yield_sqr = 0;
+    int i = 0;
+
     for (auto& result : results) {
    
         double bkg_yield     = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
@@ -265,8 +273,18 @@ int main(int argc, char **argv) {
         tuple->addToVector("toy_sig_yield",        sig_yield); 
         tuple->addToVector("toy_sig_yield_err",    sig_yield_err);
         tuple->addToVector("toy_upper_limits",     result->getUpperLimit());
+        all_toy_upper_limits[i++] = result->getUpperLimit();
+        sum_sig_yield += sig_yield;
+        sum_sig_yield_sqr += sig_yield*sig_yield;
 
     }
+    std::sort(all_toy_upper_limits, all_toy_upper_limits+toys);
+    double toy_median_upper_limit =
+    		(toys %2 == 0) ? (all_toy_upper_limits[toys/2-1] + all_toy_upper_limits[toys/2])/2.
+    				: all_toy_upper_limits[toys/2];
+    tuple->setVariableValue("toy_upper_limit_median", toy_median_upper_limit);
+    tuple->setVariableValue("toy_sig_yield_mean", sum_sig_yield/toys);
+    tuple->setVariableValue("toy_sig_yield_sigma", sqrt((sum_sig_yield_sqr*toys-sum_sig_yield*sum_sig_yield)/(toys*(toys-1))));
 
     // Fill the ntuple
     tuple->fill(); 
