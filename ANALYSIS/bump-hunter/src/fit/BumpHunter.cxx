@@ -13,7 +13,7 @@
 //#include <RooExpPoly.h>
 #include "RooExponential.h"
 
-BumpHunter::BumpHunter(int poly_order, int res_factor, bool exp_poly)
+BumpHunter::BumpHunter(int poly_order, int res_factor, int model_type)
     : comp_model(nullptr), 
       bkg_model(nullptr),
       model(nullptr),
@@ -53,12 +53,25 @@ BumpHunter::BumpHunter(int poly_order, int res_factor, bool exp_poly)
         variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -2, 2);
         arg_list.add(*variable_map[name]);
     } 
-    if(!exp_poly)
+    if(model_type == 0)  // polynomial
     	bkg = new RooChebychev("bkg", "bkg", *variable_map["invariant mass"], arg_list);
-    else{
+    else if(model_type == 1){ // e^(polynomial)
         RooChebychev *logbkg = new RooChebychev("logbkg", "logbkg", *variable_map["invariant mass"], arg_list);
         RooRealVar* one = new RooRealVar("one", "one", 1);
         bkg = new RooExponential("bkg", "bkg", *logbkg, *one);
+    }
+    else if(model_type == 2){ // e^(-k*x)*poly(x)
+    	name = "k";
+    	variable_map["k"] = new RooRealVar("k", "k", 0, -2, 2);
+
+    	RooChebychev *poly = new RooChebychev("polbkg", "polbkg", *variable_map["invariant mass"], arg_list);
+    	RooExponential* exp = new RooExponential("expbkg", "expbkg", *variable_map["invariant mass"], *variable_map["k"]);
+    	bkg = new RooProdPdf("bkg", "bkg", *poly, *exp);
+
+    }
+    else{
+    	std::cout << "model type " << model_type << " not found.  Exiting" << std::endl;
+    	exit(0);
     }
     //   Composite Models   //
     //----------------------//

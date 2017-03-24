@@ -37,6 +37,7 @@
 #include <RooDataHist.h>
 #include <RooArgList.h>
 #include <RooAddPdf.h>
+#include <RooProdPdf.h>
 #include <RooMinuit.h>
 #include <RooFitResult.h>
 #include <RooProfileLL.h>
@@ -54,7 +55,7 @@ class BumpHunter {
     public:
 
         /** Default Constructor */
-        BumpHunter(int poly_order, int res_factor, bool exp_poly);
+        BumpHunter(int poly_order, int res_factor, int model_type);
 
         /** Destructor */
         ~BumpHunter();
