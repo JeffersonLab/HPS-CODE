@@ -16,3 +16,8 @@ add_library(TrackClusterMatcher TrackClusterMatcher.cxx)
 target_link_libraries(TrackClusterMatcher
     ${HPS_EVENT_LIBRARY}
 )
+
+add_library(AnalysisUtils AnalysisUtils.cxx)
+target_link_libraries(AnalysisUtils
+    ${HPS_EVENT_LIBRARY}
+)
