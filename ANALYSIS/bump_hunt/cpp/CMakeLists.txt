@@ -20,7 +20,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 # Include the HpsEvent headers
-#include_directories("$ENV{HPS_DST_PATH}/include/hps_event")
+include_directories("$ENV{HPS_DST_PATH}/include/hps_event")
 
 # Search for ROOT
 find_package(ROOT REQUIRED)
