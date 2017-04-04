@@ -34,5 +34,11 @@ include_directories(${ROOT_INCLUDE_DIRS})
 # Include utils headers
 include_directories("${BUMP_HUNT_SOURCE_DIR}/include/utils")
 
+# Include analysis headers
+include_directories("${BUMP_HUNT_SOURCE_DIR}/include/analysis")
+
 # Add utils to the build
 add_subdirectory("${BUMP_HUNT_SOURCE_DIR}/src/utils")
+
+# Add analysis to the build
+add_subdirectory("${BUMP_HUNT_SOURCE_DIR}/src/analysis")
