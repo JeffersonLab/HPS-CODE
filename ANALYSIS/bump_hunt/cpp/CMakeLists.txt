@@ -22,8 +22,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # Include the HpsEvent headers
 #include_directories("$ENV{HPS_DST_PATH}/include/hps_event")
 
-# Find ROOT
-#find_package(ROOT REQUIRED)
+# Search for ROOT
+find_package(ROOT REQUIRED)
+
+# Define useful ROOT functions and macros (e.g. ROOT_GENERATE_DICTIONARY)
+include(${ROOT_USE_FILE})
 
 # Include the ROOT headers
-#include_directories(${ROOT_INCLUDE_DIRS})
+include_directories(${ROOT_INCLUDE_DIRS})
+
+# Include utils headers
+include_directories("${BUMP_HUNT_SOURCE_DIR}/include/utils")
+
+# Add utils to the build
+add_subdirectory("${BUMP_HUNT_SOURCE_DIR}/src/utils")
