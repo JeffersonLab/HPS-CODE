@@ -12,6 +12,7 @@
 //   HPS Analysis   //
 //------------------//
 #include <AnalysisUtils.h>
+#include <HpsAnalysis.h>
 #include <EcalUtils.h>
 #include <FlatTupleMaker.h>
 #include <TrackClusterMatcher.h>
@@ -21,7 +22,7 @@
 //-------------//
 #include <HpsEvent.h>
 
-class TridentAnalysis { 
+class TridentAnalysis : public HpsAnalysis { 
 
     public: 
 
