@@ -56,7 +56,10 @@ class HpsAnalysis {
          *
          * @return String representation of this analysis.
          */
-        virtual std::string toString() = 0; 
+        virtual std::string toString() = 0;
+
+        /** Enable/disable debug print out. */
+        virtual void setDebug(bool debug) = 0;  
         
 }; // Analysis
 
