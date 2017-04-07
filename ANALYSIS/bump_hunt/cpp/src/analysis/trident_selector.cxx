@@ -39,10 +39,12 @@ int main(int argc, char **argv) {
     string file_list_name{""};
     int event_count{-1}; 
     bool is_mc{false};
+    bool debug{false};
 
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
+        {"debug",      no_argument,       0, 'd'},
         {"file_name",  required_argument, 0, 'i'},
         {"file_list",  required_argument, 0, 'l'},
         {"events",     required_argument, 0, 'n'},
@@ -53,9 +55,12 @@ int main(int argc, char **argv) {
 
     int option_index{0};
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "i:l:n:mh", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "di:l:n:mh", long_options, &option_index)) != -1) {
 
         switch(option_char){
+            case 'd': 
+                debug = true;
+                break;
             case 'i': 
                 dst_file_name = optarg;
                break;
@@ -116,6 +121,7 @@ int main(int argc, char **argv) {
     } else { 
         analysis = new TridentDataAnalysis();
     }
+    analysis->setDebug(debug);
         
     cout << "[ TRIDENT SELECTOR ]: Initializing analysis: " << analysis->toString() << endl;
     analysis->initialize();
