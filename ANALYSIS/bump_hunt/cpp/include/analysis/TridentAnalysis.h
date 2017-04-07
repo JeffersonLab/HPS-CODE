@@ -49,7 +49,10 @@ class TridentAnalysis : public HpsAnalysis {
         void bookHistograms(); 
 
         /** @return A string representation of this analysis. */
-        std::string toString(); 
+        std::string toString();
+
+       /** Enable/disable debug */
+       void setDebug(bool debug) { _debug = debug; }; 
     
     protected: 
 
@@ -78,16 +81,25 @@ class TridentAnalysis : public HpsAnalysis {
         EcalUtils* ecal_utils{new EcalUtils()};
 
         /** Total number of events processed */
-        double event_counter{0};
+        double _event_counter{0};
 
         /** Total number of events with tracks */
-        double event_has_track{0};
+        double _event_has_track{0};
 
         /** Total number of events with a positron */
         double event_has_positron{0};
 
+        /** Events with an isolated positron */
+        double _event_has_iso_positron{0};
+
         /** Total number of events with only a single positron. */
         double event_has_single_positron{0};
+
+        /** Total events with positron that passes initial selection */
+        double _event_has_usable_positron{0};
+
+        /** Total positrons that pass initial selection. */
+        double _positron_counter{0};
 
         /** Total number of events with a good cluster pair */
         double event_has_good_cluster_pair{0};
@@ -99,6 +111,12 @@ class TridentAnalysis : public HpsAnalysis {
         double total_v0_good_track_match{0};
 
         double _total_v0_pass_fee{0};
+
+        /** Total number of v0 before cuts. */
+        double _v0_counter{0};
+
+        /** Total v0's created from positrons in the map. */
+        double _v0_pos_counter{0};
 
         bool _debug{false};
 

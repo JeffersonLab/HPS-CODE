@@ -8,7 +8,7 @@
 
 TridentAnalysis::TridentAnalysis()
     : class_name("TridentAnalysis") { 
-    }
+}
 
 TridentAnalysis::~TridentAnalysis() { 
     delete ecal_utils; 
@@ -146,45 +146,110 @@ void TridentAnalysis::initialize() {
     ecal_utils->useLooseSelection(true);
     matcher->useLooseSelection(true);
 
-    this->bookHistograms(); 
 }
 
 void TridentAnalysis::processEvent(HpsEvent* event) { 
-
-    ++event_counter;
+    
+    // Increment the event counter
+    ++_event_counter;
     tuple->setVariableValue("event", event->getEventNumber());
 
     // First, check if the event contains any GBL tracks.  If it doesn't then
     // there wont be any v0 particles created from GBL tracks so the event can
     // be skipped.
     if (event->getNumberOfGblTracks() == 0) return;
-    //printDebug("Event: " + std::to_string(event->getEventNumber()));
-    //printDebug("# Of GBL tracks: " + std::to_string(event->getNumberOfGblTracks())); 
+    ++_event_has_track;
+    
+    printDebug("Event: " + std::to_string(event->getEventNumber()));
+    printDebug("# Of GBL tracks: " + std::to_string(event->getNumberOfGblTracks())); 
     tuple->setVariableValue("n_tracks", event->getNumberOfGblTracks()); 
 
     // Find the total number of positron tracks in the event.  Only events which
     // have at least a single positron will be processed.
     std::map<GblTrack*, std::vector<HpsParticle*>> positron_map;
     std::map<GblTrack*, int> shared_hits = buildSharedHitMap(event);
+    std::vector<GblTrack*> top_tracks;
+    std::vector<GblTrack*> bot_tracks;
+    int positron_counter{0};
     for (int track_n = 0; track_n < event->getNumberOfGblTracks(); ++track_n) { 
         
         GblTrack* track = event->getGblTrack(track_n);
-        //printDebug("Shared hits: " + std::to_string(shared_hits[track]));  
         // If the GBL track has a negative charge, move on to the next one.
         if (track->getCharge() == -1) continue;
+        ++positron_counter; 
 
-        // In order to keep track of multiple v0 particles created from the same
-        // positron track, a mapping between a positron track and corresponding
-        // v0 particles will be used.
-        positron_map[track] = {};
+        printDebug("Found positron.");
+        printDebug("Shared hits: " + std::to_string(shared_hits[track]));  
+        // Check what volume the track is in
+        if (track->isTopTrack()) top_tracks.push_back(track);
+        else bot_tracks.push_back(track);
+
     }
-    int n_positrons{int(positron_map.size())}; 
-    if (n_positrons == 0) return;
-    else if (n_positrons == 1) ++event_has_single_positron;
+
+    tuple->setVariableValue("n_positrons", positron_counter);
+   
+    // If the event doesn't contain any positrons, skip it.
+    if (positron_counter == 0) return;
+    else if (positron_counter == 1) ++event_has_single_positron;
     ++event_has_positron;
-    
-    tuple->setVariableValue("n_positrons", n_positrons);
-    //printDebug("Total positrons: " + std::to_string(n_positrons)); 
+    printDebug("Total positrons: " + std::to_string(positron_counter)); 
+
+    printDebug("Total top positrons: " + std::to_string(top_tracks.size()));
+    printDebug("Total bottom positrons: " + std::to_string(bot_tracks.size()));
+    if (top_tracks.size() == 1 || bot_tracks.size() == 1) ++_event_has_iso_positron;
+
+    // In order to keep track of multiple v0 particles created from the same
+    // positron track, a mapping between a positron track and corresponding
+    // v0 particles will be used.
+    //positron_map[track] = {};
+    if (top_tracks.size() == 1) positron_map[top_tracks[0]] = {};
+    if (bot_tracks.size() == 1) positron_map[bot_tracks[0]] = {};
+
+    if (top_tracks.size() > 1 && bot_tracks.size() == 0) {
+        int shared_hit_count{0};
+        double best_chi2 = 10000;
+        int best_chi2_index = 0;
+        for (int trk_index = 0; trk_index < top_tracks.size(); ++trk_index) { 
+            shared_hit_count += shared_hits[top_tracks[trk_index]];
+            printDebug("chi2: " + std::to_string(top_tracks[trk_index]->getChi2()));
+            if (top_tracks[trk_index]->getChi2() < best_chi2) {
+              best_chi2 = top_tracks[trk_index]->getChi2();
+              best_chi2_index = trk_index; 
+            }
+            printDebug("Total shared hits: " + std::to_string(shared_hit_count));
+        }
+        int mean_shared_hits = shared_hit_count/top_tracks.size();
+        if (mean_shared_hits == 4 || mean_shared_hits == 5) {
+            printDebug("Tracks all shared 4 or 5 hits.");
+            printDebug("Track index with best chi2: " + std::to_string(best_chi2_index));
+            printDebug("Best chi2: " + std::to_string(best_chi2));
+            positron_map[top_tracks[best_chi2_index]] = {};
+        }
+    } else if (bot_tracks.size() > 1 && top_tracks.size() == 0) { 
+        int shared_hit_count{0};
+        double best_chi2 = 10000;
+        int best_chi2_index = 0;
+        for (int trk_index = 0; trk_index < bot_tracks.size(); ++trk_index) { 
+            shared_hit_count += shared_hits[bot_tracks[trk_index]];
+            printDebug("chi2: " + std::to_string(bot_tracks[trk_index]->getChi2()));
+            if (bot_tracks[trk_index]->getChi2() < best_chi2) {
+              best_chi2 = bot_tracks[trk_index]->getChi2();
+              best_chi2_index = trk_index; 
+            }
+            printDebug("Total shared hits: " + std::to_string(shared_hit_count));
+        }
+        int mean_shared_hits = shared_hit_count/bot_tracks.size();
+        if (mean_shared_hits == 4 || mean_shared_hits == 5) {
+            printDebug("Tracks all shared 4 or 5 hits.");
+            printDebug("Track index with best chi2: " + std::to_string(best_chi2_index));
+            printDebug("Best chi2: " + std::to_string(best_chi2));
+            positron_map[bot_tracks[best_chi2_index]] = {};
+        }
+    }
+
+    if (positron_map.size() == 0) return;
+    ++_event_has_usable_positron; 
+    _positron_counter += positron_map.size(); 
 
     // Get the number of target constrained V0 candidates in the event.
     int n_v0{0};
@@ -203,7 +268,13 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
 
         // Only consider particles that were created from GBL tracks.
         if (particle->getType() < 32) continue;
+        ++_v0_counter;
         ++n_v0;
+
+        // Only consider v0's created from positrons in the positron map
+        GblTrack* positron = static_cast<GblTrack*>(particle->getTracks()->At(1));
+        if (!positron_map.count(positron)) continue;
+        ++_v0_pos_counter; 
 
         if (!ecal_utils->hasGoodClusterPair(particle)) { 
             //printDebug("Failed cluster selection."); 
@@ -220,7 +291,6 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         if (!passFeeCut(particle)) continue;
         ++_total_v0_pass_fee;
 
-        GblTrack* positron = static_cast<GblTrack*>(particle->getTracks()->At(1));
         positron_map[positron].push_back(particle);
     }
     tuple->setVariableValue("n_v0", n_v0); 
@@ -235,6 +305,7 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
     std::vector<HpsParticle*> candidates; 
     for (auto& particles : positron_map) {
         if (particles.second.size() == 0) continue;
+
         else if (particles.second.size() == 1) { 
             candidates.push_back(particles.second[0]); 
         } else {
@@ -431,9 +502,15 @@ void TridentAnalysis::finalize() {
     tuple->close(); 
     std::cout << std::fixed;
     std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
-    std::cout << "% Total events processed: " << event_counter << std::endl;
-    std::cout << "% Total events with a positron track: " << event_has_positron << std::endl;
+    std::cout << "% Events processed: " << _event_counter << std::endl;
+    std::cout << "% Total events with a track: " << _event_has_track << std::endl;
+    std::cout << "% Events with a positron track: " << event_has_positron << std::endl;
+    std::cout << "% Events with an isolated positron track: " << _event_has_iso_positron << std::endl;
     std::cout << "% Events with a single positron track: " << event_has_single_positron << std::endl;
+    std::cout << "% Eevnts with a usable positron track: " << _event_has_usable_positron << std::endl;
+    std::cout << "% Total positrons passing initial selection: " << _positron_counter << std::endl;
+    std::cout << "% V0's before cuts: " << _v0_counter << std::endl;
+    std::cout << "% V0's created from positrons in the map: " << _v0_pos_counter << std::endl;
     std::cout << "% Total v0 particles with a good cluster pair: " << total_v0_good_cluster_pair << std::endl;
     std::cout << "% Total v0 particles with a good track match: " << total_v0_good_track_match << std::endl;
     std::cout << "% Total v0 particles that pass FEE cut: " << _total_v0_pass_fee << std::endl;
