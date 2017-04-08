@@ -153,100 +153,145 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
     // Increment the event counter
     ++_event_counter;
     tuple->setVariableValue("event", event->getEventNumber());
+    printDebug("Event: " + std::to_string(event->getEventNumber()));
 
-    // First, check if the event contains any GBL tracks.  If it doesn't then
-    // there wont be any v0 particles created from GBL tracks so the event can
-    // be skipped.
+    // First, check if the event contains any GBL tracks.  Without GBL tracks,
+    // v0 particles can't be created.  In the case tracks haven't been found,
+    // skip the event.
     if (event->getNumberOfGblTracks() == 0) return;
     ++_event_has_track;
     
-    printDebug("Event: " + std::to_string(event->getEventNumber()));
     printDebug("# Of GBL tracks: " + std::to_string(event->getNumberOfGblTracks())); 
     tuple->setVariableValue("n_tracks", event->getNumberOfGblTracks()); 
 
+    // In order to keep track of multiple v0 particles created from the same
+    // positron track, a mapping between a positron track and corresponding
+    // v0 particles will be used.
+    std::map<GblTrack*, std::vector<HpsParticle*>> positron_map;
+
+    // Create a mapping between a track and the number of shared track hits. 
+    //std::map<GblTrack*, int> shared_hits = buildSharedHitMap(event);
+
+    // These lists will be used to keep track of how many positrons are in 
+    // either detector volume
+    //
+    // // These lists will be used to keep track of how many positrons are in 
+    // either detector volume
+    std::vector<GblTrack*> top_pos_trks;
+    std::vector<GblTrack*> bot_pos_trks;
+    
     // Find the total number of positron tracks in the event.  Only events which
     // have at least a single positron will be processed.
-    std::map<GblTrack*, std::vector<HpsParticle*>> positron_map;
-    std::map<GblTrack*, int> shared_hits = buildSharedHitMap(event);
-    std::vector<GblTrack*> top_tracks;
-    std::vector<GblTrack*> bot_tracks;
     int positron_counter{0};
     for (int track_n = 0; track_n < event->getNumberOfGblTracks(); ++track_n) { 
         
         GblTrack* track = event->getGblTrack(track_n);
+        
         // If the GBL track has a negative charge, move on to the next one.
         if (track->getCharge() == -1) continue;
         ++positron_counter; 
 
-        printDebug("Found positron.");
-        printDebug("Shared hits: " + std::to_string(shared_hits[track]));  
         // Check what volume the track is in
-        if (track->isTopTrack()) top_tracks.push_back(track);
-        else bot_tracks.push_back(track);
+        if (track->isTopTrack()) top_pos_trks.push_back(track);
+        else bot_pos_trks.push_back(track);
 
     }
-
     tuple->setVariableValue("n_positrons", positron_counter);
    
     // If the event doesn't contain any positrons, skip it.
     if (positron_counter == 0) return;
     else if (positron_counter == 1) ++event_has_single_positron;
     ++event_has_positron;
-    printDebug("Total positrons: " + std::to_string(positron_counter)); 
+    printDebug("Total positrons: " + std::to_string(positron_counter));
+    printDebug("Total top positrons: " + std::to_string(top_pos_trks.size())); 
+    printDebug("Total bot positrons: " + std::to_string(bot_pos_trks.size())); 
 
-    printDebug("Total top positrons: " + std::to_string(top_tracks.size()));
-    printDebug("Total bottom positrons: " + std::to_string(bot_tracks.size()));
-    if (top_tracks.size() == 1 || bot_tracks.size() == 1) ++_event_has_iso_positron;
+    // Keep track of the total number of events that have an isolated positron 
+    // track i.e. a single track within a volume.
+    if (top_pos_trks.size() == 1 || bot_pos_trks.size() == 1) ++_event_has_iso_positron;
 
-    // In order to keep track of multiple v0 particles created from the same
-    // positron track, a mapping between a positron track and corresponding
-    // v0 particles will be used.
-    //positron_map[track] = {};
-    if (top_tracks.size() == 1) positron_map[top_tracks[0]] = {};
-    if (bot_tracks.size() == 1) positron_map[bot_tracks[0]] = {};
+    // If the positron is isolated, add it to the positron map
+    if (top_pos_trks.size() == 1) positron_map[top_pos_trks[0]] = {};
+    if (bot_pos_trks.size() == 1) positron_map[bot_pos_trks[0]] = {};
 
-    if (top_tracks.size() > 1 && bot_tracks.size() == 0) {
-        int shared_hit_count{0};
-        double best_chi2 = 10000;
-        int best_chi2_index = 0;
-        for (int trk_index = 0; trk_index < top_tracks.size(); ++trk_index) { 
-            shared_hit_count += shared_hits[top_tracks[trk_index]];
-            printDebug("chi2: " + std::to_string(top_tracks[trk_index]->getChi2()));
-            if (top_tracks[trk_index]->getChi2() < best_chi2) {
-              best_chi2 = top_tracks[trk_index]->getChi2();
-              best_chi2_index = trk_index; 
+    // If a volume (i.e. top/bottom) has more than a single positron track, 
+    // and all of those tracks share at least 4 hits, pick the track
+    // with the best chi2 out of the group.
+    if (top_pos_trks.size() > 1) {
+        
+        // Get the first track in the vector and check if it shares hits with
+        // every other positron track in the volume.
+        GblTrack* fpos = top_pos_trks[0];
+        std::vector<GblTrack*> shared_tracks = getSharedTracks(event, fpos);
+
+        bool all_share_hits{true};
+        int total_shared_hits{0};
+        for (GblTrack* trk : top_pos_trks) { 
+            if (trk == fpos) continue;
+            if (std::find(shared_tracks.begin(), shared_tracks.end(), trk) == shared_tracks.end()) {
+                all_share_hits = false;
             }
-            printDebug("Total shared hits: " + std::to_string(shared_hit_count));
+            //total_shared_hits += getSharedHitCount(fpos, trk);
+            //printDebug("Shared hits: " + std::to_string(getSharedHitCount(fpos, trk)));
+            //printDebug("Total shared hits: " + std::to_string(total_shared_hits));
+
         }
-        int mean_shared_hits = shared_hit_count/top_tracks.size();
-        if (mean_shared_hits == 4 || mean_shared_hits == 5) {
-            printDebug("Tracks all shared 4 or 5 hits.");
-            printDebug("Track index with best chi2: " + std::to_string(best_chi2_index));
-            printDebug("Best chi2: " + std::to_string(best_chi2));
-            positron_map[top_tracks[best_chi2_index]] = {};
-        }
-    } else if (bot_tracks.size() > 1 && top_tracks.size() == 0) { 
+        std::vector<int> shared_layers = getSharedLayersVec(top_pos_trks, fpos); 
         int shared_hit_count{0};
-        double best_chi2 = 10000;
-        int best_chi2_index = 0;
-        for (int trk_index = 0; trk_index < bot_tracks.size(); ++trk_index) { 
-            shared_hit_count += shared_hits[bot_tracks[trk_index]];
-            printDebug("chi2: " + std::to_string(bot_tracks[trk_index]->getChi2()));
-            if (bot_tracks[trk_index]->getChi2() < best_chi2) {
-              best_chi2 = bot_tracks[trk_index]->getChi2();
-              best_chi2_index = trk_index; 
-            }
-            printDebug("Total shared hits: " + std::to_string(shared_hit_count));
+        for (int layer_index = 0; layer_index < shared_layers.size(); ++layer_index) {
+            if (shared_layers[layer_index]/(top_pos_trks.size() - 1) == 1) ++shared_hit_count;
+            printDebug("Layer: " + std::to_string(layer_index) + " shared hits: " + std::to_string(shared_layers[layer_index]));
         }
-        int mean_shared_hits = shared_hit_count/bot_tracks.size();
-        if (mean_shared_hits == 4 || mean_shared_hits == 5) {
-            printDebug("Tracks all shared 4 or 5 hits.");
-            printDebug("Track index with best chi2: " + std::to_string(best_chi2_index));
-            printDebug("Best chi2: " + std::to_string(best_chi2));
-            positron_map[bot_tracks[best_chi2_index]] = {};
+        printDebug("Total shared hits: " + std::to_string(shared_hit_count)); 
+
+        // If all of the positrons share hits, make sure they share the same 
+        // number of hits.
+        if (all_share_hits && (shared_hit_count >= 4)) { 
+            printDebug("All positrons share hits with each other.");
+            printDebug("Best chi2 track: " + std::to_string(getBestChi2(top_pos_trks)->getChi2())); 
+            positron_map[getBestChi2(shared_tracks)] = {}; 
+        }
+
+    } 
+    
+    if (bot_pos_trks.size() > 1) { 
+        
+        // Get the first track in the vector and check if it shares hits with
+        // every other positron track in the volume.
+        GblTrack* fpos = bot_pos_trks[0];
+        std::vector<GblTrack*> shared_tracks = getSharedTracks(event, fpos);
+
+        bool all_share_hits{true};
+        int total_shared_hits{0};
+        for (GblTrack* trk : bot_pos_trks) { 
+            if (trk == fpos) continue;
+            if (std::find(shared_tracks.begin(), shared_tracks.end(), trk) == shared_tracks.end()) {
+                all_share_hits = false;
+            }
+            //total_shared_hits += getSharedHitCount(fpos, trk);
+            //printDebug("Shared hits: " + std::to_string(getSharedHitCount(fpos, trk)));
+            //printDebug("Total shared hits: " + std::to_string(total_shared_hits));
+
+        }
+        std::vector<int> shared_layers = getSharedLayersVec(bot_pos_trks, fpos); 
+        int shared_hit_count{0};
+        for (int layer_index = 0; layer_index < shared_layers.size(); ++layer_index) {
+            if (shared_layers[layer_index]/(bot_pos_trks.size() - 1) == 1) ++shared_hit_count;
+            printDebug("Layer: " + std::to_string(layer_index) + " shared hits: " + std::to_string(shared_layers[layer_index]));
+        }
+        printDebug("Total shared hits: " + std::to_string(shared_hit_count)); 
+
+        // If all of the positrons share hits, make sure they share the same 
+        // number of hits.
+        if (all_share_hits && (shared_hit_count >= 4)) { 
+            printDebug("All positrons share hits with each other.");
+            printDebug("Best chi2 track: " + std::to_string(getBestChi2(bot_pos_trks)->getChi2())); 
+            positron_map[getBestChi2(shared_tracks)] = {}; 
         }
     }
 
+    // If the positron map doesn't contain any positrons, stop processing the 
+    // event.
     if (positron_map.size() == 0) return;
     ++_event_has_usable_positron; 
     _positron_counter += positron_map.size(); 
@@ -288,8 +333,8 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         }
         total_v0_good_track_match++;
         
-        if (!passFeeCut(particle)) continue;
-        ++_total_v0_pass_fee;
+        //if (!passFeeCut(particle)) continue;
+        //++_total_v0_pass_fee;
 
         positron_map[positron].push_back(particle);
     }
@@ -309,13 +354,15 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         else if (particles.second.size() == 1) { 
             candidates.push_back(particles.second[0]); 
         } else {
-            if (electronsShareHits(particles.second, shared_hits)) { 
+            candidates.push_back(getBestVertexFitChi2(particles.second));
+            /*if (electronsShareHits(particles.second, shared_hits)) { 
                 candidates.push_back(getBestElectronChi2(particles.second));          
             } else { 
                 _dumped_positron_count++;  
-            } 
+            }*/ 
         } 
     }
+    _v0_cands += candidates.size();
 
     for (HpsParticle* v0 : candidates) {
 
@@ -513,29 +560,115 @@ void TridentAnalysis::finalize() {
     std::cout << "% V0's created from positrons in the map: " << _v0_pos_counter << std::endl;
     std::cout << "% Total v0 particles with a good cluster pair: " << total_v0_good_cluster_pair << std::endl;
     std::cout << "% Total v0 particles with a good track match: " << total_v0_good_track_match << std::endl;
-    std::cout << "% Total v0 particles that pass FEE cut: " << _total_v0_pass_fee << std::endl;
-    std::cout << "% Total positrons dumped: " << _dumped_positron_count << std::endl;
+    std::cout << "% V0 candidates: " << _v0_cands << std::endl;
     std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
 }
 
 void TridentAnalysis::bookHistograms() {  
 }
 
+int TridentAnalysis::getSharedHitCount(SvtTrack* ftrack, SvtTrack* strack) { 
+    TRefArray*  ftrk_hits{ftrack->getSvtHits()};
+    TRefArray*  strk_hits{strack->getSvtHits()};
+    int shared_hit_count{0};
+
+    for (int fhit_index = 0; fhit_index < ftrk_hits->GetSize(); ++fhit_index) { 
+        SvtHit* fhit = (SvtHit*) ftrk_hits->At(fhit_index);
+        for (int sechit_index = 0; sechit_index < strk_hits->GetSize(); ++sechit_index) { 
+            SvtHit* sechit = (SvtHit*) strk_hits->At(sechit_index);
+            if ((fhit->getPosition()[2] == sechit->getPosition()[2]) && (fhit->getTime() == sechit->getTime())) {
+                ++shared_hit_count;
+            }
+        }
+    }
+    return shared_hit_count;
+}
+
+std::vector<GblTrack*> TridentAnalysis::getSharedTracks(HpsEvent* event, GblTrack* trk) { 
+    std::vector<GblTrack*> shared_tracks; 
+    
+    for (int trk_index = 0; trk_index < event->getNumberOfGblTracks(); ++trk_index) { 
+        GblTrack* strk = event->getGblTrack(trk_index);
+        
+        if (trk == strk) continue;
+        
+        int shared_hit_count = getSharedHitCount(trk, strk);
+        if (shared_hit_count > 0) shared_tracks.push_back(strk);
+    }
+
+    return shared_tracks;
+}
+
+std::vector<int> TridentAnalysis::getSharedLayersVec(std::vector<GblTrack*> trks, GblTrack* trk) { 
+    TRefArray*  trk_hits{trk->getSvtHits()};
+    std::vector<int> shared_hit_vec = {0, 0, 0, 0, 0, 0};
+
+    for (int hit_index = 0; hit_index < trk_hits->GetSize(); ++hit_index) { 
+        SvtHit* hit = (SvtHit*) trk_hits->At(hit_index);
+
+        for (GblTrack* strk : trks) {
+
+            if (trk == strk) continue;
+
+            TRefArray*  strk_hits{strk->getSvtHits()};
+            for (int sechit_index = 0; sechit_index < strk_hits->GetSize(); ++sechit_index) { 
+                SvtHit* sechit = (SvtHit*) strk_hits->At(sechit_index);
+                if ((hit->getPosition()[2] == sechit->getPosition()[2]) && (hit->getTime() == sechit->getTime())) {
+                    shared_hit_vec[hit->getLayer() - 1] += 1;  
+                }
+            }
+        }
+    }
+        
+    return shared_hit_vec; 
+}
+
+
+GblTrack* TridentAnalysis::getBestChi2(std::vector<GblTrack*> trks) {
+    GblTrack* btrk{nullptr};
+    int best_chi2 = 10000;
+    for (GblTrack* trk : trks) { 
+        if (trk->getChi2() < best_chi2) {
+            best_chi2 = trk->getChi2();
+            btrk = trk;
+        }
+    }
+    return btrk;
+}
+
+HpsParticle* TridentAnalysis::getBestVertexFitChi2(std::vector<HpsParticle*> particles) { 
+    
+    HpsParticle* bparticle{nullptr};
+    int best_vertex_chi2 = 10000;
+    for (HpsParticle* particle : particles) { 
+        if (particle->getVertexFitChi2() < best_vertex_chi2) {
+            best_vertex_chi2 = particle->getVertexFitChi2();
+            bparticle = particle;
+        }
+    }
+    return bparticle;
+}
+
+/*
 std::map<GblTrack*, int> TridentAnalysis::buildSharedHitMap(HpsEvent* event) { 
     std::map<GblTrack*, int> shared_hit_map;
     for (int first_trk_index = 0; first_trk_index < event->getNumberOfGblTracks(); ++first_trk_index) {
-        //printDebug("f Track " + std::to_string(first_trk_index));
-        GblTrack* first_track = event->getGblTrack(first_trk_index);
-        TRefArray* first_trk_hits = first_track->getSvtHits();
-        int max_shared_hits = 0;
-        //shared_hit_map[first_track] = 0;
+        GblTrack* ftrk = event->getGblTrack(first_trk_index);
+        
+        //TRefArray* first_trk_hits = ftrk->getSvtHits();
+        //int max_shared_hits = 0;
+        //shared_hit_map[ftrk] = 0;
         for (int second_trk_index = 0; 
                 second_trk_index < event->getNumberOfGblTracks(); ++second_trk_index) { 
             //printDebug("s Track" + std::to_string(second_trk_index));
-            GblTrack* second_track = event->getGblTrack(second_trk_index);
-            if (first_track == second_track) continue;
-            if (first_track->getTanLambda()*second_track->getTanLambda() < 0) continue;
-            TRefArray* second_trk_hits = second_track->getSvtHits();
+            GblTrack* strk = event->getGblTrack(second_trk_index);
+            
+            if (ftrk == strk) continue;
+
+            if (ftrk->getTanLambda()*strk->getTanLambda() < 0) continue;
+            
+            int shared_hit_count = getSharedHitCount(ftrk, strk);
+            TRefArray* second_trk_hits = strk->getSvtHits();
             int shared_hits = 0; 
             for (int first_hit_index = 0; first_hit_index < first_trk_hits->GetSize(); ++first_hit_index) { 
                 //printDebug("f Hit " + std::to_string(first_hit_index));
@@ -555,7 +688,7 @@ std::map<GblTrack*, int> TridentAnalysis::buildSharedHitMap(HpsEvent* event) {
         shared_hit_map[first_track] = max_shared_hits; 
     }
     return shared_hit_map;
-}
+}*/
 
 bool TridentAnalysis::electronsShareHits(std::vector<HpsParticle*> particles, 
         std::map<GblTrack*, int> shared_hit_map) { 
