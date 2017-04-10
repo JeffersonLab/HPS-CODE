@@ -38,6 +38,14 @@ void TridentDataAnalysis::finalize() {
     std::cout << "% SVT quality count: " << svt_quality_count << std::endl;
     std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
 
+    output_file << std::fixed;
+    output_file << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+    output_file << "%   Data Only  " << std::endl;
+    output_file << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+    output_file << "% Trigger count: " << trigger_count << std::endl;
+    output_file << "% SVT quality count: " << svt_quality_count << std::endl;
+    output_file << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+
     TridentAnalysis::finalize();
 }
 
