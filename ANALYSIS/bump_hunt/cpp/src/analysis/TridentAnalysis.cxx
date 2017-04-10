@@ -169,9 +169,6 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
     // v0 particles will be used.
     std::map<GblTrack*, std::vector<HpsParticle*>> positron_map;
 
-    // Create a mapping between a track and the number of shared track hits. 
-    //std::map<GblTrack*, int> shared_hits = buildSharedHitMap(event);
-
     // These lists will be used to keep track of how many positrons are in 
     // either detector volume
     //
@@ -333,19 +330,17 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         }
         total_v0_good_track_match++;
         
-        //if (!passFeeCut(particle)) continue;
-        //++_total_v0_pass_fee;
+        if (!passFeeCut(particle)) continue;
+        ++_v0_pass_fee;
 
         positron_map[positron].push_back(particle);
     }
     tuple->setVariableValue("n_v0", n_v0); 
-    //printDebug("Total v0 particles: " + std::to_string(n_v0)); 
+    printDebug("Total v0 particles: " + std::to_string(n_v0)); 
 
     // If the positron map ends up empty, stop processing the rest of the event.
     //printDebug("Positron map size: " + std::to_string(positron_map.size())); 
     if (positron_map.size() == 0) return;
-    //printDebug("Total v0 that have a good cluster pair: " + std::to_string(total_v0_good_cluster_pair)); 
-    //printDebug("Total v0 that have a good track-cluster match: " + std::to_string(total_v0_good_track_match)); 
 
     std::vector<HpsParticle*> candidates; 
     for (auto& particles : positron_map) {
@@ -355,11 +350,6 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
             candidates.push_back(particles.second[0]); 
         } else {
             candidates.push_back(getBestVertexFitChi2(particles.second));
-            /*if (electronsShareHits(particles.second, shared_hits)) { 
-                candidates.push_back(getBestElectronChi2(particles.second));          
-            } else { 
-                _dumped_positron_count++;  
-            }*/ 
         } 
     }
     _v0_cands += candidates.size();
@@ -560,6 +550,7 @@ void TridentAnalysis::finalize() {
     std::cout << "% V0's created from positrons in the map: " << _v0_pos_counter << std::endl;
     std::cout << "% Total v0 particles with a good cluster pair: " << total_v0_good_cluster_pair << std::endl;
     std::cout << "% Total v0 particles with a good track match: " << total_v0_good_track_match << std::endl;
+    std::cout << "% Total v0 particles that pass FEE cut: " << _v0_pass_fee << std::endl;
     std::cout << "% V0 candidates: " << _v0_cands << std::endl;
     std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
 }
@@ -648,47 +639,6 @@ HpsParticle* TridentAnalysis::getBestVertexFitChi2(std::vector<HpsParticle*> par
     }
     return bparticle;
 }
-
-/*
-std::map<GblTrack*, int> TridentAnalysis::buildSharedHitMap(HpsEvent* event) { 
-    std::map<GblTrack*, int> shared_hit_map;
-    for (int first_trk_index = 0; first_trk_index < event->getNumberOfGblTracks(); ++first_trk_index) {
-        GblTrack* ftrk = event->getGblTrack(first_trk_index);
-        
-        //TRefArray* first_trk_hits = ftrk->getSvtHits();
-        //int max_shared_hits = 0;
-        //shared_hit_map[ftrk] = 0;
-        for (int second_trk_index = 0; 
-                second_trk_index < event->getNumberOfGblTracks(); ++second_trk_index) { 
-            //printDebug("s Track" + std::to_string(second_trk_index));
-            GblTrack* strk = event->getGblTrack(second_trk_index);
-            
-            if (ftrk == strk) continue;
-
-            if (ftrk->getTanLambda()*strk->getTanLambda() < 0) continue;
-            
-            int shared_hit_count = getSharedHitCount(ftrk, strk);
-            TRefArray* second_trk_hits = strk->getSvtHits();
-            int shared_hits = 0; 
-            for (int first_hit_index = 0; first_hit_index < first_trk_hits->GetSize(); ++first_hit_index) { 
-                //printDebug("f Hit " + std::to_string(first_hit_index));
-                SvtHit* first_hit = (SvtHit*) first_trk_hits->At(first_hit_index);
-                //printDebug("f Time: " + std::to_string(first_hit->getTime()));
-                for (int second_hit_index = 0; second_hit_index < second_trk_hits->GetSize(); ++second_hit_index) { 
-                    //printDebug("s Hit " + std::to_string(second_hit_index));
-                    SvtHit* second_hit = (SvtHit*) second_trk_hits->At(second_hit_index);
-                    if (first_hit->getPosition()[2] == second_hit->getPosition()[2]) { 
-                        //printDebug("s Time: " + std::to_string(second_hit->getTime()));
-                        if (first_hit->getTime() == second_hit->getTime()) shared_hits++;
-                    }
-                }
-            }
-            if(shared_hits > max_shared_hits) max_shared_hits = shared_hits;
-        }
-        shared_hit_map[first_track] = max_shared_hits; 
-    }
-    return shared_hit_map;
-}*/
 
 bool TridentAnalysis::electronsShareHits(std::vector<HpsParticle*> particles, 
         std::map<GblTrack*, int> shared_hit_map) { 

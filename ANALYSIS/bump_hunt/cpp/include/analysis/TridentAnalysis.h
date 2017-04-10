@@ -126,6 +126,9 @@ class TridentAnalysis : public HpsAnalysis {
         /** Total v0's created from positrons in the map. */
         double _v0_pos_counter{0};
 
+        /** Total number of v0's that pass the FEE cut. */
+        double _v0_pass_fee{0}; 
+
         /** Total v0 candidates */
         double _v0_cands{0};
 
