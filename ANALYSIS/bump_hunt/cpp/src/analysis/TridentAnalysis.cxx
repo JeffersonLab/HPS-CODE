@@ -418,6 +418,7 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         tuple->setVariableValue("positron_p", positron_p);
         tuple->setVariableValue("positron_px", positron->getMomentum()[0]); 
         tuple->setVariableValue("positron_py", positron->getMomentum()[1]); 
+        tuple->setVariableValue("positron_pz", positron->getMomentum()[2]); 
         tuple->setVariableValue("positron_time", positron->getTrackTime());
 
         tuple->setVariableValue("p_diff", electron_p-positron_p);
@@ -471,6 +472,7 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         tuple->setVariableValue("bot_p", bot_p);
         tuple->setVariableValue("bot_px", bot->getMomentum()[0]); 
         tuple->setVariableValue("bot_py", bot->getMomentum()[1]); 
+        tuple->setVariableValue("bot_pz", bot->getMomentum()[2]); 
         tuple->setVariableValue("bot_time", bot->getTrackTime());
 
         // Loop over all hits associated composing a track and check if it has a 
