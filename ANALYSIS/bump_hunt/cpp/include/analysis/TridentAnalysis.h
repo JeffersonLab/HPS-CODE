@@ -8,6 +8,11 @@
 #ifndef __TRIDENT_ANALYSIS_H__
 #define __TRIDENT_ANALYSIS_H__
 
+//----------------//
+//   C++ StdLib   //
+//----------------//
+#include <fstream>
+
 //------------------//
 //   HPS Analysis   //
 //------------------//
@@ -60,6 +65,9 @@ class TridentAnalysis : public HpsAnalysis {
         /** Name of the class */
         std::string class_name; 
     
+        /** Output file streamer */
+        std::ofstream output_file;
+
     private: 
 
         /** Get the number of shared hits between the given tracks. */
@@ -72,12 +80,6 @@ class TridentAnalysis : public HpsAnalysis {
         GblTrack* getBestChi2(std::vector<GblTrack*> trks);
 
         HpsParticle* getBestVertexFitChi2(std::vector<HpsParticle*> particles);
-
-        //std::map<GblTrack*, int> buildSharedHitMap(HpsEvent* event);
-
-        bool electronsShareHits(std::vector<HpsParticle*> particles, std::map<GblTrack*, int> shared_hit_map); 
-
-        HpsParticle* getBestElectronChi2(std::vector<HpsParticle*> particles);
 
         bool passFeeCut(HpsParticle* particle); 
 

@@ -146,6 +146,7 @@ void TridentAnalysis::initialize() {
     ecal_utils->useLooseSelection(true);
     matcher->useLooseSelection(true);
 
+    output_file.open("trident_cutflow.dat");
 }
 
 void TridentAnalysis::processEvent(HpsEvent* event) { 
@@ -553,6 +554,25 @@ void TridentAnalysis::finalize() {
     std::cout << "% Total v0 particles that pass FEE cut: " << _v0_pass_fee << std::endl;
     std::cout << "% V0 candidates: " << _v0_cands << std::endl;
     std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+
+    output_file << std::fixed;
+    output_file << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+    output_file << "% Events processed: " << _event_counter << std::endl;
+    output_file << "% Total events with a track: " << _event_has_track << std::endl;
+    output_file << "% Events with a positron track: " << event_has_positron << std::endl;
+    output_file << "% Events with an isolated positron track: " << _event_has_iso_positron << std::endl;
+    output_file << "% Events with a single positron track: " << event_has_single_positron << std::endl;
+    output_file << "% Eevnts with a usable positron track: " << _event_has_usable_positron << std::endl;
+    output_file << "% Total positrons passing initial selection: " << _positron_counter << std::endl;
+    output_file << "% V0's before cuts: " << _v0_counter << std::endl;
+    output_file << "% V0's created from positrons in the map: " << _v0_pos_counter << std::endl;
+    output_file << "% Total v0 particles with a good cluster pair: " << total_v0_good_cluster_pair << std::endl;
+    output_file << "% Total v0 particles with a good track match: " << total_v0_good_track_match << std::endl;
+    output_file << "% Total v0 particles that pass FEE cut: " << _v0_pass_fee << std::endl;
+    output_file << "% V0 candidates: " << _v0_cands << std::endl;
+    output_file << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+
+    output_file.close();
 }
 
 void TridentAnalysis::bookHistograms() {  
@@ -638,28 +658,6 @@ HpsParticle* TridentAnalysis::getBestVertexFitChi2(std::vector<HpsParticle*> par
         }
     }
     return bparticle;
-}
-
-bool TridentAnalysis::electronsShareHits(std::vector<HpsParticle*> particles, 
-        std::map<GblTrack*, int> shared_hit_map) { 
-    for (HpsParticle* particle : particles) { 
-        GblTrack* electron_track  = static_cast<GblTrack*>(particle->getTracks()->At(0));
-        if (shared_hit_map[electron_track] < 4) return false;
-    }
-    return true; 
-}
-
-HpsParticle* TridentAnalysis::getBestElectronChi2(std::vector<HpsParticle*> particles) { 
-    HpsParticle* v0{nullptr};
-    double chi2{10000}; 
-    for (HpsParticle* particle : particles) { 
-        GblTrack* electron_track  = static_cast<GblTrack*>(particle->getTracks()->At(0));
-        if (electron_track->getChi2() < chi2) { 
-            chi2 = electron_track->getChi2();
-            v0 = particle;
-        } 
-    }
-    return v0;
 }
 
 bool TridentAnalysis::passFeeCut(HpsParticle* particle) { 
