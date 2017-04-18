@@ -188,6 +188,8 @@ int main(int argc, char **argv) {
     tuple->addVariable("window_size");
     tuple->addVariable("upper_limit");
     tuple->addVariable("toy_upper_limit_median");
+    tuple->addVariable("toy_upper_limit_16_pctl");
+    tuple->addVariable("toy_upper_limit_84_pctl");
     tuple->addVariable("toy_sig_yield_mean");
     tuple->addVariable("toy_sig_yield_sigma");
      
@@ -287,7 +289,13 @@ int main(int argc, char **argv) {
     double toy_median_upper_limit =
     		(toys %2 == 0) ? (all_toy_upper_limits[toys/2-1] + all_toy_upper_limits[toys/2])/2.
     				: all_toy_upper_limits[toys/2];
+    double toy_upper_limit_16_percentile = all_toy_upper_limits[(int)(toys*16./100)];
+    double toy_upper_limit_84_percentile = all_toy_upper_limits[(int)(toys*84./100)];
     tuple->setVariableValue("toy_upper_limit_median", toy_median_upper_limit);
+    tuple->setVariableValue("toy_upper_limit_16_pctl", toy_upper_limit_16_percentile);
+    tuple->setVariableValue("toy_upper_limit_84_pctl", toy_upper_limit_84_percentile);
+
+
     tuple->setVariableValue("toy_sig_yield_mean", sum_sig_yield/toys);
     tuple->setVariableValue("toy_sig_yield_sigma", sqrt((sum_sig_yield_sqr*toys-sum_sig_yield*sum_sig_yield)/(toys*(toys-1))));
 
