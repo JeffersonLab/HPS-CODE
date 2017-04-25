@@ -25,6 +25,9 @@ int main(int argc, char **argv) {
 
     /** Name of file containing the histogram that will be fit. */
     string file_name{""};
+    
+    /** PDF used to model the background. */
+    BumpHunter::BkgModel model{BumpHunter::BkgModel::POLY};
 
     /** The name of the histogram to fit. */
     string name{""};
@@ -55,6 +58,7 @@ int main(int argc, char **argv) {
     static struct option long_options[] = {
         {"res_factor", required_argument, 0, 'f'},
         {"file_name",  required_argument, 0, 'i'},
+        {"exp",        no_argument,       0, 'e'},
         {"help",       no_argument,       0, 'h'},
         {"log",        no_argument,       0, 'l'},
         {"mass",       required_argument, 0, 'm'}, 
@@ -67,7 +71,7 @@ int main(int argc, char **argv) {
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "f:i:hlm:n:o:p:t:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "f:ei:hlm:n:o:p:t:", long_options, &option_index)) != -1) {
         switch(option_char) {
             case 'f': 
                 res_factor = atoi(optarg); 
@@ -75,6 +79,9 @@ int main(int argc, char **argv) {
             case 'i': 
                 file_name = optarg;
                 break;
+            case 'e': 
+                model = BumpHunter::BkgModel::EXP_POLY;
+                break; 
             case 'h':
                 return EXIT_SUCCESS; 
             case 'l': 
@@ -120,7 +127,7 @@ int main(int argc, char **argv) {
     TH1* histogram = (TH1*) file->Get(name.c_str()); 
 
     // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor);
+    BumpHunter* bump_hunter = new BumpHunter(model, poly_order, res_factor);
     if (log_fit) bump_hunter->writeResults();  
     
     // Build the string that will be used for the results file name
