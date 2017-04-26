@@ -14,7 +14,10 @@ FitPrinter::~FitPrinter() {
     delete _canvas;
 }
 
-void FitPrinter::print(RooPlot* plot, RooDataHist* data, RooAddPdf* model, std::string range, std::string output_path) {
+void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model, 
+                       std::string range, std::string output_path) {
+
+    RooPlot* plot = var->frame(); 
     data->plotOn(plot);
     model->plotOn(plot,
                   RooFit::Range(range.c_str()), 

@@ -269,7 +269,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     //  
     std::string output_path = "fit_result_" + range_name + (bkg_only ? "_bkg" : "_full") + ".png";
     if (!const_sig) {
-        printer->print(variable_map["invariant mass"]->frame(), data, _model, range_name, output_path); 
+        printer->print(variable_map["invariant mass"], data, _model, range_name, output_path); 
         if (_write_results) { 
      
             // Create the output file name string

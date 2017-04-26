@@ -19,6 +19,7 @@
 #include <RooAddPdf.h>
 #include <RooDataHist.h>
 #include <RooPlot.h>
+#include <RooRealVar.h>
 
 class FitPrinter { 
     
@@ -31,7 +32,8 @@ class FitPrinter {
         ~FitPrinter();
 
         /** Print the resulting fit and save it to the specified output path. */
-        void print(RooPlot* plot, RooDataHist* data, RooAddPdf* model, std::string range, std::string output_path); 
+        void print(RooRealVar* var, RooDataHist* data, RooAddPdf* model, 
+                   std::string range, std::string output_path); 
 
     private:
         
