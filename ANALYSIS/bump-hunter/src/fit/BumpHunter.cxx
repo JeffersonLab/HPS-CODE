@@ -83,7 +83,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
     variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
-    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 300000, 100, 10000000);
+    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 300000, 10000, 100000000);
 
     comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
                                RooArgList(*variable_map["signal yield"], *variable_map["bkg yield"]));
