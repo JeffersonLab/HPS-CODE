@@ -129,14 +129,8 @@ class BumpHunter {
             //return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
             return beam_energy == 1.056 ?
             		-6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373
-					: (0.00072 + 0.0382*mass)*.63;
-            // .63 of the mass resolution that is in Sho's dissertation.
-            //  Placeholder for the actual mass resolution.
-            // (2.3 GeV Moller mass resolution is about 70% of what Sho's formula yields,
-            //  and 1.05 GeV tridents resolution is about 90% of the 1.05 GeV mollers).
-            // So assuming that the moller res/ trident res is beam-energy independent and that Sho's mass resolution
-            // is correct for 1.05 GeV tridents, then the 2.3 GeV tridents should have resolution that is 63% of that of
-            // Sho's formula.
+					: 0.000436657 + 0.0149122*mass + 0.123435*pow(mass,2) + -0.402478*pow(mass,3);
+
         };
   
         /** 
@@ -219,6 +213,8 @@ class BumpHunter {
 
         /** Polynomial order used to model the background. */
         int _poly_order;
+
+        int _model_type;
 
         /** Debug flag */
         bool debug{false};

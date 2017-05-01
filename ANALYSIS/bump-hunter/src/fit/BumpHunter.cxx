@@ -22,8 +22,10 @@ BumpHunter::BumpHunter(int poly_order, int res_factor, int model_type)
       ofs(nullptr),
       _res_factor(res_factor), 
       window_size(0.01),
-      _poly_order(poly_order) {
+      _poly_order(poly_order),
+	  _model_type(model_type){
 
+    std::cout << "[ BumpHunter ]: Model type: " << _model_type << std::endl;
     std::cout << "[ BumpHunter ]: Background polynomial: " << _poly_order << std::endl;
     std::cout << "[ BumpHunter ]: Resolution multiplicative factor: " << _res_factor << std::endl;
 
@@ -62,7 +64,7 @@ BumpHunter::BumpHunter(int poly_order, int res_factor, int model_type)
     }
     else if(model_type == 2){ // e^(-k*x)*poly(x)
     	name = "k";
-    	variable_map["k"] = new RooRealVar("k", "k", 0, -2, 2);
+    	variable_map["k"] = new RooRealVar("k", "k", -50, -200, 200);
 
     	RooChebychev *poly = new RooChebychev("polbkg", "polbkg", *variable_map["invariant mass"], arg_list);
     	RooExponential* exp = new RooExponential("expbkg", "expbkg", *variable_map["invariant mass"], *variable_map["k"]);
@@ -260,6 +262,20 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     variable_map["bkg yield"]->setVal(integral);
     //if (ofs != nullptr) ofs << "Estimated bkg in range (" << start << ", " << start + window_size << "): " << integral; 
     //<< std::endl;
+
+    if(_model_type == 2){ //Try to fit the background to an exponential-only model
+                          // before fitting to an exponential*polynomial model.  
+                          // in order to set the initial conditions for the exp*poly.
+    	for (int order = 1; order <= _poly_order; ++order) {
+    	        std::string name = "t" + std::to_string(order);
+    	        variable_map[name]->setRange(0, 0);
+    	}
+    	this->fit(data, false, range_name);
+    	for (int order = 1; order <= _poly_order; ++order) {
+    	    	        std::string name = "t" + std::to_string(order);
+    	    	        variable_map[name]->setRange(-2, 2);
+    	}
+    }
 
     // Fit the distribution in the given range
     HpsFitResult* result = this->fit(data, false, range_name); 
