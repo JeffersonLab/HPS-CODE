@@ -218,12 +218,13 @@ int main(int argc, char **argv) {
     }
 
     bump_hunter->beam_energy = beam_energy;
-    
+
+
 
     HpsFitResult* result = bump_hunter->fitWindow(histogram, mass_hypo, false);
      
     // Retrieve all of the result of interest. 
-    
+
     double bkg_yield     = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
     double bkg_yield_err = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getError();
     double sig_yield     = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("signal yield"))->getVal();
@@ -298,6 +299,7 @@ int main(int argc, char **argv) {
 
     tuple->setVariableValue("toy_sig_yield_mean", sum_sig_yield/toys);
     tuple->setVariableValue("toy_sig_yield_sigma", sqrt((sum_sig_yield_sqr*toys-sum_sig_yield*sum_sig_yield)/(toys*(toys-1))));
+
 
     // Fill the ntuple
     tuple->fill(); 
