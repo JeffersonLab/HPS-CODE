@@ -11,10 +11,10 @@
 
 #include <BumpHunter.h>
 
-BumpHunter::BumpHunter(int poly_order, int res_factor) 
+BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor) 
     : comp_model(nullptr), 
       bkg_model(nullptr),
-      model(nullptr),
+      _model(nullptr),
       signal(nullptr), 
       bkg(nullptr),
       ofs(nullptr),
@@ -48,24 +48,49 @@ BumpHunter::BumpHunter(int poly_order, int res_factor)
     std::string name;
     for (int order = 1; order <= _poly_order; ++order) {
         name = "t" + std::to_string(order);
-        variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -2, 2);
+        variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -5, 5);
         arg_list.add(*variable_map[name]);
     } 
+    
+    switch(model) { 
+        case BkgModel::POLY: {
+            std::cout << "[ BumpHunter ]: Modeling the background using a polynomial of order " 
+                      << poly_order << std::endl;
+            bkg = new RooChebychev("bkg", "bkg", *variable_map["invariant mass"], arg_list);
+        } break;
+        case BkgModel::EXP_POLY: {
+            std::cout << "[ BumpHunter ]: Modeling the background using an exp(poly of order "
+                      << poly_order << ")" << std::endl;
+            RooChebychev* exp_poly_bkg 
+                = new RooChebychev("exp_poly_bkg", "exp_poly_bkg", *variable_map["invariant mass"], arg_list);
+            bkg = new RooExponential("bkg", "bkg", *exp_poly_bkg, *(new RooRealVar("const", "const", 1))); 
+        } break;
+        case BkgModel::EXP_POLY_X_POLY: { 
+            std::cout << "[ BumpHunter]: Modeling the background using an exp(-cx)*(poly of order "
+                      << poly_order << ")" << std::endl;
+            variable_map["c"] = new RooRealVar("const", "const", 0, -2, -0.000001);
+            RooChebychev* poly_bkg 
+                = new RooChebychev("poly_bkg", "poly_bkg", *variable_map["invariant mass"], arg_list);
+            RooExponential* exponential 
+                = new RooExponential("exp_bkg", "exp_bkg", *variable_map["invariant mass"], *variable_map["c"]);
+            bkg = new RooProdPdf("bkg", "bkg", *poly_bkg, *exponential); 
+        } break;
+    }
 
-    bkg = new RooChebychev("bkg", "bkg", *variable_map["invariant mass"], arg_list);
 
     //   Composite Models   //
     //----------------------//
+    std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
     variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
-    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 300000, 100, 10000000);
+    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 300000, 10000, 100000000);
 
     comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
                                RooArgList(*variable_map["signal yield"], *variable_map["bkg yield"]));
 
     bkg_model = new RooAddPdf("bkg model", "bkg model", 
                               RooArgList(*bkg), RooArgList(*variable_map["bkg yield"]));
-    model = comp_model;
+    _model = comp_model;
 
 
     for (auto& element : variable_map) {
@@ -84,7 +109,6 @@ BumpHunter::~BumpHunter() {
     delete signal;
     delete bkg;
     delete comp_model; 
-    if (ofs != nullptr) ofs->close();
 }
 
 /*std::map<double, HpsFitResult*> BumpHunter::fitWindow(TH1* histogram, double start, double end, double step) {
@@ -141,8 +165,6 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
     // hypothesis and do a Poisson likelihood fit within the window range. 
     HpsFitResult* result = this->fitWindow(data, ap_hypothesis, bkg_only);
    
-    if (ofs != nullptr) result->getRooFitResult()->printMultiline(*ofs, 0, kTRUE, "");
-
     // Delete the histogram object from memory
     delete data;
 
@@ -247,7 +269,25 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
     //  
     std::string output_path = "fit_result_" + range_name + (bkg_only ? "_bkg" : "_full") + ".png";
     if (!const_sig) {
-        printer->print(variable_map["invariant mass"]->frame(), data, model, range_name, output_path); 
+        printer->print(variable_map["invariant mass"], data, _model, range_name, output_path, n_bins); 
+        if (_write_results) { 
+     
+            // Create the output file name string
+            char buffer[100];
+            std::string output_file = "results_mass" + std::to_string(ap_hypothesis) + 
+                                      "_order" + std::to_string(_poly_order) + 
+                                      "_res_factor" + std::to_string(_res_factor) + 
+                                      (bkg_only ? "_bkg" : "_full") + 
+                                      ".txt";
+            std::cout << "[ BumpHunter ]: Writing results to " << output_file << std::endl;
+            sprintf(buffer, output_file.c_str()); 
+
+            // Create a file stream  
+            ofs = new std::ofstream(buffer, std::ofstream::out); 
+            result->getRooFitResult()->printMultiline(*ofs, 0, kTRUE, "");
+
+            ofs->close();
+        }
     }
 
     // Set the total number of bins within the fit window
@@ -301,7 +341,7 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     // nuisance parameters which in this case are the background normalization
     // and polynomial constants.  Since the likelihood is being constructed
     // from a histogram, use an extended likelihood.
-    RooAbsReal* nll = model->createNLL(*data, 
+    RooAbsReal* nll = _model->createNLL(*data, 
             RooFit::Extended(kTRUE), 
             RooFit::Verbose(kTRUE), 
             RooFit::Range(range_name.c_str()), 
@@ -343,12 +383,14 @@ void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, double
     // less than 0, the p-value is set to 1.
     if (signal_yield <= 0) { 
         result->setPValue(1);
+        std::cout << "[ BumpHunter ]: p-value: 1" << std::endl;
         return; 
     }
 
     // Get the NLL obtained by minimizing the composite model with the signal
     // yield floating.
     double mle_nll = result->getRooFitResult()->minNll();
+    printDebug("mu != 0 NLL: " + std::to_string(mle_nll));
 
     // Reset all parameters to their original values
     this->resetParameters(); 
@@ -359,12 +401,15 @@ void BumpHunter::calculatePValue(RooDataHist* data, HpsFitResult* result, double
 
     // Get the NLL obtained from the Bkg only fit.
     double cond_nll = cond_result->getRooFitResult()->minNll();
+    printDebug("mu = 0 NLL: " + std::to_string(cond_nll));
    
     // 1) Calculate the likelihood ratio which is chi2 distributed. 
     // 2) From the chi2, calculate the p-value.
     double q0 = 0; 
     double p_value = 0; 
     this->getChi2Prob(cond_nll, mle_nll, q0, p_value);  
+
+    std::cout << "[ BumpHunter ]: p-value: " << p_value << std::endl;
 
     // Update the result
     result->setPValue(p_value);
@@ -483,16 +528,6 @@ void BumpHunter::setBounds(double lower_bound, double upper_bound) {
     this->lower_bound = lower_bound; 
     this->upper_bound = upper_bound;
     printf("Fit bounds set to [ %f , %f ]\n", this->lower_bound, this->upper_bound);   
-}
-
-void BumpHunter::writeResults() { 
-    
-    // Create the output file name string
-    char buffer[100];
-    sprintf(buffer, "results_order%i_window%i.txt", _poly_order, window_size*1000);
-
-    // Create a file stream  
-    ofs = new std::ofstream(buffer, std::ofstream::out); 
 }
 
 std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
