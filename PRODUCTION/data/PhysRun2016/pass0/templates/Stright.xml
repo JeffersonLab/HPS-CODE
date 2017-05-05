@@ -1,0 +1,90 @@
+<Request>
+    
+  <Name name="ReconXXXRUNNOXXXXXXPASSXXX"/>
+  <List name="fnum">XXXFILENOSXXX</List>
+  
+  <OS name="centos65"/>
+  <Project name="hps"/>
+  <Track name="reconstruction"/>
+  <Email email="rafopar@jlab.org" request="false" job="false" />
+  
+  <Memory space="4000" unit="MB"/>
+  <DiskSpace space="15" unit="GB"/> 
+  <TimeLimit time="40" unit="hours"/>
+
+  <Variable name="pre"      value="XXXPREFIXXXX_00"/>
+  <Variable name="rel"      value="XXXRELEASEXXX"/>
+  <Variable name="run"      value="XXXRUNNOXXX"/>
+  <Variable name="pass"     value="XXXPASSXXX"/>
+  <Variable name="passfail" value="XXXPASSXXXfail"/>
+
+  <Variable name="detector" value="XXXDETECTORXXX"/> 
+  <Variable name="fieldmap" value="XXXFIELDMAPXXX"/>
+  
+  <Variable name="dstmaker" value="/u/group/hps/hps_soft/hps-dst/build/bin/dst_maker"/>
+  <Variable name="dstopts"  value=""/><!---g -b 0.24"/>-->
+
+  <Variable name="java"     value="/apps/scicomp/java/jdk1.7/bin/java -XX:+UseSerialGC"/>
+  <Variable name="jar"      value="/u/group/hps/hps_soft/hps-java/XXXJARXXX"/>
+  
+  <Variable name="stright_steer"  value="org.hps.steering.recon.EngineeringRun2015STRecon.lcsim"/>
+
+  <Variable name="disk" value="XXXDISKTOPDIRXXX"/>
+  <Variable name="tape" value="XXXTAPETOPDIRXXX"/>
+
+  <Variable name="comm"  value="echo ..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo"/>
+  <Variable name="datls" value="echo ; echo ; date ; ls -l ; echo ; echo"/>
+  <Variable name="augid" value="echo ; echo AugerID: $AUGER_ID; echo"/>
+
+  <Variable name="jrecopts" value=""/><!---DdisableSvtAlignmentConstants"/>-->
+
+  <ForEach list="fnum">
+    <Job>
+
+      <Input src="file:/u/group/hps/production/data/PhysRun2016/scripts/mkdirs.sh" dest="mkdirs.sh"/>  
+      <Input src="file:/u/group/hps/hps_soft/fieldmaps/${fieldmap}"  dest="${fieldmap}"/>
+      <Input src="mss:/mss/hallb/hps/data/${pre}${run}.evio.${fnum}" dest="in.evio"/>
+      
+      <Command><![CDATA[
+      ./mkdirs.sh ${disk}/${pass}
+
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.err               ${disk}/${passfail}/logs>& /dev/null
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.out               ${disk}/${passfail}/logs>& /dev/null
+      mv -f ${disk}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio            ${disk}/${passfail}/recon>& /dev/null
+      mv -f ${disk}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root                 ${disk}/${passfail}/dst>& /dev/null
+      
+      mkdir ./fieldmap ; mv ${fieldmap} fieldmap
+      
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running RECON ..."
+      ${java} ${jrecopts} -cp ${jar} org.hps.evio.EvioToLcio -x ${stright_steer} -r -d ${detector} -R ${run} -DoutputFile=out in.evio
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "Done RECON."
+
+      if ( ! -f ./out.slcio ) then
+          echo ; echo ######################### Missing out.slcio ################################
+          exit
+      endif
+      if ( `ls -l out.slcio | awk '{print$5}'` == "0" ) then
+          echo ; echo ########################### Zero out.slcio #################################
+          exit
+      endif
+
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running DST ..."
+      ${dstmaker} out.slcio -o dst.root ${dstopts}
+
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### All dpne ..."
+
+      ]]></Command>
+  
+      <Output src="out.slcio"     dest="mss:${tape}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio"/>
+      <Output src="dst.root"      dest="mss:${tape}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root"/>
+
+CANON <Output src="out.slcio"     dest="file:${disk}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio"/>
+CANON <Output src="dst.root"      dest="file:${disk}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root"/>
+
+      <Stderr                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}.err"/>
+      <Stdout                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}.out"/>
+  
+    </Job>
+  </ForEach>
+
+</Request> 

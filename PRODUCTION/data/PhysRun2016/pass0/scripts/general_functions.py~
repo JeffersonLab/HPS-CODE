@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+import os,re,sys,glob
+
+# This function returns tape file size in bytes
+# the argument is the full path mss file
+def getTapeFileSize(fname):
+    
+    f_mss = open(fname, 'r')
+    
+    for cur_line in f_mss.readlines():
+        if cur_line.find("ize=")>0:
+            cur_line = cur_line.replace('size=', '')
+            cur_line = cur_line.replace('\n', '')
+            return int(cur_line)
