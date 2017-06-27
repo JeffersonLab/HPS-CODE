@@ -706,3 +706,98 @@ void getGain(){
 }
 
 
+//Draws raw adc readout for x,y crystal
+void view(const int ix,const int iy)
+{
+    if (ix<0 || iy<0 || ix>=NX || iy>=NY) { cerr<<"What? "<<ix<<" "<<iy<<endl;return;}
+    TChain *t=chainfiledir("cosmicInput","Tadc");
+    fadc_t t_;
+    InitTreeFADC((TTree*)t,t_);
+    TH1D *h=new TH1D("h","",NSAMP,-0.5,NSAMP-0.5);
+
+    for (int ii=0; ii<t->GetEntries(); ii++)
+    {
+        t->GetEntry(ii);
+        for (int jj=0; jj<NSAMP; jj++)
+        {
+            h->SetBinContent(jj+1,t_.adc[ix][iy][jj]);
+        }
+        h->Draw();
+        gPad->Update();
+        if (getchar()=='q') return;
+    }
+}
+// Draws raw readout for specific number of events in specified column having hit about thresh
+void setlim(TH1* h)
+{
+    const double min=h->GetMinimum();
+    const double max=h->GetMaximum();
+    const double ddd=max-min;
+    h->SetMinimum(min-ddd*0.5);
+    h->SetMaximum(max+ddd*0.5);
+}
+void view(const int ix)
+{
+    gStyle->SetOptStat(0);
+    TLegend *leg=new TLegend(0.85,0.6,0.95,0.95,"Row");
+
+    const bool doped=0;
+    if (ix<0 || ix>=NX) { cerr<<"What? "<<ix<<" "<<endl;return;}
+    TChain *t=chainfiledir("cosmicInput","Tadc");
+    fadc_t t_;
+    InitTreeFADC((TTree*)t,t_);
+    TF1 *f=CosmicSignal();
+    TH1D *h[NY];
+    for (int iy=0; iy<NY; iy++)
+    {
+        h[iy]=new TH1D(Form("hy_%d",iy),"",NSAMP,-0.5,NSAMP-0.5);
+        h[iy]->SetLineColor(iy==0 ? MyColors(9) : MyColors());
+        h[iy]->GetYaxis()->SetTitle("ADC (mV)");
+        h[iy]->GetXaxis()->SetTitle("Time (4 ns)");
+        leg->AddEntry(h[iy],Form("%d",iy<5?iy-5:iy-4),"L");
+    }
+
+    for (int ii=0; ii<t->GetEntries(); ii++)
+    {
+        t->GetEntry(ii);
+        int trig[NY]={};
+        for (int iy=0; iy<NY; iy++)
+        {
+            for (int jj=0; jj<NSAMP; jj++)
+            {
+                const int adc=t_.adc[ix][iy][jj];
+		float ped = 0;
+		for (int ii=0; ii<30; ii++){
+		  ped +=t_.adc[ix][iy][ii];
+		}
+		float pedestal=ped/30;
+
+                if (jj>30 && (adc-pedestal)*ADC2V>2.5 ) trig[iy]=1;
+                if (doped) h[iy]->SetBinContent(jj+1,(adc-pedestal)*ADC2V);
+                else       h[iy]->SetBinContent(jj+1,adc*ADC2V);
+            }
+            if (!ishole(ix,iy) && h[iy]->Integral(1,NSAMP)>0)
+            {
+                //setlim(h);
+                if (doped) {h[iy]->SetMinimum(-20*ADC2V); h[iy]->SetMaximum(20*ADC2V);}
+                else       {h[iy]->SetMinimum(30*ADC2V);  h[iy]->SetMaximum(200*ADC2V);}
+                h[iy]->DrawCopy(iy==0?"":"SAME");
+                if (iy==0)
+                {
+                    f->SetParameter(3,h[iy]->GetMinimum());
+                    f->DrawClone("SAME");
+                }
+            }
+            h[iy]->Reset("ICE");
+        }
+        int ntrig=0;
+        for (int iy=0; iy<NY; iy++) ntrig += trig[iy];
+        if (ntrig>4)
+        {
+            leg->Draw();
+            gPad->Update();
+            gPad->SaveAs(Form("%d.C",ii));
+            if (getchar()=='q') return;
+        }
+    }
+}
