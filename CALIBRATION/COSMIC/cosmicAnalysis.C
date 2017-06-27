@@ -1,14 +1,15 @@
 /////////////////////////////////////////////////////////////////// 
 // Author: Holly Szumila 
-// Email: hvanc001@odu.edu
-// Updated: 25 Jan 2016
+// Email: hszumila@jlab.org
+// Updated: 27 June 2017
 //
 // This code calculates the gains for individual crystals in the 
-// HPS Ecal. This code takes in ROOT files that can be produced with
-// vectors for each crystal containing the adc counts in each event.
+// HPS Ecal for data taken with a cosmic trigger.
+// This code takes in ROOT files that can be produced with
+// arrays for each crystal containing the adc counts in each event.
 // This file can be compiled in ROOT as:
 // .L cosmicAnalysis.C++
-// rawGeoCut(0)
+// rawGeoCut(0) 
 // getGain()
 //
 // Pedestals are calculated per event 
@@ -18,11 +19,7 @@
 // Hole around the beam: (12<x<22 && 4<y<6)
 // Number of time samples is 100 (4ns per sample)
 //
-#define NX 46
-#define NY 10
-#define NSAMP 100
-#define NR 11
-#define ADC2V 0.25
+// Tune-able parameters:
 //signal window, originally 35-55, now shifted by 15
 #define MINS 35//50 
 #define MAXS 55//70
@@ -32,9 +29,16 @@
 // difference in window
 #define NWIN 20
 //threshold in mV
-#define THR 2.5
+#define THR 3.5 //for 2016, 2.5 for 2015
 #define NSAMPINT 20
-//
+
+
+// Don't change these
+#define NX 46
+#define NY 10
+#define NSAMP 100
+#define NR 11
+#define ADC2V 0.25
 ///////////////////////////////////////////////////////////////////
 #include "TH1.h"
 #include "TNtuple.h"
@@ -44,45 +48,25 @@
 #include "TStyle.h"
 #include "TLegend.h"
 #include "TDirectory.h"
+#include "TF1.h"
+#include "TPaveText.h"
+
+
 #include "dependency/chainfilelist.C"
 #include "dependency/MyRootUtil.C"
 #include "dependency/ProgressMeter.C"
-#include "TF1.h"
 #include "dependency/langaus.C"
+#include "dependency/functions.C"
+
 
 //use namespace standard;
 
-// This removes the crystals in the electron hole
-bool ishole(const int x,const int y)
-{
-    return (x>12 && x<22 && y>3 && y<6);
-}
-// Loads the initial ROOT file containing the raw data
-struct fadc_t
-{
-  int adc[NX][NY][NSAMP]; // adc value for each time sample
-  int pulse[NX][NY];      // adc integrated over first NSAMPINT samples
-  float ped[NX][NY];      // pedestal
-};
-void InitTreeFADC(TTree *t,fadc_t &t_)
-{
-    if (!t) return;
-    t->SetBranchAddress("adc",&t_.adc);
-    t->SetBranchAddress("pulse",&t_.pulse);
-    t->SetBranchAddress("ped",&t_.ped);
-}
-TChain *CHAIN=NULL;
-fadc_t FADC;
-void LoadTree()
-{
-    if (CHAIN) return;
-    CHAIN=chainfiledir("cosmicInput","Tadc");
-    InitTreeFADC((TTree*)CHAIN,FADC);
-}
+
 // rawGeoCut is used to plot the mip signal (pedestal subtracted) and 
 // use cuts to plot the value (cuts on raw value in time window and geometric)
 // set q to 0 for strict, set q to 1 for loose
-
+// strict means that there must be a hit both above and below
+// loose means that there can be hit above or below
 void rawGeoCut(int q)
 {
   
@@ -100,6 +84,9 @@ void rawGeoCut(int q)
   int pedestal[NX][NY]={};
   int pulse[NX][NY]={};
   float signal[NX][NY]={};
+
+  
+  gROOT->SetBatch(true);
 
  // Create histograms
   for (int jx=0; jx<NX; jx++)
@@ -337,7 +324,11 @@ void rawGeoCut(int q)
 }
 //////////////////////////////////////////////////////////////////////////////
 
-void rawCountingCut(){
+void rawCountingCut(int nCounts){
+  // nCounts is the number of hits in a column in a half of the Ecal,
+  // this was originally set to 2. Can be used when there is a bad
+  // crystal in a column.
+  
   // Chain files
   TChain *t=chainfiledir("cosmicInput","Tadc");
 
@@ -524,7 +515,7 @@ void rawCountingCut(){
 				}
 			    }// bottom half
 			  
-			  if (counter >= 2)
+			  if (counter >= nCounts)
 			    {
 			      mipSigCut[ix][iy]->Fill(signal[ix][iy]);
 			    }
@@ -540,7 +531,7 @@ void rawCountingCut(){
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
+// This is the code that fits the integrated histograms
 void getGain(){
 
   // open the root file histogram
@@ -551,8 +542,21 @@ void getGain(){
   TH1D *mipSigCut[NX][NY];
   //  TF1 *fcosmic=CosmicSignal();
   //  fcosmic->SetLineColor(4);
+
+  TCanvas *canvas = new TCanvas("canvas","cosmic fits", 700, 700);
+  canvas->SetFillColor(0);
+  canvas->SetBorderMode(0);
+  canvas->SetBorderSize(0);
+  canvas->SetFrameFillColor(0);
+  canvas->SetFrameBorderMode(0);
+  std::string pdf_file_name = "convolFit/cosmicFits.pdf";
+
+  gROOT->SetBatch(true);
+
   
   int ii=0;
+  canvas->Update();
+
   
   for (int jy=0; jy<NY; jy++)
 	{
@@ -565,49 +569,58 @@ void getGain(){
 		  mipSigCut[jx][jy] = (TH1D*)f->Get(Form("Cry_%.2d_%d",jx,jy));
 		  
 		  if (mipSigCut[jx][jy]) {
-
-		    ///using convolution fit//
-		    // Setting fit range and start values
-		    Double_t fr[2];
-		    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
-		    fr[0]=0.3*mipSigCut[jx][jy] ->GetMean();
-		    fr[1]=3.0*mipSigCut[jx][jy] ->GetMean();
-		    
-		    if(mipSigCut[jx][jy] ->GetMean() < 20.0)
-		      {
+		      mipSigCut[jx][jy]->GetXaxis()->SetRange(10,70);
+		      ///using convolution fit//
+		      // Setting fit range and start values
+		      Double_t fr[2];
+		      Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
+		      //fr[0]=mipSigCut[jx][jy]->GetMean()-10.0;
+		      fr[0] = 0.3*mipSigCut[jx][jy] ->GetMean();
+		      //fr[1]=mipSigCut[jx][jy]->GetMean()+20.0;
+		      fr[1] = 3.0*mipSigCut[jx][jy] ->GetMean();
+		      /*
+			if(mipSigCut[jx][jy] ->GetMean() < 20.0)
+			{
 			fr[0]=0.5*25.0;
 			fr[1]=3.0*25.0;
-		      }
-		  
-		    pllo[0]=0.5; pllo[1]=12.0; pllo[2]=50.0; pllo[3]=0.4;
-		    plhi[0]=5.0; plhi[1]=50.0; plhi[2]=2000.0; plhi[3]=7.0;
-		    sv[0]=1.8; sv[1]=25.0; sv[2]=500.0; sv[3]=3.0;
-		    Double_t chisqr;
-		    Int_t    ndf;		  
-		    lfit[jx][jy] = langaufit(mipSigCut[jx][jy],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
-		    ///using convolution fit///
-		    Double_t SNRPeak, SNRFWHM;
-		    langaupro(fp,SNRPeak,SNRFWHM);		  
-		    printf("Fitting done\nPlotting results...\n");		  
-		    // Global style settings
-		    gStyle->SetOptStat(1111);
-		    gStyle->SetOptFit(111);
-		    gStyle->SetLabelSize(0.03,"x");
-		    gStyle->SetLabelSize(0.03,"y");		  
-		    mipSigCut[jx][jy]->GetXaxis()->SetRange(8,70);
-		    mipSigCut[jx][jy]->Draw();
-		    lfit[jx][jy]->Draw("lsame");
-		    		    
-		    gPad->Update();
-		    gPad->SaveAs(Form("convolFit/Cry_%d_%d.C",jx,jy));
-		    ii++;
+			}
+		      */
+		      pllo[0]=0.5; pllo[1]=15.0; pllo[2]=0.1*mipSigCut[jx][jy]->GetEntries(); pllo[3]=1;
+		      plhi[0]=5.0; plhi[1]=40.0; plhi[2]=0.75*mipSigCut[jx][jy]->GetEntries(); plhi[3]=7.0;
+		      sv[0]=1.8; sv[1]=mipSigCut[jx][jy]->GetMean(); sv[2]=0.5*mipSigCut[jx][jy] ->GetEntries(); sv[3]=2.0;
+		      Double_t chisqr;
+		      Int_t    ndf;		  
+		      lfit[jx][jy] = langaufit(mipSigCut[jx][jy],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
+		      ///using convolution fit///
+		      Double_t SNRPeak, SNRFWHM;
+		      langaupro(fp,SNRPeak,SNRFWHM);		  
+		      printf("Fitting done\nPlotting results...\n");		  
+		      // Global style settings
+		      gStyle->SetOptStat(1111);
+		      gStyle->SetOptFit(111);
+		      gStyle->SetLabelSize(0.03,"x");
+		      gStyle->SetLabelSize(0.03,"y");		  
+		      mipSigCut[jx][jy]->GetXaxis()->SetRange(8,70);
+		      mipSigCut[jx][jy]->Draw();
+		      lfit[jx][jy]->Draw("lsame");		      
+		      MPV[jx][jy] = SNRPeak;
 
-		    MPV[jx][jy] = SNRPeak; 
+		      TPaveText *t = new TPaveText(0.1,0.8,0.3,0.9,"brNDC");
+		      t->AddText(Form("Peak at %.3f",MPV[jx][jy]));
+		      t->AddText(Form("Gain is %.3f",18.3/(MPV[jx][jy]*4)));
+		      t->Draw("lsame");
+		      canvas->Print( (pdf_file_name + "(").c_str());
+		      gPad->Update();
+		      gPad->SaveAs(Form("convolFit/Cry_%d_%d.C",jx,jy));
+		      gPad->Print(Form("convolFit/Cry_%d_%d.png",jx,jy));
+
+		    ii++;
 		    
 		  }//end if mipSigCut[][]
 		}//end ishole
 	    }//end loop x
 	}//end loop y
+  canvas->Print( (pdf_file_name + ")").c_str());
 
 	  
   //Plot gain values
@@ -635,7 +648,7 @@ void getGain(){
     }
   gStyle->SetOptStat(0);
   gainC->Update();
-  gainC->Print(Form("gainFactor.png"));
+  gainC->Print(Form("convolFit/gainFactor.png"));
   gainC->Close();
 
   //Look at rates:
@@ -659,13 +672,16 @@ void getGain(){
     }
  gStyle->SetOptStat(0);
  rateC->Update();
- rateC->Print(Form("cosmicOccupancy.png"));
+ rateC->Print(Form("convolFit/cosmicOccupancy.png"));
  rateC->Close();
 
  f->Close();
 
  ofstream gainsOut;
- gainsOut.open("gains.txt");
+ gainsOut.open("convolFit/gains4db.txt");
+ //ofstream gainsDAQ;
+ //gainsDAQ.open("convolFit/gains4DAQ.txt");
+ gainsOut<<"ecal_channel_id, gain"<<endl; 
   for (int ny=0; ny<NY; ny++)
    {
      // loop over crystal x
@@ -675,15 +691,16 @@ void getGain(){
 	 if (!ishole(nx,ny))
 	   {
 	     float val = 18.3/(MPV[nx][ny]*4);
-	     if (MPV[nx][ny]>-900){
-	       gainsOut<<nx<<"\t"<<ny<<"\t"<<val<<endl;
-	       //fprintf("%d \t %d \t %f",nx,ny,val);
+	     if (MPV[nx][ny]>-900 ){
+	       int dbid = xy2dbid(nx,ny);
+	       cout<<nx<<","<<ny<<"\t"<<calcIX(nx)<<","<<calcIY(ny)<<"\tdbid\t"<<dbid<<"\t"<<val<<endl;
+	       gainsOut<<dbid<<","<<val<<endl;
+	       //gainsDAQ<<dbid<<","<<val<<endl;
 	     }
-	     else{gainsOut<<nx<<"\t"<<ny<<"\t"<<0.2<<endl;}
-
 	   }
        }
    }
+  // gainsDAQ.close();
   gainsOut.close();
  
 }
