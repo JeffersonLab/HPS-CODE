@@ -746,7 +746,6 @@ void view(const int ix)
     TChain *t=chainfiledir("cosmicInput","Tadc");
     fadc_t t_;
     InitTreeFADC((TTree*)t,t_);
-    TF1 *f=CosmicSignal();
     TH1D *h[NY];
     for (int iy=0; iy<NY; iy++)
     {
@@ -782,11 +781,7 @@ void view(const int ix)
                 if (doped) {h[iy]->SetMinimum(-20*ADC2V); h[iy]->SetMaximum(20*ADC2V);}
                 else       {h[iy]->SetMinimum(30*ADC2V);  h[iy]->SetMaximum(200*ADC2V);}
                 h[iy]->DrawCopy(iy==0?"":"SAME");
-                if (iy==0)
-                {
-                    f->SetParameter(3,h[iy]->GetMinimum());
-                    f->DrawClone("SAME");
-                }
+                
             }
             h[iy]->Reset("ICE");
         }
