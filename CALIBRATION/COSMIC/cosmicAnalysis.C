@@ -679,9 +679,9 @@ void getGain(){
 
  ofstream gainsOut;
  gainsOut.open("convolFit/gains4db.txt");
- //ofstream gainsDAQ;
- //gainsDAQ.open("convolFit/gains4DAQ.txt");
- gainsOut<<"ecal_channel_id, gain"<<endl; 
+ ofstream gainsDAQ;
+ gainsDAQ.open("convolFit/gains4DAQconversion.txt");
+ gainsOut<<"ecal_channel_id, gain"<<endl;
   for (int ny=0; ny<NY; ny++)
    {
      // loop over crystal x
@@ -695,13 +695,14 @@ void getGain(){
 	       int dbid = xy2dbid(nx,ny);
 	       cout<<nx<<","<<ny<<"\t"<<calcIX(nx)<<","<<calcIY(ny)<<"\tdbid\t"<<dbid<<"\t"<<val<<endl;
 	       gainsOut<<dbid<<","<<val<<endl;
-	       //gainsDAQ<<dbid<<","<<val<<endl;
+	       gainsDAQ<<nx<<"\t"<<ny<<"\t"<<val<<endl;
 	     }
 	   }
        }
    }
-  // gainsDAQ.close();
+  gainsDAQ.close();
   gainsOut.close();
+  
  
 }
 
