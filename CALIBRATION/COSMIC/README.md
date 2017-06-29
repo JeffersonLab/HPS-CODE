@@ -38,8 +38,7 @@ To use the counting cut, one can run cosmicAnalysis in root by typing:
 rawCountingCut(2) // 2 is a good default, 3 is tighter
 getGain()
 
-The output file with the crystals and gains is in the format to upload to the
-database.
+The output file (gains4db.txt) with the crystals and gains is in the format to upload to the database.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In order to upload to the database:
@@ -48,9 +47,14 @@ java -cp hps-distribution-SNAPSHOT-bin.jar org.hps.conditions.cli.CommandLineToo
 After this command, there will be a collection id number given. This is used as ## in the next command:
 
 java -cp hps-distribution-SNAPSHOT-bin.jar org.hps.conditions.cli.CommandLineTool -p jlab_write.prop add -c ## -r XXXX -e 9999999 -t ecal_gains -u username -m 'gains from cosmics'
-~~~~~~~~~
+
+where:
 XXXX is the starting run number that these gains apply to
 username is the user name upload the gains
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TODO: Still need to output this in DAQ format...
 
+The other output file is gains4DAQconversion.txt. This file must be converted so that the gains cna be uploaded into the DAQ prior to running. This can be done using the script calibUtilHpsEcal.py:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+python calibUtilHpsEcal.py -g convolFit/gains4DAQconversion.txt -G -DAQ
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
