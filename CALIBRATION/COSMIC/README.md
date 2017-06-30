@@ -6,8 +6,7 @@ This contains the scripts for running the cosmic calibration for the HPS
 Ecal. 
 
 In order to run the cosmic calibration, one must first have the evio files
-converted to ROOT files containing the raw adc spectra for each crystal. This
-still needs to be added here.
+converted to ROOT files containing the raw adc spectra for each crystal. Those instructions are at : https://github.com/JeffersonLab/HPS-CODE/tree/master/ANALYSIS/EvioTool
 
 The raw data needs to be analyzed using a strict geometric cut, loose
 geometric cut, or counting cut. The first is recommended for the
