@@ -9,7 +9,7 @@
 // arrays for each crystal containing the adc counts in each event.
 // This file can be compiled in ROOT as:
 // .L cosmicAnalysis.C++
-// rawGeoCut(0) 
+// geoCut(0) 
 // getGain()
 //
 // Pedestals are calculated per event 
@@ -67,11 +67,11 @@
 // set q to 0 for strict, set q to 1 for loose
 // strict means that there must be a hit both above and below
 // loose means that there can be hit above or below
-void rawGeoCut(int q)
+void geoCut(int q)
 {
   
   // Chain files
-  TChain *t=chainfiledir("cosmicInput","Tadc");
+  TChain *t=chainfiledir("input","Tadc");
 
   fadc_t t_;
   InitTreeFADC(t,t_);
@@ -324,13 +324,13 @@ void rawGeoCut(int q)
 }
 //////////////////////////////////////////////////////////////////////////////
 
-void rawCountingCut(int nCounts){
+void countingCut(int nCounts){
   // nCounts is the number of hits in a column in a half of the Ecal,
   // this was originally set to 2. Can be used when there is a bad
   // crystal in a column.
   
   // Chain files
-  TChain *t=chainfiledir("cosmicInput","Tadc");
+  TChain *t=chainfiledir("input","Tadc");
 
   fadc_t t_;
   InitTreeFADC(t,t_);
@@ -549,7 +549,7 @@ void getGain(){
   canvas->SetBorderSize(0);
   canvas->SetFrameFillColor(0);
   canvas->SetFrameBorderMode(0);
-  std::string pdf_file_name = "convolFit/cosmicFits.pdf";
+  std::string pdf_file_name = "output/cosmicFits.pdf";
 
   gROOT->SetBatch(true);
 
@@ -611,8 +611,8 @@ void getGain(){
 		      t->Draw("lsame");
 		      canvas->Print( (pdf_file_name + "(").c_str());
 		      gPad->Update();
-		      gPad->SaveAs(Form("convolFit/Cry_%d_%d.C",jx,jy));
-		      gPad->Print(Form("convolFit/Cry_%d_%d.png",jx,jy));
+		      gPad->SaveAs(Form("output/Cry_%d_%d.C",jx,jy));
+		      gPad->Print(Form("output/Cry_%d_%d.png",jx,jy));
 
 		    ii++;
 		    
@@ -648,7 +648,7 @@ void getGain(){
     }
   gStyle->SetOptStat(0);
   gainC->Update();
-  gainC->Print(Form("convolFit/gainFactor.png"));
+  gainC->Print(Form("output/gainFactor.png"));
   gainC->Close();
 
   //Look at rates:
@@ -672,15 +672,15 @@ void getGain(){
     }
  gStyle->SetOptStat(0);
  rateC->Update();
- rateC->Print(Form("convolFit/cosmicOccupancy.png"));
+ rateC->Print(Form("output/cosmicOccupancy.png"));
  rateC->Close();
 
  f->Close();
 
  ofstream gainsOut;
- gainsOut.open("convolFit/gains4db.txt");
+ gainsOut.open("output/gains4db.txt");
  ofstream gainsDAQ;
- gainsDAQ.open("convolFit/gains4DAQconversion.txt");
+ gainsDAQ.open("output/gains4DAQconversion.txt");
  gainsOut<<"ecal_channel_id, gain"<<endl;
   for (int ny=0; ny<NY; ny++)
    {
@@ -711,7 +711,7 @@ void getGain(){
 void view(const int ix,const int iy)
 {
     if (ix<0 || iy<0 || ix>=NX || iy>=NY) { cerr<<"What? "<<ix<<" "<<iy<<endl;return;}
-    TChain *t=chainfiledir("cosmicInput","Tadc");
+    TChain *t=chainfiledir("input","Tadc");
     fadc_t t_;
     InitTreeFADC((TTree*)t,t_);
     TH1D *h=new TH1D("h","",NSAMP,-0.5,NSAMP-0.5);
@@ -744,7 +744,7 @@ void view(const int ix)
 
     const bool doped=0;
     if (ix<0 || ix>=NX) { cerr<<"What? "<<ix<<" "<<endl;return;}
-    TChain *t=chainfiledir("cosmicInput","Tadc");
+    TChain *t=chainfiledir("input","Tadc");
     fadc_t t_;
     InitTreeFADC((TTree*)t,t_);
     TH1D *h[NY];

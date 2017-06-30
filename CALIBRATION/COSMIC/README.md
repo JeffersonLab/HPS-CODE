@@ -19,23 +19,22 @@ must be a hit in a crystal above OR below. A counting cut requires that any
 number of crystals (2 is good) in the same column (and half) have a hit above
 threshold and not the ones to the left and right. 
 
-Make directories: cosmicInput
-		  convolFit
+Make directory: input
 
-Put raw files in the folder cosmicInput.
-(Or make a symbolic link as: ln -s folder/with/root/files.root cosmicInput)
+Put raw files in the folder "input".
+(Or make a symbolic link as: ln -s folder/with/root/files.root input)
 
 In the folder, "dependency", one must replace the line in chainfilelist.C to
 give a scratch folder directory.
 
 To use the geometric cut, one can run cosmicAnalysis in root by typing:
 .L cosmicAnalysis.C++
-rawGeoCut(0) //Option 0 is strict, option 1 is loose
+geoCut(0) //Option 0 is strict, option 1 is loose
 getGain()
 
 To use the counting cut, one can run cosmicAnalysis in root by typing:
 .L cosmicAnalysis.C++
-rawCountingCut(2) // 2 is a good default, 3 is tighter
+countingCut(2) // 2 is a good default, 3 is tighter
 getGain()
 
 The output file (gains4db.txt) with the crystals and gains is in the format to upload to the database.
