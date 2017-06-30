@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////// 
 // Author: Holly Szumila 
 // Email: hszumila@jlab.org
-// Updated: 27 June 2017
+// Updated: 30 June 2017
 //
 // This code calculates the gains for individual crystals in the 
 // HPS Ecal for data taken with a cosmic trigger.
@@ -710,22 +710,37 @@ void getGain(){
 //Draws raw adc readout for x,y crystal
 void view(const int ix,const int iy)
 {
-    if (ix<0 || iy<0 || ix>=NX || iy>=NY) { cerr<<"What? "<<ix<<" "<<iy<<endl;return;}
-    TChain *t=chainfiledir("input","Tadc");
-    fadc_t t_;
-    InitTreeFADC((TTree*)t,t_);
-    TH1D *h=new TH1D("h","",NSAMP,-0.5,NSAMP-0.5);
-
-    for (int ii=0; ii<t->GetEntries(); ii++)
+  int kk=0;
+  if (ix<0 || iy<0 || ix>=NX || iy>=NY) { cerr<<"What? "<<ix<<" "<<iy<<endl;return;}
+  TChain *t=chainfiledir("input","Tadc");
+  fadc_t t_;
+  InitTreeFADC((TTree*)t,t_);
+  TH1D *h=new TH1D("h","",NSAMP,-0.5,NSAMP-0.5);
+  const bool doped=0;
+  for (int ii=0; ii<t->GetEntries(); ii++)
     {
-        t->GetEntry(ii);
-        for (int jj=0; jj<NSAMP; jj++)
+      t->GetEntry(ii);
+      int trigger=0;
+      for (int jj=0; jj<NSAMP; jj++)
         {
-            h->SetBinContent(jj+1,t_.adc[ix][iy][jj]);
-        }
-        h->Draw();
-        gPad->Update();
-        if (getchar()=='q') return;
+	  const int adc=t_.adc[ix][iy][jj];
+	  float ped = 0;
+	  for (int ii=0; ii<30; ii++){
+	    ped +=t_.adc[ix][iy][ii];
+	  }
+	  float pedestal=ped/30;
+	  
+	  if (jj>30 && (adc-pedestal)*ADC2V>THR) trigger=1;
+	  if (doped) h->SetBinContent(jj+1,(adc-pedestal)*ADC2V);
+	  else       h->SetBinContent(jj+1,adc*ADC2V);
+	}           
+      if (trigger==1){
+	h->Draw();
+	gPad->Update();
+	gPad->SaveAs(Form("%d.C",kk));
+	kk++;     
+	if (getchar()=='q') return;
+      }
     }
 }
 // Draws raw readout for specific number of events in specified column having hit about thresh
@@ -772,7 +787,7 @@ void view(const int ix)
 		}
 		float pedestal=ped/30;
 
-                if (jj>30 && (adc-pedestal)*ADC2V>2.5 ) trig[iy]=1;
+                if (jj>30 && (adc-pedestal)*ADC2V>THR ) trig[iy]=1;
                 if (doped) h[iy]->SetBinContent(jj+1,(adc-pedestal)*ADC2V);
                 else       h[iy]->SetBinContent(jj+1,adc*ADC2V);
             }
