@@ -1,1 +1,0 @@
-This contains all of the .root input files.
