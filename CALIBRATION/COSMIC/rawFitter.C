@@ -136,7 +136,7 @@ void fitPulse(const int ix,const int iy)
 	TF1 *pFit = new TF1("pFit",fitpk,rangeMin,rangeMax,4);
 	pFit->SetLineColor(kRed);
 	int dbid = xy2dbid(ix,iy);
-	pFit->SetParameters(pedestal,pulseIntegral,threePoleWidths[dbid-1],time0-2);
+	pFit->SetParameters(pedestal*ADC2V,pulseIntegral,threePoleWidths[dbid-1],time0-2);
 	pFit->SetParNames("ped","integral","width","t_{thr}");
 
 	//set parameter limits
