@@ -2,16 +2,12 @@
 /* 
 Date: 18 July 2017
 Author: Holly Szumila, hszumila@jlab.org
-Purpose: This code performs a single iteration of the FEE claibration. 
-How to run: In root, run .L thisCode.C fitPeaks(N) where N is the iteration number, starting with 1. 
+Purpose: This code obtains the ratio of the measured elastic peak in MC to the beam energy. 
+How to run: In root, run .L thisCode.C fitMCPeaks()
 Reads in:
--mc constants
--root histograms from current iteration
--previous global total
--cosmic gains
+-root histograms
 Outputs:
--next iterative factor
--updated global coefficient, cGlobal, this excludes cosmics (not for final db)
+-coeff/MC_constant.txt
 -pdf containing fits (must check) 
  */
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,50 +19,10 @@ Outputs:
 const double EBEAM = 1.05;
 
 //Gets the max bin in each crystal histogram and plots. 
-void fitPeaks(int ITER){
+void fitMCPeaks(){
 
-  //Read in iteration coefficients (for iteration 0, =1):
-  float prevC[NCRY]={};
-  float previous;
-  string line1;
-  int cid1;
-  if (ITER>1){
-    FILE *myfile1 = fopen(Form("coeff/c%d.txt",ITER-1), "r");
-    while (fscanf(myfile1, "%d,%f",&cid1, &previous)>0){
-      prevC[cid1-1] = previous;
-    }
-    fclose(myfile1);
-  }
-  else{
-    for (int ik=0; ik<NCRY; ik++){
-      prevC[ik] = 1.0;
-    }
-  }
-
-  //Read in MC constant fractions:
-  float mcG[NCRY]={};
-  float mcgains;
-  int cid2;
-  string line2;
-  FILE *myfile2 = fopen("coeff/MC_constant.txt", "r");
-  while (fscanf(myfile2, "%d,%f",&cid2, &mcgains)>0){
-    mcG[cid2-1] = mcgains;
-  }
-  fclose(myfile2);
-
-  //Read in cosmics gain values
-  float ccosmic[NCRY]={};
-  float cCosmic;
-  int cid3;
-  string line3;
-  FILE *myfile3 = fopen("coeff/cosmic.txt", "r");
-  while (fscanf(myfile3, "%d,%f",&cid3, &cCosmic)>0){
-    ccosmic[cid3-1] = cCosmic;
-  }
-  fclose(myfile3);
- 
   // open the root file histogram
-  TFile *f = new TFile(Form("input_iter%d/FEE_c%d.root",ITER,ITER));
+  TFile *f = new TFile("input_MC/FEE_MC.root");
 
   // make output file
   TCanvas *tcc = new TCanvas("tcc","fits to peak",800,800);
@@ -75,7 +31,7 @@ void fitPeaks(int ITER){
   tcc->SetBorderSize(0);
   tcc->SetFrameFillColor(0);
   tcc->SetFrameBorderMode(0);
-  std::string pdf_file_name = Form("output_iter%d/FEEfits.pdf",ITER);
+  std::string pdf_file_name = "output_MC/FEEfits.pdf";
 
   float MPV[NX][NY]={};
   TH1F *crystal[NX][NY];
@@ -184,7 +140,7 @@ void fitPeaks(int ITER){
     }
   gStyle->SetOptStat(0);
   tOff->Update();
-  tOff->Print(Form("output_iter%d/EnergyFraction.png",ITER));
+  tOff->Print("output_MC/EnergyFraction.png");
   tOff->Close();
   
   ////////////////////////////////////////
@@ -209,19 +165,15 @@ void fitPeaks(int ITER){
     }
   gStyle->SetOptStat(0);
   occup->Update();
-  occup->Print(Form("output_iter%d/CrystalOccupancies.png",ITER));
+  occup->Print("output_MC/CrystalOccupancies.png");
   occup->Close();
   f->Close();
 
 
   //////////////////////////////////////////////////////////////
-  //Write out iteration factor//////////////////////////////////
+  //Write out MC ratio factor//////////////////////////////////
   //////////////////////////////////////////////////////////////
-  cout<<"Printing iteration factor"<<endl;
-  //iteration factor:
-  FILE *c = fopen(Form("output_iter%d/c%d.txt",ITER,ITER),"a+");
-  //global running gain:
-  FILE *cc = fopen(Form("coeff/cGlobal_%d.txt",ITER),"a+");
+  FILE *c = fopen("coeff/MC_constant.txt","a+");
   for (int iy=0; iy<NY; iy++)
     {
       // loop over crystal x
@@ -229,73 +181,10 @@ void fitPeaks(int ITER){
 	{
 	  if (!ishole(ix,iy)){
 	    int id = xy2dbid(ix,iy);
-	    fprintf(c,"%d,%.4f\n",id,prevC[id-1]*mcG[id-1]/MPV[ix][iy]);
-	    fprintf(cc,"%d,%.4f\n",id,ccosmic[id-1]*prevC[id-1]*mcG[id-1]/MPV[ix][iy]);
+	    fprintf(c,"%d,%.4f\n",id,MPV[ix][iy]);
 
 	  }
 	}
     }
 
-  //////////////////////////////////////////////////////////////
-  //Make plot to show peak position by crystal, sigma by crystal
-  //////////////////////////////////////////////////////////////
-  Double_t xPos[NX]={};
-  
-  for (Int_t i=0;i<NX; i++){
-    xPos[i] = calcIX(i);
-  }
-  Double_t row[NY][NX]={};
-  
-  for (int iy=0; iy<NY; iy++){
-    for (int ix=0; ix<NX; ix++){
-      if (!ishole(ix,iy)){
-	int id = xy2dbid(ix,iy);
-	row[iy][ix] = mcG[id-1]/MPV[ix][iy];
-      }
-      else {row[iy][ix]=-1;}
-    }
-  }
-
-  TMultiGraph *mg = new TMultiGraph();
-  mg->SetMinimum(0.0);
-  mg->SetMaximum(1.5);
-  
-  TFile *out=new TFile("scratch.root","RECREATE");
-  TCanvas *scr=new TCanvas("scr","xxxx",1200,800);
-  scr->cd();
-  
-  TGraphErrors *grp[NY];
-  for (int yy=0;yy<NY;yy++){
-    grp[yy]= new TGraphErrors(NX,xPos,row[yy],0,0);
-    grp[yy]->SetLineColor(yy);
-    grp[yy]->SetMarkerStyle(31);
-    grp[yy]->SetMarkerSize(1.5);
-    grp[yy]->SetMarkerColor(yy);
-    grp[yy]->Write();
-    mg->Add(grp[yy]);
-  }
-
-  mg->Draw("ap");
-  mg->SetTitle("Elastic Peak Position");
-  mg->GetXaxis()->SetTitle("x crystal index, viewed from back of calorimeter");
-  mg->GetYaxis()->SetTitle("MC Elastic Peak / Data Elastic Peak");
-
-
-  TLegend * leg = new TLegend(0.3,0.65,0.48,0.95);
-  leg->SetHeader("Row in y");
-  leg->AddEntry(Form("grp[%d]",9),"y=5","lep");
-  leg->AddEntry(Form("grp[%d]",8),"y=4","lep");
-  leg->AddEntry(Form("grp[%d]",7),"y=3","lep");
-  leg->AddEntry(Form("grp[%d]",6),"y=2","lep");
-  leg->AddEntry(Form("grp[%d]",5),"y=1","lep");
-  leg->AddEntry(Form("grp[%d]",4),"y=-1","lep");
-  leg->AddEntry(Form("grp[%d]",3),"y=-2","lep");
-  leg->AddEntry(Form("grp[%d]",2),"y=-3","lep");
-  leg->AddEntry(Form("grp[%d]",1),"y=-4","lep");
-  leg->AddEntry(Form("grp[%d]",0),"y=-5","lep");
-  leg->Draw();
-  
-  scr->Update();
-  scr->Print(Form("output_iter%d/Elasticmean.C",ITER));
-  scr->Close();
 }
