@@ -127,7 +127,7 @@ class BumpHunter {
          */
         inline double getMassResolution(double mass) { 
             //return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
-            return beam_energy == 1.056 ?
+            return fabs(beam_energy - 1.056)<.1 ?
             		-6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373
 					: 0.000436657 + 0.0149122*mass + 0.123435*pow(mass,2) + -0.402478*pow(mass,3);
 
@@ -189,12 +189,13 @@ class BumpHunter {
          * for the first filled bin.
          */
         double lower_bound{0};
-
         /** 
          * The upper bound of the histogram. This is determined by searching
          * for the last filled bin.
          */
         double upper_bound{0};
+
+        double bin_width{0};
 
         /** Maximum size of the window */
         double _max_window_size{1.0};
