@@ -585,7 +585,7 @@ std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, do
         data->createHistogram(("toy_" + std::to_string(index)).c_str(), *variable_map["invariant mass"])->Write(); 
         // Reset all of the parameters to their original values
         this->resetParameters(); 
-
+        std::cout << "[ BumpHunter ]: running the " << index << "th toy (not bothering with grammar)" << std::endl;
         // Construct a window of size x*(A' mass resolution) around the A' mass
         // hypothesis and do a Poisson likelihood fit within the window range. 
         results.push_back(this->fitWindow(data, ap_hypothesis, false));
