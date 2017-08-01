@@ -202,6 +202,15 @@ class BumpHunter {
          * for the last filled bin.
          */
         double upper_bound{0};
+        /**
+         * The left edge of the histogram.  Not necessarily a filled bin
+         */
+        double hist_min_mass{0};
+        /**
+         * The right edge of the histogram.  Not necessarily a filled bin
+         */
+        double hist_max_mass{0};
+
 
         double bin_width{0};
 

@@ -161,8 +161,10 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
    
     // Set the total number of bins 
     bins = histogram->GetNbinsX(); 
+    hist_min_mass = histogram->GetXaxis()->GetXmin();
+    hist_max_mass = histogram->GetXaxis()->GetXmax();
     variable_map["invariant mass"]->setBins(bins);
-    variable_map["invariant mass"]->setRange(histogram->GetXaxis()->GetXmin(), histogram->GetXaxis()->GetXmax());
+    variable_map["invariant mass"]->setRange(hist_min_mass, hist_max_mass);
 
     // Create a histogram object compatible with RooFit.
     RooDataHist* data = new RooDataHist("data", "data", RooArgList(*variable_map["invariant mass"]), histogram);
@@ -452,7 +454,7 @@ void BumpHunter::resetParameters() {
         element.second->setVal(default_values[element.first]);
         element.second->setError(default_errors[element.first]);
     }
-    variable_map["invariant mass"]->setRange(0.0, 0.3);
+    variable_map["invariant mass"]->setRange(hist_min_mass, hist_max_mass);
     variable_map["invariant mass"]->setBins(bins); 
 }
 
@@ -599,7 +601,7 @@ std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, do
     int index{0}; 
     for (auto& data : datum) { 
        
-        data->createHistogram(("toy_" + std::to_string(index)).c_str(), *variable_map["invariant mass"])->Write(); 
+        data->createHistogram(("toy_" + std::to_string(index)).c_str(), *variable_map["invariant mass"])->Write();
         // Reset all of the parameters to their original values
         this->resetParameters(); 
         std::cout << "[ BumpHunter ]: running the " << index << "th toy (not bothering with grammar)" << std::endl;
