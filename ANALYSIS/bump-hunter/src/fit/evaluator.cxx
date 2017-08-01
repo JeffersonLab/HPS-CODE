@@ -70,7 +70,6 @@ int main(int argc, char **argv) {
         {"help",       no_argument,       0, 'h'},
         {"log",        no_argument,       0, 'l'},
 		{"debug",      no_argument,       0, 'd'},
-		{"exp",        no_argument,       0, 'e'},
 		{"beam_energy",required_argument, 0, 'b'},
         {"mass",       required_argument, 0, 'm'}, 
         {"name",       required_argument, 0, 'n'}, 
@@ -103,9 +102,6 @@ int main(int argc, char **argv) {
             case 'd':
                 debug = true;
                 break;
-            case 'e':
-            	exp_poly = true;
-            	break;
             case 'b':
             	beam_energy = atof(optarg);
             	break;

@@ -24,7 +24,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
       _res_factor(res_factor), 
       window_size(0.01),
       _poly_order(poly_order),
-	  _model_type(model_type){
+	  _model_type(model){
 
     std::cout << "[ BumpHunter ]: Model type: " << _model_type << std::endl;
     std::cout << "[ BumpHunter ]: Background polynomial: " << _poly_order << std::endl;

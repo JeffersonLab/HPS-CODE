@@ -60,10 +60,6 @@ int main(int argc, char **argv) {
 
     /** Flag indicating whether or not to debug*/
     bool debug = false;
-    /** Flag indicating whether or not to use e^(poly)*/
-    bool exp_poly = false;
-    /** Flag indicating whether or not to use e^(-k*x)*poly(x)*/
-    bool exp_times_poly = false;
     
     /** step size to use (if performing fits on a grid of mass hypotheses).  0 = no looping*/
     double mass_step = 0;
@@ -95,7 +91,8 @@ int main(int argc, char **argv) {
     int option_index = 0;
     int option_char; 
 
-    while ((option_char = getopt_long(argc, argv, "cf:ei:hlm:n:o:p:t:", long_options, &option_index)) != -1) {
+
+    while ((option_char = getopt_long(argc, argv, "cf:ei:hb:lm:n:o:p:t:", long_options, &option_index)) != -1) {
 
         switch(option_char) {
             case 'f': 
@@ -118,12 +115,6 @@ int main(int argc, char **argv) {
             case 'd':
                 debug = true;
                 break;
-            case 'e':
-            	exp_poly = true;
-            	break;
-            case 'c':
-				exp_times_poly = true;
-				break;
             case 'b':
             	beam_energy = atof(optarg);
             	break;
@@ -152,6 +143,8 @@ int main(int argc, char **argv) {
                 return EXIT_FAILURE;
         }
     }
+
+	std::cout << "welcome to bump hunter" << std::endl;
 
     // Make sure a file was specified by the user.  If not, warn the user and 
     // exit the application.
@@ -223,7 +216,7 @@ int main(int argc, char **argv) {
 	for(;mass_hypo<=max_mass_hypo; mass_hypo+= mass_step){ //loop through the masses in a given range
     
     // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(poly_order, res_factor, exp_poly ? 1 : exp_times_poly ? 2 : 0);
+    BumpHunter* bump_hunter = new BumpHunter(model, poly_order, res_factor);
     if (log_fit) bump_hunter->writeResults();  
     if (debug) bump_hunter->setDebug(debug);
     // Build the string that will be used for the results file name
