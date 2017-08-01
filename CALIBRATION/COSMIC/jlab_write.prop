@@ -1,0 +1,4 @@
+hostname = hpsdb.jlab.org
+user = hpscalibrations
+password = W42R6xqP
+database = hps_conditions

@@ -7,8 +7,7 @@
 #include "TString.h"
 #include "ProgressMeter.C"
 
-//#define __CHAINTMPDIR__ "/tmp"
-#define __CHAINTMPDIR__ "/home/holly/scratch"
+#define __CHAINTMPDIR__ "/tmp"
 
 TChain *chainfilelist(const char* fname,const char* tname="h10",TChain *c=NULL,int nfiles=-1)
 {

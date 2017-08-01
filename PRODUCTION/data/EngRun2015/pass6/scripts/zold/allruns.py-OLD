@@ -1,0 +1,179 @@
+#!/usr/bin/env python
+import sys,shutil,re,string,os,time,subprocess
+LISTEXE='/u/group/hps/production/data/EngRun2015/scripts/generateLists.sh'
+LISTDIR='/u/group/hps/production/data/EngRun2015/lists'
+PARS={
+    'PASS':'pass1',
+    'DETECTOR':'HPS-EngRun2015-Nominal-v1',
+    'TAPETOPDIR':'/mss/hallb/hps/engrun2015',
+    'DISKTOPDIR':'/work/hallb/hps/data/engrun2015',
+    'RELEASE':'R3321',
+    'JAR':'/u/group/hps/hps_soft/hps-java/hps-distribution-3.3.2-1-bin.jar',
+    'XMLTEMPLATE':'templates/all.xml',
+    'RUNTYPE':'recon',
+    'PREFIX':'hps',
+}
+RUNRANGE=[5254,5800]
+CANONICALRUNS=[5772,5739,5698]
+UNBLINDEDRUNS=[5222,5228,5229,5393,5546,5747,5749,5754,5755,
+               5756,5757,5774,5777,5778,5779,5781,5784,5785,5786]
+IGNORERUNS=[4924,5216,5240,5249,5352,5388,5413,5464,5488,5528,
+            5580,5612,5628,5658,5798,5814]
+
+DEBUG=0
+TAPERAWLIST=[]
+TAPECOOKEDLIST=[]
+DISKCOOKEDLIST=[]
+
+def getpathstub(runtype):
+    if   runtype == 'recon':      stub = 'recon'
+    elif runtype == 'dst':        stub = 'dst'
+    elif runtype == 'dqm':        stub = 'data_quality/dqm'
+    elif runtype == 'dq':         stub = 'data_quality/recon'
+    elif runtype == 'trigdiag':   stub = 'trigdiag/aida'
+    else:                         sys.exit('Invalid Runtype')
+    if runtype == 'recon': return PARS['TAPETOPDIR']+'/'+PARS['PASS']+'/'+stub
+    else:                  return PARS['DISKTOPDIR']+'/'+PARS['PASS']+'/'+stub
+
+def updatelists():
+    print 'Generating lists ....'
+    global TAPERAWLIST,TAPECOOKEDLIST,DISKCOOKEDLIST
+    if DEBUG==0:
+        subprocess.call(LISTEXE+' '+PARS['PASS']+' >& /dev/null',shell=True)
+    with open(LISTDIR+'/tape.txt','r') as tmp:
+        TAPERAWLIST=tmp.readlines()
+    with open(LISTDIR+'/tape_'+PARS['PASS']+'.txt','r') as tmp:
+        TAPECOOKEDLIST=tmp.readlines()
+    with open(LISTDIR+'/disk_'+PARS['PASS']+'.txt','r') as tmp:
+        DISKCOOKEDLIST=tmp.readlines()
+
+def allruns(firstRun,lastRun):
+    updatelists()
+    runNumber=int(firstRun)
+    while runNumber<=int(lastRun):
+        runjob(runNumber)
+        runNumber=runNumber+1
+    print "Done with allruns.py"
+
+def runjob(runno):
+    if runno in IGNORERUNS: return
+    PARS['RUNNO'] = str(runno)
+    PARS['FILENOS'],PARS['PREFIX'] = getfilenumbers(str(runno))
+    if PARS['FILENOS']=='': return
+    if DEBUG>0:
+        print 'A ',runno,PARS['FILENOS']
+        return
+    with open(PARS['XMLTEMPLATE'],'r') as tmp: lines=tmp.readlines()
+    with open('jsubs/%s.xml'%(PARS['RUNNO']),'w') as tmp:
+        for line in lines:
+            for key in PARS.keys():
+                line=line.replace('XXX'+key+'XXX',PARS[key])
+            if line.find('CANON')==0:
+                if runno in CANONICALRUNS or runno in UNBLINDEDRUNS:
+                    line=line.replace('CANON','     ')
+                else:
+                    continue
+            tmp.write(line)
+
+
+def getfilenumbers(runno):
+    prefix=''
+    space=''
+    filenos=''
+    blinded = not int(runno) in UNBLINDEDRUNS
+    for file1 in TAPERAWLIST:  # loop over raw EVIO files
+        (runno1,filno1) = getrawrunfilno(file1)
+        if runno1==None or filno1==None: continue 
+        
+#        if file1.find(runno)<0: continue
+#        mm1 = re.search('_(\d\d\d\d\d\d)\.evio\.(\d+)',file1)
+#        if mm1 == None: continue
+#        runno1 = mm1.group(1)
+#        filno1 = mm1.group(2)
+       
+        if int(runno1) != int(runno): continue
+        if blinded and int(filno1)%10!=0: continue
+
+        # this can be "hps" or "hpsecal":
+        prefix = re.split('/',file1).pop()
+        prefix = re.split('_',prefix).pop(0)
+
+        stub = getpathstub(PARS['RUNTYPE'])+'/'+prefix
+
+        #if ismissing(file1,stub,DISKCOOKEDLIST):
+        if ismissing(file1,stub,TAPECOOKEDLIST):
+            filenos += space+filno1
+            space=' '
+
+#        # check if output already exists:
+#        missing = 1
+#        #for file2 in TAPECOOKEDLIST:
+#        for file2 in DISKCOOKEDLIST:
+#            mm2 = re.search(stub+'_(\d\d\d\d\d\d)\.(\d+)',file2)
+#            if mm2 == None: continue
+#            runno2 = mm2.group(1)
+#            filno2 = mm2.group(2)
+#            if runno1==runno2 and filno1==filno2:
+#                missing = 0
+#                break
+#        if missing:
+#            filenos += space+filno1
+#            space=' '
+   
+    return (filenos,prefix)
+
+def getrawrunfilno(filename):
+    mm = re.search('_(\d\d\d\d\d\d)\.evio\.(\d+)',filename)
+    if mm==None: return (None,None)
+    else:        return (mm.group(1),mm.group(2))
+def getcookedrunfilno(filename,stub):
+    mm = re.search(stub+'_(\d\d\d\d\d\d)\.(\d+)',filename)
+    if mm==None: return (None,None)
+    else:        return (mm.group(1),mm.group(2))
+       
+
+
+def ismissing(rawfile,cookedstub,cookedfilelist):
+    missing = 1
+    (rawrunno,rawfilno) = getrawrunfilno(rawfile)
+    if not rawrunno or not rawfilno: return False
+#    m1 = re.search('_(\d\d\d\d\d\d)\.evio\.(\d+)',rawfile)
+#    if m1 == None: return False
+#    rawrunno = m1.group(1)
+#    rawfilno = m1.group(2)
+#    print 'Y   ',rawrunno,rawfilno
+    for cookedfile in cookedfilelist:
+        (cookedrunno,cookedfilno) = getcookedrunfilno(cookedfile,cookedstub)
+#        print 'Z   ',cookedfile.strip(),cookedrunno,cookedfilno,cookedstub
+        if not cookedrunno or not cookedfilno: continue 
+#        m2 = re.search(cookedstub+'_(\d\d\d\d\d\d)\.(\d+)',cookedfile)
+#        if m2 == None: continue
+#        cookedrunno = m2.group(1)
+#        cookedfilno = m2.group(2)
+#        print rawrunno,cookedrunno,rawfilno,cookedfilno
+        if rawrunno==cookedrunno and rawfilno==cookedfilno:
+            return False
+    return True
+
+
+
+if __name__ == '__main__':
+
+    # remove python script name:
+    sys.argv.pop(0)
+
+    # interpret options:
+    for arg in sys.argv[:]:
+        if arg=='dst' or arg=='dqm' or arg=='dq' or arg=='recon' or arg=='trigdiag': 
+            PARS['RUNTYPE']=arg
+            sys.argv.remove(arg)
+        elif arg=='-d':
+            DEBUG += 1
+            sys.argv.remove(arg)
+ 
+    if   len(sys.argv)==2: allruns(*sys.argv)
+    elif len(sys.argv)==1: runjob(*sys.argv)
+    elif len(sys.argv)==0: allruns(*RUNRANGE) 
+    else: sys.exit('NO.')
+
+

@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+import os,re,sys,glob
+sys.path.insert(0, 'scripts')
+import general_functions
+
+MSS_TOP = '/mss/hallb/hps'
+RUNPERIOD = 'physrun2016'
+PASS = 'pass0'
+PRE = 'hps_00'
+
+# For each recon file on tapes, write file name and the size
+# in the file
+#===== Recon =====
+
+f_recon_file_sizes = open('lists/reon_file_sizes.dat', 'w')
+print MSS_TOP+'/'+RUNPERIOD+'/'+PASS+'/'+'recon'+'/'+'*recon*.slcio'
+
+files = sorted(glob.glob(MSS_TOP+'/'+RUNPERIOD+'/'+PASS+'/'+'recon'+'/'+'*recon*.slcio'))
+
+for cur_file in files:
+    recon_size = general_functions.getTapeFileSize(cur_file)
+
+    splited_fname = cur_file.split(PRE)
+    splited_fname = splited_fname[1].split('.')
+    
+    runnumber = splited_fname[0]
+    
+    splited_fname = splited_fname[1].split('_')
+    filenumber = splited_fname[0]
+
+    print runnumber, filenumber, cur_file
+    
+    print >>f_recon_file_sizes, runnumber, filenumber, recon_size
+    

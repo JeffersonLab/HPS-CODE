@@ -1,0 +1,96 @@
+<Request>
+    
+  <Name name="DQMXXXRUNNOXXXXXXPASSXXX"/>
+  <List name="fnum">XXXFILENOSXXX</List>
+  
+  <OS name="centos65"/>
+  <Project name="hps"/>
+  <Track name="reconstruction"/>
+  <Email email="rafopar@jlab.org" request="false" job="false" />
+  
+  <Memory space="4000" unit="MB"/>
+  <DiskSpace space="9" unit="GB"/> 
+  <TimeLimit time="6" unit="hours"/>
+
+  <Variable name="pre"      value="XXXPREFIXXXX_00"/>
+  <Variable name="rel"      value="XXXRELEASEXXX"/>
+  <Variable name="run"      value="XXXRUNNOXXX"/>
+  <Variable name="pass"     value="XXXPASSXXX"/>
+  <Variable name="passfail" value="XXXPASSXXXfail"/>
+
+  <Variable name="category" value="DQM"/>
+  <Variable name="detector" value="XXXDETECTORXXX"/> 
+  <Variable name="fieldmap" value="XXXFIELDMAPXXX"/>
+  
+  <Variable name="dstmaker" value="/u/group/hps/hps_soft/hps-dst/build/bin/dst_maker"/>
+  <Variable name="dstopts"  value=""/><!---g -b 0.24"/>-->
+
+  <Variable name="java"     value="/apps/scicomp/java/jdk1.7/bin/java -XX:+UseSerialGC"/>
+  <Variable name="jar"      value="/u/group/hps/hps_soft/hps-java/XXXJARXXX"/>
+  
+  <Variable name="recon_steer"  value="/org/hps/steering/recon/EngineeringRun2015FullRecon.lcsim"/>
+  <Variable name="dq_steer"     value="/org/hps/steering/production/DataQuality.lcsim"/>
+  <Variable name="dqm_steer"    value="/org/hps/steering/production/DataQualityRecon.lcsim"/>
+  <Variable name="pulser_steer" value="/org/hps/steering/production/PulserTriggerFilter.lcsim"/>
+  <Variable name="moller_steer" value="/org/hps/steering/production/MollerCandidateFilter.lcsim"/>
+  <Variable name="v0_steer"     value="/org/hps/steering/production/V0CandidateFilter.lcsim"/>
+  <Variable name="fee_steer"    value="/org/hps/steering/production/FEEFilter.lcsim"/>
+  <Variable name="p0_steer"     value="/org/hps/steering/production/Pair0TriggerFilter.lcsim"/>
+  <Variable name="s0_steer"     value="/org/hps/steering/production/Single0TriggerFilter.lcsim"/>
+
+  <Variable name="disk" value="XXXDISKTOPDIRXXX"/>
+  <Variable name="tape" value="XXXTAPETOPDIRXXX"/>
+
+  <Variable name="comm"  value="echo ..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo"/>
+  <Variable name="datls" value="echo ; echo ; date ; ls -l ; echo ; echo"/>
+  <Variable name="augid" value="echo ; echo AugerID: $AUGER_ID; echo"/>
+
+  <Variable name="jrecopts" value=""/><!---DdisableSvtAlignmentConstants"/>-->
+
+  <ForEach list="fnum">
+    <Job>
+      
+      <Input src="file:/u/group/hps/production/data/EngRun2015/scripts/mkdirs.sh" dest="mkdirs.sh"/>  
+      <Input src="file:/u/group/hps/hps_soft/fieldmaps/${fieldmap}"  dest="${fieldmap}"/>
+      <Input src="mss:${tape}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio" dest="in.slcio"/>
+
+      
+      <Command><![CDATA[
+<!--      ./mkdirs.sh ${disk}/${pass} Commented by Rafo --> 
+
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.err               ${disk}/${passfail}/logs>& /dev/null
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.out               ${disk}/${passfail}/logs>& /dev/null
+      mv -f ${disk}/${pass}/data_quality/dqm/${pre}${run}.${fnum}_dqm_${rel}.root    ${disk}/${passfail}/data_quality/dqm>& /dev/null
+      mv -f ${disk}/${pass}/data_quality/recon/${pre}${run}.${fnum}_recon_${rel}.txt ${disk}/${passfail}/data_quality/recon>& /dev/null
+      
+      mkdir ./fieldmap ; mv ${fieldmap} fieldmap
+      
+      if ( ! -f ./in.slcio ) then
+          echo ; echo ######################### Missing in.slcio ################################
+          exit
+      endif
+      if ( `ls -l in.slcio | awk '{print$5}'` == "0" ) then
+          echo ; echo ########################### Zero in.slcio #################################
+          exit
+      endif
+
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running DQM #1 ..."
+      ${java} -jar ${jar} -r ${dq_steer} -i in.slcio > dq.txt
+      
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running DQM #2 ..."
+      ${java} -Xmx2000m -jar ${jar} -r ${dqm_steer} -DoutputFile=dqm -i in.slcio
+      
+      ]]></Command>
+  
+      <Output src="dqm.root"      dest="mss:${tape}/${pass}/data_quality/dqm/${pre}${run}.${fnum}_dqm_${rel}.root"/>
+      
+      <Output src="dq.txt"        dest="file:${disk}/${pass}/data_quality/recon/${pre}${run}.${fnum}_recon_${rel}.txt"/>
+      <Output src="dqm.root"      dest="file:${disk}/${pass}/data_quality/dqm/${pre}${run}.${fnum}_dqm_${rel}.root"/>
+
+      <Stderr                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}_${category}.err"/>
+      <Stdout                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}_${category}.out"/>
+
+    </Job>
+  </ForEach>
+
+</Request> 

@@ -1,0 +1,74 @@
+<Request>
+    
+  <Name name="DSTXXXRUNNOXXXXXXPASSXXX"/>
+  <List name="fnum">XXXFILENOSXXX</List>
+  
+  <OS name="centos65"/>
+  <Project name="hps"/>
+  <Track name="reconstruction"/>
+  <Email email="rafopar@jlab.org" request="false" job="false" />
+  
+  <Memory space="2000" unit="MB"/>
+  <DiskSpace space="9" unit="GB"/> 
+  <TimeLimit time="1" unit="hours"/>
+
+  <Variable name="pre"      value="XXXPREFIXXXX_00"/>
+  <Variable name="rel"      value="XXXRELEASEXXX"/>
+  <Variable name="run"      value="XXXRUNNOXXX"/>
+  <Variable name="pass"     value="XXXPASSXXX"/>
+  <Variable name="passfail" value="XXXPASSXXXfail"/>
+
+  <Variable name="category" value="DST"/>
+
+  <Variable name="setup_DST"  value="source /u/group/hps/hps_soft/setup_dst.csh"/>
+  <Variable name="dstmaker" value="/u/group/hps/hps_soft/hps-dst/build/bin/dst_maker"/>
+  <Variable name="dstopts"  value=""/><!---g -b 0.24"/>-->
+
+  <Variable name="disk" value="XXXDISKTOPDIRXXX"/>
+  <Variable name="tape" value="XXXTAPETOPDIRXXX"/>
+
+  <Variable name="comm"  value="echo ..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo"/>
+  <Variable name="datls" value="echo ; echo ; date ; ls -l ; echo ; echo"/>
+  <Variable name="augid" value="echo ; echo AugerID: $AUGER_ID; echo"/>
+
+  <Variable name="jrecopts" value=""/><!---DdisableSvtAlignmentConstants"/>-->
+
+  <ForEach list="fnum">
+    <Job>
+
+      <Input src="file:/u/group/hps/production/data/PhysRun2016/scripts/mkdirs.sh" dest="mkdirs.sh"/>
+      <Input src="mss:${tape}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio" dest="in.slcio"/>
+      
+      <Command><![CDATA[
+
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.err               ${disk}/${passfail}/logs>& /dev/null
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.out               ${disk}/${passfail}/logs>& /dev/null
+
+      mv -f ${disk}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root                 ${disk}/${passfail}/dst>& /dev/null
+      
+      if ( ! -f ./in.slcio ) then
+          echo ; echo ######################### Missing in.slcio ################################
+          exit
+      endif
+      if ( `ls -l in.slcio | awk '{print$5}'` == "0" ) then
+          echo ; echo ########################### Zero in.slcio #################################
+          exit
+      endif
+
+      ${setup_DST}
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running DST ..."
+      ${dstmaker} in.slcio -o dst.root ${dstopts}
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### DST is done ..."
+
+
+      ]]></Command>
+  
+      <Output src="dst.root"      dest="mss:${tape}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root"/>
+      <Output src="dst.root"      dest="file:${disk}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root"/>
+      <Stderr                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}_${category}.err"/>
+      <Stdout                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}_${category}.out"/>
+
+    </Job>
+  </ForEach>
+
+</Request> 

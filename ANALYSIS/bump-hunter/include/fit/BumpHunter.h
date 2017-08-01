@@ -27,24 +27,24 @@
 #include <TMath.h>
 #include <TCanvas.h>
 #include <TFile.h>
+#include <Math/ProbFunc.h>
 
 //------------//
 //   RooFit   //
 //------------//
+#include <RooAddPdf.h>
+#include <RooArgList.h>
+#include <RooDataHist.h>
+#include <RooExponential.h>
+#include <RooFitResult.h>
 #include <RooGaussian.h>
 #include <RooChebychev.h>
-#include <RooRealVar.h>
-#include <RooDataHist.h>
-#include <RooArgList.h>
-#include <RooAddPdf.h>
-#include <RooProdPdf.h>
 #include <RooMinuit.h>
-#include <RooFitResult.h>
-#include <RooProfileLL.h>
-#include <TCanvas.h>
 #include <RooPlot.h>
+#include <RooProfileLL.h>
+#include <RooProdPdf.h>
+#include <RooRealVar.h>
 
-#include <Math/ProbFunc.h>
 
 //---//
 #include <HpsFitResult.h>
@@ -54,8 +54,17 @@ class BumpHunter {
 
     public:
 
+        /** Enum constants used to denote the different background models. */
+        enum BkgModel { 
+            POLY     = 0,
+            EXP_POLY = 1,
+            EXP_POLY_X_POLY = 2,
+        };
+
         /** Default Constructor */
-        BumpHunter(int poly_order, int res_factor, int model_type);
+
+        BumpHunter(BkgModel model, int poly_order, int res_factor);
+
 
         /** Destructor */
         ~BumpHunter();
@@ -102,10 +111,10 @@ class BumpHunter {
         void setBounds(double low_bound, double high_bound); 
 
         /** Enable/disable debug */
-        void setDebug(bool debug = true) { this->debug = debug; }; 
+        void setDebug(bool debug = true) { this->debug = debug; };
 
         /** Write the fit results to a text file */
-        void writeResults(); 
+        void writeResults(bool write_results = true) { _write_results = write_results; }; 
 
         void getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_mass);
 
@@ -169,13 +178,12 @@ class BumpHunter {
         RooAddPdf* bkg_model;
 
         /** */
-        RooAddPdf* model; 
+        RooAddPdf* _model; 
 
         /** Signal PDF */ 
         RooGaussian* signal;
 
         /** Bkg PDF */
-        //RooChebychev* bkg;
         RooAbsPdf* bkg;
 
         /** */ 
@@ -219,6 +227,9 @@ class BumpHunter {
 
         /** Debug flag */
         bool debug{false};
+
+        /** Write the results to a file. */
+        bool _write_results{false};
 };
 
 #endif // __BUMP_HUNTER_H__

@@ -1,0 +1,18 @@
+5222   40nA, 10kHz-Pulser-Only, SVT open
+5228   10nA, 10kHz-Pulser-Only, SVT open
+5229   10nA, 10kHz-Pulser-Only, SVT open
+5393   40nA, 10kHz-Pulser-Only, SVT@1.5
+5546   50nA, 10kHz-Pulser-Only, SVT@1.5
+5747   20nA, v7, SVT@1.5
+5749   30nA, v7, SVT@1.5->0.5
+5754   40nA, v7, SVT@0.5
+5755   60nA, v7, SVT@0.5
+5756   50nA, FeeMask1, SVT@0.5mm
+5757   50nA, FeeMask2, SVT@0.5mm
+5774   50nA, 10kHz-Pulser-Only, SVT@0.5mm
+5777   50nA, FeeMask2, No-SVT
+5779   30nA, Carbon, SVT@0.5/0.5
+5781   2nA,  CH2, SVT@?
+5784   25nA, Straight, SVT@0.5mm
+5785   25nA, Straight, SVT@0.5mm
+5786   25nA, Straight, SVT@0.5mm

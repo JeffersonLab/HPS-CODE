@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+
+
+@files = `cat lists/broken_stage_dst.dat`;
+

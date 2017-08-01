@@ -1,0 +1,168 @@
+<Request>
+    
+  <Name name="ReconXXXRUNNOXXXXXXPASSXXX"/>
+  <List name="fnum">XXXFILENOSXXX</List>
+  
+  <OS name="centos65"/>
+  <Project name="hps"/>
+  <Track name="reconstruction"/>
+  <Email email="rafopar@jlab.org" request="false" job="false" />
+  
+  <Memory space="4000" unit="MB"/>
+  <DiskSpace space="9" unit="GB"/> 
+  <TimeLimit time="40" unit="hours"/>
+
+  <Variable name="pre"      value="XXXPREFIXXXX_00"/>
+  <Variable name="rel"      value="XXXRELEASEXXX"/>
+  <Variable name="run"      value="XXXRUNNOXXX"/>
+  <Variable name="pass"     value="XXXPASSXXX"/>
+  <Variable name="passfail" value="XXXPASSXXXfail"/>
+
+  <Variable name="category" value="Recon"/>
+  <Variable name="detector" value="XXXDETECTORXXX"/> 
+  <Variable name="fieldmap" value="XXXFIELDMAPXXX"/>
+  
+  <Variable name="dstmaker" value="/u/group/hps/hps_soft/hps-dst/build/bin/dst_maker"/>
+  <Variable name="dstopts"  value=""/><!---g -b 0.24"/>-->
+
+  <Variable name="java"     value="/apps/scicomp/java/jdk1.7/bin/java -XX:+UseSerialGC"/>
+  <Variable name="jar"      value="/u/group/hps/hps_soft/hps-java/XXXJARXXX"/>
+  
+  <Variable name="recon_steer"  value="/org/hps/steering/recon/EngineeringRun2015FullRecon.lcsim"/>
+  <Variable name="dq_steer"     value="/org/hps/steering/production/DataQuality.lcsim"/>
+  <Variable name="dqm_steer"    value="/org/hps/steering/production/DataQualityRecon.lcsim"/>
+  <Variable name="pulser_steer" value="/org/hps/steering/production/PulserTriggerFilter.lcsim"/>
+  <Variable name="moller_steer" value="/org/hps/steering/production/MollerCandidateFilter.lcsim"/>
+  <Variable name="v0_steer"     value="/org/hps/steering/production/V0CandidateFilter.lcsim"/>
+  <Variable name="fee_steer"    value="/org/hps/steering/production/FEEFilter.lcsim"/>
+  <Variable name="p0_steer"     value="/org/hps/steering/production/Pair0TriggerFilter.lcsim"/>
+  <Variable name="s0_steer"     value="/org/hps/steering/production/Single0TriggerFilter.lcsim"/>
+
+  <Variable name="disk" value="XXXDISKTOPDIRXXX"/>
+  <Variable name="tape" value="XXXTAPETOPDIRXXX"/>
+
+  <Variable name="comm"  value="echo ..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo..oo00OO00oo"/>
+  <Variable name="datls" value="echo ; echo ; date ; ls -l ; echo ; echo"/>
+  <Variable name="augid" value="echo ; echo AugerID: $AUGER_ID; echo"/>
+
+  <Variable name="jrecopts" value=""/><!---DdisableSvtAlignmentConstants"/>-->
+
+  <ForEach list="fnum">
+    <Job>
+
+      <Input src="file:/u/group/hps/production/data/EngRun2015/scripts/mkdirs.sh" dest="mkdirs.sh"/>  
+      <Input src="file:/u/group/hps/hps_soft/fieldmaps/${fieldmap}"  dest="${fieldmap}"/>
+      <Input src="mss:/mss/hallb/hps/data/${pre}${run}.evio.${fnum}" dest="in.evio"/>
+      
+      <Command><![CDATA[
+      ./mkdirs.sh ${disk}/${pass}
+
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.err               ${disk}/${passfail}/logs>& /dev/null
+      mv -f ${disk}/${pass}/logs/${pre}${run}.${fnum}_recon_${rel}.out               ${disk}/${passfail}/logs>& /dev/null
+      mv -f ${disk}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio            ${disk}/${passfail}/recon>& /dev/null
+      mv -f ${disk}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root                 ${disk}/${passfail}/dst>& /dev/null
+      mv -f ${disk}/${pass}/data_quality/dqm/${pre}${run}.${fnum}_dqm_${rel}.root    ${disk}/${passfail}/data_quality/dqm>& /dev/null
+      mv -f ${disk}/${pass}/data_quality/recon/${pre}${run}.${fnum}_recon_${rel}.txt ${disk}/${passfail}/data_quality/recon>& /dev/null
+      
+      mv -f ${disk}/${pass}/skim/pulser/${pre}${run}.${fnum}_pulser_${rel}.slcio     ${disk}/${passfail}/skim/pulser>& /dev/null
+      mv -f ${disk}/${pass}/skim/moller/${pre}${run}.${fnum}_moller_${rel}.slcio     ${disk}/${passfail}/skim/moller>& /dev/null
+      mv -f ${disk}/${pass}/skim/fee/${pre}${run}.${fnum}_fee_${rel}.slcio           ${disk}/${passfail}/skim/fee>& /dev/null
+      mv -f ${disk}/${pass}/skim/v0/${pre}${run}.${fnum}_v0_${rel}.slcio             ${disk}/${passfail}/skim/v0>& /dev/null
+      
+      mv -f ${disk}/${pass}/skim/dst/pulser/${pre}${run}.${fnum}_pulser_${rel}.root  ${disk}/${passfail}/skim/dst/pulser>& /dev/null
+      mv -f ${disk}/${pass}/skim/dst/moller/${pre}${run}.${fnum}_moller_${rel}.root  ${disk}/${passfail}/skim/dst/moller>& /dev/null
+      mv -f ${disk}/${pass}/skim/dst/fee/${pre}${run}.${fnum}_fee_${rel}.root        ${disk}/${passfail}/skim/dst/fee>& /dev/null
+      mv -f ${disk}/${pass}/skim/dst/v0/${pre}${run}.${fnum}_v0_${rel}.root          ${disk}/${passfail}/skim/dst/v0>& /dev/null
+      
+      mkdir ./fieldmap ; mv ${fieldmap} fieldmap
+      
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running RECON ..."
+      ${java} ${jrecopts} -cp ${jar} org.hps.evio.EvioToLcio -x ${recon_steer} -r -d ${detector} -R ${run} -DoutputFile=out in.evio
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "Done RECON."
+
+      if ( ! -f ./out.slcio ) then
+          echo ; echo ######################### Missing out.slcio ################################
+          exit
+      endif
+      if ( `ls -l out.slcio | awk '{print$5}'` == "0" ) then
+          echo ; echo ########################### Zero out.slcio #################################
+          exit
+      endif
+
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running DQM #1 ..."
+      ${java} -jar ${jar} -r ${dq_steer} -i out.slcio > dq.txt
+      
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running DQM #2 ..."
+      ${java} -Xmx2000m -jar ${jar} -r ${dqm_steer} -DoutputFile=dqm -i out.slcio
+      
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running DST ..."
+      ${dstmaker} out.slcio -o dst.root ${dstopts}
+
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running Pulser Skim ..."
+      ${java} -jar ${jar} -r ${pulser_steer} -DoutputFile=pulser -i out.slcio
+      ${dstmaker} pulser.slcio -o pulser.root ${dstopts}
+    
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running Moller Skim ..."
+      ${java} -jar ${jar} -r ${moller_steer} -DoutputFile=moller -i out.slcio
+      ${dstmaker} moller.slcio -o moller.root ${dstopts}
+    
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running FEE Skim ..."
+      ${java} -jar ${jar} -r ${fee_steer} -DoutputFile=fee -i out.slcio
+      ${dstmaker} fee.slcio -o fee.root ${dstopts}
+    
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running V0 Skim ..."
+      ${java} -jar ${jar} -r ${v0_steer} -DoutputFile=v0 -i out.slcio
+      ${dstmaker} v0.slcio -o v0.root ${dstopts}
+    
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running P0 Skim ..."
+      ${java} -jar ${jar} -r ${p0_steer} -DoutputFile=p0 -i out.slcio
+      ${dstmaker} p0.slcio -o p0.root ${dstopts}
+    
+      ${augid} ; ${comm} ; ${comm} ; ${datls} ; echo "#### Running S0 Skim ..."
+      ${java} -jar ${jar} -r ${s0_steer} -DoutputFile=s0 -i out.slcio
+      ${dstmaker} s0.slcio -o s0.root ${dstopts}
+
+      ]]></Command>
+  
+      <Output src="out.slcio"     dest="mss:${tape}/${pass}/recon/${pre}${run}.${fnum}_recon_${rel}.slcio"/>
+      <Output src="dst.root"      dest="mss:${tape}/${pass}/dst/${pre}${run}.${fnum}_dst_${rel}.root"/>
+      <Output src="dqm.root"      dest="mss:${tape}/${pass}/data_quality/dqm/${pre}${run}.${fnum}_dqm_${rel}.root"/>
+
+      <Output src="pulser.slcio"  dest="mss:${tape}/${pass}/skim/pulser/${pre}${run}.${fnum}_pulser_${rel}.slcio"/>
+      <Output src="moller.slcio"  dest="mss:${tape}/${pass}/skim/moller/${pre}${run}.${fnum}_moller_${rel}.slcio"/>
+      <Output src="v0.slcio"      dest="mss:${tape}/${pass}/skim/v0/${pre}${run}.${fnum}_v0_${rel}.slcio"/>
+      <Output src="s0.slcio"      dest="mss:${tape}/${pass}/skim/s0/${pre}${run}.${fnum}_s0_${rel}.slcio"/>
+      <Output src="p0.slcio"      dest="mss:${tape}/${pass}/skim/p0/${pre}${run}.${fnum}_p0_${rel}.slcio"/>
+      <Output src="fee.slcio"     dest="mss:${tape}/${pass}/skim/fee/${pre}${run}.${fnum}_fee_${rel}.slcio"/>
+
+      <Output src="pulser.root"   dest="mss:${tape}/${pass}/skim/dst/pulser/${pre}${run}.${fnum}_pulser_${rel}.root"/>
+      <Output src="moller.root"   dest="mss:${tape}/${pass}/skim/dst/moller/${pre}${run}.${fnum}_moller_${rel}.root"/>
+      <Output src="v0.root"       dest="mss:${tape}/${pass}/skim/dst/v0/${pre}${run}.${fnum}_v0_${rel}.root"/>
+      <Output src="s0.root"       dest="mss:${tape}/${pass}/skim/dst/s0/${pre}${run}.${fnum}_s0_${rel}.root"/>
+      <Output src="p0.root"       dest="mss:${tape}/${pass}/skim/dst/p0/${pre}${run}.${fnum}_p0_${rel}.root"/>
+      <Output src="fee.root"      dest="mss:${tape}/${pass}/skim/dst/fee/${pre}${run}.${fnum}_fee_${rel}.root"/>
+
+      <Output src="dq.txt"        dest="file:${disk}/${pass}/data_quality/recon/${pre}${run}.${fnum}_recon_${rel}.txt"/>
+      <Output src="dqm.root"      dest="file:${disk}/${pass}/data_quality/dqm/${pre}${run}.${fnum}_dqm_${rel}.root"/>
+
+CANON <Output src="moller.slcio"  dest="file:${disk}/${pass}/skim/moller/${pre}${run}.${fnum}_moller_${rel}.slcio"/>
+CANON <Output src="pulser.slcio"  dest="file:${disk}/${pass}/skim/pulser/${pre}${run}.${fnum}_pulser_${rel}.slcio"/>
+CANON <Output src="v0.slcio"      dest="file:${disk}/${pass}/skim/v0/${pre}${run}.${fnum}_v0_${rel}.slcio"/>
+CANON <Output src="s0.slcio"      dest="file:${disk}/${pass}/skim/s0/${pre}${run}.${fnum}_s0_${rel}.slcio"/>
+CANON <Output src="p0.slcio"      dest="file:${disk}/${pass}/skim/p0/${pre}${run}.${fnum}_p0_${rel}.slcio"/>
+CANON <Output src="fee.slcio"     dest="file:${disk}/${pass}/skim/fee/${pre}${run}.${fnum}_fee_${rel}.slcio"/>
+
+      <Output src="pulser.root"   dest="file:${disk}/${pass}/skim/dst/pulser/${pre}${run}.${fnum}_pulser_${rel}.root"/>
+      <Output src="moller.root"   dest="file:${disk}/${pass}/skim/dst/moller/${pre}${run}.${fnum}_moller_${rel}.root"/>
+      <Output src="v0.root"       dest="file:${disk}/${pass}/skim/dst/v0/${pre}${run}.${fnum}_v0_${rel}.root"/>
+      <Output src="s0.root"       dest="file:${disk}/${pass}/skim/dst/s0/${pre}${run}.${fnum}_s0_${rel}.root"/>
+      <Output src="p0.root"       dest="file:${disk}/${pass}/skim/dst/p0/${pre}${run}.${fnum}_p0_${rel}.root"/>
+      <Output src="fee.root"      dest="file:${disk}/${pass}/skim/dst/fee/${pre}${run}.${fnum}_fee_${rel}.root"/>
+
+      <Stderr                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}_${category}.err"/>
+      <Stdout                     dest="file:${disk}/${pass}/logs/${pre}${run}.${fnum}_${rel}_${category}.out"/>
+
+    </Job>
+  </ForEach>
+
+</Request> 

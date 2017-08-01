@@ -23,6 +23,9 @@ using namespace std;
 
 int main(int argc, char **argv) { 
 
+    /** PDF used to model the background. */
+    BumpHunter::BkgModel model{BumpHunter::BkgModel::POLY};
+
     /** Name of file containing the histogram that will be fit. */
     string file_name{""};
 
@@ -72,6 +75,8 @@ int main(int argc, char **argv) {
     static struct option long_options[] = {
         {"res_factor", required_argument, 0, 'f'},
         {"file_name",  required_argument, 0, 'i'},
+        {"exp",        no_argument,       0, 'e'},
+        {"exp_poly",   no_argument,       0, 'c'},
         {"help",       no_argument,       0, 'h'},
         {"log",        no_argument,       0, 'l'},
 		{"debug",      no_argument,       0, 'd'},
@@ -89,7 +94,9 @@ int main(int argc, char **argv) {
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "f:i:hldecb:m:n:o:p:t:s:x:", long_options, &option_index)) != -1) {
+
+    while ((option_char = getopt_long(argc, argv, "cf:ei:hlm:n:o:p:t:", long_options, &option_index)) != -1) {
+
         switch(option_char) {
             case 'f': 
                 res_factor = atoi(optarg); 
@@ -97,8 +104,14 @@ int main(int argc, char **argv) {
             case 'i': 
                 file_name = optarg;
                 break;
+            case 'c': 
+                model = BumpHunter::BkgModel::EXP_POLY_X_POLY;
+                break;
+            case 'e': 
+                model = BumpHunter::BkgModel::EXP_POLY;
+                break; 
             case 'h':
-                return EXIT_SUCCESS; 
+                return EXIT_SUCCESS;
             case 'l': 
                 log_fit = true;
                 break;
@@ -168,6 +181,7 @@ int main(int argc, char **argv) {
     TH1* histogram = (TH1*) file->Get(name.c_str()); 
 
 // Create a new flat ntuple and define the variables it will encapsulate.
+
     FlatTupleMaker* tuple = new FlatTupleMaker(output_file, "results"); 
 
     tuple->addVariable("ap_mass");
@@ -182,10 +196,10 @@ int main(int argc, char **argv) {
     tuple->addVariable("p_value");
     tuple->addVariable("poly_order");
     tuple->addVariable("q0");
-    tuple->addVariable("res_factor");  
-    tuple->addVariable("sig_yield");
-    tuple->addVariable("sig_yield_err");
-    tuple->addVariable("window_size");
+    tuple->addVariable("res_factor"); 
+    tuple->addVariable("sig_yield");  
+    tuple->addVariable("sig_yield_err"); 
+    tuple->addVariable("window_size"); 
     tuple->addVariable("upper_limit");
     tuple->addVariable("toy_upper_limit_median");
     tuple->addVariable("toy_upper_limit_16_pctl");
