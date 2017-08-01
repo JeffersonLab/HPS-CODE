@@ -149,7 +149,7 @@ BumpHunter::~BumpHunter() {
     return results;  
 }*/
 
-HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool bkg_only) { 
+HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool bkg_only, bool save_plots) {
 
     // Find the lower bound of the histogram
     lower_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindFirstBinAbove());
@@ -171,7 +171,7 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
 
     // Construct a window of size x*(A' mass resolution) around the A' mass
     // hypothesis and do a Poisson likelihood fit within the window range. 
-    HpsFitResult* result = this->fitWindow(data, ap_hypothesis, bkg_only);
+    HpsFitResult* result = this->fitWindow(data, ap_hypothesis, bkg_only, false, save_plots);
    
     // Delete the histogram object from memory
     delete data;
@@ -180,7 +180,7 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double ap_hypothesis, bool b
     return result;
 }
 
-HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only, bool const_sig) {
+HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only, bool const_sig, bool make_plots) {
 
     this->printDebug("A' mass hypothesis: " + std::to_string(ap_hypothesis)); 
     RooUniformBinning& binning = (RooUniformBinning&) variable_map["invariant mass"]->getBinning(0);
@@ -290,7 +290,7 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
    
     //  
     std::string output_path = "fit_result_" + range_name + (bkg_only ? "_bkg" : "_full") + ".png";
-    if (!const_sig) {
+    if ((!const_sig) && make_plots) {
         printer->print(variable_map["invariant mass"], data, _model, range_name, output_path, n_bins, ap_hypothesis, bkg_only);
         if (_write_results) { 
      
@@ -492,7 +492,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, HpsFitResult* result, double a
         this->resetParameters(); 
     
         // Do the fit
-        HpsFitResult* null_result = this->fitWindow(data, ap_mass, true);
+        HpsFitResult* null_result = this->fitWindow(data, ap_mass, true, false, false);
     
         // Get the NLL obtained assuming the background only hypothesis
         mle_nll = null_result->getRooFitResult()->minNll(); 
@@ -568,7 +568,7 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
     
     // Begin by performing a fit to the background with the signal yield set to
     // 0.
-    HpsFitResult* null_result = this->fitWindow(histogram, ap_hypothesis, true);
+    HpsFitResult* null_result = this->fitWindow(histogram, ap_hypothesis, true, false);
 
     // Set the total number of bins that will be used when generating the toys 
     variable_map["invariant mass"]->setBins(null_result->getNBins()); 
