@@ -13,6 +13,7 @@
 //----------//
 #include <TCanvas.h>
 #include <TAxis.h>
+#include <TDirectory.h>
 
 //------------//
 //   RooFit   //
@@ -35,7 +36,7 @@ class FitPrinter {
 
         /** Print the resulting fit and save it to the specified output path. */
         void print(RooRealVar* var, RooDataHist* data, RooAddPdf* model, 
-                   std::string range, std::string output_path, int n_bins); 
+                   std::string range, std::string output_path, int n_bins, double mass_hypothesis, bool bkg_only);
 
     private:
         

@@ -18,10 +18,11 @@ FitPrinter::~FitPrinter() {
 }
 
 void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model, 
-                       std::string range, std::string output_path, int n_bins) {
+                       std::string range, std::string output_path, int n_bins, double mass_hypothesis, bool bkg_only) {
 
     std::cout << "[ FitPrinter ]: Bins: " << n_bins << std::endl;
-
+    gDirectory->mkdir("plots");
+    gDirectory->cd("plots");
     RooPlot* plot = var->frame(); 
     data->plotOn(plot, 
                  RooFit::MarkerSize(.4),
@@ -43,7 +44,9 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
                   RooFit::Components("signal"), 
                   RooFit::LineColor(kOrange+10));
     plot->GetYaxis()->SetTitleOffset(1.6);
-    plot->SetTitle(""); 
+
+    plot->SetTitle(Form("Invariant Mass (A' = %.2f MeV) %s", mass_hypothesis*1000, bkg_only ? " (background-only)" : ""));
+    plot->SetName(Form("Invariant_Mass_%.2f_MeV%s", mass_hypothesis*1000, bkg_only ? "_bkg_only" : ""));
 
     RooPlot* tmp_plot = var->frame(); 
     data->plotOn(tmp_plot, RooFit::Binning(int(n_bins/4)));
@@ -55,6 +58,7 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
                   RooFit::LineColor(kGreen));
 
     RooHist* residuals = tmp_plot->residHist();
+    tmp_plot->Delete();
     residuals->SetMarkerSize(.4);
 
     RooPlot* res_plot = var->frame();
@@ -67,11 +71,12 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
                   RooFit::LineColor(kRed));*/
     res_plot->SetMinimum(-1000);
     res_plot->SetMaximum(1000);
-    res_plot->SetTitle("");
+    res_plot->SetTitle(Form("Residuals (A' = %.2f MeV) %s", mass_hypothesis*1000, mass_hypothesis*1000, bkg_only ? " (background-only)" : ""));
+    res_plot->SetName(Form("Residuals_%.2f_MeV%s", mass_hypothesis*1000, bkg_only ? "_bkg_only" : ""));
     res_plot->GetYaxis()->SetTitle("Residual");
-    res_plot->GetYaxis()->SetTitleSize(0.1);
-    res_plot->GetYaxis()->SetLabelSize(0.1);
-    res_plot->GetYaxis()->SetTitleOffset(.5);
+    res_plot->GetYaxis()->SetTitleSize(0.05);
+    res_plot->GetYaxis()->SetLabelSize(0.05);
+    res_plot->GetYaxis()->SetTitleOffset(1);
     
     _main_pad->cd();
     plot->Draw();
@@ -80,5 +85,7 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
     res_plot->Draw(); 
 
     std::cout << "[ FitPrinter ]: Saving file to: " << output_path << std::endl;
+
+    gDirectory->cd("..");
     _canvas->SaveAs(output_path.c_str());
 }
