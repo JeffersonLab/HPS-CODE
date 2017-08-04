@@ -45,8 +45,8 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
                   RooFit::LineColor(kOrange+10));
     plot->GetYaxis()->SetTitleOffset(1.6);
 
-    plot->SetTitle(Form("Invariant Mass (A' = %.2f MeV) %s", mass_hypothesis*1000, bkg_only ? " (background-only)" : ""));
-    plot->SetName(Form("Invariant_Mass_%.2f_MeV%s", mass_hypothesis*1000, bkg_only ? "_bkg_only" : ""));
+    plot->SetTitle(Form("Invariant Mass (A' = %.3f MeV) %s", mass_hypothesis*1000, bkg_only ? " (background-only)" : ""));
+    plot->SetName(Form("Invariant_Mass_%.3f_MeV%s", mass_hypothesis*1000, bkg_only ? "_bkg_only" : ""));
 
     RooPlot* tmp_plot = var->frame(); 
     data->plotOn(tmp_plot, RooFit::Binning(int(n_bins/4)));
@@ -71,8 +71,8 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
                   RooFit::LineColor(kRed));*/
     res_plot->SetMinimum(-1000);
     res_plot->SetMaximum(1000);
-    res_plot->SetTitle(Form("Residuals (A' = %.2f MeV) %s", mass_hypothesis*1000, mass_hypothesis*1000, bkg_only ? " (background-only)" : ""));
-    res_plot->SetName(Form("Residuals_%.2f_MeV%s", mass_hypothesis*1000, bkg_only ? "_bkg_only" : ""));
+    res_plot->SetTitle(Form("Residuals (A' = %.3f MeV) %s", mass_hypothesis*1000, mass_hypothesis*1000, bkg_only ? " (background-only)" : ""));
+    res_plot->SetName(Form("Residuals_%.3f_MeV%s", mass_hypothesis*1000, bkg_only ? "_bkg_only" : ""));
     res_plot->GetYaxis()->SetTitle("Residual");
     res_plot->GetYaxis()->SetTitleSize(0.05);
     res_plot->GetYaxis()->SetLabelSize(0.05);
