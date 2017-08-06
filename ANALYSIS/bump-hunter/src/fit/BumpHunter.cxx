@@ -12,7 +12,7 @@
 #include <BumpHunter.h>
 //#include <RooExpPoly.h>
 #include "RooExponential.h"
-
+#include "TF1.h"
 
 BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor) 
     : comp_model(nullptr), 
@@ -583,6 +583,24 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
     return datum;
 }
 
+std::vector<RooDataHist*> BumpHunter::generateToys(TF1* func, double n_toys){
+	std::vector<RooDataHist*> datum;
+	//double min = *variable_map["invariant mass"]->getMin();
+	//double max = *variable_map["invariant mass"]->getMax();
+
+	for (int toy_n = 0; toy_n < n_toys; ++toy_n) {
+		TH1* h = new TH1D(Form("toy %d" , toy_n),Form("toy %d" , toy_n), bins, hist_min_mass, hist_max_mass);
+		h->FillRandom(func->GetName(), func->Integral(hist_min_mass, hist_max_mass)/h->GetBinWidth(0));
+		RooDataHist *rdh = new RooDataHist(Form("toy rdh %d", toy_n), Form("toy rdh %d", toy_n), RooArgList(*variable_map["invariant mass"]), h);
+		datum.push_back(rdh);
+
+	}
+	variable_map["signal yield"]->setConstant(kFALSE);
+
+	return datum;
+
+}
+
 std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
   
     // Begin by fitting the window of interest with a background only model.  The
@@ -592,7 +610,9 @@ std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, do
               << " toy distributions." << std::endl;
     std::vector<RooDataHist*> datum = this->generateToys(histogram, n_toys, ap_hypothesis);
     std::cout << "[ BumpHunter ]: Toy distributions were successfully generated." << std::endl;
-
+    return runToys(datum, n_toys, ap_hypothesis);
+}
+std::vector<HpsFitResult*> BumpHunter::runToys(std::vector<RooDataHist*> datum, double n_toys, double ap_hypothesis) {
     // Write the histograms to a file.
     TFile* file = new TFile("toy_histograms.root", "recreate"); 
 

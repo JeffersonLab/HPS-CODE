@@ -65,6 +65,8 @@ int main(int argc, char **argv) {
     double mass_step = 0;
     /** maximum mass hypothesis to perform fit on.  0 = no looping.*/
     double max_mass_hypo = 0;
+    /** toy generator function:   example:  blah.root:func */
+    char* generator = 0;
     
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
@@ -82,6 +84,7 @@ int main(int argc, char **argv) {
         {"name",       required_argument, 0, 'n'}, 
         {"output",     required_argument, 0, 'o'},
         {"poly",       required_argument, 0, 'p'},
+		{"toy_generator", required_argument, 0, 'g'},
         {"toys",       required_argument, 0, 't'},
         {"mass_step", required_argument, 0, 's'},
         {"max_mass_hypo",required_argument, 0, 'x'},
@@ -92,7 +95,7 @@ int main(int argc, char **argv) {
     int option_char; 
 
 
-    while ((option_char = getopt_long(argc, argv, "cf:ei:hb:lm:n:o:p:t:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "cf:ei:hb:lm:n:o:p:t:g:", long_options, &option_index)) != -1) {
 
         switch(option_char) {
             case 'f': 
@@ -139,6 +142,9 @@ int main(int argc, char **argv) {
             case 'x':
             	max_mass_hypo = atof(optarg);
             	break;
+            case 'g':
+                generator = optarg;
+                break;
             default: 
                 return EXIT_FAILURE;
         }
@@ -259,7 +265,20 @@ int main(int argc, char **argv) {
     tuple->setVariableValue("window_size",      result->getWindowSize());  
     tuple->setVariableValue("upper_limit",      result->getUpperLimit());
 
-    std::vector<HpsFitResult*> results{bump_hunter->runToys(histogram, toys, mass_hypo)}; 
+    std::vector<HpsFitResult*> results;
+    if(generator){
+    	TString gen_str = generator;
+    	auto tokens = gen_str.Tokenize(":");
+    	TString gen_file_name = ((TObjString*)tokens->At(0))->GetString();
+    	TString gen_func_name = ((TObjString*)tokens->At(1))->GetString();
+    	cout << "[ EVALUATOR ] Requesting function "  << gen_func_name << " from file " << gen_file_name
+    			<< " for generating toys" << endl;
+    	TF1* func = (TF1*)TFile::Open(gen_file_name)->Get(gen_func_name);
+    	std::vector<RooDataHist*> toys_vector = bump_hunter->generateToys(func, toys);
+    	results = bump_hunter->runToys(toys_vector, toys, mass_hypo);
+    }
+    else //use the fit results to generate toys
+    	results = bump_hunter->runToys(histogram, toys, mass_hypo);
 
     double all_toy_upper_limits[toys];
     double sum_sig_yield = 0;

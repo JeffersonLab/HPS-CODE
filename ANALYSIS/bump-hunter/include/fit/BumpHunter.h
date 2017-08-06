@@ -120,10 +120,14 @@ class BumpHunter {
 
         void getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass);
 
+        std::vector<RooDataHist*> generateToys(TF1* func, double n_toys);
+
         std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
 
         std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
          
+        std::vector<HpsFitResult*> runToys(std::vector<RooDataHist*> datum, double n_toys, double ap_hypothesis);
+
         double beam_energy{1.056};
     private: 
 
