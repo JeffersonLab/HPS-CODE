@@ -25,8 +25,8 @@ class MollerAnalysis(object):
             # Leading electron variables
             'leading_e_p', 'leading_e_theta',
             
-            'top_cluster_energy', 'top_cluster_time', 
-            'bot_cluster_energy', 'bot_cluster_time', 
+            'top_cluster_energy', 'top_cluster_time', 'top_cluster_x',  
+            'bot_cluster_energy', 'bot_cluster_time', 'bot_cluster_x',
             'ecal_cluster_dt',
 
             'top_eop', 'bot_eop',
@@ -154,7 +154,7 @@ class MollerAnalysis(object):
         cluster_dt = (particle.getClusters().At(0).getClusterTime() - 
                 particle.getClusters().At(1).getClusterTime())
 
-        if cluster_dt >= 2: return False
+        if math.fabs(cluster_dt) >= 2: return False
         return True
 
 
@@ -177,7 +177,8 @@ class MollerAnalysis(object):
         self.ntuple['top_track_count'].append(len(top_trks))
         self.ntuple['bot_track_count'].append(len(bot_trks))
 
-        v0_col_type = r.HpsParticle.TC_MOLLER_CANDIDATE
+        #v0_col_type = r.HpsParticle.TC_MOLLER_CANDIDATE
+        v0_col_type = r.HpsParticle.UC_MOLLER_CANDIDATE
         v0_count = event.getNumberOfParticles(v0_col_type)
         self.ntuple['n_v0'].append(v0_count)
 
@@ -242,6 +243,8 @@ class MollerAnalysis(object):
             tclust_t = -5000
             bclust_e = 9999
             bclust_t = 5000
+            tclust_x = -9999
+            bclust_x = -9999
             if particle.getClusters().GetEntriesFast() == 2:
                 tindex = 0
                 bindex = 1
@@ -254,13 +257,17 @@ class MollerAnalysis(object):
 
                 tclust_e = tclust.getEnergy()
                 tclust_t = tclust.getClusterTime()
+                tclust_x = tclust.getPosition()[0]
                 bclust_e = bclust.getEnergy()
                 bclust_t = bclust.getClusterTime()
+                bclust_x = bclust.getPosition()[0]
             
             self.ntuple['top_cluster_energy'].append(tclust_e)
             self.ntuple['top_cluster_time'].append(tclust_t)
+            self.ntuple['top_cluster_x'].append(tclust_x)
             self.ntuple['bot_cluster_energy'].append(bclust_e)
             self.ntuple['bot_cluster_time'].append(bclust_t)
+            self.ntuple['bot_cluster_x'].append(bclust_x)
             self.ntuple['ecal_cluster_dt'].append(tclust_t - bclust_t)
 
             self.ntuple['top_eop'].append(tclust_e/ttrk_p)
@@ -552,7 +559,27 @@ class MollerAnalysis(object):
                         np.linspace(0, 80, 161),
                         x_label='Top cluster time (ns)',
                         y_label='Bottom cluster time (ns)')
-        
+
+        plt.plot_hist2d(cut_flow['top_cluster_x'][0], 
+                        cut_flow['bot_cluster_x'][0],
+                        np.linspace(-200, 100, 151),
+                        np.linspace(-200, 100, 151),
+                        x_label='Top cluster x (mm)',
+                        y_label='Bottom cluster x (mm)')
+
+
+        for index in xrange(0, len(cut_flow['top_cluster_x'])):
+            plt.create_root_hist('top_cluster_x - %s' % plt_labels[index], 
+                cut_flow['top_cluster_x'][index], 
+                150, -200, 100, 
+                'Top cluster x (mm)')
+
+        for index in xrange(0, len(cut_flow['bot_cluster_x'])):
+            plt.create_root_hist('bot_cluster_x - %s' % plt_labels[index], 
+                cut_flow['bot_cluster_x'][index], 
+                150, -200, 100, 
+                'Bottom cluster x (mm)')
+
         plt.plot_hists(cut_flow['ecal_cluster_dt'], 
                        np.linspace(-10, 10, 101),
                        labels=plt_labels,
