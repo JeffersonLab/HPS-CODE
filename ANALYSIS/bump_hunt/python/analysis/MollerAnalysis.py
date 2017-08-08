@@ -24,7 +24,8 @@ class MollerAnalysis(object):
         self.kin_vars = [
             # Leading electron variables
             'leading_e_p', 'leading_e_theta',
-            
+           
+            # Ecal clusters
             'top_cluster_energy', 'top_cluster_time', 'top_cluster_x',  
             'bot_cluster_energy', 'bot_cluster_time', 'bot_cluster_x',
             'ecal_cluster_dt',
@@ -33,12 +34,15 @@ class MollerAnalysis(object):
         ]
 
         self.v0_vars = [
+            # Vertex
             'mass', 'v0_chi2',
             'v0_p', 'v0_px', 'v0_py', 'v0_pz',  
             'vx', 'vy', 'vz'
         ]
 
         self.cut_vars = [
+
+            # Cuts
             'has_opp_clusters', 'has_clusters_e_side', 
             'pass_trk_match', 'pass_fee', 'pass_v0_p_cut', 
             'pass_cluster_dt_cut',  
@@ -47,10 +51,13 @@ class MollerAnalysis(object):
             'pass_trk_cluster_dt',
         ]
 
-        self.plt_vars = np.concatenate([self.plt_vars, self.v0_vars, self.cut_vars, self.kin_vars])
+        self.plt_vars = np.concatenate([self.plt_vars, self.v0_vars, 
+                                        self.cut_vars, self.kin_vars])
 
         for variable in self.plt_vars: 
             self.ntuple[variable] = []
+
+        self.run_number = 0
 
     def has_opp_clusters(self, particle):
         
@@ -66,6 +73,7 @@ class MollerAnalysis(object):
 
         cluster0 = particle.getClusters().At(0)
         cluster1 = particle.getClusters().At(1)
+
         # Make sure the clusters are in opposite Ecal volumes
         if cluster0.getPosition()[1]*cluster1.getPosition()[1] > 0: return False
         
@@ -159,7 +167,9 @@ class MollerAnalysis(object):
 
 
     def process(self, event): 
-        
+       
+        self.run_number = event.getRunNumber()
+
         # First check that the event contains GBL tracks.  Without GBL 
         # tracks, v0 particles can't be created.  In the case tracks haven't
         # been found, skip the event.
@@ -177,8 +187,8 @@ class MollerAnalysis(object):
         self.ntuple['top_track_count'].append(len(top_trks))
         self.ntuple['bot_track_count'].append(len(bot_trks))
 
-        #v0_col_type = r.HpsParticle.TC_MOLLER_CANDIDATE
-        v0_col_type = r.HpsParticle.UC_MOLLER_CANDIDATE
+        v0_col_type = r.HpsParticle.TC_MOLLER_CANDIDATE
+        #v0_col_type = r.HpsParticle.UC_MOLLER_CANDIDATE
         v0_count = event.getNumberOfParticles(v0_col_type)
         self.ntuple['n_v0'].append(v0_count)
 
@@ -332,7 +342,7 @@ class MollerAnalysis(object):
                     '$v_{0}$ $\chi^{2} <$ 75',
                     'Ecal clust pair dt < 2 ns']
 
-        plt = Plotter.Plotter('moller_analysis')
+        plt = Plotter.Plotter('moller_analysis_%s' % self.run_number)
 
         plt.plot_hists([
                         self.ntuple['track_count'],
