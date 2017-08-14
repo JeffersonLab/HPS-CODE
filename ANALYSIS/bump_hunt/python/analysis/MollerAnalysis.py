@@ -30,7 +30,12 @@ class MollerAnalysis(object):
             'bot_cluster_energy', 'bot_cluster_time', 'bot_cluster_x',
             'ecal_cluster_dt',
 
-            'top_eop', 'bot_eop',
+            # Track parameters
+            'ttrk_d0', 'ttrk_omega', 'ttrk_tan_lambda', 'ttrk_z0',
+            'btrk_d0', 'btrk_omega', 'btrk_tan_lambda', 'btrk_z0',
+            
+            # E/p
+            'top_eop', 'bot_eop'
         ]
 
         self.v0_vars = [
@@ -45,10 +50,9 @@ class MollerAnalysis(object):
             # Cuts
             'has_opp_clusters', 'has_clusters_e_side', 
             'pass_trk_match', 'pass_fee', 'pass_v0_p_cut', 
-            'pass_cluster_dt_cut',  
-            'pass_trk_chi2',
-            'pass_v0_chi2_cut',
-            'pass_trk_cluster_dt',
+            'pass_cluster_dt_cut', 'pass_trk_chi2',
+            'pass_v0_chi2_cut', 'pass_trk_cluster_dt',
+            'has_l1', 'has_l2'
         ]
 
         self.plt_vars = np.concatenate([self.plt_vars, self.v0_vars, 
@@ -217,10 +221,14 @@ class MollerAnalysis(object):
             self.ntuple['vy'].append(particle.getVertexPosition()[1])
             self.ntuple['vz'].append(particle.getVertexPosition()[2])
 
-            trk0_p = -9999
-            trk1_p = -9999
-            trk0_theta = -9999
-            trk1_theta = -9999
+            ttrk_params = {'d0':-9999, 'omega':-9999, 'tan_lambda':-9999, 
+                           'z0':-9999, 'p': -9999, 'theta': -9999} 
+            btrk_params = {'d0':-9999, 'omega':-9999, 'tan_lambda':-9999, 
+                           'z0':-9999, 'p': -9999, 'theta': -9999} 
+            top_has_l1 = False
+            bot_has_l1 = False
+            top_has_l2 = False
+            bot_has_l2 = False
             
             if particle.getTracks().GetEntriesFast() == 2:
 
@@ -233,21 +241,59 @@ class MollerAnalysis(object):
                 ttrk = particle.getTracks().At(tindex)
                 btrk = particle.getTracks().At(bindex)
 
+                ttrk_params['d0'] = ttrk.getD0()
+                ttrk_params['omega'] = ttrk.getOmega()
+                ttrk_params['tan_lambda'] = ttrk.getTanLambda()
+                ttrk_params['z0'] = ttrk.getZ0()
+
+                btrk_params['d0'] = btrk.getD0()
+                btrk_params['omega'] = btrk.getOmega()
+                btrk_params['tan_lambda'] = btrk.getTanLambda()
+                btrk_params['z0'] = btrk.getZ0()
+
                 ttrk_pvec = ttrk.getMomentum()
                 btrk_pvec = btrk.getMomentum()
         
-                ttrk_p = la.norm(ttrk_pvec)
-                btrk_p = la.norm(btrk_pvec)
+                ttrk_params['p'] = la.norm(ttrk_pvec)
+                btrk_params['p'] = la.norm(btrk_pvec)
 
-                ttrk_theta = math.acos(ttrk_pvec[2]/ttrk_p)*180.0/3.14159 
-                btrk_theta = math.acos(btrk_pvec[2]/btrk_p)*180.0/3.14159 
+                ttrk_params['theta'] = math.acos(ttrk_pvec[2]/ttrk_params['p'])*180.0/3.14159 
+                btrk_params['theta'] = math.acos(btrk_pvec[2]/btrk_params['p'])*180.0/3.14159 
 
-            if ttrk_p > btrk_p: 
-                self.ntuple['leading_e_p'].append(ttrk_p)
-                self.ntuple['leading_e_theta'].append(ttrk_theta)
+                for hit_index in xrange(0, ttrk.getSvtHits().GetEntriesFast()): 
+                    hit = ttrk.getSvtHits().At(hit_index)
+                    if hit.getLayer() == 1: top_has_l1 = True
+                    if hit.getLayer() == 2: top_has_l2 = True
+
+                for hit_index in xrange(0, btrk.getSvtHits().GetEntriesFast()): 
+                    hit = btrk.getSvtHits().At(hit_index)
+                    if hit.getLayer() == 1: bot_has_l1 = True
+                    if hit.getLayer() == 2: bot_has_l2 = True
+
+            self.ntuple['ttrk_d0'].append(ttrk_params['d0'])
+            self.ntuple['ttrk_omega'].append(ttrk_params['omega'])
+            self.ntuple['ttrk_tan_lambda'].append(ttrk_params['tan_lambda'])
+            self.ntuple['ttrk_z0'].append(ttrk_params['z0'])
+
+            self.ntuple['btrk_d0'].append(btrk_params['d0'])
+            self.ntuple['btrk_omega'].append(btrk_params['omega'])
+            self.ntuple['btrk_tan_lambda'].append(btrk_params['tan_lambda'])
+            self.ntuple['btrk_z0'].append(btrk_params['z0'])
+
+            if ttrk_params['p'] > btrk_params['p']: 
+                self.ntuple['leading_e_p'].append(ttrk_params['p'])
+                self.ntuple['leading_e_theta'].append(ttrk_params['theta'])
             else: 
-                self.ntuple['leading_e_p'].append(btrk_p)
-                self.ntuple['leading_e_theta'].append(btrk_theta)
+                self.ntuple['leading_e_p'].append(btrk_params['p'])
+                self.ntuple['leading_e_theta'].append(btrk_params['theta'])
+ 
+            has_l1 = False
+            has_l2 = False
+            if (top_has_l1 & bot_has_l1): has_l1 = True
+            if (top_has_l2 & bot_has_l2): has_l2 = True
+            
+            self.ntuple['has_l1'].append(has_l1)
+            self.ntuple['has_l2'].append(has_l2)
 
             tclust_e = 9999
             tclust_t = -5000
@@ -280,8 +326,8 @@ class MollerAnalysis(object):
             self.ntuple['bot_cluster_x'].append(bclust_x)
             self.ntuple['ecal_cluster_dt'].append(tclust_t - bclust_t)
 
-            self.ntuple['top_eop'].append(tclust_e/ttrk_p)
-            self.ntuple['bot_eop'].append(bclust_e/btrk_p)
+            self.ntuple['top_eop'].append(tclust_e/ttrk_params['p'])
+            self.ntuple['bot_eop'].append(bclust_e/btrk_params['p'])
 
             # Require the two v0 tracks to be in opposite volumes.
             self.ntuple['has_opp_clusters'].append(self.has_opp_clusters(particle))
@@ -340,7 +386,9 @@ class MollerAnalysis(object):
                     'abs(Cluster-track dt) - 43 ns < 4.5 ns',
                     'Track $\chi^{2} <$ 40', 
                     '$v_{0}$ $\chi^{2} <$ 75',
-                    'Ecal clust pair dt < 2 ns']
+                    'Ecal clust pair dt < 2 ns', 
+                    'Has L1 hit', 
+                    'Has L2 hit']
 
         plt = Plotter.Plotter('moller_analysis_%s' % self.run_number)
 
@@ -521,6 +569,20 @@ class MollerAnalysis(object):
                                250, 0.025, 0.04, 
                                20, 0, 5)
 
+        plt.plot_hists(cut_flow['ttrk_d0'], 
+                       np.linspace(-10, 10, 101),
+                       labels=plt_labels,
+                       ylog=True,
+                       label_loc=10,
+                       x_label='Top track d0 (mm)')
+        
+        plt.plot_hists(cut_flow['btrk_d0'], 
+                       np.linspace(-10, 10, 101),
+                       labels=plt_labels,
+                       ylog=True,
+                       label_loc=10,
+                       x_label='Bottom track d0 (mm)')
+
         plt.plot_hists(cut_flow['top_cluster_energy'], 
                        np.linspace(0.0, 1.5, 251),
                        labels=plt_labels,
@@ -587,7 +649,7 @@ class MollerAnalysis(object):
         for index in xrange(0, len(cut_flow['bot_cluster_x'])):
             plt.create_root_hist('bot_cluster_x - %s' % plt_labels[index], 
                 cut_flow['bot_cluster_x'][index], 
-                150, -200, 100, 
+            150, -200, 100, 
                 'Bottom cluster x (mm)')
 
         plt.plot_hists(cut_flow['ecal_cluster_dt'], 
