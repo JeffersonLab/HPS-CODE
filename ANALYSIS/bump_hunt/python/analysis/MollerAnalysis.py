@@ -26,7 +26,7 @@ class MollerAnalysis(object):
             'leading_e_p', 'leading_e_theta',
            
             # Ecal clusters
-            'top_cluster_energy', 'top_cluster_time', 'top_cluster_x',  
+            'top_cluster_energy', 'top_cluster_time', 'top_cluster_x', 
             'bot_cluster_energy', 'bot_cluster_time', 'bot_cluster_x',
             'ecal_cluster_dt',
 
@@ -639,6 +639,11 @@ class MollerAnalysis(object):
                         x_label='Top cluster x (mm)',
                         y_label='Bottom cluster x (mm)')
 
+        plt.create_root_hist2d('Ecal cluster x vs Ecal cluster x', 
+                               cut_flow['top_cluster_x'][len(cut_flow['top_cluster_x']) - 1], 
+                               cut_flow['bot_cluster_x'][len(cut_flow['bot_cluster_x']) - 1],
+                               150, -200, 100, 
+                               150, -200, 100)
 
         for index in xrange(0, len(cut_flow['top_cluster_x'])):
             plt.create_root_hist('top_cluster_x - %s' % plt_labels[index], 
