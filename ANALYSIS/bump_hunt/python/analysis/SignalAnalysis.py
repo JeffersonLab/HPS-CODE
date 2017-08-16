@@ -178,7 +178,7 @@ class SignalAnalysis(object):
         self.ntuple['top_track_count'].append(len(top_trks))
         self.ntuple['bot_track_count'].append(len(bot_trks))
 
-        v0_col_type = r.HpsParticle.TC_MOLLER_CANDIDATE
+        v0_col_type = r.HpsParticle.TC_V0_CANDIDATE
         #v0_col_type = r.HpsParticle.UC_MOLLER_CANDIDATE
         v0_count = event.getNumberOfParticles(v0_col_type)
         self.ntuple['n_v0'].append(v0_count)
@@ -266,13 +266,6 @@ class SignalAnalysis(object):
             self.ntuple['btrk_omega'].append(btrk_params['omega'])
             self.ntuple['btrk_tan_lambda'].append(btrk_params['tan_lambda'])
             self.ntuple['btrk_z0'].append(btrk_params['z0'])
-
-            if ttrk_params['p'] > btrk_params['p']: 
-                self.ntuple['leading_e_p'].append(ttrk_params['p'])
-                self.ntuple['leading_e_theta'].append(ttrk_params['theta'])
-            else: 
-                self.ntuple['leading_e_p'].append(btrk_params['p'])
-                self.ntuple['leading_e_theta'].append(btrk_params['theta'])
  
             has_l1 = False
             has_l2 = False
