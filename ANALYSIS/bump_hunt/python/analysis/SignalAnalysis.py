@@ -366,7 +366,7 @@ class SignalAnalysis(object):
                     'Has L1 hit', 
                     'Has L2 hit']
 
-        plt = Plotter.Plotter('moller_analysis_%s' % self.run_number)
+        plt = Plotter.Plotter('ap_analysis_%s' % self.run_number)
 
         plt.plot_hists([
                         self.ntuple['track_count'],
@@ -510,40 +510,6 @@ class SignalAnalysis(object):
                 cut_flow['vz'][index], 
                 100, -1, 1, 
                 'v_{z} (mm)')
-
-        plt.plot_hists(cut_flow['leading_e_p'], 
-                       np.linspace(0, 2.0, 201),
-                       labels=plt_labels,
-                       ylog=True,
-                       label_loc=10,
-                       x_label='$p(e^{-}_{Lead})$ GeV')
-
-        plt.plot_hists(cut_flow['leading_e_theta'], 
-                       np.linspace(0, 5, 21),
-                       labels=plt_labels,
-                       ylog=True,
-                       label_loc=10,
-                       x_label='$\theta(e^{-}_{Lead})$ (Degrees)')
-        
-        plt.plot_hist2d(cut_flow['leading_e_p'][len(cut_flow['leading_e_p']) - 1], 
-                        cut_flow['leading_e_theta'][len(cut_flow['leading_e_theta']) - 1],
-                        np.linspace(0.3, 0.85, 101),
-                        np.linspace(0, 5, 21),
-                        x_label='$p(e^{-}_{Lead})$ GeV',
-                        y_label='$\theta(e^{-}_{Lead})$ (Degrees)')
-       
-        plt.plot_hist2d(cut_flow['mass'][len(cut_flow['mass']) - 1], 
-                        cut_flow['leading_e_theta'][len(cut_flow['leading_e_theta']) - 1],
-                        np.linspace(0.025, 0.04, 251),
-                        np.linspace(0, 5, 21),
-                        x_label='$m(e^-e^-)$ GeV',
-                        y_label='$\theta(e^{-}_{Lead})$ (Degrees)')
-       
-        plt.create_root_hist2d('mass v theta', 
-                               cut_flow['mass'][len(cut_flow['mass']) - 1], 
-                               cut_flow['leading_e_theta'][len(cut_flow['leading_e_theta']) - 1],
-                               250, 0.025, 0.04, 
-                               20, 0, 5)
 
         plt.plot_hists(cut_flow['ttrk_d0'], 
                        np.linspace(-10, 10, 101),
