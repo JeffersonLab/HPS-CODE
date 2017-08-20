@@ -17,6 +17,7 @@ def main() :
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("-f", "--file_list", help="List of ROOT files to process.")
     parser.add_argument("-l", "--lumi",      help="Luminosity")
+    parser.add_argument("-l", "--config", help="configuration file.")
     args = parser.parse_args()
 
     if not args.file_list:
@@ -37,9 +38,17 @@ def main() :
 
     rec = rnp.root2array(root_files, 'results')
 
-    apply_tri_selection(rec, args.lumi)
+    config_dict={}
+    config_file=open(args.config)
+    for line in config_file:
+        split = line.split(",")
+        key = split[0].strip()
+        val = float(split[1].strip())
+        config_dict[key] = val
+    
+    apply_tri_selection(rec, args.lumi, config_dict)
 
-def apply_tri_selection(rec, lumi):
+def apply_tri_selection(rec, lumi, config):
 
     electron_p      = rec['electron_p']
     electron_px     = rec['electron_px']
@@ -70,11 +79,11 @@ def apply_tri_selection(rec, lumi):
     v0_p = rec["v0_p"]
 
     top_track_cluster_dt = top_cluster_time - top_time
-    abs_top_track_cluster_dt = np.absolute(top_track_cluster_dt - 43)
+    abs_top_track_cluster_dt = np.absolute(top_track_cluster_dt - config['tc_time_diff')
     bot_track_cluster_dt = bot_cluster_time - bot_time
-    abs_bot_track_cluster_dt = np.absolute(bot_track_cluster_dt - 43)
-    track_cluster_dt_cut = ((abs_top_track_cluster_dt < 4.5) 
-                            & (abs_bot_track_cluster_dt < 4.5))
+    abs_bot_track_cluster_dt = np.absolute(bot_track_cluster_dt - config['tc_time_mean'])
+    track_cluster_dt_cut = ((abs_top_track_cluster_dt < config['tc_time_diff']) 
+                            & (abs_bot_track_cluster_dt < config['tc_time_diff']))
 
     asym = (electron_pt - positron_pt)/(electron_pt + positron_pt)
     #
@@ -83,14 +92,14 @@ def apply_tri_selection(rec, lumi):
     cuts = collections.OrderedDict()
 
     # Base cuts used to reduce accidentals
-    cuts['Radiative cut'] = v0_p > 0.8*1.056 # GeV
-    cuts['abs(Ecal clust time - trk time) - 43 ns < 4.5'] = track_cluster_dt_cut
-    cuts['$p(V_0) < 1.2 E_{beam}$'] = v0_p < 1.2*1.056 # GeV
-    cuts['trk $\chi^2$ < 40'] = (electron_chi2 < 40) & (positron_chi2 < 40)
-    cuts['Ecal clust pair dt < 2 ns'] = np.absolute(cluster_time_diff) < 2
+    cuts['Radiative cut'] = v0_p > config['ebeam']*config['rad_frac'] # GeV
+    cuts['abs(Ecal clust time - trk time) - %f ns < %f' % (config['tc_time_mean'], config['tc_time_diff' ])] = track_cluster_dt_cut
+    cuts['$p(V_0) < %f E_{beam}$' % config['v0_p_max']] = v0_p < config['v0_p_max']*config['ebeam'] # GeV
+    cuts['trk $\chi^2$ < %f' % config['trk_chi2_max']] = (electron_chi2 < config['trk_chi2_max']) & (positron_chi2 < config['trk_chi2_max'])
+    cuts['Ecal clust pair dt < %f ns', config['clust_time_diff']] = np.absolute(cluster_time_diff) < config['clust_time_diff']
     cuts['l1 & l2 hit'] = (positron_has_l1 == 1) & (positron_has_l2 == 1)
-    cuts['$d_{0}(e^+) < 1.1$'] = positron_d0 < 1.1
-    cuts['$p_t(e^-) - p_t(e^+)/p_t(e^-) + p_t(e^+)$'] = asym < .47
+    cuts['$d_{0}(e^+) < %f$' % config['positron_d0_max']] = positron_d0 < config['positron_d0_max']
+    cuts['$p_t(e^-) - p_t(e^+)/p_t(e^-) + p_t(e^+)$'] = asym < config['asym_max']
     
     labels = ['Opp. Ecal clusters, trk-cluster match $\chi^2 < 10$, $p(e^-)<0.75E_{beam}$']
     clust_dt_arr = [cluster_time_diff]

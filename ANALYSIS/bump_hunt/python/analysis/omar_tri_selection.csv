@@ -1,0 +1,10 @@
+ebeam,1.056
+rad_frac,0.8
+tc_time_mean,43
+tc_time_diff,4.5
+trk_chi2_max,40
+v0_p_max,1.2
+positron_d0_max,1.1
+asym_max,.47
+asym_min,-1
+clust_time_diff,2
