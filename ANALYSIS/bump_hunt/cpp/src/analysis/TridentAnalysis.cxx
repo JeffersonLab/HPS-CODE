@@ -246,10 +246,12 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         // number of hits.
         if (all_share_hits && (shared_hit_count >= 4)) { 
             printDebug("All positrons share hits with each other.");
-            printDebug("Best chi2 track: " + std::to_string(getBestChi2(top_pos_trks)->getChi2())); 
-            positron_map[getBestChi2(shared_tracks)] = {}; 
+            GblTrack* btrk = getBestChi2(top_pos_trks);
+            if (btrk != nullptr) { 
+                printDebug("Best chi2 track: " + std::to_string(btrk->getChi2())); 
+                positron_map[btrk] = {}; 
+            }
         }
-
     } 
     
     if (bot_pos_trks.size() > 1) { 
@@ -283,8 +285,11 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
         // number of hits.
         if (all_share_hits && (shared_hit_count >= 4)) { 
             printDebug("All positrons share hits with each other.");
-            printDebug("Best chi2 track: " + std::to_string(getBestChi2(bot_pos_trks)->getChi2())); 
-            positron_map[getBestChi2(shared_tracks)] = {}; 
+            GblTrack* btrk = getBestChi2(bot_pos_trks);
+            if (btrk != nullptr) { 
+                printDebug("Best chi2 track: " + std::to_string(btrk->getChi2())); 
+                positron_map[btrk] = {}; 
+            }
         }
     }
 
@@ -640,7 +645,7 @@ std::vector<int> TridentAnalysis::getSharedLayersVec(std::vector<GblTrack*> trks
 GblTrack* TridentAnalysis::getBestChi2(std::vector<GblTrack*> trks) {
     GblTrack* btrk{nullptr};
     int best_chi2 = 10000;
-    for (GblTrack* trk : trks) { 
+    for (GblTrack* trk : trks) {
         if (trk->getChi2() < best_chi2) {
             best_chi2 = trk->getChi2();
             btrk = trk;
