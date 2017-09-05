@@ -17,7 +17,7 @@ def main() :
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("-f", "--file_list", help="List of ROOT files to process.")
     parser.add_argument("-l", "--lumi",      help="Luminosity")
-    parser.add_argument("-l", "--config", help="configuration file.")
+    parser.add_argument("-c", "--config", help="configuration file.")
     args = parser.parse_args()
 
     if not args.file_list:
@@ -79,7 +79,7 @@ def apply_tri_selection(rec, lumi, config):
     v0_p = rec["v0_p"]
 
     top_track_cluster_dt = top_cluster_time - top_time
-    abs_top_track_cluster_dt = np.absolute(top_track_cluster_dt - config['tc_time_diff')
+    abs_top_track_cluster_dt = np.absolute(top_track_cluster_dt - config['tc_time_diff'])
     bot_track_cluster_dt = bot_cluster_time - bot_time
     abs_bot_track_cluster_dt = np.absolute(bot_track_cluster_dt - config['tc_time_mean'])
     track_cluster_dt_cut = ((abs_top_track_cluster_dt < config['tc_time_diff']) 
@@ -100,6 +100,8 @@ def apply_tri_selection(rec, lumi, config):
     cuts['l1 & l2 hit'] = (positron_has_l1 == 1) & (positron_has_l2 == 1)
     cuts['$d_{0}(e^+) < %f$' % config['positron_d0_max']] = positron_d0 < config['positron_d0_max']
     cuts['$p_t(e^-) - p_t(e^+)/p_t(e^-) + p_t(e^+)$'] = asym < config['asym_max']
+
+    print cuts
     
     labels = ['Opp. Ecal clusters, trk-cluster match $\chi^2 < 10$, $p(e^-)<0.75E_{beam}$']
     clust_dt_arr = [cluster_time_diff]
@@ -121,7 +123,7 @@ def apply_tri_selection(rec, lumi, config):
         abs_top_cluster_dt_arr.append(abs_top_track_cluster_dt[cut])
         asym_arr.append(asym[cut])
         labels.append(key)
-
+    """
     plt = Plotter.Plotter('trident_selection.pdf')
     
     plt.plot_hists(clust_dt_arr, 
@@ -181,7 +183,7 @@ def apply_tri_selection(rec, lumi, config):
                    ylog=True)
 
     plt.close()
-
+    """
     file = r.TFile("invariant_mass.root", "recreate")
 
     mass_histo = r.TH1F("invariant_mass", "invariant_mass", 2000, 0., 0.1)
