@@ -8,11 +8,11 @@ python GenerateEfficiencyTable.py <output basename> <input text file> <options>
 
 ## Options
 
--e: beam energy in GeV (default 1.056 GeV) `
--t: target position in mm (default -5 mm) `
--n: number of bins in histograms (default 50) `
--z: total range in z covered in mm (default is 100 mm) `
--T: plot Test plots `
+-e: beam energy in GeV (default 1.056 GeV)  
+-t: target position in mm (default -5 mm)  
+-n: number of bins in histograms (default 50)  
+-z: total range in z covered in mm (default is 100 mm)  
+-T: plot Test plots  
 
 ## Output Files
 
@@ -23,14 +23,14 @@ Output files include <output basename>.eff and <output basename>.pdf (if -T opti
 This is the output text file of efficiency values. The output file reads like this:
 
 ```
-line 1 {mass array mass[0...n]} `
-line 2 {z array z[0...m]} `
-line 3 {efficiency values at z[i] for mass[0]} `
-line 4 {efficiency values at z[i] for mass[1]} `
-`
-`
-`
-line n + 2 {efficiency values at z[i for mass[n-1]}
+line 1 {mass array mass[0...n]}  
+line 2 {z array z[0...m]}  
+line 3 {efficiency values at z[i] for mass[0]}  
+line 4 {efficiency values at z[i] for mass[1]}  
+.  
+.  
+.  
+line n + 2 {efficiency values at z[i for mass[n-1]}  
 ```
 
 where `n` is the number of mass values and `m` is the number of z bins
@@ -41,22 +41,22 @@ If -T option is selected, a pdf file of test plots will be output. These plots c
 
 ## Input Text File
 
-Input text files corresponds to files paths to tuple files. `
-Each line corresponds to a file in the following format: `
+Input text files corresponds to files paths to tuple files.  
+Each line corresponds to a file in the following format:  
 
 ```
-line 1 {path to cut tuple file for mass[0]} `
-line 2 {path to cut tuple file for mass[1]} `
-`
-`
-`
-line n {path to cut tuple file for mass[n-1]} `
-line n+1 {path to truth tuple file for mass[0]} `
-line n+2 {path to truth tuple file for mass[1]} `
-`
-`
-`
-line 2n {path to truth tuple file for mass[n-1]} `
+line 1 {path to cut tuple file for mass[0]}  
+line 2 {path to cut tuple file for mass[1]}  
+.  
+.  
+.  
+line n {path to cut tuple file for mass[n-1]}  
+line n+1 {path to truth tuple file for mass[0]}  
+line n+2 {path to truth tuple file for mass[1]}  
+.  
+.  
+.  
+line 2n {path to truth tuple file for mass[n-1]}  
 ```
 
 where `n` is the number of mass values
