@@ -79,7 +79,7 @@ def apply_tri_selection(rec, lumi, config):
     v0_p = rec["v0_p"]
 
     top_track_cluster_dt = top_cluster_time - top_time
-    abs_top_track_cluster_dt = np.absolute(top_track_cluster_dt - config['tc_time_diff'])
+    abs_top_track_cluster_dt = np.absolute(top_track_cluster_dt - config['tc_time_mean'])
     bot_track_cluster_dt = bot_cluster_time - bot_time
     abs_bot_track_cluster_dt = np.absolute(bot_track_cluster_dt - config['tc_time_mean'])
     track_cluster_dt_cut = ((abs_top_track_cluster_dt < config['tc_time_diff']) 
