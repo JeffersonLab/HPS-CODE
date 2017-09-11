@@ -17,8 +17,8 @@ def main() :
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("-f", "--file_list", help="List of ROOT ntuples to process.")
     parser.add_argument("-i", "--file",      help="ROOT ntuple to process.")
-    parser.add_argument("-l", "--lumi",      help="Luminosity")
-    parser.add_argument("-o", "--output",    help="Output prefix.")
+    parser.add_argument("-r", "--run",       help="Run number of the file that is being processed.")
+    parser.add_argument("-l", "--lumi_file", help="Path to file containing Luminosities.")
     args = parser.parse_args()
 
     # If a file hasn't been specified, warn the user and exit.
@@ -42,11 +42,15 @@ def main() :
 
     rec = rnp.root2array(root_files, 'results')
     
-    output_prefix = 'trident_selection'
-    if args.output: 
-        output_prefix = args.output.strip()
+    lumis = np.genfromtxt(args.lumi_file.strip(), 
+                          dtype=[('run', 'f8'), ('lumi', 'f8')], 
+                          delimiter=',')
+    run_index = np.where(lumis['run'] == float(args.run))[0]
+    lumi = lumis['lumi'][run_index]
 
-    apply_tri_selection(rec, args.lumi, output_prefix)
+    output_prefix = '%s_trident_selection' % args.run
+
+    apply_tri_selection(rec, lumi, output_prefix)
 
 def save_to_root(plt, name, hists, x_label, bins, min_x, max_x, labels, **params): 
     for index in xrange(0, len(hists)):
