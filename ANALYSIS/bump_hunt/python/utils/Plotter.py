@@ -192,7 +192,14 @@ class Plotter(object):
         histo.GetXaxis().SetTitle(x_label)
         histo.SetLineColor(color)
         histo.SetLineWidth(2)
-        rnp.fill_hist(histo, values)
+        bin_width = histo.GetXaxis().GetBinWidth(1)
+        
+        weights = np.empty(len(values))
+        if 'lumi' in params: 
+            weights.fill(1/(bin_width*float(params['lumi'])))
+        else: weights.fill(1)
+        
+        rnp.fill_hist(histo, values, weights=weights)
         histo.Write()
 
     def create_root_hist2d(self, name, x_vals, y_vals, bins_x, x_min, x_max, bins_y, y_min, y_max, **params): 
