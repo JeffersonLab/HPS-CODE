@@ -1,5 +1,5 @@
 #include "CrossSectionComponent.h"
-#include "omniheader.h"
+#include "../omniheader.h"
 class CarbonElastic : public SimpleCrossSectionComponent{
  public:
  CarbonElastic(double ebeam) :  SimpleCrossSectionComponent(ebeam, 12*AMU, 0){
@@ -54,6 +54,8 @@ class InterpolateInelasticFormFactor : public SimpleCrossSectionComponent {
   
   double get_form_factor(double q){
     //cout << q << endl;
+    if(q <= _x[0])
+      return sqrt(_y[0]*pow(q/_x[0],4));
     for(int i = 0; i<_x.size()-1; i++){
       if(_x[i]<q && _x[i+1]>=q){
 	//std::cout << q << std::endl;
@@ -75,8 +77,8 @@ class CarbonInelastic2Plus : public InterpolateInelasticFormFactor{
       ebeam,
       12*AMU,
       .00443,
-      {0.118, 0.158, 0.197, .24, .28, .32, .36, .39, .43},
-      {4.28e-3, 9.43e-3, 1.33e-2, 1.45e-2, 1.18e-2, 7.87e-3, 4.52e-3, 2.11e-3, 7.54e-4})
+      { 0.118, 0.158, 0.197, .24, .28, .32, .36, .39, .43},
+      { 4.28e-3, 9.43e-3, 1.33e-2, 1.45e-2, 1.18e-2, 7.87e-3, 4.52e-3, 2.11e-3, 7.54e-4})
       {
 	
       }
@@ -88,10 +90,55 @@ class CarbonInelastic3Minus : public InterpolateInelasticFormFactor{
       ebeam,
       12*AMU,
       .00964,
-       {.162, .183, .20, .22, .24, .25, .27, .29, .31, .33, .35, .37},
-      {3.0e-3, 3.9e-3, 4.7e-3, 5.0e-3, 4.7e-3, 4.4e-3, 4.5e-3, 4.0e-3, 3.7e-3, 3.1e-3, 1.9e-3, 1.4e-3})
+      { .162, .183, .20, .22, .24, .25, .27, .29, .31, .33, .35, .37},
+      { 3.0e-3, 3.9e-3, 4.7e-3, 5.0e-3, 4.7e-3, 4.4e-3, 4.5e-3, 4.0e-3, 3.7e-3, 3.1e-3, 1.9e-3, 1.4e-3})
       {
 	
       }
 };
 
+class Quasielastic : public SimpleCrossSectionComponent {
+ public :
+  double _Z;
+  double _N;
+  double _kF;
+  double _delta_kF;
+ Quasielastic(double ebeam, double ebind, double Z, double N, double kF, double delta_kF) :
+  SimpleCrossSectionComponent(ebeam, .938, ebind), _Z(Z), _N(N), _kF(kF), _delta_kF(delta_kF)
+  {
+    
+  }
+
+  double get_form_factor(double q){
+    double q2 = q*q;
+    double r = q/_kF; //ratio of momentum transfer to fermi momentum                                                                      
+    double fermi_block = 3*r/4.-pow(r,3)/16.;
+    if(r>2) fermi_block = 1;
+
+    double tau = q2/(.938*.938*4);
+    double Ge = _Z*((1 - .24*tau)/(1 + 10.98*tau + 12.82*tau*tau + 21.97*tau*tau*tau)) + _N*1.7*tau/(1+3.3*tau)/pow(1+q2/(0.71),2);
+
+    
+    double quasi = fermi_block*Ge/(_Z*_Z*(1+tau));
+    return sqrt(quasi);
+  }
+  double get_relative_sys_error_on_xs(double theta){
+    double q2 = pow(2*_ebeam*sin(theta/2),2);
+     double sysFF = .015*q2/(.13);  //some guess as to how much the uncertainty on the form factor is
+    double q = sqrt(q2);
+    double x = q/_kF;
+
+    double sysPB = x < 2 ? (1-x*x/4)/(1-x*x/12)*_delta_kF : 0;
+    return sqrt(4*pow(sysFF,2) + pow(sysPB,2));
+  }
+};
+
+
+class CarbonQuasielastic : public Quasielastic {
+ public :
+ CarbonQuasielastic(double ebeam) :
+  Quasielastic(ebeam, .025, 6, 12, .221, .005)
+    {
+      
+    }
+};
