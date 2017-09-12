@@ -610,14 +610,10 @@ def apply_tri_selection(rec, lumi, output_prefix):
     mass_histo = r.TH1F("invariant_mass", "invariant_mass", 3000, 0., 0.15)
     #mass_histo = r.TH1F("invariant_mass", "invariant_mass", 50, 0., 0.1)
     mass_histo.GetXaxis().SetTitle("m(e^+e^-) (GeV)")
-    mass_histo.GetYaxis().SetTitle("#sigma(#mub)")
     bin_width = mass_histo.GetXaxis().GetBinWidth(1)
         
-    weights = np.empty(len(mass[cut]))
-    if lumi: weights.fill(1/(bin_width*float(lumi)))
-    else: weights.fill(1)
-    #rnp.fill_hist(mass_histo, mass[selection], weights=weights)
-    rnp.fill_hist(mass_histo, mass[cut], weights=weights)    
+    #rnp.fill_hist(mass_histo, mass[cut], weights=weights)    
+    rnp.fill_hist(mass_histo, mass[cut])    
     mass_histo.Write()
     file.Close()
 
