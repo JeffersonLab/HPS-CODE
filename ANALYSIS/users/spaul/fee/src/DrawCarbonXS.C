@@ -52,8 +52,5 @@ void DrawCarbonXS(){
 
     legend->Draw();
     
-    //cout << ele->get_xs_per_mott(.100) << endl;
-    //cout << ine2p->get_xs_per_mott(.100) << endl;
-    //cout << ine3m->get_xs_per_mott(.100) << endl;
   }
 }

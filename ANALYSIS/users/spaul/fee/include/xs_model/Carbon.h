@@ -44,21 +44,17 @@ class InterpolateInelasticFormFactor : public SimpleCrossSectionComponent {
  public : 
  InterpolateInelasticFormFactor(double ebeam, double M, double epsilon, initializer_list<double> x, initializer_list<double> y) :  SimpleCrossSectionComponent(ebeam, M, epsilon), _x(x), _y(y)
   {
-    SimpleCrossSectionComponent(ebeam, M, epsilon);
-    //this->_x = x;
-    //this->_y = y;
+
   }
   
   vector<double> _x;
   vector<double> _y;
   
   double get_form_factor(double q){
-    //cout << q << endl;
     if(q <= _x[0])
       return sqrt(_y[0]*pow(q/_x[0],4));
     for(int i = 0; i<_x.size()-1; i++){
       if(_x[i]<q && _x[i+1]>=q){
-	//std::cout << q << std::endl;
 	return sqrt(_y[i] + (q-_x[i])*(_y[i+1]-_y[i])/(_x[i+1]-_x[i]));
       }
     }
@@ -115,21 +111,28 @@ class Quasielastic : public SimpleCrossSectionComponent {
     double fermi_block = 3*r/4.-pow(r,3)/16.;
     if(r>2) fermi_block = 1;
 
+    fermi_block *= .8 ;  //doug's c factor. spectroscopic factor.    +- 10 ;  
+
     double tau = q2/(.938*.938*4);
-    double Ge = _Z*((1 - .24*tau)/(1 + 10.98*tau + 12.82*tau*tau + 21.97*tau*tau*tau)) + _N*1.7*tau/(1+3.3*tau)/pow(1+q2/(0.71),2);
+
+    double Gd = 1/pow(1+q2/.71,2);
+    //double Ge = _Z*((1 - .24*tau)/(1 + 10.98*tau + 12.82*tau*tau + 21.97*tau*tau*tau)) + _N*1.7*tau/(1+3.3*tau)/pow(1+q2/(0.71),2);
+    double Gep = (1 - .24*tau)/(1 + 10.98*tau + 12.82*tau*tau + 21.97*tau*tau*tau);
+    double Gen = 1.7*tau/(1+3.3*tau)*Gd;
 
     
-    double quasi = fermi_block*Ge/(_Z*_Z*(1+tau));
+    double quasi = fermi_block*(pow(Gep,2)*_Z + pow(Gen,2)*_N)/(_Z*_Z*(1+tau));
     return sqrt(quasi);
   }
   double get_relative_sys_error_on_xs(double theta){
     double q2 = pow(2*_ebeam*sin(theta/2),2);
-     double sysFF = .015*q2/(.13);  //some guess as to how much the uncertainty on the form factor is
+    double sysFF = hypot(.01,.015*q2/(.13));  //some guess as to how much the uncertainty on the form factors are.  
+    
     double q = sqrt(q2);
     double x = q/_kF;
 
     double sysPB = x < 2 ? (1-x*x/4)/(1-x*x/12)*_delta_kF : 0;
-    return sqrt(4*pow(sysFF,2) + pow(sysPB,2));
+    return sqrt(4*pow(sysFF,2) + pow(sysPB,2)+ pow(.1,2));
   }
 };
 
@@ -142,3 +145,34 @@ class CarbonQuasielastic : public Quasielastic {
       
     }
 };
+
+class DeltaResonance : public SimpleCrossSectionComponent {
+ public :
+  double _Z;
+ DeltaResonance(double ebeam, double Z) :
+  SimpleCrossSectionComponent(ebeam, .938, .1232-.938),
+    _Z(Z)
+    {
+      
+    }
+  
+  double get_form_factor(double q){
+    
+    return 0;  //TODO find the form factor
+  }
+  double get_relative_sys_error_on_xs(double theta){
+    return 0;  //TODO find the error on the form factor
+  }
+};
+
+//the most complete model of carbon I can get as of yet.
+/*class CarbonFullModel : public CrossSectionComponent{
+  CarbonFullModel(double ebeam){
+    vector<CrossSectionComponent*> components();
+    components.pushback(new CarbonElastic(ebeam));
+    components.pushback(new CarbonQuasielastic(ebeam));
+    components.pushback(new CarbonInelastic3Minus(ebeam));
+    components.pushback(new CarbonInelastic2Plus(ebeam));
+  }
+  double get_xs_per_mott(
+  }*/
