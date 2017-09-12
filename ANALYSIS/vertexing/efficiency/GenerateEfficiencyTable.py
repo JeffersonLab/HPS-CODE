@@ -7,25 +7,25 @@ from ROOT import gROOT, gStyle, TFile, TTree, TChain, TMVA, TCut, TCanvas, gDire
 import getopt
 
 def print_usage():
-    print "\nUsage: {0} <output file basename> <acceptance ROOT files>".format(sys.argv[0])
+    print "\nUsage: {0} <output file basename> <input files list> <L1L1 input files list>".format(sys.argv[0])
     print "Arguments: "
-    print '\t-e: use this beam energy'
-    print '\t-t: use this target position'
-    print '\t-n: number of bins in histograms'
-    print '\t-z: total range in z covered'
+    print '\t-e: use this beam energy <default 1.056 GeV>'
+    print '\t-t: use this target position <default -5 mm>'
+    print '\t-n: number of bins in histograms <default 50>'
+    print '\t-z: total range in z covered <default 100 mm>'
     print '\t-T: plot Test plots'
     print '\t-h: this help message'
     print
 
 #Default Values
-eBeam=1.056
+eBeam = 1.056
 makeTestPlots = False
 targZ = -5.
 nBins = 50
 zRange = 100
 
 #Function to plot efficiency tests of known masses
-def plotTest(iMass,inputFile,output,targZ,maxZ):
+def plotTest(iMass,inputFile,output,targZ,maxZ,canvas):
     inputfile = open(inputFile,"r")
     mass = []
     z = []
@@ -46,11 +46,11 @@ def plotTest(iMass,inputFile,output,targZ,maxZ):
         z.append(float(result[1][i]))
     #Convert the strings from input file into floats
     for i in range(nMass):
-	dummy = []
-	for j in range(nBins):
-	    dummy.append(float(result[i+2][j]))
-	eff.append(dummy)
-	del dummy
+        dummy = []
+        for j in range(nBins):
+            dummy.append(float(result[i+2][j]))
+        eff.append(dummy)
+        del dummy
     #define histograms
     histo1 = TH1F("histo1","histo1",nBins-1,targZ,maxZ) #test histogram
     histo2 = TH1F("histo2","histo2",nBins,targZ,maxZ) #known histogram
@@ -58,17 +58,17 @@ def plotTest(iMass,inputFile,output,targZ,maxZ):
     iMass1 = iMass - 1
     iMass2 = iMass + 1
     for i in range(nBins-1):
-	iZ1 = i
-	iZ2 = i + 1
+        iZ1 = i
+        iZ2 = i + 1
         Q11 = eff[iMass1][iZ1]
-	Q12 = eff[iMass2][iZ1]
-	Q21 = eff[iMass1][iZ2]
-	Q22 = eff[iMass2][iZ2]
+        Q12 = eff[iMass2][iZ1]
+        Q21 = eff[iMass1][iZ2]
+        Q22 = eff[iMass2][iZ2]
         #Interpolate value
         interpolate = Bilinear(z[i],mass[iMass],z[iZ1],z[iZ2],mass[iMass1],mass[iMass2],Q11,Q12,Q21,Q22)
-        histo1.SetBinContent(i,interpolate)
+        histo1.SetBinContent(i+1,interpolate)
     for i in range(nBins):
-	histo2.SetBinContent(i,eff[iMass][i])
+        histo2.SetBinContent(i+1,eff[iMass][i])
     #Draw Histograms
     legend = TLegend(.68,.66,.92,.87)
     legend.SetBorderSize(0)
@@ -88,7 +88,7 @@ def plotTest(iMass,inputFile,output,targZ,maxZ):
     histo2.SetLineColor(2)
     legend.Draw("")
     gStyle.SetOptStat(0)
-    c.Print(output+".pdf")
+    canvas.Print(output+".pdf")
 
 #Function to plot efficiency tests of known masses
 def Interpolate(Mass,Z,mass,z,eff):
@@ -105,11 +105,11 @@ def Interpolate(Mass,Z,mass,z,eff):
 	    break
     #Check to make sure mass and z are not out of range
     if(iMass == 0):
-	print "Mass is out of range!"
-	return
+        print "Mass is out of range!"
+        return
     if(iZ == 0):
-	print "Z is behind target!"
-	return
+        print "Z is behind target!"
+        return
     iMass1 = iMass - 1
     iMass2 = iMass
     iZ1 = iZ - 1
@@ -169,6 +169,8 @@ def getEfficiency(inputFile):
 	for x in lines:
  		result.append(x.split())
 	inputfile.close()
+        nMass = len(result[0])
+        nBins = len(result[1])
 	#Convert the strings from input file into floats
 	for i in range(nMass):
 		dummy = []
@@ -206,7 +208,7 @@ for opt, arg in options:
             print_usage()
             sys.exit(0)
 
-if len(remainder)!=2:
+if len(remainder)!=3:
     print_usage()
     sys.exit(0)
 
@@ -216,12 +218,23 @@ maxZ = targZ + zRange #Define Maximum Z
 #Set outfile and grab infile
 outfile = remainder[0]
 inputfile = open(remainder[1],"r")
+L1L1file = open(remainder[2],"r")
 
-reconFiles=[]
+reconFiles = []
+L1L1Files = []
 
 #Read files from input text file
 for line in (raw.strip().split() for raw in inputfile):
             reconFiles.append(line[0])
+
+#Read files from L1L1 input text file
+for line in (raw.strip().split() for raw in L1L1file):
+            L1L1Files.append(line[0])
+
+if (len(reconFiles) != len(L1L1Files)):
+    print "The number of L1L1 files and input files do not match!"
+    print_usage()
+    sys.exit(0)
 
 mass = array.array('d')
 z = array.array('d')
@@ -239,40 +252,77 @@ for i in range(nMass):
 for i in range(nBins):
     z.append(targZ+i*(maxZ-targZ)/float(nBins))
 
-#Create text file to write to
+#Create text files to write to
 textfile = open(outfile + ".eff","w")
+textfileNorm = open(outfile + "_norm.eff","w")
 
 #Write values of mass in the first row
 for i in range(nMass):
     textfile.write(str(mass[i]) + " ")
+    textfileNorm.write(str(mass[i]) + " ")
 textfile.write("\n")
+textfileNorm.write("\n")
 #Write values of z in the 2nd row
 for i in range(nBins):
-    textfile.write(str(z[i]) + " ")  
+    textfile.write(str(z[i]) + " ") 
+    textfileNorm.write(str(z[i]) + " ")  
 textfile.write("\n")
+textfileNorm.write("\n")
 
 #Loop over all values of mass
 for i in range(nMass):
     inputReconFile = TFile(str(reconFiles[i])) #tuple files after cuts
     inputTruthFile = TFile(str(reconFiles[i+nMass])) #truth files
+    inputL1L1ReconFile = TFile(str(L1L1Files[i])) #L1L1 tuple files after cuts
+    inputL1L1TruthFile = TFile(str(L1L1Files[i+nMass])) #L1L1 truth files
     inputReconFile.Get("cut").Draw("triEndZ>>histoRecon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoRecon = ROOT.gROOT.FindObject("histoRecon")
     inputTruthFile.Get("ntuple").Draw("triEndZ>>histoTruth({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoTruth = ROOT.gROOT.FindObject("histoTruth")
+    inputL1L1ReconFile.Get("cut").Draw("triEndZ>>histoL1L1Recon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
+    histoL1L1Recon = ROOT.gROOT.FindObject("histoL1L1Recon")
+    inputL1L1TruthFile.Get("ntuple").Draw("triEndZ>>histoL1L1Truth({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
+    histoL1L1Truth = ROOT.gROOT.FindObject("histoL1L1Truth")
     #Write the efficiency for a given mass (row) as function of z
     for j in range(nBins):
-        if (histoTruth.GetBinContent(j+1) == 0): textfile.write(str(0))
-        else: textfile.write(str(histoRecon.GetBinContent(j+1)/histoTruth.GetBinContent(j+1)) + " ")
+        norm = 1.0
+        if (histoL1L1Truth.GetBinContent(1) != 0): 
+            norm = histoL1L1Recon.GetBinContent(1)/histoL1L1Truth.GetBinContent(1)
+        else: norm = 0
+        if (histoTruth.GetBinContent(j+1) == 0):
+            textfile.write("0.0 ")
+            textfileNorm.write("0.0 ")
+        else:
+            textfile.write(str(histoRecon.GetBinContent(j+1)/histoTruth.GetBinContent(j+1)) + " ")
+            if(norm != 0):
+                textfileNorm.write(str(histoRecon.GetBinContent(j+1)/(histoTruth.GetBinContent(j+1)*norm)) + " ")
+            else:
+                textfileNorm.write("0.0 ")
     textfile.write("\n")
+    textfileNorm.write("\n")
 
 textfile.close()
+textfileNorm.close()
 
 #Make test plots if desired
 if(makeTestPlots):
-    c = TCanvas("c","c",1200,900)
-    c.Print(outfile+".pdf[")
+    #Make Absolute Efficiency Plots
+    c1 = TCanvas("c","c",1200,900)
+    c1.Print(outfile+".pdf[")   
 
     for i in range(1,nMass-1):
-        plotTest(i,outfile+".eff",outfile,targZ,maxZ)
+        plotTest(i,outfile+".eff",outfile,targZ,maxZ,c1)
 
-    c.Print(outfile+".pdf]")
+    c1.Print(outfile+".pdf]")
+
+    del c1
+    
+    #Make Normalized Efficiency Plots
+    outfileNorm = outfile+"_norm"
+    c2 = TCanvas("c","c",1200,900)
+    c2.Print(outfile+"_norm.pdf[")
+
+    for i in range(1,nMass-1):
+        plotTest(i,outfileNorm+".eff",outfileNorm,targZ,maxZ,c2)
+
+    c2.Print(outfile+"_norm.pdf]")

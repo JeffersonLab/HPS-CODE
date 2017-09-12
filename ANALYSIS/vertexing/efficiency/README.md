@@ -3,7 +3,7 @@
 ## Command
 
 ```
-python GenerateEfficiencyTable.py <output basename> <input text file> <options>
+python GenerateEfficiencyTable.py <output basename> <input text file list> <input L1L1 text file list> <options>
 ```
 
 ## Options
@@ -16,7 +16,8 @@ python GenerateEfficiencyTable.py <output basename> <input text file> <options>
 
 ## Output Files
 
-Output files include <output basename>.eff and <output basename>.pdf (if -T option is used)
+Output files include <output basename>.eff and <output basename>.pdf (if -T option is used)  
+The "_norm" file name indicates efficiency normalized at the target while its absence indicates absolute efficiency  
 
 ### .eff File
 
