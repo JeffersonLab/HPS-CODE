@@ -612,7 +612,7 @@ std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, do
     std::cout << "[ BumpHunter ]: Toy distributions were successfully generated." << std::endl;
     return runToys(datum, n_toys, ap_hypothesis);
 }
-std::vector<HpsFitResult*> BumpHunter::runToys(std::vector<RooDataHist*> datum, double n_toys, double ap_hypothesis) {
+std::vector<HpsFitResult*> BumpHunter::runToys(std::vector<RooDataHist*> datum, double n_toys, double ap_hypothesis, bool deleteAfterFit) {
     // Write the histograms to a file.
     TFile* file = new TFile("toy_histograms.root", "recreate"); 
 
@@ -628,7 +628,8 @@ std::vector<HpsFitResult*> BumpHunter::runToys(std::vector<RooDataHist*> datum, 
         // Construct a window of size x*(A' mass resolution) around the A' mass
         // hypothesis and do a Poisson likelihood fit within the window range. 
         results.push_back(this->fitWindow(data, ap_hypothesis, false));
-
+        if(deleteAfterFit)
+        	data->Delete();
         ++index; 
     }
 

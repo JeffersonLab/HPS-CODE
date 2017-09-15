@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
     			<< " for generating toys" << endl;
     	TF1* func = (TF1*)TFile::Open(gen_file_name)->Get(gen_func_name);
     	std::vector<RooDataHist*> toys_vector = bump_hunter->generateToys(func, toys);
-    	results = bump_hunter->runToys(toys_vector, toys, mass_hypo);
+    	results = bump_hunter->runToys(toys_vector, toys, mass_hypo, true);
     }
     else //use the fit results to generate toys
     	results = bump_hunter->runToys(histogram, toys, mass_hypo);
