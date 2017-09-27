@@ -120,7 +120,7 @@ class BumpHunter {
 
         void getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass);
 
-        std::vector<RooDataHist*> generateToys(TF1* func, double n_toys);
+        std::vector<RooDataHist*> generateToys(TF1* func, double n_toys, double inj_signal_n = 0, double inj_signal_mean = .02, double inj_signal_width = .001);
 
         std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
 
@@ -129,7 +129,7 @@ class BumpHunter {
         std::vector<HpsFitResult*> runToys(std::vector<RooDataHist*> datum, double n_toys, double ap_hypothesis, bool deleteAfterFit = false);
 
         double beam_energy{1.056};
-    private: 
+
 
         /**
          * Get the HPS mass resolution at the given mass.  The functional form 
@@ -145,7 +145,7 @@ class BumpHunter {
 					: 0.000436657 + 0.0149122*mass + 0.123435*pow(mass,2) + -0.402478*pow(mass,3);
 
         };
-  
+    private :
         /** 
          * Print debug statement.
          *

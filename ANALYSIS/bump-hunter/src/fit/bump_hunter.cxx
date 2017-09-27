@@ -65,9 +65,17 @@ int main(int argc, char **argv) {
     double mass_step = 0;
     /** maximum mass hypothesis to perform fit on.  0 = no looping.*/
     double max_mass_hypo = 0;
-    /** toy generator function:   example:  blah.root:func */
+    /** toy generator function:
+     * example:  blah.root:func
+     * In this example, we use a function called "func" in the file blah.root
+     * */
     char* generator = 0;
-    
+    /** injected signal for toys:
+     * example:  "3:1.05"
+     * In this example, we would insert a fake signal that is 1.05 times the expected width
+     * whose integrated area is 3 times the error on the signal yield of the original fit.
+    */
+    char* injected_signal_options = 0;
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
@@ -88,6 +96,7 @@ int main(int argc, char **argv) {
         {"toys",       required_argument, 0, 't'},
         {"mass_step", required_argument, 0, 's'},
         {"max_mass_hypo",required_argument, 0, 'x'},
+        {"injected_signal",required_argument, 0, 'j'},
         {0, 0, 0, 0}
     };
     
@@ -95,7 +104,7 @@ int main(int argc, char **argv) {
     int option_char; 
 
 
-    while ((option_char = getopt_long(argc, argv, "cf:ei:hb:lm:n:o:p:t:g:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "cf:ei:hb:lm:n:o:p:t:g:j:", long_options, &option_index)) != -1) {
 
         switch(option_char) {
             case 'f': 
@@ -144,6 +153,9 @@ int main(int argc, char **argv) {
             	break;
             case 'g':
                 generator = optarg;
+                break;
+            case 'j':
+                injected_signal_options = optarg;
                 break;
             default: 
                 return EXIT_FAILURE;
@@ -217,7 +229,10 @@ int main(int argc, char **argv) {
     tuple->addVector("toy_sig_yield");  
     tuple->addVector("toy_sig_yield_err");  
     tuple->addVector("toy_upper_limits"); 
-      
+
+    tuple->addVariable("toy_inj_sig");
+    tuple->addVariable("toy_inj_sig_width");
+
 
 	for(;mass_hypo<=max_mass_hypo; mass_hypo+= mass_step){ //loop through the masses in a given range
     
@@ -266,6 +281,21 @@ int main(int argc, char **argv) {
     tuple->setVariableValue("upper_limit",      result->getUpperLimit());
 
     std::vector<HpsFitResult*> results;
+
+    double inj_sig_n = 0, inj_sig_width = 0;
+    if(injected_signal_options){
+    	TString inj_str = injected_signal_options;
+    	auto tokens = inj_str.Tokenize(":");
+
+    	inj_sig_n = ((TObjString*)tokens->At(0))->GetString().Atof();
+    	inj_sig_n *= sig_yield_err;
+
+    	inj_sig_width = bump_hunter->getMassResolution(mass_hypo);
+    	inj_sig_width *= ((TObjString*)tokens->At(1))->GetString().Atof();
+    	cout <<  "[ EVALUATOR ] injected signal width = "  << inj_sig_width << endl;
+    	cout <<  "[ EVALUATOR ] injected signal n = "  << inj_sig_n << endl;
+    }
+
     if(generator){
     	TString gen_str = generator;
     	auto tokens = gen_str.Tokenize(":");
@@ -274,7 +304,7 @@ int main(int argc, char **argv) {
     	cout << "[ EVALUATOR ] Requesting function "  << gen_func_name << " from file " << gen_file_name
     			<< " for generating toys" << endl;
     	TF1* func = (TF1*)TFile::Open(gen_file_name)->Get(gen_func_name);
-    	std::vector<RooDataHist*> toys_vector = bump_hunter->generateToys(func, toys);
+    	std::vector<RooDataHist*> toys_vector = bump_hunter->generateToys(func, toys, inj_sig_n, mass_hypo, inj_sig_width);
     	results = bump_hunter->runToys(toys_vector, toys, mass_hypo, true);
     }
     else //use the fit results to generate toys
@@ -327,6 +357,8 @@ int main(int argc, char **argv) {
     tuple->setVariableValue("toy_sig_yield_sigma", sqrt((sum_sig_yield_sqr*toys-sum_sig_yield*sum_sig_yield)/(toys*(toys-1))));
 
 
+    tuple->setVariableValue("toy_inj_sig", inj_sig_n);
+    tuple->setVariableValue("toy_inj_sig_width", inj_sig_width);
     // Fill the ntuple
     tuple->fill(); 
 

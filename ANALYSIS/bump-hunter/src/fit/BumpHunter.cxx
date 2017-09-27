@@ -583,14 +583,23 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
     return datum;
 }
 
-std::vector<RooDataHist*> BumpHunter::generateToys(TF1* func, double n_toys){
+std::vector<RooDataHist*> BumpHunter::generateToys(TF1* func, double n_toys, double inj_signal_n, double inj_signal_mean, double inj_signal_width){
 	std::vector<RooDataHist*> datum;
 	//double min = *variable_map["invariant mass"]->getMin();
 	//double max = *variable_map["invariant mass"]->getMax();
-
+	TF1* inj_signal = NULL;
+	if(inj_signal_n != 0){
+		inj_signal = new TF1("inj", "gausn", hist_min_mass, hist_max_mass);
+		inj_signal->SetParameters(inj_signal_n, inj_signal_mean, inj_signal_width);
+	}
 	for (int toy_n = 0; toy_n < n_toys; ++toy_n) {
 		TH1* h = new TH1D(Form("toy %d" , toy_n),Form("toy %d" , toy_n), bins, hist_min_mass, hist_max_mass);
 		h->FillRandom(func->GetName(), func->Integral(hist_min_mass, hist_max_mass)/h->GetBinWidth(0));
+		if(inj_signal){
+			//std::cout << "start with " << h->GetEntries()  << " entries" << std::endl;
+			h->FillRandom(inj_signal->GetName(), (int)inj_signal_n);
+			//std::cout << "now have   " << h->GetEntries()  << " entries" << std::endl;
+		}
 		RooDataHist *rdh = new RooDataHist(Form("toy rdh %d", toy_n), Form("toy rdh %d", toy_n), RooArgList(*variable_map["invariant mass"]), h);
 		datum.push_back(rdh);
 
@@ -600,6 +609,7 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TF1* func, double n_toys){
 	return datum;
 
 }
+
 
 std::vector<HpsFitResult*> BumpHunter::runToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
   
