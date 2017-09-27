@@ -7,13 +7,14 @@ from ROOT import gROOT, gStyle, TFile, TTree, TChain, TMVA, TCut, TCanvas, gDire
 import getopt
 
 def print_usage():
-    print "\nUsage: {0} <output file basename> <input files list> <L1L1 input files list>".format(sys.argv[0])
+    print "\nUsage: {0} <output file basename> <input recon tuple files list> <input recon truth tuple files list> <L1L1 input files list>".format(sys.argv[0])
     print "Arguments: "
     print '\t-e: use this beam energy <default 1.056 GeV>'
     print '\t-t: use this target position <default -5 mm>'
     print '\t-n: number of bins in histograms <default 50>'
     print '\t-z: total range in z covered <default 100 mm>'
     print '\t-T: plot Test plots'
+    print '\t-N: number of bins from target to normalize to <default is 4>'
     print '\t-h: this help message'
     print
 
@@ -23,6 +24,7 @@ makeTestPlots = False
 targZ = -5.
 nBins = 50
 zRange = 100
+nNorm = 4
 
 #Function to plot efficiency tests of known masses
 def plotTest(iMass,inputFile,output,targZ,maxZ,canvas):
@@ -76,7 +78,7 @@ def plotTest(iMass,inputFile,output,targZ,maxZ,canvas):
     legend.SetFillStyle(0)
     legend.SetTextFont(42)
     legend.SetTextSize(0.035)
-    legend.AddEntry(histo1,"Extrapolation","LP")
+    legend.AddEntry(histo1,"Interpolation","LP")
     legend.AddEntry(histo2,"MC","LP")
     maximum = histo1.GetMaximum()
     if(histo2.GetMaximum() > maximum): maximum = histo2.GetMaximum()
@@ -194,21 +196,23 @@ options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:n:z:Th')
 
 # Parse the command line arguments
 for opt, arg in options:
-        if opt=='-e':
-            eBeam=float(arg)
-	if opt=='-t':
-            targZ=float(arg)
-	if opt=='-n':
-            nBins=int(arg)
-	if opt=='-z':
-            zRange=float(arg)
-	if opt=='-T':
-	    makeTestPlots = True
-        if opt=='-h':
-            print_usage()
-            sys.exit(0)
+    if opt=='-e':
+        eBeam=float(arg)
+    if opt=='-t':
+        targZ=float(arg)
+    if opt=='-n':
+        nBins=int(arg)
+    if opt=='-z':
+        zRange=float(arg)
+    if opt=='-T':
+        makeTestPlots = True
+    if opt=='-N':
+        nNorm = int(arg)
+    if opt=='-h':
+        print_usage()
+        sys.exit(0)
 
-if len(remainder)!=3:
+if len(remainder)!=4:
     print_usage()
     sys.exit(0)
 
@@ -218,27 +222,33 @@ maxZ = targZ + zRange #Define Maximum Z
 #Set outfile and grab infile
 outfile = remainder[0]
 inputfile = open(remainder[1],"r")
-L1L1file = open(remainder[2],"r")
+truthfile = open(remainder[2],"r")
+L1L1file = open(remainder[3],"r")
 
 reconFiles = []
+truthFiles = []
 L1L1Files = []
 
 #Read files from input text file
 for line in (raw.strip().split() for raw in inputfile):
             reconFiles.append(line[0])
 
+#Read files from input text truth file
+for line in (raw.strip().split() for raw in truthfile):
+            truthFiles.append(line[0])
+
 #Read files from L1L1 input text file
 for line in (raw.strip().split() for raw in L1L1file):
             L1L1Files.append(line[0])
 
-if (len(reconFiles) != len(L1L1Files)):
-    print "The number of L1L1 files and input files do not match!"
+if (len(reconFiles) != len(L1L1Files) or len(reconFiles) != len(truthFiles)):
+    print "The number of L1L1 files, input files, or truth files do not match!"
     print_usage()
     sys.exit(0)
 
 mass = array.array('d')
 z = array.array('d')
-nMass = len(reconFiles)/2
+nMass = len(reconFiles)
 
 #Grab values of mass from the truth in the tuple files
 for i in range(nMass):
@@ -272,23 +282,25 @@ textfileNorm.write("\n")
 #Loop over all values of mass
 for i in range(nMass):
     inputReconFile = TFile(str(reconFiles[i])) #tuple files after cuts
-    inputTruthFile = TFile(str(reconFiles[i+nMass])) #truth files
+    inputTruthFile = TFile(str(truthFiles[i])) #truth files
     inputL1L1ReconFile = TFile(str(L1L1Files[i])) #L1L1 tuple files after cuts
-    inputL1L1TruthFile = TFile(str(L1L1Files[i+nMass])) #L1L1 truth files
     inputReconFile.Get("cut").Draw("triEndZ>>histoRecon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoRecon = ROOT.gROOT.FindObject("histoRecon")
     inputTruthFile.Get("ntuple").Draw("triEndZ>>histoTruth({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoTruth = ROOT.gROOT.FindObject("histoTruth")
     inputL1L1ReconFile.Get("cut").Draw("triEndZ>>histoL1L1Recon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoL1L1Recon = ROOT.gROOT.FindObject("histoL1L1Recon")
-    inputL1L1TruthFile.Get("ntuple").Draw("triEndZ>>histoL1L1Truth({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
-    histoL1L1Truth = ROOT.gROOT.FindObject("histoL1L1Truth")
+    #Find the normalization based on a certain number of bins
+    norm = 0.0
+    for j in range(nNorm):
+        if (histoTruth.GetBinContent(j+1) != 0): 
+            norm += histoL1L1Recon.GetBinContent(j+1)/histoTruth.GetBinContent(j+1)
+        else: 
+            norm = 0.0
+            break
+    norm = norm/nNorm
     #Write the efficiency for a given mass (row) as function of z
     for j in range(nBins):
-        norm = 1.0
-        if (histoL1L1Truth.GetBinContent(1) != 0): 
-            norm = histoL1L1Recon.GetBinContent(1)/histoL1L1Truth.GetBinContent(1)
-        else: norm = 0
         if (histoTruth.GetBinContent(j+1) == 0):
             textfile.write("0.0 ")
             textfileNorm.write("0.0 ")

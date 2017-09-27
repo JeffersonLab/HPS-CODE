@@ -3,7 +3,7 @@
 ## Command
 
 ```
-python GenerateEfficiencyTable.py <output basename> <input text file list> <input L1L1 text file list> <options>
+python GenerateEfficiencyTable.py <output basename> <input text file list> <input text truth file list> <input L1L1 text file list> <options>
 ```
 
 ## Options
@@ -13,6 +13,7 @@ python GenerateEfficiencyTable.py <output basename> <input text file list> <inpu
 -n: number of bins in histograms (default 50)  
 -z: total range in z covered in mm (default is 100 mm)  
 -T: plot Test plots  
+-N: number of bins after target computed to normalize (default is 4)  
 
 ## Output Files
 
@@ -42,22 +43,16 @@ If -T option is selected, a pdf file of test plots will be output. These plots c
 
 ## Input Text File
 
-Input text files corresponds to files paths to tuple files.  
+Input text files corresponds to file paths to tuple files (either cut tuples, truth tuples, or L1L1 cut tuples).  
 Each line corresponds to a file in the following format:  
 
 ```
-line 1 {path to cut tuple file for mass[0]}  
-line 2 {path to cut tuple file for mass[1]}  
+line 1 {path to tuple file for mass[0]}  
+line 2 {path to tuple file for mass[1]}  
 .  
 .  
 .  
-line n {path to cut tuple file for mass[n-1]}  
-line n+1 {path to truth tuple file for mass[0]}  
-line n+2 {path to truth tuple file for mass[1]}  
-.  
-.  
-.  
-line 2n {path to truth tuple file for mass[n-1]}  
+line n {path to tuple file for mass[n-1]}  
 ```
 
 where `n` is the number of mass values
