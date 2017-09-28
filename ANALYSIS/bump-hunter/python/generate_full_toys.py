@@ -29,15 +29,25 @@ def main() :
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument("-i", "--file", 
+    parser.add_argument('-i', "--file", 
                         help='File containing invariant mass histogram to process.')
+    parser.add_argument('-t', "--toys", 
+                        help='Number of toys to generate.')
+    parser.add_argument('-s', '--start', 
+                        help='Number to start toy naming.')
     args = parser.parse_args()
 
     if not args.file:
         parser.error('Please specify a file to process.')
 
-    r.gStyle.SetOptStat(1111111)
+    r.gStyle.SetOptStat(0)
     r.gStyle.SetOptFit(1)
+    r.gStyle.SetStatX(1)
+    r.gStyle.SetStatY(1)
+   
+    fte_blue = r.TColor(0, 143, 213)
+    fte_orange = r.TColor(252, 79, 48)
+
     rfile = root_open(args.file)
     mass_hist = rfile.invariant_mass
 
@@ -50,20 +60,50 @@ def main() :
 
     canvas = r.TCanvas("canvas", "canvas", 800, 800)
     canvas.SetLogy()
+   
+    fit_function.SetLineColor(fte_orange.GetNumber())
+    fit_function.SetLineWidth(3)
+    
+    mass_hist.SetLineColor(fte_blue.GetNumber())
+    mass_hist.SetMarkerColor(fte_blue.GetNumber())
+    mass_hist.SetTitle("")
+    mass_hist.GetXaxis().SetTitle("#font[12]{m(e^{+}e^{-})} GeV")
+    mass_hist.GetXaxis().CenterTitle()
     mass_hist.Draw()
-    
-    canvas.SaveAs("mass_fit.pdf")
 
+    # Get the number of events in the range of interest
+    bmin = mass_hist.GetXaxis().FindBin(0.01)
+    bmax = mass_hist.GetXaxis().FindBin(0.09)
+    bmin_center = mass_hist.GetXaxis().GetBinCenter(bmin)
+    bmax_center = mass_hist.GetXaxis().GetBinCenter(bmax)
+    integral = mass_hist.Integral(bmin, bmax)
+    print 'Integral between bin (value) [%s (%s), %s (%s)]: %s' % (bmin, bmin_center, bmax, bmax_center, integral)
+
+    canvas.SaveAs("mass_global_fit.pdf")
+    rfile.Close()    
+
+    seed = int(time.time())
+    r.gRandom.SetSeed()
+    
+
+    start = 0 if not args.start else int(args.start)
+    
     # Initialize the random number generator
-    r.gRandom.SetSeed(int(time.time()))
-    rmass_hist = r.TH1F("invariant_mass", "invariant_mass", 3000, 0., 0.15)
-    for value in xrange(0, int(r.gRandom.Poisson(mass_hist.Integral()))):
-        rmass_hist.Fill(fit_function.GetRandom(0.01, 0.1))
+    rfile = r.TFile("toy_distributions_seed%s_start%s.root" % (seed, start) , "recreate")
     
-    rmass_hist.SetLineColor(r.kRed)
-    rmass_hist.Draw("")
+    for itoy in xrange(0, int(args.toys)):
+        print 'Generating toy histogram %s' % itoy
+        rmass_hist = r.TH1F('invariant_mass_%s' % (itoy + start), 'invariant_mass_%s' % (itoy + start), 3000, 0., 0.15)
+        for value in xrange(0, int(r.gRandom.Poisson(integral))):
+            rmass_hist.Fill(fit_function.GetRandom(bmin_center, bmax_center))
+    
+        rmass_hist.SetTitle("")
+        rmass_hist.GetXaxis().SetTitle("#font[12]{m(e^{+}e^{-})} GeV")
+        rmass_hist.GetXaxis().CenterTitle()
+    
+        rmass_hist.Write()
 
-    canvas.SaveAs("mass_overlay.pdf")
+    rfile.Close()
 
 if __name__ == "__main__":
     main()
