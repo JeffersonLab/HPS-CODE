@@ -68,23 +68,9 @@ class BumpHunter {
         ~BumpHunter();
 
         /**
-         * Fit the given histogram in the range window_start, window_end.
-         *
-         * @param histogram The histogram to fit.
-         * @param window_start
-         * @param window_end
-         * @param window_step 
          */
-        //std::map<double, HpsFitResult*> fitWindow(TH1* histogram, double window_start, double window_end, double window_step);
+        HpsFitResult* fitWindow(TH1* histogram, double mass_hypothesis, bool bkg_only, bool const_sig = false);
 
-        /**
-         */
-        HpsFitResult* fitWindow(TH1* histogram, double ap_hypothesis, bool bkg_only);
-
-
-        /**
-         */
-        HpsFitResult* fitWindow(RooDataHist* data, double ap_hypothesis, bool bkg_only, bool const_sig = false);
         
         /**
          * Fit the given histogram. If a range is specified, only fit within the 
@@ -99,7 +85,7 @@ class BumpHunter {
         /**
          *
          */
-        void calculatePValue(RooDataHist* data, HpsFitResult* result, double ap_hypothesis); 
+        void calculatePValue(TH1* histogram, HpsFitResult* result, double ap_hypothesis); 
 
 
         /** Fit using a background only model. */
@@ -109,14 +95,12 @@ class BumpHunter {
         void setBounds(double low_bound, double high_bound); 
 
         /** Enable/disable debug */
-        void setDebug(bool debug = true) { this->debug = debug; };
+        void enableDebug(bool debug = true) { this->debug = debug; };
 
         /** Write the fit results to a text file */
         void writeResults(bool write_results = true) { _write_results = write_results; }; 
 
         void getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_mass);
-
-        void getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass);
 
         std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
 
