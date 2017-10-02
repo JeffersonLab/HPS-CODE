@@ -191,7 +191,6 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     this->printDebug("Bin number @ window start: " + std::to_string(window_end_bin));
     double n_bins = window_end_bin - window_start_bin; 
 
-
     // If a background only fit was requested, set the signal yield to 0. 
     if (bkg_only) { 
         std::cout << "[ BumpHunter ]: Performing a background only fit." << std::endl;
@@ -249,6 +248,9 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
             ofs->close();
         }
     }
+
+    // Persist the mass hypothesis used for this fit
+    result->setMass(mass_hypothesis); 
 
     // Set the total number of bins within the fit window
     result->setNBins(n_bins);
@@ -320,7 +322,8 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     // Use migrad to minimize the likelihood.  If migrad fails to find a minimum,
     // run simplex in order to run a sparser search for a minimum followed by
     // migrad again.
-    int status = m.migrad(); 
+    int status = m.migrad();
+    //m.migrad(); 
     /*if (status != 0) { 
         m.simplex();
         status = m.migrad();
