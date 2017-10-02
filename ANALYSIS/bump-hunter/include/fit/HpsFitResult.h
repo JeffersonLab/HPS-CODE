@@ -31,6 +31,9 @@ class HpsFitResult {
         /** @return _integral The integral within the fit window. */
         double getIntegral() { return _integral; };
 
+        /** @return The mass hypothesis used for this fit. */
+        double getMass() const { return _mass; };
+
         /** */
         double getQ0() { return q0; };
 
@@ -75,7 +78,12 @@ class HpsFitResult {
         /** */
         void setRooFitResult(RooFitResult* result) { this->result = result; }; 
 
-
+        /** 
+         * Set mass hypothesis used for this fit. 
+         * 
+         * @param mass The mass hypothesis. 
+         */
+        void setMass(double mass) { _mass = mass; };
 
         /**
          * Set the 2 sigma upper limit.
@@ -105,6 +113,9 @@ class HpsFitResult {
 
         /** Total number of events within the fit window. */
         double _integral{0};
+
+        /** Mass hypothesis. */
+        double _mass{0}; 
 
         /** q0 value */
         double q0;
