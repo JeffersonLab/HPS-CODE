@@ -8,7 +8,6 @@
 #include "FitPrinter.h"
 
 FitPrinter::FitPrinter() {
-    //_canvas->Divide(1, 2);
     _main_pad->Draw();
     _res_pad->Draw(); 
 }
@@ -20,7 +19,8 @@ FitPrinter::~FitPrinter() {
 void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model, 
                        std::string range, std::string output_path, int n_bins) {
 
-    std::cout << "[ FitPrinter ]: Bins: " << n_bins << std::endl;
+    TColor* fte_blue = new TColor(0, 143, 213);
+    TColor* fte_orange = new TColor(252, 79, 48);
 
     RooPlot* plot = var->frame(); 
     data->plotOn(plot, 
@@ -43,10 +43,10 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
                   RooFit::Components("signal"), 
                   RooFit::LineColor(kOrange+10));
     plot->GetYaxis()->SetTitleOffset(1.6);
-    plot->SetTitle(""); 
+    plot->SetTitle(range.c_str()); 
 
     RooPlot* tmp_plot = var->frame(); 
-    data->plotOn(tmp_plot, RooFit::Binning(int(n_bins/4)));
+    data->plotOn(tmp_plot);//, RooFit::Binning(int(n_bins/4)));
     model->plotOn(tmp_plot, 
                   RooFit::Range(range.c_str()), 
                   RooFit::NormRange(range.c_str()),  

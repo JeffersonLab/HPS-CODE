@@ -13,6 +13,7 @@
 //----------//
 #include <TCanvas.h>
 #include <TAxis.h>
+#include <TColor.h>
 
 //------------//
 //   RooFit   //
