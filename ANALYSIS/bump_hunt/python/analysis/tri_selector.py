@@ -436,10 +436,10 @@ def apply_tri_selection(rec, lumi, output_prefix):
                    labels=labels, 
                    label_loc=10, 
                    ylog=True,
-                   x_label='Track $\chi^2$') 
+                   x_label='$e^{+}$ Track $\chi^2$') 
 
     save_to_root(plt, 'positron_chi2', cut_flow['positron_chi2'],
-                 'Track #chi^2', 200, 0, 100, labels, lumi=lumi)
+                 'e^{+} Track #chi^2', 200, 0, 100, labels, lumi=lumi)
 
     plt.plot_hists(cut_flow['positron_d0'], 
                    np.linspace(-10, 10, 201),
@@ -498,40 +498,40 @@ def apply_tri_selection(rec, lumi, output_prefix):
                    labels=labels, 
                    label_loc=10, 
                    ylog=True,
-                   x_label='$p(e^-)$ (GeV)')
+                   x_label='$p(e^{+})$ (GeV)')
 
     save_to_root(plt, 'positron_p', cut_flow['positron_p'],
-                 'p(e^-) (GeV)', 150, 0, 1.5, labels, lumi=lumi)
+                 'p(e^{+}) (GeV)', 150, 0, 1.5, labels, lumi=lumi)
 
     plt.plot_hists(cut_flow['positron_px'], 
                    np.linspace(-0.1, 0.1, 101), 
                    labels=labels, 
                    label_loc=10, 
                    ylog=True,
-                   x_label='$p_{x}(e^-)$ (GeV)')
+                   x_label='$p_{x}(e^{+})$ (GeV)')
 
     save_to_root(plt, 'positron_px', cut_flow['positron_px'],
-                 'p_x(e^-) (GeV)', 100, -0.1, 0.1, labels, lumi=lumi)
+                 'p_x(e^{+}) (GeV)', 100, -0.1, 0.1, labels, lumi=lumi)
 
     plt.plot_hists(cut_flow['positron_py'], 
                    np.linspace(-0.1, 0.1, 101), 
                    labels=labels, 
                    label_loc=10, 
                    ylog=True,
-                   x_label='$p_{y}(e^-)$ (GeV)')
+                   x_label='$p_{y}(e^{+})$ (GeV)')
 
     save_to_root(plt, 'positron_py', cut_flow['positron_py'],
-                 'p_y(e^-) (GeV)', 100, -0.1, 0.1, labels, lumi=lumi)
+                 'p_y(e^{+}) (GeV)', 100, -0.1, 0.1, labels, lumi=lumi)
 
     plt.plot_hists(cut_flow['positron_pz'], 
                    np.linspace(0, 1.5, 151), 
                    labels=labels, 
                    label_loc=10, 
                    ylog=True,
-                   x_label='$p_{z}(e^-)$ (GeV)')
+                   x_label='$p_{z}(e^{+})$ (GeV)')
 
     save_to_root(plt, 'positron_pz', cut_flow['positron_pz'],
-                 'p_z(e^-) (GeV)', 150, 0, 1.5, labels, lumi=lumi)
+                 'p_z(e^{+}) (GeV)', 150, 0, 1.5, labels, lumi=lumi)
 
     plt.plot_hists(cut_flow['positron_time'], 
                    np.linspace(-15, 15, 151), 
