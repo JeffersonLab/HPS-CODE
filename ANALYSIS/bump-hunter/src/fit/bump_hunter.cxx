@@ -56,6 +56,9 @@ int main(int argc, char **argv) {
     // Order of polynomial used to model the background. 
     int poly_order{7};
 
+    // If >=0, scan the whole histogram.  The integer can be used as an ID.
+    int scan{-9999}; 
+    
     // The number of toys to run for each fit. If toys = 0, the generation 
     // of toys will be skipped.
     int toys{0};
@@ -65,9 +68,6 @@ int main(int argc, char **argv) {
 
     // Flag indicating whether to log all fit results or not. 
     bool log_fit{false};
-
-    // Scan the whole histogram.  
-    bool scan{false}; 
 
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
         {"output",     required_argument, 0, 'o'},
         {"poly",       required_argument, 0, 'p'},
         {"range",      required_argument, 0, 'r'},  
-        {"scan",       no_argument,       0, 's'},
+        {"scan",       required_argument, 0, 's'},
         {"toys",       required_argument, 0, 't'},
         {"win_factor", required_argument, 0, 'w'},
         {0, 0, 0, 0}
@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "cdehi:lm:n:o:p:r:st:w:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "cdehi:lm:n:o:p:r:s:t:w:", long_options, &option_index)) != -1) {
         switch(option_char) {
             case 'c': 
                 model = BumpHunter::BkgModel::EXP_POLY_X_POLY;
@@ -126,7 +126,7 @@ int main(int argc, char **argv) {
                 range = optarg; 
                 break;
             case 's': 
-                scan = true;
+                scan = atoi(optarg);
                 break;
             case 't':
                 toys = atoi(optarg);
@@ -193,6 +193,7 @@ int main(int argc, char **argv) {
     tuple->addVariable("p_value");
     tuple->addVariable("poly_order"); 
     tuple->addVariable("q0");
+    tuple->addVariable("scan_id");
     tuple->addVariable("win_factor"); 
     tuple->addVariable("sig_yield");  
     tuple->addVariable("sig_yield_err"); 
@@ -215,7 +216,7 @@ int main(int argc, char **argv) {
     }
 
     std::vector<HpsFitResult*> results; 
-    if (scan) {
+    if (scan >= 0) {
         double start = atof(range.substr(0, range.find(",")).c_str());
         double end = atof(range.substr(range.find(",")).c_str()+1);
         
@@ -255,7 +256,8 @@ int main(int argc, char **argv) {
         tuple->setVariableValue("p_value",          result->getPValue());
         tuple->setVariableValue("poly_order",       poly_order);
         tuple->setVariableValue("q0",               result->getQ0()); 
-        tuple->setVariableValue("sig_yield",        sig_yield); 
+        tuple->setVariableValue("sig_yield",        sig_yield);
+        tuple->setVariableValue("scan_id",          scan); 
         tuple->setVariableValue("win_factor",       win_factor);  
         tuple->setVariableValue("sig_yield_err",    sig_yield_err);
         tuple->setVariableValue("window_size",      result->getWindowSize());  
