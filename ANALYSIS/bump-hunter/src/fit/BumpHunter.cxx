@@ -26,7 +26,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     std::cout << "[ BumpHunter ]: Resolution multiplicative factor: " << _res_factor << std::endl;
 
     // Turn off all messages except errors
-    RooMsgService::instance().setGlobalKillBelow(RooFit::ERROR);
+    RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
 
     // Independent variable
     variable_map["invariant mass"] = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.1);
@@ -315,6 +315,7 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
 
     // Turn off all print out
     m.setPrintLevel(-1000);
+    m.setNoWarn(); 
 
     // Activate verbose logging of MINUIT parameter space stepping
     //m.setVerbose(1);
