@@ -97,6 +97,9 @@ class BumpHunter {
         /** Enable/disable debug */
         void enableDebug(bool debug = true) { this->debug = debug; };
 
+        /** Enable batch running. */
+        void runBatchMode(bool batch = true) { _batch = batch; };
+
         /** Write the fit results to a text file */
         void writeResults(bool write_results = true) { _write_results = write_results; }; 
 
@@ -199,6 +202,12 @@ class BumpHunter {
 
         /** Polynomial order used to model the background. */
         int _poly_order;
+
+        /** 
+         * Flag denoting if application should run in batch mode.  If set to 
+         * true, plots aren't generated and fit results aren't logged.
+         */
+        bool _batch{false}; 
 
         /** Debug flag */
         bool debug{false};

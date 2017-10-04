@@ -66,12 +66,17 @@ int main(int argc, char **argv) {
     // Enable debug
     bool debug{false}; 
 
+    // Flag denoting if application should run in batch mode.  If set to 
+    // true, plots aren't generated and fit results aren't logged.
+    bool batch{false}; 
+
     // Flag indicating whether to log all fit results or not. 
     bool log_fit{false};
 
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
+        {"batch",      no_argument,       0, 'b'},
         {"exp_poly",   no_argument,       0, 'c'},
         {"debug",      no_argument,       0, 'd'},
         {"exp",        no_argument,       0, 'e'},
@@ -91,8 +96,11 @@ int main(int argc, char **argv) {
     
     int option_index = 0;
     int option_char; 
-    while ((option_char = getopt_long(argc, argv, "cdehi:lm:n:o:p:r:s:t:w:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "bcdehi:lm:n:o:p:r:s:t:w:", long_options, &option_index)) != -1) {
         switch(option_char) {
+            case 'b':
+                batch = true;
+                break;
             case 'c': 
                 model = BumpHunter::BkgModel::EXP_POLY_X_POLY;
                 break;
@@ -169,7 +177,8 @@ int main(int argc, char **argv) {
     BumpHunter* bump_hunter = new BumpHunter(model, poly_order, win_factor);
     if (log_fit) bump_hunter->writeResults(); 
     if (debug) bump_hunter->enableDebug();  
-    
+    if (batch) bump_hunter->runBatchMode(); 
+
     // Build the string that will be used for the results file name
     if (output_file.empty()) { 
         output_file = "fit_result_mass" + to_string(mass_hypo) + "_order" +  

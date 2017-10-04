@@ -230,7 +230,7 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     //  
     std::string output_path = "fit_result_" + std::string(histogram->GetName()) 
                               + "_" + std::to_string(mass_hypothesis) + "gev" + (bkg_only ? "_bkg" : "_full") + ".png";
-    if (!const_sig) {
+    if (!const_sig && !_batch) {
         printer->print(variable_map["invariant mass"], data, _model, range_name, output_path, n_bins); 
         if (_write_results) { 
      
