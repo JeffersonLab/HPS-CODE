@@ -362,6 +362,7 @@ void TridentAnalysis::processEvent(HpsEvent* event) {
 
     for (HpsParticle* v0 : candidates) {
 
+        if (v0 == nullptr) continue; 
         std::vector<double> p = v0->getMomentum(); 
         double v0_p = AnalysisUtils::getMagnitude(p); 
         tuple->setVariableValue("v0_p", v0_p); 
