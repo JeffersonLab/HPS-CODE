@@ -19,6 +19,7 @@ def main() :
     parser.add_argument("-i", "--file",      help="ROOT ntuple to process.")
     parser.add_argument("-r", "--run",       help="Run number of the file that is being processed.")
     parser.add_argument("-l", "--lumi_file", help="Path to file containing Luminosities.")
+    parser.add_argument("-m", "--mc",        help='Flag indicating that MC is being processed.')
     args = parser.parse_args()
 
     # If a file hasn't been specified, warn the user and exit.
@@ -43,12 +44,13 @@ def main() :
     rec = rnp.root2array(root_files, 'results')
     
     lumis = np.genfromtxt(args.lumi_file.strip(), 
-                          dtype=[('run', 'f8'), ('lumi', 'f8')], 
+                          dtype=[('run', '|S10'), ('lumi', 'f8')], 
                           delimiter=',')
-    run_index = np.where(lumis['run'] == float(args.run))[0]
+    if args.mc: run_index = np.where(lumis['run'] == str(args.mc))[0]
+    else: run_index = np.where(lumis['run'] == float(args.run))[0]
     lumi = lumis['lumi'][run_index]
 
-    output_prefix = '%s_trident_selection' % args.run
+    output_prefix = '%s_trident_selection' % (args.mc if args.mc else args.run)
 
     apply_tri_selection(rec, lumi, output_prefix)
 
@@ -107,7 +109,7 @@ def apply_tri_selection(rec, lumi, output_prefix):
     cuts = collections.OrderedDict()
 
     # Base cuts used to reduce accidentals
-    cuts['FEE cut'] = electron_p < 0.75*1.056 # GeV
+    #cuts['FEE cut'] = electron_p < 0.75*1.056 # GeV
     cuts['Radiative cut'] = v0_p > 0.8*1.056 # GeV
     cuts['abs(Ecal clust time - trk time) - 43 ns < 5.8'] = track_cluster_dt_cut
     cuts['$p(V_0) < 1.2 E_{beam}$'] = v0_p < 1.18*1.056 # GeV
