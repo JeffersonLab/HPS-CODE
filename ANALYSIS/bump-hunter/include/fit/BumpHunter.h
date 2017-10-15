@@ -142,8 +142,8 @@ class BumpHunter {
             //return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
             return fabs(beam_energy - 1.056)<.1 ?
             		-6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373
-					: 0.000436657 + 0.0149122*mass + 0.123435*pow(mass,2) + -0.402478*pow(mass,3);
-
+					//: 0.000436657 + 0.0149122*mass + 0.123435*pow(mass,2) + -0.402478*pow(mass,3);
+					: 1.28876 * (0.000336056 + 0.0120916*mass + 0.0866136*pow(mass,2) + -0.292093*pow(mass,3) );
         };
     private :
         /** 
