@@ -35,6 +35,8 @@ def main() :
                         help='Number of toys to generate.')
     parser.add_argument('-s', '--start', 
                         help='Number to start toy naming.')
+    parser.add_argument('-e', '--events', 
+                        help='Number of events to generate')
     args = parser.parse_args()
 
     if not args.file:
@@ -53,6 +55,10 @@ def main() :
 
     fit_function = r.TF1("function", mass_function , 0.01, 0.09, 11)
     fit_function.SetParameters(2000,0.015,0,0,0,0,0,0,0,0,0);
+    
+    # Fit parameters for full dataset
+    #fit_function = r.TF1("function", mass_function , 0.013, 0.099, 11)
+    #fit_function.SetParameters(10000,0.01,0,0,0,0,0,0,0,0,0);
 
     mass_hist.Fit("function", "R")
     mass_hist.Fit("function", "R")
@@ -72,19 +78,22 @@ def main() :
     mass_hist.Draw()
 
     # Get the number of events in the range of interest
-    bmin = mass_hist.GetXaxis().FindBin(0.01)
-    bmax = mass_hist.GetXaxis().FindBin(0.09)
+    bmin = mass_hist.GetXaxis().FindBin(0.0145)
+    bmax = mass_hist.GetXaxis().FindBin(0.1)
     bmin_center = mass_hist.GetXaxis().GetBinCenter(bmin)
     bmax_center = mass_hist.GetXaxis().GetBinCenter(bmax)
+    
+
     integral = mass_hist.Integral(bmin, bmax)
-    print 'Integral between bin (value) [%s (%s), %s (%s)]: %s' % (bmin, bmin_center, bmax, bmax_center, integral)
+    if args.events:
+        integral = int(args.events) 
+    print 'Total number of events to sample: %s' % integral
 
     canvas.SaveAs("mass_global_fit.pdf")
     rfile.Close()    
 
     seed = int(time.time())
-    r.gRandom.SetSeed()
-    
+    r.gRandom.SetSeed() 
 
     start = 0 if not args.start else int(args.start)
     
