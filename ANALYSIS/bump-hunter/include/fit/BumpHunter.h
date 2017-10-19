@@ -119,7 +119,7 @@ class BumpHunter {
          * @return The mass resolution at the given mass.
          */
         inline double getMassResolution(double mass) { 
-            return 0.03825*mass + 0.0000233;
+            return 0.0389938364847*mass - 0.0000713783511061;
         };
   
         /** 
@@ -172,17 +172,13 @@ class BumpHunter {
         /** Output file stream */
         std::ofstream* ofs;
 
-        /** 
-         * The lower bound of the histogram. This is determined by searching
-         * for the first filled bin.
-         */
-        double lower_bound{0};
+        /** The lower bound of the histogram. */
+        //double _lower_bound{-9999};
+        double _lower_bound{0.0145};
 
-        /** 
-         * The upper bound of the histogram. This is determined by searching
-         * for the last filled bin.
-         */
-        double upper_bound{0};
+        /** The upper bound of the histogram. */
+        //double _upper_bound{-9999};
+        double _upper_bound{0.1};
 
         /** Maximum size of the window */
         double _max_window_size{1.0};

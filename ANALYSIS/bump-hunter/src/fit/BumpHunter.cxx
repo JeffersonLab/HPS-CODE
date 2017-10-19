@@ -113,13 +113,19 @@ BumpHunter::~BumpHunter() {
 
 HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool bkg_only, bool const_sig) { 
 
-    // Find the lower bound of the histogram
-    lower_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindFirstBinAbove());
-    this->printDebug("Histogram lower bound: " + std::to_string(lower_bound));
+    // If the lower histogram bound has not been set, find it by searching
+    // for the first non-empty bin.
+    if (_lower_bound == -9999) { 
+        _lower_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindFirstBinAbove());
+        this->printDebug("Histogram lower bound: " + std::to_string(_lower_bound));
+    }
 
-    // Find the upper bound of the histogram
-    upper_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindLastBinAbove());
-    this->printDebug("Histogram upper bound: " + std::to_string(upper_bound));
+    // If the upper histogram bound has not been set, find it by searching 
+    // for the last non-empty bin.
+    if (_upper_bound == -9999) {
+        _upper_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindLastBinAbove());
+        this->printDebug("Histogram upper bound: " + std::to_string(_upper_bound));
+    }
    
     // Set the total number of bins 
     bins = histogram->GetNbinsX(); 
@@ -135,7 +141,7 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
 
     // If the A' hypothesis is below the lower bound, throw an exception.  A 
     // fit cannot be performed using an invalid value for the A' hypothesis.
-    if (mass_hypothesis < lower_bound) throw std::runtime_error("A' hypothesis is less than the lower bound!"); 
+    if (mass_hypothesis < _lower_bound) throw std::runtime_error("A' hypothesis is less than the lower bound!"); 
 
     // Get the mass resolution at the mass hypothesis.  
     double mass_resolution = this->getMassResolution(mass_hypothesis);
@@ -163,10 +169,10 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     // Check that the starting edge of the window is above the boundary.  If not
     // set the starting edge of the window to the boundary.  In this case, the
     // A' hypothesis will not be set to the middle of the window.
-    if (window_start < this->lower_bound) { 
+    if (window_start < _lower_bound) { 
         this->printDebug("Starting edge of window " + std::to_string(window_start) + " is below lower bound.");
-        this->printDebug("Setting edge to lower bound, " + std::to_string(this->lower_bound)); 
-        window_start = this->lower_bound;
+        this->printDebug("Setting edge to lower bound, " + std::to_string(this->_lower_bound)); 
+        window_start = _lower_bound;
     }
 
     // Find the end position of the window.  This is set to the upper edge of 
@@ -180,10 +186,10 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     // Check that the end edge of the window is within the high bound.  If not,
     // set the starting edge such that end edge is equal to the high bound.
     // TODO: Check that this calculation makes sense.
-    if (window_end > this->upper_bound) { 
+    if (window_end > _upper_bound) { 
         this->printDebug("End of window " + std::to_string(window_end) + " is above high bound.");
-        this->printDebug("Setting starting edge to " + std::to_string(upper_bound - window_size)); 
-        window_start = upper_bound - window_size;  
+        this->printDebug("Setting starting edge to " + std::to_string(_upper_bound - window_size)); 
+        window_start = _upper_bound - window_size;  
     }
 
     // Calculate the total number of bins within the window ???
@@ -478,9 +484,9 @@ void BumpHunter::getChi2Prob(double cond_nll, double mle_nll, double &q0, double
 }
 
 void BumpHunter::setBounds(double lower_bound, double upper_bound) {
-    this->lower_bound = lower_bound; 
-    this->upper_bound = upper_bound;
-    printf("Fit bounds set to [ %f , %f ]\n", this->lower_bound, this->upper_bound);   
+    _lower_bound = lower_bound; 
+    _upper_bound = upper_bound;
+    printf("Fit bounds set to [ %f , %f ]\n", _lower_bound, _upper_bound);   
 }
 
 std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys, double ap_hypothesis) { 
