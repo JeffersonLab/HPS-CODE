@@ -119,10 +119,20 @@ class Quasielastic : public SimpleCrossSectionComponent {
     //double Ge = _Z*((1 - .24*tau)/(1 + 10.98*tau + 12.82*tau*tau + 21.97*tau*tau*tau)) + _N*1.7*tau/(1+3.3*tau)/pow(1+q2/(0.71),2);
     double Gep = (1 - .24*tau)/(1 + 10.98*tau + 12.82*tau*tau + 21.97*tau*tau*tau);
     double Gen = 1.7*tau/(1+3.3*tau)*Gd;
+    double quasi_e = fermi_block*(pow(Gep,2)*_Z + pow(Gen,2)*_N)/(_Z*_Z*(1+tau));
 
-    
-    double quasi = fermi_block*(pow(Gep,2)*_Z + pow(Gen,2)*_N)/(_Z*_Z*(1+tau));
-    return sqrt(quasi);
+
+    double mup = 2.793;
+    double mun = -1.913;
+    double Gmp = (1 + .12*tau)/(1 + 10.97*tau + 18.86*tau*tau + 6.55*tau*tau*tau)*mup;
+    double Gmn = (1+2.33*tau)/(1 + 14.72*tau + 24.20*tau*tau + 84.1*tau*tau*tau)*mun;
+
+    //approximation
+    double theta = 2*asin(q/(2*_ebeam));
+    double epsilon = pow(1+2*(1+tau)*pow(tan(theta/2),2),-1);
+    double quasi_m = fermi_block*(pow(Gmp,2)*_Z + pow(Gmn,2)*_N)*tau/(_Z*_Z*(1+tau)*epsilon);
+  
+  return sqrt(quasi_e+quasi_m);
   }
   double get_relative_sys_error_on_xs(double theta){
     double q2 = pow(2*_ebeam*sin(theta/2),2);

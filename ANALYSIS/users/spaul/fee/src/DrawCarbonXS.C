@@ -4,6 +4,7 @@
 
 void DrawCarbonXS(){
   double ebeams[] = {1.056, 2.306};
+  int labels[] = {2015, 2016};
   for(int i = 0; i<2; i++){
     TCanvas* c = new TCanvas();
     CarbonElastic * ele = new CarbonElastic(ebeams[i]);
@@ -51,6 +52,6 @@ void DrawCarbonXS(){
     legend->AddEntry(h_ine3m, "inelastic 3-");
 
     legend->Draw();
-    
+    gPad->SaveAs(Form("out/img/%d/carbon_xs_model.pdf",labels[i]));
   }
 }

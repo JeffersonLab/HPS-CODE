@@ -57,3 +57,28 @@ void apply_lumi_sys_error(TH1* measurement, double rel_error){
     measurement->SetBinError(i, sqrt(dy*dy + y*y*rel_error*rel_error));
   }
 }
+
+TH2* get_2016_prescaled_hist(TFile* file, TString name){
+  TH2* h1 = (TH2*)file->Get(name + " r1")->Clone("r1");
+  h1->Sumw2();
+  h1->Scale(1);
+  
+  TH2* h2 = (TH2*)file->Get(name + " r2")->Clone("r2");
+  h2->Sumw2();
+  h2->Scale(80);
+
+  TH2* h3 = (TH2*)file->Get(name + " r3")->Clone("r3");
+  h3->Sumw2();
+  h3->Scale(1300);
+
+  TH2* h4 = (TH2*)file->Get(name + " r4")->Clone("r4");
+  h4->Sumw2();
+  h4->Scale(18000);
+
+  //now add them all together
+  h1->Add(h2);
+  h1->Add(h3);
+  h1->Add(h4);
+  
+  return h1;
+}
