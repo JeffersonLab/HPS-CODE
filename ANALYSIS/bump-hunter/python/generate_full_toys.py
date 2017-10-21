@@ -69,6 +69,7 @@ def main() :
    
     fit_function.SetLineColor(fte_orange.GetNumber())
     fit_function.SetLineWidth(3)
+    fit_function.SetRange(0.0145, 0.1)
     
     mass_hist.SetLineColor(fte_blue.GetNumber())
     mass_hist.SetMarkerColor(fte_blue.GetNumber())
