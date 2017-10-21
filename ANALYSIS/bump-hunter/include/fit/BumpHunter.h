@@ -178,7 +178,7 @@ class BumpHunter {
 
         /** The upper bound of the histogram. */
         //double _upper_bound{-9999};
-        double _upper_bound{0.1};
+        double _upper_bound{0.115};
 
         /** Maximum size of the window */
         double _max_window_size{1.0};
