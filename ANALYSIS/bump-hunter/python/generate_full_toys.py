@@ -69,7 +69,7 @@ def main() :
    
     fit_function.SetLineColor(fte_orange.GetNumber())
     fit_function.SetLineWidth(3)
-    fit_function.SetRange(0.0145, 0.1)
+    fit_function.SetRange(0.0145, 0.115)
     
     mass_hist.SetLineColor(fte_blue.GetNumber())
     mass_hist.SetMarkerColor(fte_blue.GetNumber())
@@ -80,7 +80,7 @@ def main() :
 
     # Get the number of events in the range of interest
     bmin = mass_hist.GetXaxis().FindBin(0.0145)
-    bmax = mass_hist.GetXaxis().FindBin(0.1)
+    bmax = mass_hist.GetXaxis().FindBin(0.115)
     bmin_center = mass_hist.GetXaxis().GetBinCenter(bmin)
     bmax_center = mass_hist.GetXaxis().GetBinCenter(bmax)
     
