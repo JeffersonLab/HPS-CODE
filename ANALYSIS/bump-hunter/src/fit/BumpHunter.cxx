@@ -172,7 +172,10 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     if (window_start < _lower_bound) { 
         this->printDebug("Starting edge of window " + std::to_string(window_start) + " is below lower bound.");
         this->printDebug("Setting edge to lower bound, " + std::to_string(this->_lower_bound)); 
-        window_start = _lower_bound;
+        //window_start = _lower_bound;
+        window_start_bin = histogram->GetXaxis()->FindBin(_lower_bound);
+        window_start = histogram->GetXaxis()->GetBinLowEdge(window_start_bin);
+        this->printDebug("New starting position of the window: " + std::to_string(window_start)); 
     }
 
     // Find the end position of the window.  This is set to the upper edge of 
@@ -188,8 +191,12 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     // TODO: Check that this calculation makes sense.
     if (window_end > _upper_bound) { 
         this->printDebug("End of window " + std::to_string(window_end) + " is above high bound.");
-        this->printDebug("Setting starting edge to " + std::to_string(_upper_bound - window_size)); 
-        window_start = _upper_bound - window_size;  
+        window_start_bin = histogram->GetXaxis()->FindBin(_upper_bound - window_size);  
+        window_start = histogram->GetXaxis()->GetBinLowEdge(window_start_bin);
+        this->printDebug("Setting starting edge to " + std::to_string(window_start)); 
+        window_end_bin = histogram->GetXaxis()->FindBin(_upper_bound);
+        window_end = histogram->GetXaxis()->GetBinUpEdge(window_end_bin);
+        this->printDebug("New setting end position " + std::to_string(window_end)); 
     }
 
     // Calculate the total number of bins within the window ???
