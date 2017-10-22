@@ -174,7 +174,7 @@ class BumpHunter {
 
         /** The lower bound of the histogram. */
         //double _lower_bound{-9999};
-        double _lower_bound{0.0145};
+        double _lower_bound{0.014};
 
         /** The upper bound of the histogram. */
         //double _upper_bound{-9999};
