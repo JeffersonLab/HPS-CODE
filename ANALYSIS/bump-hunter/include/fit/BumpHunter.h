@@ -119,7 +119,8 @@ class BumpHunter {
          * @return The mass resolution at the given mass.
          */
         inline double getMassResolution(double mass) { 
-            return 0.0389938364847*mass - 0.0000713783511061;
+            //return 0.0389938364847*mass - 0.0000713783511061; // ideal
+            return 0.0501460737193*mass - 0.0000917925595224;
         };
   
         /** 
