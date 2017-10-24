@@ -82,8 +82,8 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     //----------------------//
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
-    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
-    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 300000, 10000, 100000000);
+    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -200000, 300000);
+    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 3000000, 100000, 50000000);
 
     comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
                                RooArgList(*variable_map["signal yield"], *variable_map["bkg yield"]));
@@ -239,6 +239,7 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
 
     // Fit the distribution in the given range
     HpsFitResult* result = this->fit(data, false, range_name); 
+    //if (!bkg_only) this->printDebug("Signal yield: " + std::to_string(result->getParameterVal("signal yield"))); 
 
     //  
     std::string output_path = "fit_result_" + std::string(histogram->GetName()) 
@@ -267,20 +268,16 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
 
     // Set the total number of bins within the fit window
     result->setNBins(n_bins);
-    this->printDebug("bins");
 
     // Set the window size 
     result->setWindowSize(window_size);
-    this->printDebug("window size");
 
     // Set the total number of events within the window
     result->setIntegral(integral); 
-    this->printDebug("integral");
  
     // Calculate the size of the background window as 2.56*(mass_resolution)
     double bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
     result->setBkgWindowSize(bkg_window_size); 
-    this->printDebug("bkg size");
 
     // Find the starting position of the bkg window
     double bkg_window_start = mass_hypothesis - bkg_window_size/2;
@@ -290,7 +287,6 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
 
     double bkg_window_integral = histogram->Integral(bkg_window_start_bin, bkg_window_end_bin); 
     result->setBkgTotal(bkg_window_integral); 
-    this->printDebug("bkg total");
 
     // TODO: These calculations should be moved out of this method.
     if (!bkg_only & !const_sig) {
