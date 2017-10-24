@@ -109,6 +109,9 @@ class BumpHunter {
 
         std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
          
+        /** Reset the fit parameters to their initial values. */ 
+        void resetParameters(); 
+
     private: 
 
         /**
@@ -130,10 +133,6 @@ class BumpHunter {
          */
         void printDebug(std::string message); 
          
-
-        /** Reset the fit parameters to their initial values. */ 
-        void resetParameters(); 
-
         /**
          *
          */

@@ -232,6 +232,7 @@ int main(int argc, char **argv) {
         while (start <= end) {
             cout << "Searching for resonance at mass " << start << endl; 
             results.push_back(bump_hunter->fitWindow(histogram, start, false));
+            bump_hunter->resetParameters();
             start += 0.001; 
         }
 
