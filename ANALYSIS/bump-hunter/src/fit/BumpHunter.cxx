@@ -437,15 +437,19 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
         HpsFitResult* null_result = this->fitWindow(histogram, ap_mass, true);
     
         // Get the NLL obtained assuming the background only hypothesis
-        mle_nll = null_result->getRooFitResult()->minNll(); 
+        mle_nll = null_result->getRooFitResult()->minNll();
+        
+        signal_yield = 0; 
     }
     this->printDebug("MLE NLL: " + std::to_string(mle_nll));     
 
-    double p_value = 1;
+    double p_value = result->getPValue();
+    this->printDebug("p-value from result: " + std::to_string(p_value));
     double q0 = 0;
     signal_yield = floor(signal_yield);  
     while(true) {
 
+        
         // Reset all of the parameters to their original values
         this->resetParameters(); 
 
