@@ -82,7 +82,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     //----------------------//
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
-    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -400000, 400000);
+    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1000000, 1000000);
     variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 3000000, 100000, 50000000);
 
     comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
@@ -333,10 +333,12 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     // run simplex in order to run a sparser search for a minimum followed by
     // migrad again.
     int status = m.migrad();
+    this->printDebug("Minuit status: " + std::to_string(status));
     //m.migrad(); 
     /*if (status != 0) { 
         m.simplex();
         status = m.migrad();
+        this->printDebug("Minuit status after refit: " + std::to_string(status));
     }*/
 
     // Save the results of the fit
