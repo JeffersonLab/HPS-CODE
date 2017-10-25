@@ -123,7 +123,8 @@ class BumpHunter {
          */
         inline double getMassResolution(double mass) { 
             //return 0.0389938364847*mass - 0.0000713783511061; // ideal
-            return 0.0501460737193*mass - 0.0000917925595224;
+            //return 0.0501460737193*mass - 0.0000917925595224; // scaled to moller mass from data
+            return 0.0544084899854*mass - 0.0000995949270818; // target position sys +8%
         };
   
         /** 

@@ -323,8 +323,8 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     RooMinuit m(*nll);
 
     // Turn off all print out
-    m.setPrintLevel(-1000);
-    m.setNoWarn(); 
+    //m.setPrintLevel(-1000);
+    //m.setNoWarn(); 
 
     // Activate verbose logging of MINUIT parameter space stepping
     //m.setVerbose(1);
