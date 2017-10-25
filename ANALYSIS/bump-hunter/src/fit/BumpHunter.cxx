@@ -82,8 +82,8 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     //----------------------//
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
-    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1000000, 1000000);
-    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 3000000, 100000, 50000000);
+    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -2000000, 2000000);
+    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 30000000, 1000, 100000000);
 
     comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
                                RooArgList(*variable_map["signal yield"], *variable_map["bkg yield"]));
@@ -117,27 +117,27 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     // for the first non-empty bin.
     if (_lower_bound == -9999) { 
         _lower_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindFirstBinAbove());
-        this->printDebug("Histogram lower bound: " + std::to_string(_lower_bound));
+        //this->printDebug("Histogram lower bound: " + std::to_string(_lower_bound));
     }
 
     // If the upper histogram bound has not been set, find it by searching 
     // for the last non-empty bin.
     if (_upper_bound == -9999) {
         _upper_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindLastBinAbove());
-        this->printDebug("Histogram upper bound: " + std::to_string(_upper_bound));
+        //this->printDebug("Histogram upper bound: " + std::to_string(_upper_bound));
     }
    
     // Set the total number of bins 
     bins = histogram->GetNbinsX(); 
     variable_map["invariant mass"]->setBins(bins);
-    this->printDebug("Total number of bins: " + std::to_string(bins)); 
+    //this->printDebug("Total number of bins: " + std::to_string(bins)); 
 
     // Shift the mass hypothesis so it sits in the middle of a bin
     this->printDebug("Mass hypothesis: " + std::to_string(mass_hypothesis)); 
     int mbin = histogram->GetXaxis()->FindBin(mass_hypothesis); 
-    this->printDebug("Mass hypothesis bin: " + std::to_string(mbin)); 
+    //this->printDebug("Mass hypothesis bin: " + std::to_string(mbin)); 
     mass_hypothesis = histogram->GetXaxis()->GetBinCenter(mbin);  
-    this->printDebug("Shifting mass hypothesis to nearest bin center: " + std::to_string(mass_hypothesis));  
+    //this->printDebug("Shifting mass hypothesis to nearest bin center: " + std::to_string(mass_hypothesis));  
 
     // If the A' hypothesis is below the lower bound, throw an exception.  A 
     // fit cannot be performed using an invalid value for the A' hypothesis.
@@ -145,63 +145,63 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
 
     // Get the mass resolution at the mass hypothesis.  
     double mass_resolution = this->getMassResolution(mass_hypothesis);
-    this->printDebug("Mass resolution: " + std::to_string(mass_resolution));
+    //this->printDebug("Mass resolution: " + std::to_string(mass_resolution));
 
     // Calculate the fit window size
     window_size = mass_resolution*_res_factor;
-    this->printDebug("Window size: " + std::to_string(window_size));
+    //this->printDebug("Window size: " + std::to_string(window_size));
 
     // If the window size is larger than the max size, set the window size
     // to the max.
     if (window_size > _max_window_size) {
-        this->printDebug("Window size exceeds maximum."); 
+        //this->printDebug("Window size exceeds maximum."); 
         window_size = _max_window_size; 
     }
 
     // Find the starting position of the window. This is set to the low edge of 
     // the bin closest to the calculated value.
     double window_start = mass_hypothesis - window_size/2;
-    this->printDebug("Calculated starting position of the window: " + std::to_string(window_start));
+    //this->printDebug("Calculated starting position of the window: " + std::to_string(window_start));
     int window_start_bin = histogram->GetXaxis()->FindBin(window_start);  
     window_start = histogram->GetXaxis()->GetBinLowEdge(window_start_bin);
-    this->printDebug("Starting position of the window: " + std::to_string(window_start)); 
+    //this->printDebug("Starting position of the window: " + std::to_string(window_start)); 
 
     // Check that the starting edge of the window is above the boundary.  If not
     // set the starting edge of the window to the boundary.  In this case, the
     // A' hypothesis will not be set to the middle of the window.
     if (window_start < _lower_bound) { 
-        this->printDebug("Starting edge of window " + std::to_string(window_start) + " is below lower bound.");
-        this->printDebug("Setting edge to lower bound, " + std::to_string(this->_lower_bound)); 
+        //this->printDebug("Starting edge of window " + std::to_string(window_start) + " is below lower bound.");
+        //this->printDebug("Setting edge to lower bound, " + std::to_string(this->_lower_bound)); 
         //window_start = _lower_bound;
         window_start_bin = histogram->GetXaxis()->FindBin(_lower_bound);
         window_start = histogram->GetXaxis()->GetBinLowEdge(window_start_bin);
-        this->printDebug("New starting position of the window: " + std::to_string(window_start)); 
+        //this->printDebug("New starting position of the window: " + std::to_string(window_start)); 
     }
 
     // Find the end position of the window.  This is set to the upper edge of 
     // the bin closest to the calculated value.
     double window_end = window_start + window_size;
-    this->printDebug("Calculated end position of the window: " + std::to_string(window_end)); 
+    //this->printDebug("Calculated end position of the window: " + std::to_string(window_end)); 
     int window_end_bin = histogram->GetXaxis()->FindBin(window_end);
     window_end = histogram->GetXaxis()->GetBinUpEdge(window_end_bin);
-    this->printDebug("Ending position of the window: " + std::to_string(window_end)); 
+    //this->printDebug("Ending position of the window: " + std::to_string(window_end)); 
 
     // Check that the end edge of the window is within the high bound.  If not,
     // set the starting edge such that end edge is equal to the high bound.
     // TODO: Check that this calculation makes sense.
     if (window_end > _upper_bound) { 
-        this->printDebug("End of window " + std::to_string(window_end) + " is above high bound.");
+        //this->printDebug("End of window " + std::to_string(window_end) + " is above high bound.");
         window_start_bin = histogram->GetXaxis()->FindBin(_upper_bound - window_size);  
         window_start = histogram->GetXaxis()->GetBinLowEdge(window_start_bin);
-        this->printDebug("Setting starting edge to " + std::to_string(window_start)); 
+        //this->printDebug("Setting starting edge to " + std::to_string(window_start)); 
         window_end_bin = histogram->GetXaxis()->FindBin(_upper_bound);
         window_end = histogram->GetXaxis()->GetBinUpEdge(window_end_bin);
-        this->printDebug("New setting end position " + std::to_string(window_end)); 
+        //this->printDebug("New setting end position " + std::to_string(window_end)); 
     }
 
     // Calculate the total number of bins within the window ???
-    this->printDebug("Bin number @ window end: " + std::to_string(window_start_bin));
-    this->printDebug("Bin number @ window start: " + std::to_string(window_end_bin));
+    //this->printDebug("Bin number @ window end: " + std::to_string(window_start_bin));
+    //this->printDebug("Bin number @ window start: " + std::to_string(window_end_bin));
     double n_bins = window_end_bin - window_start_bin; 
 
     // If a background only fit was requested, set the signal yield to 0. 
@@ -335,11 +335,14 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     int status = m.migrad();
     this->printDebug("Minuit status: " + std::to_string(status));
     //m.migrad(); 
-    /*if (status != 0) { 
-        m.simplex();
+    while (status != 0) {
+        variable_map["signal yield"]->setVal(0);
+        variable_map["signal yield"]->setConstant(kTRUE);
+        status = m.migrad();
+        variable_map["signal yield"]->setConstant(kFALSE);
         status = m.migrad();
         this->printDebug("Minuit status after refit: " + std::to_string(status));
-    }*/
+    }
 
     // Save the results of the fit
     RooFitResult* result = m.save(); 
