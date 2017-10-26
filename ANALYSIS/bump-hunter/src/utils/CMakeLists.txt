@@ -31,3 +31,15 @@ target_link_libraries(FitPrinter
     ${ROO_FIT}
     ${ROO_FIT_CORE}
 )
+
+add_library(RooPow RooPow.cxx)
+target_link_libraries(RooPow
+    ${ROO_FIT}
+    ${ROO_FIT_CORE}
+     ${ROOT_CORE_LIB}
+    ${ROOT_GPAD_LIB}
+    ${ROOT_TREE_LIB}
+    ${ROOT_RIO_LIB}
+    ${ROOT_PHYSICS_LIB}
+    ${ROOT_HIST_LIB}
+)

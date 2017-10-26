@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
     int option_char; 
 
 
-    while ((option_char = getopt_long(argc, argv, "cf:ei:hb:lm:n:o:p:t:g:j:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "wcf:ei:hb:lm:n:o:p:t:g:j:", long_options, &option_index)) != -1) {
 
         switch(option_char) {
             case 'f': 
@@ -119,6 +119,9 @@ int main(int argc, char **argv) {
             case 'e': 
                 model = BumpHunter::BkgModel::EXP_POLY;
                 break; 
+            case 'w':
+            	model = BumpHunter::BkgModel::POW_X_POLY;
+            	break;
             case 'h':
                 return EXIT_SUCCESS;
             case 'l': 

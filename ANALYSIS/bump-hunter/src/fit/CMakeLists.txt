@@ -17,6 +17,7 @@ target_link_libraries(BumpHunter
     ${ROOT_MATH_LIB}
     HpsFitResult
     FitPrinter
+    RooPow
 )
 
 add_executable(bump_hunter bump_hunter.cxx)
@@ -30,6 +31,7 @@ target_link_libraries(bump_hunter
     BumpHunter
     FlatTupleMaker
     HpsFitResult
+    RooPow
 )
 
 add_executable(evaluator evaluator.cxx)

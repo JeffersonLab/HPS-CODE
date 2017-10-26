@@ -59,6 +59,7 @@ class BumpHunter {
             POLY     = 0,
             EXP_POLY = 1,
             EXP_POLY_X_POLY = 2,
+			POW_X_POLY = 3
         };
 
         /** Default Constructor */

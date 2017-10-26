@@ -12,7 +12,11 @@
 #include <BumpHunter.h>
 //#include <RooExpPoly.h>
 #include "RooExponential.h"
+#include "RooFormulaVar.h"
 #include "TF1.h"
+#include "RooPow.h"
+
+
 
 BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor) 
     : comp_model(nullptr), 
@@ -34,7 +38,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     RooMsgService::instance().setGlobalKillBelow(RooFit::ERROR);
 
     // Independent variable
-    variable_map["invariant mass"] = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.3);
+    variable_map["invariant mass"] = new RooRealVar("Invariant_Mass", "Invariant Mass (GeV)", 0., 0.3);
 
     //   Signal PDF   //
     //----------------//   
@@ -80,6 +84,22 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
             RooExponential* exponential 
                 = new RooExponential("exp_bkg", "exp_bkg", *variable_map["invariant mass"], *variable_map["c"]);
             bkg = new RooProdPdf("bkg", "bkg", *poly_bkg, *exponential); 
+        } break;
+        case BkgModel::POW_X_POLY: {
+        	std::cout << "[ BumpHunter]: Modeling the background using an ((x-x0)/(2*x0))*(poly of order "
+        			<< poly_order << ")" << std::endl;
+
+        	RooChebychev* poly_bkg
+			= new RooChebychev("poly_bkg", "poly_bkg", *variable_map["invariant mass"], arg_list);
+
+        	//decide on initial hypothesis of x0 using beam energy:
+        	double x0 = .011*beam_energy;
+
+        	variable_map["x0"] = new RooRealVar("x0", "x0", x0, 0.8*x0, 1.2*x0);
+        	variable_map["b"] = new RooRealVar("b", "b", 2, .1, 3);
+        	RooPow* pow
+			= new RooPow("pow_bkg", "pow_bkg", *variable_map["invariant mass"], *variable_map["x0"], *variable_map["b"]);
+        	bkg = new RooProdPdf("bkg", "bkg", *poly_bkg, *pow);
         } break;
     }
 
