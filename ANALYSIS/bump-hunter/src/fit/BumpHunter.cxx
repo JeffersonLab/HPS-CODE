@@ -78,7 +78,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
         case BkgModel::EXP_POLY_X_POLY: { 
             std::cout << "[ BumpHunter]: Modeling the background using an exp(-cx)*(poly of order "
                       << poly_order << ")" << std::endl;
-            variable_map["c"] = new RooRealVar("const", "const", 0, -200, -0.000001);
+            variable_map["c"] = new RooRealVar("const", "const", 0, -200, 2);
             RooChebychev* poly_bkg 
                 = new RooChebychev("poly_bkg", "poly_bkg", *variable_map["invariant mass"], arg_list);
             RooExponential* exponential 

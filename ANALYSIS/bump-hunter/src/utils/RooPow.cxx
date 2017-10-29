@@ -61,7 +61,9 @@
  ///cout << "exp(x=" << x << ",c=" << c << ")=" << exp(c*x) << endl ;
 
  Double_t RooPow::evaluate() const{
+	if(x>x0)
    return pow((x-x0)/(2*x0), b);
+	else return 0;
  }
 
 
