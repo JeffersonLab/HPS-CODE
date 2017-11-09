@@ -286,6 +286,9 @@ int main(int argc, char **argv) {
     std::vector<HpsFitResult*> results;
 
     double inj_sig_n = 0, inj_sig_width = 0;
+    bool inj_sig_is_cb = 0;
+    /*double inj_sig_alpha = -1.3;
+    double inj_sig_n = 2.5;*/
     if(injected_signal_options){
     	TString inj_str = injected_signal_options;
     	auto tokens = inj_str.Tokenize(":");
@@ -295,6 +298,8 @@ int main(int argc, char **argv) {
 
     	inj_sig_width = bump_hunter->getMassResolution(mass_hypo);
     	inj_sig_width *= ((TObjString*)tokens->At(1))->GetString().Atof();
+
+    	inj_sig_is_cb = ((TObjString*)tokens->At(2))->GetString().Atoi();
     	cout <<  "[ EVALUATOR ] injected signal width = "  << inj_sig_width << endl;
     	cout <<  "[ EVALUATOR ] injected signal n = "  << inj_sig_n << endl;
     }
@@ -307,7 +312,7 @@ int main(int argc, char **argv) {
     	cout << "[ EVALUATOR ] Requesting function "  << gen_func_name << " from file " << gen_file_name
     			<< " for generating toys" << endl;
     	TF1* func = (TF1*)TFile::Open(gen_file_name)->Get(gen_func_name);
-    	std::vector<RooDataHist*> toys_vector = bump_hunter->generateToys(func, toys, inj_sig_n, mass_hypo, inj_sig_width);
+    	std::vector<RooDataHist*> toys_vector = bump_hunter->generateToys(func, toys, inj_sig_n, mass_hypo, inj_sig_width, inj_sig_is_cb);
     	results = bump_hunter->runToys(toys_vector, toys, mass_hypo, true);
     }
     else //use the fit results to generate toys

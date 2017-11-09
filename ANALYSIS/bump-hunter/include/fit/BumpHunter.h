@@ -121,7 +121,7 @@ class BumpHunter {
 
         void getUpperLimit(RooDataHist* data, HpsFitResult* result, double ap_mass);
 
-        std::vector<RooDataHist*> generateToys(TF1* func, double n_toys, double inj_signal_n = 0, double inj_signal_mean = .02, double inj_signal_width = .001);
+        std::vector<RooDataHist*> generateToys(TF1* func, double n_toys, double inj_signal_n = 0, double inj_signal_mean = .02, double inj_signal_width = .001, bool inj_signal_is_cb = 0);
 
         std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
 

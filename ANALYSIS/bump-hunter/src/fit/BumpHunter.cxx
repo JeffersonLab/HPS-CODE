@@ -603,14 +603,21 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TH1* histogram, double n_toys
     return datum;
 }
 
-std::vector<RooDataHist*> BumpHunter::generateToys(TF1* func, double n_toys, double inj_signal_n, double inj_signal_mean, double inj_signal_width){
+std::vector<RooDataHist*> BumpHunter::generateToys(TF1* func, double n_toys, double inj_signal_n, double inj_signal_mean, double inj_signal_width, bool inj_signal_is_cb){
 	std::vector<RooDataHist*> datum;
 	//double min = *variable_map["invariant mass"]->getMin();
 	//double max = *variable_map["invariant mass"]->getMax();
 	TF1* inj_signal = NULL;
-	if(inj_signal_n != 0){
+	if(inj_signal_n != 0 && !inj_signal_is_cb){
 		inj_signal = new TF1("inj", "gausn", hist_min_mass, hist_max_mass);
 		inj_signal->SetParameters(inj_signal_n, inj_signal_mean, inj_signal_width);
+	}
+	else{
+		// use directly the functionin ROOT::MATH note that the parameters definition is different is (alpha, n sigma, mu)
+		inj_signal = new TF1("f2","[0]*ROOT::Math::crystalball_function(x, [3], [4], [2], [1])",hist_min_mass,hist_max_mass);
+		double alpha = 1.3;
+		double n = 2.5;
+		inj_signal->SetParameters(inj_signal_n, inj_signal_mean, inj_signal_width, alpha, n);
 	}
 	for (int toy_n = 0; toy_n < n_toys; ++toy_n) {
 		TH1* h = new TH1D(Form("toy %d" , toy_n),Form("toy %d" , toy_n), bins, hist_min_mass, hist_max_mass);
