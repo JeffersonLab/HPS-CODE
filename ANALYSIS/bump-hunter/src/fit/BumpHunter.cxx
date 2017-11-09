@@ -617,7 +617,8 @@ std::vector<RooDataHist*> BumpHunter::generateToys(TF1* func, double n_toys, dou
 		inj_signal = new TF1("f2","[0]*ROOT::Math::crystalball_function(x, [3], [4], [2], [1])",hist_min_mass,hist_max_mass);
 		double alpha = 1.3;
 		double n = 2.5;
-		inj_signal->SetParameters(inj_signal_n, inj_signal_mean, inj_signal_width, alpha, n);
+		inj_signal->SetParameters(1, inj_signal_mean, inj_signal_width, alpha, n);
+		inj_signal->SetParameter(0, inj_signal_n/inj_signal->Integral(hist_min_mass, hist_max_mass));
 	}
 	for (int toy_n = 0; toy_n < n_toys; ++toy_n) {
 		TH1* h = new TH1D(Form("toy %d" , toy_n),Form("toy %d" , toy_n), bins, hist_min_mass, hist_max_mass);
