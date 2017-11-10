@@ -82,7 +82,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     //----------------------//
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
-    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1000000, 100000);
+    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1000000, 1000000);
     variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 30000000, 1, 1000000000000);
 
     comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
@@ -94,7 +94,6 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
 
 
     for (auto& element : variable_map) {
-        std::cout << "Element: " << element.first << " value: " << element.second->getVal() << std::endl;
         default_values[element.first] = element.second->getVal(); 
         default_errors[element.first] = element.second->getError(); 
     }
@@ -430,6 +429,8 @@ void BumpHunter::resetParameters(bool fit_only) {
     if (fit_only) return; 
     variable_map["invariant mass"]->setRange(0.0, 0.1);
     variable_map["invariant mass"]->setBins(bins); 
+    variable_map["signal yield"]->setRange(-1000000, 1000000);
+    variable_map["bkg yield"]->setRange(1, 1000000000000);
 }
 
 void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_mass) { 
