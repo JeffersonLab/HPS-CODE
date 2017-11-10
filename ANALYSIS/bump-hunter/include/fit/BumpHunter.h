@@ -28,6 +28,8 @@
 #include <TCanvas.h>
 #include <TFile.h>
 #include <Math/ProbFunc.h>
+#include <TRandom.h>
+#include <TRandom3.h>
 
 //------------//
 //   RooFit   //
@@ -110,7 +112,7 @@ class BumpHunter {
         std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
          
         /** Reset the fit parameters to their initial values. */ 
-        void resetParameters(); 
+        void resetParameters(bool fit_only = false); 
 
     private: 
 
@@ -123,8 +125,8 @@ class BumpHunter {
          */
         inline double getMassResolution(double mass) { 
             //return 0.0389938364847*mass - 0.0000713783511061; // ideal
-            //return 0.0501460737193*mass - 0.0000917925595224; // scaled to moller mass from data
-            return 0.0544084899854*mass - 0.0000995949270818; // target position sys +8%
+            return 0.0501460737193*mass - 0.0000917925595224; // scaled to moller mass from data
+            //return 0.0544084899854*mass - 0.0000995949270818; // target position sys +8%
         };
   
         /** 
@@ -169,6 +171,9 @@ class BumpHunter {
 
         /** */ 
         RooArgList arg_list;
+
+        /** */
+        TRandom* generator{new TRandom3()};
 
         /** Output file stream */
         std::ofstream* ofs;
