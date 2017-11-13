@@ -18,7 +18,7 @@
 
 
 
-BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor) 
+BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel sig_model, double alpha_cb, double n_cb)
     : comp_model(nullptr), 
       bkg_model(nullptr),
       _model(nullptr),
@@ -48,9 +48,23 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     variable_map["A' mass resolution"] 
         = new RooRealVar("A' Mass Resolution", "A' Mass Resolution", this->getMassResolution(0.03));
 
-    signal = new RooGaussian("signal", "signal", *variable_map["invariant mass"],
-                             *variable_map["A' mass"], *variable_map["A' mass resolution"]);
+    switch(sig_model){
+    case SigModel::GAUSS : {
+    	std::cout << "[ BumpHunter ]: Modeling the signal using a gaussian" << std::endl;
+    	signal = new RooGaussian("signal", "signal", *variable_map["invariant mass"],
+    			*variable_map["A' mass"], *variable_map["A' mass resolution"]);
+    	} break;
+    case SigModel::CRYSTAL_BALL : {
 
+
+    	std::cout << "[ BumpHunter ]: Modeling the signal using a crystal ball function with " <<
+    			"alpha = " << alpha_cb << " and n = " << n_cb << std::endl;
+    	variable_map["n"] = new RooRealVar("n", "n", n_cb);
+    	variable_map["alpha"] = new RooRealVar("alpha", "alpha", alpha_cb);
+    	signal = new RooCBShape("signal", "signal", *variable_map["invariant mass"], *variable_map["A' mass"], *variable_map["A' mass resolution"],
+    			*variable_map["alpha"], *variable_map["n"]);
+    	} break;
+    }
     //   Bkg PDF   //
     //-------------//
 

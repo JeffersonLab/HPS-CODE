@@ -44,7 +44,7 @@
 #include <RooProfileLL.h>
 #include <RooProdPdf.h>
 #include <RooRealVar.h>
-
+#include <RooCBShape.h>
 
 //---//
 #include <HpsFitResult.h>
@@ -62,9 +62,14 @@ class BumpHunter {
 			POW_X_POLY = 3
         };
 
+        enum SigModel {
+        	GAUSS = 0,
+			CRYSTAL_BALL = 1
+        };
+
         /** Default Constructor */
 
-        BumpHunter(BkgModel model, int poly_order, int res_factor);
+        BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel sig_model = SigModel::GAUSS, double alpha_cb = 1.3, double n_cb = 2.5);
 
 
         /** Destructor */
@@ -186,7 +191,7 @@ class BumpHunter {
         RooAddPdf* _model; 
 
         /** Signal PDF */ 
-        RooGaussian* signal;
+        RooAbsPdf* signal;
 
         /** Bkg PDF */
         RooAbsPdf* bkg;

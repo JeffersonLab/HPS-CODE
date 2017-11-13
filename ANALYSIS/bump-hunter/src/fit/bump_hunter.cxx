@@ -49,6 +49,10 @@ int main(int argc, char **argv) {
     /** Polynomial order to use to model the background. */
     int poly_order = 7;
 
+    /**
+     * Use crystal ball function for fitting the signal part.
+     */
+    bool crystal_ball_fit = 0;
     /** 
      * The number of toys to run for each fit. If toys = 0, the generation 
      * of toys will be skipped.
@@ -92,6 +96,7 @@ int main(int argc, char **argv) {
         {"name",       required_argument, 0, 'n'}, 
         {"output",     required_argument, 0, 'o'},
         {"poly",       required_argument, 0, 'p'},
+        {"crystal_ball",     no_argument, 0, 'q'},
 		{"toy_generator", required_argument, 0, 'g'},
         {"toys",       required_argument, 0, 't'},
         {"mass_step", required_argument, 0, 's'},
@@ -104,7 +109,7 @@ int main(int argc, char **argv) {
     int option_char; 
 
 
-    while ((option_char = getopt_long(argc, argv, "wcf:ei:hb:lm:n:o:p:t:g:j:", long_options, &option_index)) != -1) {
+    while ((option_char = getopt_long(argc, argv, "wcf:ei:hb:lm:n:o:p:t:g:j:q", long_options, &option_index)) != -1) {
 
         switch(option_char) {
             case 'f': 
@@ -144,6 +149,9 @@ int main(int argc, char **argv) {
                 break;
             case 'p': 
                 poly_order = atoi(optarg);
+                break;
+            case 'q':
+                crystal_ball_fit = 1;
                 break;
             case 't':
                 toys = atoi(optarg);
@@ -236,11 +244,12 @@ int main(int argc, char **argv) {
     tuple->addVariable("toy_inj_sig");
     tuple->addVariable("toy_inj_sig_width");
 
+    BumpHunter::SigModel sig_model = (crystal_ball_fit ? BumpHunter::SigModel::CRYSTAL_BALL : BumpHunter::SigModel::GAUSS);
 
 	for(;mass_hypo<=max_mass_hypo; mass_hypo+= mass_step){ //loop through the masses in a given range
     
     // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(model, poly_order, res_factor);
+    BumpHunter* bump_hunter = new BumpHunter(model, poly_order, res_factor, sig_model);
     if (log_fit) bump_hunter->writeResults();  
     if (debug) bump_hunter->setDebug(debug);
     // Build the string that will be used for the results file name
