@@ -390,35 +390,10 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
         
         ++iteration; 
 
-        if (iteration == 30) break;
+        if (iteration == 10) break;
     }
 
     this->printDebug("Minuit status: " + std::to_string(status));
-    //m.migrad(); 
-
-
-   /* 
-    if (status != 0) {
-        this->resetParameters(true); 
-        this->printDebug("Status after bkg only: " + std::to_string(status)); 
-        this->printDebug("Status after sig+bkg only: " + std::to_string(status)); 
-        //m.simplex();
-    }*/
-
-    //m.minos(); 
-   /* 
-    int range_low = -10000;  
-    int index = 1; 
-    while (status != 0) {
-        this->resetParameters(true);
-        if (variable_map["signal yield"]->isConstant()) { 
-            variable_map["bkg yield"]->setRange(range_low*100*index,  range_low*100*index*-1);    
-        } else { 
-            variable_map["signal yield"]->setRange(range_low*index, range_low*index*-1); 
-        }
-        status = m.migrad();
-        index += 1;
-    }*/
 
     // Save the results of the fit
     RooFitResult* result = m.save(); 
