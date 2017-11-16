@@ -208,6 +208,10 @@ int main(int argc, char **argv) {
     tuple->addVariable("sig_yield_err"); 
     tuple->addVariable("window_size"); 
     tuple->addVariable("upper_limit");
+    tuple->addVariable("upper_limit_p_value"); 
+    tuple->addVariable("upper_limit_fit_status"); 
+    tuple->addVector("nlls"); 
+    tuple->addVector("sig_yields"); 
 
     if (toys != 0) {
         
@@ -254,25 +258,34 @@ int main(int argc, char **argv) {
         double minuit_status = result->getRooFitResult()->status();
         double edm = result->getRooFitResult()->edm(); 
     
-        tuple->setVariableValue("ap_mass",          result->getMass());  
-        tuple->setVariableValue("bkg_total",        result->getBkgTotal()); 
-        tuple->setVariableValue("bkg_window_size",  result->getBkgWindowSize()); 
-        tuple->setVariableValue("bkg_yield",        bkg_yield);  
-        tuple->setVariableValue("bkg_yield_err",    bkg_yield_err);
-        tuple->setVariableValue("edm",              edm); 
-        tuple->setVariableValue("invalid_nll",      invalid_nll); 
-        tuple->setVariableValue("minuit_status",    minuit_status);
-        tuple->setVariableValue("nll",              nll); 
-        tuple->setVariableValue("p_value",          result->getPValue());
-        tuple->setVariableValue("poly_order",       poly_order);
-        tuple->setVariableValue("q0",               result->getQ0()); 
-        tuple->setVariableValue("sig_yield",        sig_yield);
-        tuple->setVariableValue("scan_id",          scan); 
-        tuple->setVariableValue("win_factor",       win_factor);  
-        tuple->setVariableValue("sig_yield_err",    sig_yield_err);
-        tuple->setVariableValue("window_size",      result->getWindowSize());  
-        tuple->setVariableValue("upper_limit",      result->getUpperLimit());
+        tuple->setVariableValue("ap_mass",                result->getMass());  
+        tuple->setVariableValue("bkg_total",              result->getBkgTotal()); 
+        tuple->setVariableValue("bkg_window_size",        result->getBkgWindowSize()); 
+        tuple->setVariableValue("bkg_yield",              bkg_yield);  
+        tuple->setVariableValue("bkg_yield_err",          bkg_yield_err);
+        tuple->setVariableValue("edm",                    edm); 
+        tuple->setVariableValue("invalid_nll",            invalid_nll); 
+        tuple->setVariableValue("minuit_status",          minuit_status);
+        tuple->setVariableValue("nll",                    nll); 
+        tuple->setVariableValue("p_value",                result->getPValue());
+        tuple->setVariableValue("poly_order",             poly_order);
+        tuple->setVariableValue("q0",                     result->getQ0()); 
+        tuple->setVariableValue("sig_yield",              sig_yield);
+        tuple->setVariableValue("scan_id",                scan); 
+        tuple->setVariableValue("win_factor",             win_factor);  
+        tuple->setVariableValue("sig_yield_err",          sig_yield_err);
+        tuple->setVariableValue("window_size",            result->getWindowSize());  
+        tuple->setVariableValue("upper_limit",            result->getUpperLimit());
+        tuple->setVariableValue("upper_limit_p_value",    result->getUpperLimitPValue()); 
+        tuple->setVariableValue("upper_limit_fit_status", result->getUpperLimitFitStatus()); 
 
+        for (auto& likelihood : result->getLikelihoods()) { 
+            tuple->addToVector("nlls", likelihood); 
+        } 
+
+        for (auto& yield : result->getSignalYields()) { 
+            tuple->addToVector("sig_yields", yield); 
+        } 
 
         if (toys != 0) {
             

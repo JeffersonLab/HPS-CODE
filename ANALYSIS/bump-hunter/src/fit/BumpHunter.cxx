@@ -278,6 +278,11 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
 
             ofs->close();
         }
+    } else if (const_sig && !_batch) { 
+    
+        //output_path = "fit_result_" + std::string(histogram->GetName()) 
+        //    + "_" + std::to_string(mass_hypothesis) + "gev_sig_val" + std::to_string(variable_map["signal yield"]->getValV()) + ".png";
+        //printer->print(variable_map["invariant mass"], data, _model, range_name, output_path, n_bins); 
     }
 
     // Persist the mass hypothesis used for this fit
@@ -332,7 +337,7 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     RooMinuit m(*nll);
 
     // Turn off all print out
-    //m.setPrintLevel(-1000);
+    m.setPrintLevel(-1000);
     m.setNoWarn(); 
 
     // Activate verbose logging of MINUIT parameter space stepping
@@ -342,17 +347,63 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
     // run simplex in order to run a sparser search for a minimum followed by
     // migrad again.
     //m.hesse();
+    int status = m.migrad(); 
+    
+    int iteration = 0; 
+    while(status != 0 && !variable_map["signal yield"]->isConstant()) {
+        this->printDebug("Fit failed to converge. Using a background only fit for parameter estimation."); 
+         
+        this->resetParameters(true); 
+    
+        double bkg = default_values["bkg yield"] - sqrt(default_values["bkg yield"])*iteration; 
+        variable_map["bkg yield"]->setVal(bkg);
+        variable_map["bkg yield"]->setError(sqrt(bkg)); 
+        
+        variable_map["signal yield"]->setConstant(kTRUE);
+        status = m.migrad();
+        
+        variable_map["signal yield"]->setConstant(kFALSE);
+        status = m.migrad();
 
-    int status = m.migrad();
+        ++iteration; 
+    }
+
+
+    iteration = 1; 
+    while (status != 0) { 
+        this->printDebug("Failed to converge changing background starting point.");
+        
+        this->resetParameters(true); 
+
+        double bkg = default_values["bkg yield"]; 
+        if (iteration%2 == 0) bkg -= sqrt(default_values["bkg yield"])*iteration; 
+        else bkg += sqrt(default_values["bkg yield"])*iteration; 
+        variable_map["bkg yield"]->setVal(bkg);
+        variable_map["bkg yield"]->setError(sqrt(bkg)); 
+        
+        /*if (!variable_map["signal yield"]->isConstant()) {
+            variable_map["signal yield"]->setVal(sqrt(bkg)); 
+        }*/
+
+        status = m.migrad();
+        this->printDebug("Minuit status after refit: " + std::to_string(status));
+        
+        ++iteration; 
+
+        if (iteration == 30) break;
+    }
+
     this->printDebug("Minuit status: " + std::to_string(status));
     //m.migrad(); 
- 
+
+
+   /* 
     if (status != 0) {
-        this->printDebug("Failed to converge, running simplex"); 
-        m.simplex();
-        status = m.migrad();
-        this->printDebug("Status after simplex: " + std::to_string(status)); 
-    }
+        this->resetParameters(true); 
+        this->printDebug("Status after bkg only: " + std::to_string(status)); 
+        this->printDebug("Status after sig+bkg only: " + std::to_string(status)); 
+        //m.simplex();
+    }*/
 
     //m.minos(); 
    /* 
@@ -366,7 +417,6 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
             variable_map["signal yield"]->setRange(range_low*index, range_low*index*-1); 
         }
         status = m.migrad();
-        this->printDebug("Minuit status after refit: " + std::to_string(status));
         index += 1;
     }*/
 
@@ -383,32 +433,39 @@ HpsFitResult* BumpHunter::fit(RooDataHist* data, bool migrad_only = false, std::
 
 void BumpHunter::calculatePValue(TH1* histogram, HpsFitResult* result, double ap_hypothesis) {
 
+    this->printDebug("Calculating p-value.");
+
     //  Get the signal yield obtained from the composite fit
     double signal_yield = result->getParameterVal("signal yield");
+    this->printDebug("Signal yield: " + std::to_string(signal_yield));
 
-    // We only care if a signal yield is greater than 0.  In the case that it's
-    // less than 0, the p-value is set to 1.
+
+    // In searching for a resonance, a signal is expected to lead to an 
+    // excess of events i.e. mu >.  In this case, the mu < 0 case is 
+    // meaningless so we set the p-value = 1.  This follows the formulation
+    // put forth by Cowen et al. in https://arxiv.org/pdf/1007.1727.pdf. 
     if (signal_yield <= 0) { 
         result->setPValue(1);
-        std::cout << "[ BumpHunter ]: p-value: 1" << std::endl;
+        this->printDebug("Signal yield is negative ... setting p-value = 1"); 
         return; 
     }
 
     // Get the NLL obtained by minimizing the composite model with the signal
     // yield floating.
     double mle_nll = result->getRooFitResult()->minNll();
-    printDebug("mu != 0 NLL: " + std::to_string(mle_nll));
+    printDebug("NLL when mu = " + std::to_string(signal_yield) + ": " + std::to_string(mle_nll));
 
     // Reset all parameters to their original values
     this->resetParameters(); 
    
     // Fit the window assuming a background only hypothesis i.e. the signal
     // yield is set to 0.
+    this->printDebug("Performing background only fit"); 
     HpsFitResult* cond_result = this->fitWindow(histogram, ap_hypothesis, true);
 
     // Get the NLL obtained from the Bkg only fit.
     double cond_nll = cond_result->getRooFitResult()->minNll();
-    printDebug("mu = 0 NLL: " + std::to_string(cond_nll));
+    printDebug("NLL when mu = 0: " + std::to_string(cond_nll));
    
     // 1) Calculate the likelihood ratio which is chi2 distributed. 
     // 2) From the chi2, calculate the p-value.
@@ -433,6 +490,7 @@ void BumpHunter::resetParameters(bool fit_only) {
   
     this->printDebug("Resetting parameters");  
     for (auto& element : variable_map) {
+        if (element.second->isConstant()) continue;
         auto it = default_values.find(element.first);
         this->printDebug("Value " + element.first + " reset to " + std::to_string(default_values[element.first])); 
         if (it == default_values.end()) {
@@ -474,20 +532,21 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
         mle_nll = null_result->getRooFitResult()->minNll();
         
         signal_yield = 1; 
+
     }
     this->printDebug("MLE NLL: " + std::to_string(mle_nll));     
-    double t1_val = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("t1"))->getVal();
+    //double t1_val = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("t1"))->getVal();
 
     double p_value = result->getPValue();
     this->printDebug("p-value from result: " + std::to_string(p_value));
     double q0 = 0;
-    signal_yield = floor(signal_yield); 
-    int fit_counter = 1; 
+    signal_yield = floor(signal_yield) + 1; 
+    int fit_counter = 1;
+    bool fell_below_threshold = false; 
     while(true) {
 
         // Reset all of the parameters to their original values
         this->resetParameters();
-        variable_map["t1"]->setVal(t1_val);  
 
         this->printDebug("Setting signal yield to: " + std::to_string(signal_yield));
         variable_map["signal yield"]->setVal(signal_yield);
@@ -496,34 +555,48 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
         
         double cond_nll = current_result->getRooFitResult()->minNll(); 
 
+        result->addSignalYield(signal_yield); 
+        result->addLikelihood(cond_nll); 
+
         this->getChi2Prob(cond_nll, mle_nll, q0, p_value);  
 
         this->printDebug("p-value after fit " + std::to_string(fit_counter) + ": " + std::to_string(p_value)); 
-       
-        if (p_value <= 0.05) { 
+    
+        if ((p_value <= 0.0455 && p_value > 0.043) || (p_value > 0.0455 && fell_below_threshold)) { 
+            
+            /*
             std::cout << "[ BumpHunter ]: Upper limit: " << signal_yield << std::endl;
             std::cout << "[ BumpHunter ]: p-value: " << p_value << std::endl;
             std::cout << "[ BumpHunter ]: Upper limit status: " << current_result->getRooFitResult()->status() << std::endl;
-            result->setUpperLimit(signal_yield); 
+            */
+
+            result->setUpperLimit(signal_yield);
+            result->setUpperLimitPValue(p_value); 
+            result->setUpperLimitFitStatus(current_result->getRooFitResult()->status());  
             delete current_result; 
             break; 
         }
 
         ++fit_counter; 
 
-        if (p_value <= 0.053) signal_yield += 1;
-        else if (p_value <= 0.10) signal_yield += 30;
-        else if (p_value <= 0.2) signal_yield += 100; 
-        else signal_yield += 300;  
+        if (p_value <= 0.043) { 
+            this->printDebug("p-value far below threshold. Moving to next signal value because fit likely failed."); 
+            signal_yield += 1;
+        } else if (p_value <= 0.055) signal_yield += 1;
+        else if (p_value <= 0.10) signal_yield += 20;
+        else if (p_value <= 0.2) signal_yield += 50; 
+        else signal_yield += 200;  
         
         delete current_result; 
     }
 }
 
 void BumpHunter::getChi2Prob(double cond_nll, double mle_nll, double &q0, double &p_value) {
-     
+    
+    this->printDebug("Cond NLL: " + std::to_string(cond_nll)); 
+    this->printDebug("Uncod NLL: " + std::to_string(mle_nll));  
     double diff = cond_nll - mle_nll;
-    this->printDebug("Diff: " + std::to_string(diff));
+    this->printDebug("Delta NLL: " + std::to_string(diff));
     
     q0 = 2*diff;
     this->printDebug("q0: " + std::to_string(q0));
