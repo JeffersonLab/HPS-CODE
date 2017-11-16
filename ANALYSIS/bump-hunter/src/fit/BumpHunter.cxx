@@ -550,6 +550,7 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
 
         this->printDebug("Setting signal yield to: " + std::to_string(signal_yield));
         variable_map["signal yield"]->setVal(signal_yield);
+        std::cout << "[ BumpHunter ]: Setting signal to " << variable_map["signal yield"]->getValV() << std::endl; 
 
         HpsFitResult* current_result = this->fitWindow(histogram, ap_mass, false, true);
         
@@ -564,11 +565,9 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
     
         if ((p_value <= 0.0455 && p_value > 0.043) || (p_value > 0.0455 && fell_below_threshold)) { 
             
-            /*
             std::cout << "[ BumpHunter ]: Upper limit: " << signal_yield << std::endl;
             std::cout << "[ BumpHunter ]: p-value: " << p_value << std::endl;
             std::cout << "[ BumpHunter ]: Upper limit status: " << current_result->getRooFitResult()->status() << std::endl;
-            */
 
             result->setUpperLimit(signal_yield);
             result->setUpperLimitPValue(p_value); 
@@ -579,7 +578,7 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
 
         ++fit_counter; 
 
-        if (p_value <= 0.043) { 
+        if (p_value <= 0.044) { 
             this->printDebug("p-value far below threshold. Moving to next signal value because fit likely failed."); 
             signal_yield += 1;
         } else if (p_value <= 0.055) signal_yield += 1;
