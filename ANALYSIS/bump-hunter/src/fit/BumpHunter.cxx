@@ -191,12 +191,19 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     // TODO: Check that this calculation makes sense.
     if (window_end > _upper_bound) { 
         this->printDebug("End of window " + std::to_string(window_end) + " is above high bound.");
-        window_start_bin = histogram->GetXaxis()->FindBin(_upper_bound - window_size);  
-        window_start = histogram->GetXaxis()->GetBinLowEdge(window_start_bin);
         this->printDebug("Setting starting edge to " + std::to_string(window_start)); 
         window_end_bin = histogram->GetXaxis()->FindBin(_upper_bound);
+        this->printDebug("Windown end bin: " + std::to_string(window_end_bin));
+        int last_bin_above = histogram->FindLastBinAbove(); 
+        if (window_end_bin > last_bin_above) { 
+            this->printDebug("Window end bin has no events.  Setting to last bin above."); 
+            window_end_bin = last_bin_above; 
+        }
         window_end = histogram->GetXaxis()->GetBinUpEdge(window_end_bin);
-        this->printDebug("New setting end position " + std::to_string(window_end)); 
+        this->printDebug("New setting end position " + std::to_string(window_end));
+        this->printDebug("Window end bin content: " + std::to_string(histogram->GetBinContent(window_end_bin)));  
+        window_start_bin = histogram->GetXaxis()->FindBin(window_end - window_size);  
+        window_start = histogram->GetXaxis()->GetBinLowEdge(window_start_bin);
     }
 
     // Calculate the total number of bins within the window ???
@@ -237,6 +244,12 @@ HpsFitResult* BumpHunter::fitWindow(TH1* histogram, double mass_hypothesis, bool
     this->printDebug("Window integral: " + std::to_string(integral)); 
     //if (ofs != nullptr) ofs << "Estimated bkg in range (" << start << ", " << start + window_size << "): " << integral; 
     //<< std::endl;
+    /*int start_bin_value = histogram->GetBinContent(window_start_bin); 
+    int end_bin_value = histogram->GetBinContent(window_end_bin);
+    this->printDebug("Window start bin content: " + std::to_string(start_bin_value));  
+    this->printDebug("Window end bin content: " + std::to_string(end_bin_value));  
+    double slope = (end_bin_value - start_bin_value)/(window_end - window_start);
+    this->printDebug("Slope: " + std::to_string(slope));  */
 
     // Calculate the size of the background window as 2.56*(mass_resolution)
     double bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
@@ -506,7 +519,7 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
         // Get the NLL obtained assuming the background only hypothesis
         mle_nll = null_result->getRooFitResult()->minNll();
         
-        signal_yield = 1; 
+        signal_yield = 10; 
 
     }
     this->printDebug("MLE NLL: " + std::to_string(mle_nll));     
@@ -515,16 +528,19 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
     double p_value = result->getPValue();
     this->printDebug("p-value from result: " + std::to_string(p_value));
     double q0 = 0;
-    signal_yield = floor(signal_yield) + 1; 
+    signal_yield = floor(signal_yield) + 10; 
     int fit_counter = 1;
     bool fell_below_threshold = false; 
+
+    // Reset all of the parameters to their original values
+    // this->resetParameters();
+
     while(true) {
 
-        // Reset all of the parameters to their original values
-        this->resetParameters();
 
         this->printDebug("Setting signal yield to: " + std::to_string(signal_yield));
         variable_map["signal yield"]->setVal(signal_yield);
+        std::cout << "[ BumpHunter ]: Current p-value: " << p_value << std::endl;
         std::cout << "[ BumpHunter ]: Setting signal to " << variable_map["signal yield"]->getValV() << std::endl; 
 
         HpsFitResult* current_result = this->fitWindow(histogram, ap_mass, false, true);
