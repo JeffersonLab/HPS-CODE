@@ -575,7 +575,7 @@ void BumpHunter::getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_m
         } else if (p_value <= 0.055) signal_yield += 1;
         else if (p_value <= 0.10) signal_yield += 20;
         else if (p_value <= 0.2) signal_yield += 50; 
-        else signal_yield += 200;  
+        else signal_yield += 100;  
         
         delete current_result; 
     }
