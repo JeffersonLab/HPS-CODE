@@ -557,12 +557,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, std::string range_name, HpsFit
         ++fit_counter; 
 
         if (p_value <= 0.044) {
-            if (fell_below_threshold) {
-                signal_yield += 1;
-            } else { 
-                signal_yield -= 2;
-                fell_below_threshold = true; 
-            }
+            signal_yield -= 1;
         } else if (p_value <= 0.059) signal_yield += 1;
         else if (p_value <= 0.10) signal_yield += 20;
         else if (p_value <= 0.2) signal_yield += 50; 
