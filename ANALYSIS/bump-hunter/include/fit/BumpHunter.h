@@ -68,12 +68,28 @@ class BumpHunter {
 
         /** Destructor */
         ~BumpHunter();
-
-        /**
-         */
-        HpsFitResult* fitWindow(TH1* histogram, double mass_hypothesis, bool bkg_only, bool const_sig = false);
-
         
+        /** 
+         * Perform a search for a resonance at the given mass hypothesis.
+         *
+         * @param histogram Histogram containing the mass spectrum that will be
+         *                  used to search for a resonance.
+         * @param mass_hypothesis The mass of interest.
+         */
+        HpsFitResult* performSearch(TH1* histogram, double mass_hypothesis); 
+
+        /** 
+         * Given the mass of interest, setup the window parameters and 
+         * initialize the fit parameters.  This includes setting the size of the
+         * window and the window edges as well as estimating the initial value
+         * of some fit parameters.
+         *
+         * @param histogram Histogram containing the mass spectrum that will be
+         *                  used to search for a resonance.
+         * @param mass_hypothesis The mass of interest.
+         */
+        void initialize(TH1* histogram, double &mass_hypothesis); 
+
         /**
          * Fit the given histogram. If a range is specified, only fit within the 
          * range of interest.
@@ -81,13 +97,14 @@ class BumpHunter {
          * @param data The RooFit histogram to fit.
          * @param migrad_only If true, only run migrad.
          * @param range_name The range to fit.
+         
          */        
-        HpsFitResult* fit(RooDataHist* data, bool migrad_only, std::string range_name); 
-    
+        HpsFitResult* fit(RooDataHist* data, std::string range_name); 
+   
         /**
          *
          */
-        void calculatePValue(TH1* histogram, HpsFitResult* result, double ap_hypothesis); 
+        void calculatePValue(HpsFitResult* result); 
 
 
         /** Fit using a background only model. */
@@ -105,14 +122,14 @@ class BumpHunter {
         /** Write the fit results to a text file */
         void writeResults(bool write_results = true) { _write_results = write_results; }; 
 
-        void getUpperLimit(TH1* histogram, HpsFitResult* result, double ap_mass);
+        /** Get the signal upper limit. */
+        void getUpperLimit(RooDataHist* data, std::string range_name, HpsFitResult* result); 
 
-        std::vector<RooDataHist*> generateToys(TH1* histogram, double n_toys, double ap_hypothesis);
-
-        std::vector<HpsFitResult*> runToys(TH1* histogram, double n_toys, double ap_hypothesis);
-         
         /** Reset the fit parameters to their initial values. */ 
-        void resetParameters(bool fit_only = false); 
+        void resetParameters(); 
+        
+        /** Reset the fit parameters to their initial values. */ 
+        void resetParameters(HpsFitResult* result); 
 
     private: 
 
@@ -141,7 +158,9 @@ class BumpHunter {
          */
         void getChi2Prob(double min_nll_null, double min_nll, double &q0, double &p_value); 
 
-        
+
+        double getFitChi2(RooDataHist* data); 
+
         /**
          *
          */
@@ -153,6 +172,9 @@ class BumpHunter {
         std::map <std::string, double> default_values; 
         
         std::map <std::string, double> default_errors; 
+
+        /** Background only fit result. */
+        HpsFitResult* bkg_only_result_{nullptr};
 
         /** Signal + bkg model */
         RooAddPdf* comp_model;  
@@ -171,12 +193,24 @@ class BumpHunter {
 
         /** */ 
         RooArgList arg_list;
-
-        /** */
-        TRandom* generator{new TRandom3()};
+    
+        /** Mass variable. */
+        RooRealVar* mass_{nullptr};
 
         /** Output file stream */
         std::ofstream* ofs;
+
+        /** Name of the range used by the fit. */
+        std::string range_name_{""}; 
+
+        /** 
+         * Size of the background window used to calculate the amount of 
+         * bkg/mev.
+         */
+        double _bkg_window_size{-9999};
+
+        /** Total number of events withing the background window. */
+        double _bkg_window_integral{-9999}; 
 
         /** The lower bound of the histogram. */
         //double _lower_bound{-9999};
@@ -186,9 +220,6 @@ class BumpHunter {
         //double _upper_bound{-9999};
         double _upper_bound{0.115};
 
-        /** Maximum size of the window */
-        double _max_window_size{1.0};
-
         /** 
          * Resolution multiplicative factor used in determining the fit window 
          * size.
@@ -196,7 +227,7 @@ class BumpHunter {
         double _res_factor{13}; 
 
         /** Size of the background window that will be used to fit. */
-        double window_size;
+        double _window_size{0};
 
         /** The total number of bins */
         int bins{2000};
