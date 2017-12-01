@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     string range{""};
 
     // The signal hypothesis to use in the fit. 
-    double mass_hypo = 0; 
+    double mass_hypothesis = 0; 
 
     // The factor that determines the size of the mass window as
     //      window_size = (mass_resolution*win_factor)
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
                 log_fit = true;
                 break;
             case 'm': 
-                mass_hypo = atof(optarg); 
+                mass_hypothesis = atof(optarg); 
                 break;
             case 'n': 
                 hist_name = optarg; 
@@ -181,7 +181,7 @@ int main(int argc, char **argv) {
 
     // Build the string that will be used for the results file name
     if (output_file.empty()) { 
-        output_file = "fit_result_mass" + to_string(mass_hypo) + "_order" +  
+        output_file = "fit_result_mass" + to_string(mass_hypothesis) + "_order" +  
                        to_string(poly_order) + 
                        "_win_factor" + to_string(win_factor) + 
                        ".root"; 
@@ -213,38 +213,8 @@ int main(int argc, char **argv) {
     tuple->addVector("nlls"); 
     tuple->addVector("sig_yields"); 
 
-    if (toys != 0) {
-        
-        tuple->addVector("toy_bkg_yield");  
-        tuple->addVector("toy_bkg_yield_err");  
-        tuple->addVector("toy_edm");
-        tuple->addVector("toy_invalid_nll");
-        tuple->addVector("toy_minuit_status");
-        tuple->addVector("toy_nll");
-        tuple->addVector("toy_p_value");
-        tuple->addVector("toy_q0");
-        tuple->addVector("toy_sig_yield");  
-        tuple->addVector("toy_sig_yield_err");  
-        tuple->addVector("toy_upper_limits");
-    }
-
     std::vector<HpsFitResult*> results; 
-    if (scan >= 0) {
-        double start = atof(range.substr(0, range.find(",")).c_str());
-        double end = atof(range.substr(range.find(",")).c_str()+1);
-        
-        while (start <= end) {
-            cout << "Searching for resonance at mass " << start << endl; 
-            results.push_back(bump_hunter->fitWindow(histogram, start, false));
-            bump_hunter->resetParameters();
-            start += 0.001; 
-        }
-
-    } else {
-        results.push_back(bump_hunter->fitWindow(histogram, mass_hypo, false)); 
-    }
-
-    cout << "Total results: " << results.size() << endl;
+    results.push_back(bump_hunter->performSearch(histogram, mass_hypothesis)); 
 
     for (auto& result : results) { 
         
@@ -286,35 +256,6 @@ int main(int argc, char **argv) {
         for (auto& yield : result->getSignalYields()) { 
             tuple->addToVector("sig_yields", yield); 
         } 
-
-        if (toys != 0) {
-            
-            std::vector<HpsFitResult*> tresults{bump_hunter->runToys(histogram, toys, mass_hypo)}; 
-            
-            for (auto& tresult : tresults) {
-   
-                double bkg_yield     = static_cast<RooRealVar*>(tresult->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
-                double bkg_yield_err = static_cast<RooRealVar*>(tresult->getRooFitResult()->floatParsFinal().find("bkg yield"))->getError();
-                double sig_yield     = static_cast<RooRealVar*>(tresult->getRooFitResult()->floatParsFinal().find("signal yield"))->getVal();
-                double sig_yield_err = static_cast<RooRealVar*>(tresult->getRooFitResult()->floatParsFinal().find("signal yield"))->getError();
-                double nll           = tresult->getRooFitResult()->minNll();
-                double invalid_nll   = tresult->getRooFitResult()->numInvalidNLL();
-                double minuit_status = tresult->getRooFitResult()->status();
-                double edm           = tresult->getRooFitResult()->edm(); 
-
-                tuple->addToVector("toy_bkg_yield",        bkg_yield);  
-                tuple->addToVector("toy_bkg_yield_err",    bkg_yield_err);
-                tuple->addToVector("toy_edm",              edm); 
-                tuple->addToVector("toy_invalid_nll",      invalid_nll); 
-                tuple->addToVector("toy_minuit_status",    minuit_status);
-                tuple->addToVector("toy_nll",              nll); 
-                tuple->addToVector("toy_p_value",          tresult->getPValue());
-                tuple->addToVector("toy_q0",               tresult->getQ0()); 
-                tuple->addToVector("toy_sig_yield",        sig_yield); 
-                tuple->addToVector("toy_sig_yield_err",    sig_yield_err);
-                tuple->addToVector("toy_upper_limits",     tresult->getUpperLimit());
-            }
-        }
 
         // Fill the ntuple
         tuple->fill(); 
