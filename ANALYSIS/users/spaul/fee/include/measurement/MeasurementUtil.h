@@ -58,21 +58,65 @@ void apply_lumi_sys_error(TH1* measurement, double rel_error){
   }
 }
 
-TH2* get_2016_prescaled_hist(TFile* file, TString name){
+void trim(TH2* data, double theta_max){
+  for(int i = 0; i< data->GetNbinsX(); i++){
+    if(data->GetXaxis()->GetBinCenter(i)<theta_max)
+      continue;
+    for(int j = 0; j<data->GetNbinsY(); j++){
+      data->SetBinContent(i,j, 0);
+      data->SetBinError(i,j,0);
+    }
+  }
+}
+					  
+//removes isolated bins with nonzero contents.  
+void remove_blips(TH2* h, int mode){
+  if(mode < 0)
+    h->Smooth(-mode);
+  for(int i = 1; i < h->GetNbinsX(); i++){
+    for(int j = 1; j < h->GetNbinsY(); j++){
+      if(h->GetBinContent(i,j) != 1)
+	continue;
+
+      for(int k = -mode; k<=mode; k++){
+	for(int l = -mode; l<=mode; l++){
+	  if(h->GetBinContent(i+k,j+l) != 0 && (l !=0 || k != 0))
+	    continue;
+	}
+      }
+      h->SetBinContent(i,j, 0);
+    }
+  }
+}
+
+TH2* get_2016_prescaled_hist(TFile* file, TString name, int removeBlips = 0){
   TH2* h1 = (TH2*)file->Get(name + " r1")->Clone("r1");
+  //if(removeBlips)
+    //   remove_blips(h1, 10);
   h1->Sumw2();
   h1->Scale(1);
   
   TH2* h2 = (TH2*)file->Get(name + " r2")->Clone("r2");
+  //if(removeBlips)
+  //remove_blips(h2, 10);
   h2->Sumw2();
+  trim(h2, .125);
   h2->Scale(80);
 
   TH2* h3 = (TH2*)file->Get(name + " r3")->Clone("r3");
+  //if(removeBlips)
+  //remove_blips(h3, 10);
   h3->Sumw2();
+  trim(h3, .085);
   h3->Scale(1300);
 
   TH2* h4 = (TH2*)file->Get(name + " r4")->Clone("r4");
+  if(removeBlips){
+    remove_blips(h4, removeBlips);
+    h4->Smooth();
+  }
   h4->Sumw2();
+  trim(h4, .063);
   h4->Scale(18000);
 
   //now add them all together

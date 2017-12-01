@@ -55,7 +55,7 @@ void drawMask(TH2* mask, bool isPolar){
   mask->Draw("SAME,CONT3");
 }
 
-void EfficiencyPlots(TH2* data, double ebeam, double lumi, double lumi_err,  TH2* mask, bool smooth_small_theta = 0){
+void EfficiencyPlots(TH2* data, double ebeam, double lumi, double lumi_err,  TH2* mask, bool smooth_small_theta = 0, double sigma_e = .045){
   
   double Z = 6;
   double mass = 12*AMU;
@@ -77,7 +77,7 @@ void EfficiencyPlots(TH2* data, double ebeam, double lumi, double lumi_err,  TH2
   double ecut = ebeam*.85;
   double t = .042;
   double b = 1.34;
-  double sigma_e = .045;
+
   TH1* model_rad_corr = full_carbon_model_with_rad_corr(ebeam, ecut, t, b, sigma_e);
   
   model->SetFillColor(kRed-8);
@@ -188,13 +188,13 @@ void EfficiencyPlots(){
   double lumi = 45837.645e-9/128.*2.213e-3/1.60217662e-19;
   double lumi_err = .0119;
   TH2* mask = (TH2*)TFile::Open("fee_mask.root")->Get("mask");
-  EfficiencyPlots(theta_vs_phi, ebeam, lumi, lumi_err, mask);
+  EfficiencyPlots(theta_vs_phi, ebeam, lumi, lumi_err, mask,0, .045);
   gPad->SaveAs("out/img/2015/hps_fee_efficiency_2015.pdf");
   ebeam = 2.306;
   carbon_file = TFile::Open("~/data/fee/pass1_072817/8054.root");
   theta_vs_phi = get_2016_prescaled_hist(carbon_file, "85_percent/theta vs phi chi2 cut");
   lumi = 142582.897e-9/2*2.213e-3/1.60217662e-19;
   lumi_err = sqrt(lumi_err*lumi_err+.001*.001);
-  EfficiencyPlots(theta_vs_phi, ebeam, lumi, lumi_err, mask,1);
+  EfficiencyPlots(theta_vs_phi, ebeam, lumi, lumi_err, mask,1, .033);
   gPad->SaveAs("out/img/2016/hps_fee_efficiency_2016.pdf");
 }

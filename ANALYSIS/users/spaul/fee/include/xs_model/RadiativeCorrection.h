@@ -1,3 +1,6 @@
+#ifndef RADIATIVE_CORRECTION_H
+#define RADIATIVE_CORRECTION_H
+
 #include "../omniheader.h"
 #include "../constants.h"
 class AbstractRadiativeCorrection{
@@ -153,4 +156,4 @@ class IntegralRadiativeCorrection : public AbstractRadiativeCorrection {
 
 };
 
-
+#endif
