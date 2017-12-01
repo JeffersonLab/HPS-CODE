@@ -17,7 +17,7 @@ FitPrinter::~FitPrinter() {
 }
 
 void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model, 
-                       std::string range, std::string output_path, int n_bins) {
+                       std::string range, std::string output_path) {
 
     TColor* fte_blue = new TColor(0, 143, 213);
     TColor* fte_orange = new TColor(252, 79, 48);
