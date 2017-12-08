@@ -94,21 +94,21 @@ TH2* get_2016_prescaled_hist(TFile* file, TString name, int removeBlips = 0){
   //if(removeBlips)
     //   remove_blips(h1, 10);
   h1->Sumw2();
-  h1->Scale(1);
+  h1->Scale(1*2);
   
   TH2* h2 = (TH2*)file->Get(name + " r2")->Clone("r2");
   //if(removeBlips)
   //remove_blips(h2, 10);
   h2->Sumw2();
   trim(h2, .125);
-  h2->Scale(80);
+  h2->Scale(80*2);
 
   TH2* h3 = (TH2*)file->Get(name + " r3")->Clone("r3");
   //if(removeBlips)
   //remove_blips(h3, 10);
   h3->Sumw2();
   trim(h3, .085);
-  h3->Scale(1300);
+  h3->Scale(1300*2);
 
   TH2* h4 = (TH2*)file->Get(name + " r4")->Clone("r4");
   if(removeBlips){
@@ -117,8 +117,43 @@ TH2* get_2016_prescaled_hist(TFile* file, TString name, int removeBlips = 0){
   }
   h4->Sumw2();
   trim(h4, .063);
-  h4->Scale(18000);
+  h4->Scale(18000*2);
 
+  //now add them all together
+  h1->Add(h2);
+  h1->Add(h3);
+  h1->Add(h4);
+  
+  return h1;
+}
+
+TH2* get_2016_prescaled_hist_mixed_trigger(TFile* file_s1, TFile* file_s0, TString name){
+  TH2* h1 = (TH2*)file_s1->Get(name + " r1")->Clone("r1");
+  //if(removeBlips)
+    //   remove_blips(h1, 10);
+  h1->Sumw2();
+  h1->Scale(1*2);
+  
+  TH2* h2 = (TH2*)file_s1->Get(name + " r2")->Clone("r2");
+  //if(removeBlips)
+  //remove_blips(h2, 10);
+  h2->Sumw2();
+  trim(h2, .125);
+  h2->Scale(80*2);
+
+  TH2* h3 = (TH2*)file_s1->Get(name + " r3")->Clone("r3");
+  //if(removeBlips)
+  //remove_blips(h3, 10);
+  h3->Sumw2();
+  trim(h3, .085);
+  h3->Scale(1300*2);
+
+  TH2* h4 = (TH2*)file_s0->Get(name + " r4")->Clone("r4");
+  h4->Sumw2();
+  trim(h4, .063);
+  h4->Scale(4097);
+
+  
   //now add them all together
   h1->Add(h2);
   h1->Add(h3);

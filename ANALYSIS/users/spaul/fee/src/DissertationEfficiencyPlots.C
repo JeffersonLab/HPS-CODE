@@ -7,11 +7,11 @@
 #include "../include/measurement/MeasurementUtil.h"
 #include "../include/omniheader.h"
 
-TH2* unweighted(TFile* file, TString name){
-  TH2* h1 = (TH2*)file->Get(name + " r1")->Clone();
-  h1->Add((TH2*)file->Get(name + " r2"));
-  h1->Add((TH2*)file->Get(name + " r3"));
-  h1->Add((TH2*)file->Get(name + " r4"));
+TH2* unweighted(TFile* file_s1, TFile* file_s0, TString name){
+  TH2* h1 = (TH2*)file_s1->Get(name + " r1")->Clone();
+  h1->Add((TH2*)file_s1->Get(name + " r2"));
+  h1->Add((TH2*)file_s1->Get(name + " r3"));
+  h1->Add((TH2*)file_s0->Get(name + " r4"));
 
   return h1;
   
@@ -29,8 +29,10 @@ TH2* theta_to_2d(TH1* source, TH2* templat, bool isUxuy){
   for(int i = 0; i < ret->GetNbinsX(); i++){
     for(int j = 0; j < ret->GetNbinsY(); j++){
       double theta;
-      if(isUxuy)
-	theta = sqrt(pow(ret->GetXaxis()->GetBinCenter(i),2) + pow(ret->GetYaxis()->GetBinCenter(j),2));
+      if(isUxuy){
+	double tan_theta = sqrt(pow(ret->GetXaxis()->GetBinCenter(i),2) + pow(ret->GetYaxis()->GetBinCenter(j),2));
+	theta = atan(tan_theta);
+      }
       else theta = ret->GetXaxis()->GetBinCenter(i);
       //if(isUxuy) cout << theta << endl;
       double z = 0, dz = 0;
@@ -43,8 +45,11 @@ TH2* theta_to_2d(TH1* source, TH2* templat, bool isUxuy){
 	double x1 = source->GetXaxis()->GetBinCenter(k);
 	double x2 = source->GetXaxis()->GetBinCenter(k+1);
 	double dOmega = ret->GetXaxis()->GetBinWidth(1)*ret->GetYaxis()->GetBinWidth(1);
-	if(!isUxuy) dOmega *= sin(theta);
-	//else dOmega*= 
+	if(isUxuy)
+	  dOmega *= cos(theta)*cos(theta);
+	else
+	  dOmega *= sin(theta);
+	
 	if(x1 < theta && x2 >=theta){
 	  double z1 = source->GetBinContent(k);
 	  double z2 = source->GetBinContent(k+1);
@@ -197,14 +202,14 @@ map<char*, TCanvas*> DissertationEfficiencyPlots(TH2* uxuy, TH2* thetaphi, TH1* 
   }
   TCanvas* c3 = new TCanvas();
   canvases["slices"] = c3;
-  slice_top->SetStats(0);
+  slice_bot->SetStats(0);
   slice_top->Divide(slice_model);
   slice_bot->Divide(slice_model);
   slice_top_stat->Divide(slice_model_no_err);
   slice_bot_stat->Divide(slice_model_no_err);
   //slice_top->SetLineColor(kRed);
   //slice_bot->SetLineColor(kBlack);
-  slice_top->SetTitle(prepend_title + " u_{x} vs efficiency;u_{x}; efficiency");
+  slice_bot->SetTitle(prepend_title + " u_{x} vs efficiency;u_{x}; efficiency");
 
   bool useFill = 1;
   if(useFill){
@@ -228,6 +233,11 @@ map<char*, TCanvas*> DissertationEfficiencyPlots(TH2* uxuy, TH2* thetaphi, TH1* 
     slice_top->Draw("");
     slice_bot->Draw("SAME");
   }
+
+  TLine* one = new TLine();
+  one->SetLineColor(kBlue);
+  one->SetLineStyle(2);
+  one->DrawLine(slice_top->GetXaxis()->GetXmin(), 1, slice_top->GetXaxis()->GetXmax(), 1);
   
   TLegend * ary = new TLegend(.70, .85, .95, .95);
   ary->AddEntry(slice_top, "top");
@@ -269,20 +279,27 @@ void DissertationEfficiencyPlots(char* save = 0){
   //  model_2015->Draw("");
   map<char*, TCanvas*> canvases_2015 = DissertationEfficiencyPlots(uxuy_2015, thetaphi_2015, model_2015, "Run 5779");
 
-  TFile* file_2016 = TFile::Open("~/data/fee/pass1_112817a/8054.root");
-  TH2* uxuy_2016_uw = unweighted(file_2016,"85_percent/ux vs uy"+cutlevel);
-  TH2* thetaphi_2016_uw = unweighted(file_2016,"85_percent/theta vs phi"+cutlevel);
+  TFile* file_2016_s1 = TFile::Open("~/data/fee/pass1_120117/s1_8054.root");
+  TFile* file_2016_s0 = TFile::Open("~/data/fee/pass1_120117/s0_8054.root");
+ 
   
-  TH2* thetaphi_2016 = get_2016_prescaled_hist(file_2016,"85_percent/theta vs phi"+cutlevel, -3);
-  thetaphi_2016->Rebin2D(2,2);
-  TH2* uxuy_2016 = get_2016_prescaled_hist(file_2016,"85_percent/ux vs uy"+cutlevel, -3);
-  uxuy_2016->Rebin2D(1,1);
+  TH2* uxuy_2016_uw = unweighted(file_2016_s1, file_2016_s0, "85_percent/ux vs uy"+cutlevel);
+  TH2* thetaphi_2016_uw = unweighted(file_2016_s1, file_2016_s0, "85_percent/theta vs phi"+cutlevel);
+  /*
+  TH2* thetaphi_2016 = get_2016_prescaled_hist(file_2016_s1,"85_percent/theta vs phi"+cutlevel, -3);
+  TH2* uxuy_2016 = get_2016_prescaled_hist(file_2016_s1,"85_percent/ux vs uy"+cutlevel, -3);
+  */
+  TH2* thetaphi_2016 = get_2016_prescaled_hist_mixed_trigger(file_2016_s1, file_2016_s0, "85_percent/theta vs phi"+cutlevel);
+  TH2* uxuy_2016 = get_2016_prescaled_hist_mixed_trigger(file_2016_s1, file_2016_s0, "85_percent/ux vs uy"+cutlevel);
+  
+  //thetaphi_2016->Rebin2D(2,2);
+  //uxuy_2016->Rebin2D(1,1);
 
   TH1* model_2016 = full_carbon_model_with_rad_corr(2.306, 2.306*.85, t, b, .033);
   TF1* mott_2016 = new TF1("f", "mott(x, 2.306, 12*.938, 6)", 0, .2);
   model_2016->Multiply(mott_2016);
 
-  double lumi_2016 = lumi = 142582.897e-9/2*2.213e-3/1.60217662e-19;
+  double lumi_2016 = lumi = 142582.897e-9*2.213e-3/1.60217662e-19;
   model_2016->Scale(lumi_2016);
 
   map<char*, TCanvas*> canvases_2016 = DissertationEfficiencyPlots(uxuy_2016, thetaphi_2016, model_2016, "Run 8054", 1);

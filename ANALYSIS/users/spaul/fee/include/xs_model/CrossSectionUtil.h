@@ -91,11 +91,18 @@ TH1* full_carbon_model_with_rad_corr(double ebeam, double ecut, double t, double
   TH1* h_ine3m = generate_histogram_from_xs(ine3m, "ine3m");
   h_ine3m->Multiply(get_rad_corr_hist(ine3m, ecut, t, b, sigma_e));
   full->Add(h_ine3m);
- cout << "got 3m" << endl;
+  //cout << "got 3m" << endl;
   SimpleCrossSectionComponent * ine2p = new CarbonInelastic2Plus(ebeam);
   TH1* h_ine2p = generate_histogram_from_xs(ine2p, "ine3m");
   h_ine2p->Multiply(get_rad_corr_hist(ine2p, ecut, t, b, sigma_e));
   full->Add(h_ine2p);
+
+  SimpleCrossSectionComponent * delta = new CarbonDeltaResonance(ebeam,ecut);
+  cout << "SimpleCrossSectionComponent * delta = new CarbonDeltaResonance(" << ebeam<< "," << ecut<< ");" <<endl;
+  TH1* h_delta = generate_histogram_from_xs(delta, "delta");
+  //don't worry about the radiative corrections yet for delta resonance
+  full->Add(h_delta);
+    
    cout << "got full" << endl;
   return full;
 }

@@ -1,6 +1,7 @@
 #include "CrossSectionComponent.h"
 #include "../omniheader.h"
 #include "ShellQuasielastic.h"
+#include "DeltaResonance.h"
 #ifndef CARBON_H
 #define CARBON_H
 
@@ -97,7 +98,15 @@ class CarbonInelastic3Minus : public InterpolateInelasticFormFactor{
       }
 };
 
-
+class CarbonDeltaResonance : public DeltaResonance {
+ public :
+ CarbonDeltaResonance(double ebeam, double ecut) :
+  DeltaResonance(ebeam, ebeam-ecut, 6,6)
+  {
+    
+  }
+};
+  
 
 
 class CarbonQuasielastic : public ShellQuasielastic {
@@ -109,24 +118,6 @@ class CarbonQuasielastic : public ShellQuasielastic {
     }
 };
 
-class DeltaResonance : public SimpleCrossSectionComponent {
- public :
-  double _Z;
- DeltaResonance(double ebeam, double Z) :
-  SimpleCrossSectionComponent(ebeam, .938, .1232-.938),
-    _Z(Z)
-    {
-      
-    }
-  
-  double get_form_factor(double q){
-    
-    return 0;  //TODO find the form factor
-  }
-  double get_relative_sys_error_on_xs(double theta){
-    return 0;  //TODO find the error on the form factor
-  }
-};
 
 //the most complete model of carbon I can get as of yet.
 /*class CarbonFullModel : public CrossSectionComponent{
