@@ -144,12 +144,16 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
     // Set the mean of the Gaussian signal distribution
     variable_map["A' mass"]->setVal(mass_hypothesis);
 
-    // Get the mass resolution at the mass hypothesis.  
-    double mass_resolution = this->getMassResolution(mass_hypothesis);
+    // Correct the mass to take into account the mass scale systematic
+    double corr_mass = this->correctMass(mass_hypothesis);
+
+    // Get the mass resolution at the corrected mass 
+    //double mass_resolution = this->getMassResolution(mass_hypothesis);
+    double mass_resolution = this->getMassResolution(corr_mass);
     std::cout << "[ BumpHunter ]: Mass resolution: " << mass_resolution << " MeV" << std::endl;
 
     // Set the width of the Gaussian signal distribution
-    variable_map["A' mass resolution"]->setVal(this->getMassResolution(mass_hypothesis)); 
+    variable_map["A' mass resolution"]->setVal(mass_resolution); 
 
     // Calculate the fit window size
     _window_size = mass_resolution*_res_factor;
@@ -301,8 +305,9 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
     this->calculatePValue(result);
     this->getUpperLimit(data, range_name_, result);
 
-    return result; 
+    result->setCorrectedMass(this->correctMass(mass_hypothesis)); 
 
+    return result; 
 }
 
 HpsFitResult* BumpHunter::fit(RooDataHist* data, std::string range_name = "") { 
