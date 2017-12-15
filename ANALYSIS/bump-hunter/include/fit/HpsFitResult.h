@@ -38,6 +38,8 @@ class HpsFitResult {
         /** @return The mass hypothesis used for this fit. */
         double getMass() const { return _mass; };
 
+        double getCorrectedMass() const { return _cmass; }; 
+
         /** */
         double getQ0() { return q0; };
 
@@ -98,6 +100,12 @@ class HpsFitResult {
         void setMass(double mass) { _mass = mass; };
 
         /**
+         *
+         *
+         */
+        void setCorrectedMass(double cmass) { _cmass = cmass; }; 
+
+        /**
          * Set the 2 sigma upper limit.
          *
          * @param upper_limit The 2 sigma upper limit.
@@ -140,6 +148,8 @@ class HpsFitResult {
 
         /** Mass hypothesis. */
         double _mass{0}; 
+
+        double _cmass{0}; 
 
         /** q0 value */
         double q0;

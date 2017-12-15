@@ -191,6 +191,7 @@ int main(int argc, char **argv) {
     FlatTupleMaker* tuple = new FlatTupleMaker(output_file, "results"); 
 
     tuple->addVariable("ap_mass");
+    tuple->addVariable("corr_mass");
     tuple->addVariable("bkg_total"); 
     tuple->addVariable("bkg_window_size");  
     tuple->addVariable("bkg_yield"); 
@@ -229,6 +230,7 @@ int main(int argc, char **argv) {
         double edm = result->getRooFitResult()->edm(); 
     
         tuple->setVariableValue("ap_mass",                result->getMass());  
+        tuple->setVariableValue("corr_mass",              result->getCorrectedMass());  
         tuple->setVariableValue("bkg_total",              result->getBkgTotal()); 
         tuple->setVariableValue("bkg_window_size",        result->getBkgWindowSize()); 
         tuple->setVariableValue("bkg_yield",              bkg_yield);  
