@@ -588,3 +588,13 @@ void BumpHunter::setBounds(double lower_bound, double upper_bound) {
     _upper_bound = upper_bound;
     printf("Fit bounds set to [ %f , %f ]\n", _lower_bound, _upper_bound);   
 }
+
+double BumpHunter::correctMass(double mass) { 
+    double offset = -1.19892320e4*pow(mass, 3) + 1.50196798e3*pow(mass,2) 
+                    - 8.38873712e1*mass + 6.23215746; 
+    offset /= 100; 
+    this->printDebug("Offset: " + std::to_string(offset)); 
+    double cmass = mass - mass*offset; 
+    this->printDebug("Corrected Mass: " + std::to_string(cmass)); 
+    return cmass;
+}
