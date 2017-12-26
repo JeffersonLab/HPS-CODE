@@ -18,7 +18,7 @@
 
 
 
-BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel sig_model, double alpha_cb, double n_cb)
+BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel sig_model)
     : comp_model(nullptr), 
       bkg_model(nullptr),
       _model(nullptr),
@@ -28,7 +28,9 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel 
       _res_factor(res_factor), 
       window_size(0.01),
       _poly_order(poly_order),
-	  _model_type(model){
+	  _model_type(model),
+	_sig_model_type(sig_model)
+	{
 
     std::cout << "[ BumpHunter ]: Model type: " << _model_type << std::endl;
     std::cout << "[ BumpHunter ]: Background polynomial: " << _poly_order << std::endl;
@@ -56,11 +58,8 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel 
     	} break;
     case SigModel::CRYSTAL_BALL : {
 
-
-    	std::cout << "[ BumpHunter ]: Modeling the signal using a crystal ball function with " <<
-    			"alpha = " << alpha_cb << " and n = " << n_cb << std::endl;
-    	variable_map["n"] = new RooRealVar("n", "n", n_cb);
-    	variable_map["alpha"] = new RooRealVar("alpha", "alpha", alpha_cb);
+    	variable_map["n"] = new RooRealVar("n", "n", this->getCrystalBallN(0.03));
+    	variable_map["alpha"] = new RooRealVar("alpha", "alpha", this->getCrystalBallAlpha(0.03));
     	signal = new RooCBShape("signal", "signal", *variable_map["invariant mass"], *variable_map["A' mass"], *variable_map["A' mass resolution"],
     			*variable_map["alpha"], *variable_map["n"]);
     	} break;
@@ -116,6 +115,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel 
         	bkg = new RooProdPdf("bkg", "bkg", *poly_bkg, *pow);
         } break;
     }
+
 
     //   Composite Models   //
     //----------------------//
@@ -291,6 +291,12 @@ HpsFitResult* BumpHunter::fitWindow(RooDataHist* data, double ap_hypothesis, boo
 
     // Set the width of the Gaussian signal distribution
     variable_map["A' mass resolution"]->setVal(this->getMassResolution(ap_hypothesis)); 
+    if(_sig_model_type == SigModel::CRYSTAL_BALL){
+    	variable_map["alpha"]->setVal(this->getCrystalBallAlpha(ap_hypothesis));
+    	variable_map["n"]->setVal(this->getCrystalBallN(ap_hypothesis));
+    	//std::cout << "[ BumpHunter ]: Modeling the signal using a crystal ball function with " <<
+    	//    			"alpha = " << variable_map["alpha"]->getVal() << " and n = " << variable_map["n"]->getVal() << std::endl;
+    }
     
     // Set the range that will be used in the fit
     std::string range_name = "ap_mass_" + std::to_string(ap_hypothesis) + "gev"; 

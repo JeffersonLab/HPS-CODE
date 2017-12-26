@@ -90,7 +90,6 @@ int main(int argc, char **argv) {
         {"help",       no_argument,       0, 'h'},
         {"log",        no_argument,       0, 'l'},
 		{"debug",      no_argument,       0, 'd'},
-		{"exp",        no_argument,       0, 'e'},
 		{"beam_energy",required_argument, 0, 'b'},
         {"mass",       required_argument, 0, 'm'}, 
         {"name",       required_argument, 0, 'n'}, 
@@ -249,7 +248,8 @@ int main(int argc, char **argv) {
 	for(;mass_hypo<=max_mass_hypo; mass_hypo+= mass_step){ //loop through the masses in a given range
     
     // Create a new Bump Hunter instance and set the given properties.
-    BumpHunter* bump_hunter = new BumpHunter(model, poly_order, res_factor, sig_model);
+
+	BumpHunter* bump_hunter = new BumpHunter(model, poly_order, res_factor, sig_model);
     if (log_fit) bump_hunter->writeResults();  
     if (debug) bump_hunter->setDebug(debug);
     // Build the string that will be used for the results file name

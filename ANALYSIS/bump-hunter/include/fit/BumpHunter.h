@@ -69,7 +69,7 @@ class BumpHunter {
 
         /** Default Constructor */
 
-        BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel sig_model = SigModel::GAUSS, double alpha_cb = 1.3, double n_cb = 2.5);
+        BumpHunter(BkgModel model, int poly_order, int res_factor, SigModel sig_model = SigModel::GAUSS);
 
 
         /** Destructor */
@@ -146,11 +146,25 @@ class BumpHunter {
          */
         inline double getMassResolution(double mass) { 
             //return -6.166*mass*mass*mass + 0.9069*mass*mass -0.00297*mass + 0.000579; 
-            return fabs(beam_energy - 1.056)<.1 ?
+            return beam_energy < 1.5 ?
             		-6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373
 					//: 0.000436657 + 0.0149122*mass + 0.123435*pow(mass,2) + -0.402478*pow(mass,3);
 					: 1.28876 * (0.000336056 + 0.0120916*mass + 0.0866136*pow(mass,2) + -0.292093*pow(mass,3) );
         };
+
+        inline double getCrystalBallAlpha(double mass){
+        	return beam_energy < 1.5 ?
+        			1.3
+					: 1.020508 - 1.455330*mass + 152.176*mass*mass + -1341.5*mass*mass*mass + 3152.25*mass*mass*mass*mass;
+
+        };
+        inline double getCrystalBallN(double mass){
+            return beam_energy < 1.5 ?
+            		2.5
+					: 6.48138 -119.049*mass + 718.3*mass*mass -879.451*mass*mass*mass;
+
+                	};
+
     private :
         /** 
          * Print debug statement.
@@ -243,6 +257,7 @@ class BumpHunter {
         int _poly_order;
 
         int _model_type;
+        int _sig_model_type;
 
         /** Debug flag */
         bool debug{false};
