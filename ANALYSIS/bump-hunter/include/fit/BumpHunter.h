@@ -153,10 +153,10 @@ class BumpHunter {
         };
 
         inline double getCrystalBallAlpha(double mass){
-        	return 1.22;
+        	return 1.31;
         };
         inline double getCrystalBallN(double mass){
-            return 2.97;
+            return 2.85;
         };
 
     private :
