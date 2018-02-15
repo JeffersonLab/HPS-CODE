@@ -2,6 +2,7 @@
 #include "../omniheader.h"
 #include "ShellQuasielastic.h"
 #include "DeltaResonance.h"
+#include "TwoNucleonKnockout.h"
 #ifndef CARBON_H
 #define CARBON_H
 
@@ -102,6 +103,15 @@ class CarbonDeltaResonance : public DeltaResonance {
  public :
  CarbonDeltaResonance(double ebeam, double ecut) :
   DeltaResonance(ebeam, ebeam-ecut, 6,6)
+  {
+    
+  }
+};
+
+class CarbonTwoNucleonKnockout : public TwoNucleonKnockout {
+ public :
+ CarbonTwoNucleonKnockout(double ebeam, double ecut) :
+  TwoNucleonKnockout(ebeam, ebeam-ecut, 6,6)
   {
     
   }

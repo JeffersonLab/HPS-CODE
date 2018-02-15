@@ -149,14 +149,14 @@ class BumpHunter {
             return beam_energy < 1.5 ?
             		-6.782*mass*mass*mass + 0.9976*mass*mass -0.003266*mass + 0.0006373
 					//: 0.000436657 + 0.0149122*mass + 0.123435*pow(mass,2) + -0.402478*pow(mass,3);
-					: 1.28876 * (0.000336056 + 0.0120916*mass + 0.0866136*pow(mass,2) + -0.292093*pow(mass,3) );
+					: .00167/.00111 * (0.000955 + mass*-.004198 + pow(mass,2)*.2367 + pow(mass,3)*-.7009);
         };
 
         inline double getCrystalBallAlpha(double mass){
-        	return 1.31;
+        	return 1.21;
         };
         inline double getCrystalBallN(double mass){
-            return 2.85;
+            return 2.95;
         };
 
     private :

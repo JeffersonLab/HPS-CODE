@@ -13,7 +13,7 @@ class DeltaResonance: public SimpleCrossSectionComponent {
   double _Z ; //number of protons
  public :
 
-  double _scale = 31.29;
+  double _scale = 125; //221.088892;//31.29;
  DeltaResonance(double ebeam, double omega_max, int Z, int N):
   _Z(Z), _N(N), _omega_max(omega_max),
   SimpleCrossSectionComponent(ebeam, .938, .1232-.938)
@@ -25,8 +25,9 @@ class DeltaResonance: public SimpleCrossSectionComponent {
     double q2 = Q2+omega*omega;
     double q = sqrt(q2);
     double dipole = 1/pow(1+Q2/_a2,4);
-    double scale = _scale;  // I have no idea if this is correct... 
+    double scale = _scale; 
     double omega_thresh = Q2/(2*(_M +_M_pion));
+    if(omega < omega_thresh) return 0;
     double width_thresh = .005;
 
     double W2 = _M*_M+2*_M*(omega-Q2/(2*_M));
@@ -39,15 +40,22 @@ class DeltaResonance: public SimpleCrossSectionComponent {
     return scale*q2*dipole*lorentzian*thresh_scale;
   }
 
+  double get_dxs_per_mott_domega(double theta, double omega){
+
+    double Q2 = 4*_ebeam*(_ebeam-omega)*pow(sin(theta/2),2);
+    double q2 = Q2+omega*omega; 
+    double integrand = response(Q2, omega)*(Q2/(2*q2)+pow(tan(theta/2),2));
+    return integrand;
+  }
+				 
+  
   double _omega_max = 2.306*.15;
   double get_xs_per_mott(double theta){
     double omega = 0;
     double d_omega = .002;
     double integral = 0;
     for(; omega < _omega_max; omega+= d_omega){
-      double Q2 = 4*_ebeam*(_ebeam-omega)*pow(sin(theta/2),2);
-      double q2 = Q2+omega*omega; 
-      double integrand = response(Q2, omega)*(Q2/(2*q2)+pow(tan(theta/2),2)); 
+      double integrand = get_dxs_per_mott_domega(theta, omega);
       integral+= integrand*d_omega;
     }
     return integral*(_Z + _N)/(_Z*_Z);  //the _Z*_Z factor is because we are comparing to the elastic mott.  
