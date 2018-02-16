@@ -14,6 +14,7 @@
 #include <TFile.h>
 #include <TH1.h>
 #include <RooFitResult.h>
+#include <TRandom.h>
 
 #include <RootFileReader.h>
 #include <BumpHunter.h>
@@ -80,6 +81,8 @@ int main(int argc, char **argv) {
      * whose integrated area is 3 times the error on the signal yield of the original fit.
     */
     char* injected_signal_options = 0;
+
+    int seed = 0;
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
@@ -101,6 +104,7 @@ int main(int argc, char **argv) {
         {"mass_step", required_argument, 0, 's'},
         {"max_mass_hypo",required_argument, 0, 'x'},
         {"injected_signal",required_argument, 0, 'j'},
+        {"seed",required_argument, 0, 'a'},
         {0, 0, 0, 0}
     };
     
@@ -108,7 +112,8 @@ int main(int argc, char **argv) {
     int option_char; 
 
 
-    while ((option_char = getopt_long(argc, argv, "wcf:ei:hb:lm:n:o:p:t:g:j:q", long_options, &option_index)) != -1) {
+
+    while ((option_char = getopt_long(argc, argv, "wcf:ei:hb:lm:n:o:p:t:g:j:qa:", long_options, &option_index)) != -1) {
 
         switch(option_char) {
             case 'f': 
@@ -167,6 +172,9 @@ int main(int argc, char **argv) {
             case 'j':
                 injected_signal_options = optarg;
                 break;
+            case 'a':
+            	seed = atoi(optarg);
+            	break;
             default: 
                 return EXIT_FAILURE;
         }
@@ -174,7 +182,11 @@ int main(int argc, char **argv) {
 
 	std::cout << "welcome to bump hunter" << std::endl;
 
-    // Make sure a file was specified by the user.  If not, warn the user and 
+
+    if(seed){
+    	gRandom->SetSeed(seed);
+    }
+	// Make sure a file was specified by the user.  If not, warn the user and
     // exit the application.
     if (file_name.empty()) { 
         cerr << "[ EVALUATOR ]: Please specify a file to process." << endl;
