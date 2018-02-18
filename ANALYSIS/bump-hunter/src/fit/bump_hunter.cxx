@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
     */
     char* injected_signal_options = 0;
 
-    int seed = 0;
+    long int seed = 0;
     // Parse all the command line arguments.  If there are no valid command
     // line arguments passed, print the usage and exit the application
     static struct option long_options[] = {
@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
                 injected_signal_options = optarg;
                 break;
             case 'a':
-            	seed = atoi(optarg);
+            	seed = atol(optarg);
             	break;
             default: 
                 return EXIT_FAILURE;
