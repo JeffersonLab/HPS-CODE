@@ -6,12 +6,16 @@ import ROOT
 from ROOT import gROOT, TFile, TTree, TChain, gDirectory, TLine, gStyle, TCanvas, TLegend, TH1F, TF1, TH1
 sys.argv = tmpargv
 
+#author Matt Solt mrsolt@slac.stanford.edu
+#This script makes plots for SVT NIM paper from org.hps.svt.OccupancyPlots driver 
+
 #List arguments
 def print_usage():
     print "\nUsage: {0} <output file base name> <input file name>".format(sys.argv[0])
     print "Arguments: "
     print '\t-l: is L0 detectors'
     print '\t-n: Number of strips away from edge (default 0)'
+    print '\t-s: Is this a calibration file (default false)'
     print '\t-h: this help message'
     print
 
