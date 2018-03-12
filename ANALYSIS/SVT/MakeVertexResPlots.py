@@ -2,7 +2,7 @@
 import sys, array,math
 import getopt
 import ROOT
-from ROOT import gROOT, TCanvas, TF1, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D, gDirectory, RooDataSet, RooRealVar, RooArgSet, RooFormulaVar, RooWorkspace, RooAbsData, RooGlobalFunc, RooFit, RooAbsReal, RooArgList, gPad
+from ROOT import gROOT, TCanvas, TF1, TChain, TFile, gStyle, TFormula, TGraph, TGraphErrors, TH1D, TCutG, TH2D, gDirectory, RooDataSet, RooRealVar, RooArgSet, RooFormulaVar, RooWorkspace, RooAbsData, RooGlobalFunc, RooFit, RooAbsReal, RooArgList, gPad
 
 #author Sho Uemera
 #author Matt Solt
@@ -53,7 +53,7 @@ for opt, arg in options:
         sys.exit(0)
 
 
-if (len(remainder)!=2):
+if (len(remainder) < 2):
         print_usage()
         sys.exit()
 
@@ -68,8 +68,9 @@ if(applyCut):
     &&min(eleMinPositiveIso+0.5*(eleTrkZ0+{1}*elePY/eleP)*sign(elePY),posMinPositiveIso+0.5*(posTrkZ0+{1}*posPY/posP)*sign(posPY))>0\
     &&abs(eleP-posP)/(eleP+posP)<0.4&&posTrkD0+{1}*posPX/posP<1.5".format(ebeam,ztarg)
 
-inFile = TFile(remainder[1])
-events = inFile.Get(tupleName)
+events = TChain(tupleName)
+for i in range(1,len(remainder)):
+    events.Add(remainder[i])
 
 gROOT.SetBatch(True)
 gStyle.SetOptFit(1)
