@@ -12,9 +12,7 @@
 #include <BumpHunter.h>
 
 BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor) 
-    : comp_model(nullptr), 
-      bkg_model(nullptr),
-      _model(nullptr),
+    : _model(nullptr),
       signal(nullptr), 
       bkg(nullptr),
       ofs(nullptr),
@@ -29,6 +27,7 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
 
     // Independent variable
     mass_ = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.15);
+    //mass_ = new RooRealVar("Invariant Mass", "Invariant Mass (GeV)", 0., 0.1);
 
     //   Signal PDF   //
     //----------------//   
@@ -82,14 +81,11 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
     variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1e13, 1e13);
+    //variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
     variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 30000000, -1e13, 1e13);
 
-    comp_model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
+    _model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
                                RooArgList(*variable_map["signal yield"], *variable_map["bkg yield"]));
-
-    bkg_model = new RooAddPdf("bkg model", "bkg model", 
-                              RooArgList(*bkg), RooArgList(*variable_map["bkg yield"]));
-    _model = comp_model;
 
 
     for (auto& element : variable_map) {
@@ -100,13 +96,14 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
 
 BumpHunter::~BumpHunter() {
 
+    /*
     for (auto& element : variable_map) { 
        delete element.second; 
     }
-    variable_map.clear();
-    delete signal;
-    delete bkg;
-    delete comp_model; 
+    variable_map.clear();*/
+    //delete signal;
+    //delete bkg;
+    //delete _model; 
 }
 
 void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) { 
@@ -125,10 +122,15 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
         this->printDebug("Histogram upper bound: " + std::to_string(_upper_bound));
     }
 
-    // Set the total number of bins used to bin the mass spectrum 
-    bins = histogram->GetNbinsX(); 
-    mass_->setBins(bins);
-    this->printDebug("Total number of bins: " + std::to_string(bins)); 
+    // Calculate the bin size from the histogram
+    int total_bins = histogram->GetNbinsX();
+    double min_bin = histogram->GetXaxis()->GetXmin(); 
+    double max_bin = histogram->GetXaxis()->GetXmax();
+    double bin_size = (max_bin - min_bin)/total_bins; 
+    this->printDebug("Total bins: " + std::to_string(total_bins)); 
+    this->printDebug("Min bin: " + std::to_string(min_bin));  
+    this->printDebug("Max bin: " + std::to_string(max_bin));  
+    this->printDebug("Bin size: " + std::to_string(bin_size));  
 
     // Shift the mass hypothesis so it sits in the middle of a bin
     this->printDebug("Mass hypothesis: " + std::to_string(mass_hypothesis)); 
@@ -139,7 +141,9 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
 
     // If the mass hypothesis is below the lower bound, throw an exception.  A 
     // search cannot be performed using an invalid value for the mass hypothesis.
-    if (mass_hypothesis < _lower_bound) throw std::runtime_error("Mass hypothesis less than the lower bound!"); 
+    if (mass_hypothesis < _lower_bound) {
+        throw std::runtime_error("Mass hypothesis less than the lower bound!"); 
+    }
 
     // Set the mean of the Gaussian signal distribution
     variable_map["A' mass"]->setVal(mass_hypothesis);
@@ -173,14 +177,16 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
     } 
     std::cout << "[ BumpHunter ]: Setting starting edge of window to " 
               << window_start << " MeV." << std::endl;
+    this->printDebug("Ending start bin: " + std::to_string(window_start_bin)); 
     
     // Find the end position of the window.  This is set to the upper edge of 
     // the bin closest to the calculated value. If the window edge falls above
     // the upper bound of the histogram, set it to the upper bound.
     // Furthermore, check that the bin serving as the upper boundary contains
     // events. If the upper bound is shifted, reset the lower window bound.
-    double window_end = window_start + _window_size;
+    double window_end = mass_hypothesis + _window_size/2;
     int window_end_bin = histogram->GetXaxis()->FindBin(window_end);
+    this->printDebug("Ending window bin: " + std::to_string(window_end_bin)); 
     window_end = histogram->GetXaxis()->GetBinUpEdge(window_end_bin);
     if (window_end > _upper_bound) { 
         std::cout << "[ BumpHunter ]: Upper edge of window (" << window_end 
@@ -197,6 +203,11 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
     std::cout << "[ BumpHunter ]: Setting upper edge of window to " 
               << window_end << " MeV." << std::endl;
 
+    // Set the total number of bins used to bin the mass spectrum 
+    bins = (window_end - window_start)/bin_size;  
+    mass_->setBins(bins);
+    this->printDebug("Total number of bins: " + std::to_string(bins)); 
+
     // Set the range that will be used in the fit
     range_name_ = "mass_" + std::to_string(mass_hypothesis) + "gev"; 
     mass_->setRange(range_name_.c_str(), window_start, window_end); 
@@ -205,12 +216,12 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
     // Estimate the background normalization within the window by integrating
     // the histogram within the window range.  This should be close to the 
     // background yield in the case where there is no signal present.
-    double integral = histogram->Integral(window_start_bin, window_end_bin);
-    variable_map["bkg yield"]->setVal(integral);
-    variable_map["bkg yield"]->setError(sqrt(integral)); 
-    default_values["bkg yield"] = integral;
-    default_errors["bkg yield"] = sqrt(integral);  
-    this->printDebug("Window integral: " + std::to_string(integral)); 
+    integral_ = histogram->Integral(window_start_bin, window_end_bin);
+    variable_map["bkg yield"]->setVal(integral_);
+    variable_map["bkg yield"]->setError(sqrt(integral_)); 
+    default_values["bkg yield"] = integral_;
+    default_errors["bkg yield"] = sqrt(integral_);  
+    this->printDebug("Window integral: " + std::to_string(integral_)); 
 
     // Calculate the size of the background window as 2.56*(mass_resolution)
     _bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
@@ -223,40 +234,29 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
 
     _bkg_window_integral = histogram->Integral(bkg_window_start_bin, bkg_window_end_bin); 
     
-    variable_map["signal yield"]->setError(sqrt(_bkg_window_integral));
-    
-    /*
-    TCanvas* canvas = new TCanvas("canvas", "canvas", 800, 800); 
-    TH1* histogram_clone = (TH1*) histogram->Clone("clone");
-    histogram_clone->GetXaxis()->SetRange(window_start_bin/3, window_end_bin/3);
-    histogram_clone->Scale(1/histogram_clone->Integral());
-    histogram_clone->Fit("pol1"); 
-    variable_map["signal yield"]->setVal(histogram_clone->
-    histogram_clone->Draw(""); 
-    canvas->SaveAs("test_fit.pdf");   
-    */
-    
-
+    variable_map["signal yield"]->setError(sqrt(_bkg_window_integral*2));
 }
 
 HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) { 
-    
+   
+    this->resetParameters(); 
+
     // Start by setting up the window which will be used to search a resonance.
     this->initialize(histogram, mass_hypothesis);
 
     // Create a histogram object compatible with RooFit.
-    RooDataHist* data = new RooDataHist("data", "data", RooArgList(*mass_), histogram);
+    data_ = new RooDataHist("data", "data", RooArgList(*mass_), histogram);
     
     // Perform a background only fit
     std::cout << "[ BumpHunter ]: Performing a background only fit." << std::endl;
     // Fix the signal yield at 0.
     variable_map["signal yield"]->setConstant(kTRUE);
-    bkg_only_result_ = this->fit(data, range_name_); 
+    bkg_only_result_ = this->fit(data_, range_name_); 
 
     if (!_batch) { 
         std::string output_path = "fit_result_" + std::string(histogram->GetName()) 
                                   + "_" + std::to_string(mass_hypothesis) + "gev_bkg_only.png";
-        printer->print(mass_, data, _model, range_name_, output_path); 
+        printer->print(mass_, data_, _model, range_name_, output_path); 
         /*if (_write_results) { 
      
             // Create the output file name string
@@ -280,12 +280,12 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
     variable_map["signal yield"]->setConstant(kFALSE);
 
     // Fit the distribution in the given range
-    HpsFitResult* result = this->fit(data, range_name_); 
+    HpsFitResult* result = this->fit(data_, range_name_); 
     
     if (!_batch) { 
         std::string output_path = "fit_result_" + std::string(histogram->GetName()) 
                       + "_" + std::to_string(mass_hypothesis) + "gev_full.png";
-        printer->print(mass_, data, _model, range_name_, output_path); 
+        printer->print(mass_, data_, _model, range_name_, output_path); 
     }
 
     // Persist the mass hypothesis used for this fit
@@ -302,8 +302,10 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
 
     result->setBkgTotal(_bkg_window_integral); 
 
+    result->setNBins(mass_->getBinning().numBins()); 
+
     this->calculatePValue(result);
-    this->getUpperLimit(data, range_name_, result);
+    this->getUpperLimit(data_, range_name_, result);
 
     result->setCorrectedMass(this->correctMass(mass_hypothesis)); 
 
@@ -311,86 +313,10 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
 }
 
 HpsFitResult* BumpHunter::fit(RooDataHist* data, std::string range_name = "") { 
-   
-    // Construct a log likelihood using the data set within the range specified
-    // above.  This is equivalent to saying that 
-    // nll = -ln(L( window_start < x < window_start + window_size | mu, theta))
-    // where mu is the signal yield and theta represents the set of all 
-    // nuisance parameters which in this case are the background normalization
-    // and polynomial constants.  Since the likelihood is being constructed
-    // from a histogram, use an extended likelihood.
-    RooAbsReal* nll = _model->createNLL(*data, 
-            RooFit::Extended(kTRUE), 
-            RooFit::Verbose(kTRUE), 
-            RooFit::Range(range_name.c_str()), 
-            RooFit::SumCoefRange(range_name.c_str())
-            );  
-
-    // Instantiate minuit using the constructed likelihood above
-    RooMinuit m(*nll);
-
-    // Turn off all print out
-    m.setPrintLevel(-1000);
-    m.setNoWarn(); 
-
-    // Activate verbose logging of MINUIT parameter space stepping
-    //m.setVerbose(1);
-
-    // Use migrad to minimize the likelihood.  If migrad fails to find a minimum,
-    // run simplex in order to run a sparser search for a minimum followed by
-    // migrad again.
-    //m.hesse();
-    int status = m.migrad(); 
-   
-    /* 
-    int iteration = 0; 
-    while(status != 0 && !variable_map["signal yield"]->isConstant()) {
-        this->printDebug("Fit failed to converge. Using a background only fit for parameter estimation."); 
-         
-        this->resetParameters(true); 
     
-        double bkg = default_values["bkg yield"] - sqrt(default_values["bkg yield"])*iteration; 
-        variable_map["bkg yield"]->setVal(bkg);
-        variable_map["bkg yield"]->setError(sqrt(bkg)); 
-        
-        variable_map["signal yield"]->setConstant(kTRUE);
-        status = m.migrad();
-        
-        variable_map["signal yield"]->setConstant(kFALSE);
-        status = m.migrad();
-
-        ++iteration; 
-    }*/
-
-    int iteration = 0; 
-    while (status != 0) { 
-        this->printDebug("Failed to converge changing background starting point.");
-        
-        //this->resetParameters(bkg_only_result_); 
-
-        double bkg = default_values["bkg yield"]; 
-        if (iteration%2 == 0) bkg -= 10; 
-        else bkg += 10; 
-        variable_map["bkg yield"]->setVal(bkg);
-        variable_map["bkg yield"]->setError(sqrt(bkg)); 
-        
-
-        status = m.migrad();
-        this->printDebug("Minuit status after refit: " + std::to_string(status));
-        
-        ++iteration; 
-
-        if (iteration == 100) break;
-    }
-
-    this->printDebug("Minuit status: " + std::to_string(status));
-
-    // Save the results of the fit
-    RooFitResult* result = m.save(); 
-
-    // Delete the constructed negative log likelihood
-    delete nll; 
-
+    RooFitResult* result = _model->fitTo(*data, "q", RooFit::Range(range_name_.c_str()), RooFit::Extended(kTRUE), 
+                RooFit::SumCoefRange(range_name_.c_str()), RooFit::Save(kTRUE) , RooFit::PrintLevel(-1000)); 
+  
     //this->printDebug("Chi2: " + std::to_string(this->getFitChi2(data)));  
 
     // Return the saves result
@@ -571,6 +497,39 @@ void BumpHunter::getUpperLimit(RooDataHist* data, std::string range_name, HpsFit
         delete current_result; 
     }
 }
+
+std::vector<TH1*> BumpHunter::generateToys(double n_toys) { 
+
+    this->resetParameters(); 
+
+    // Fix the signal yield at 0.
+    variable_map["signal yield"]->setConstant(kTRUE);
+    bkg_only_result_ = this->fit(data_, range_name_);
+
+    // Set the total number of bins used to bin the mass spectrum 
+    //mass_->setBins();
+
+    std::vector<TH1*> hists;
+    std::vector<HpsFitResult*> toy_results;
+    for (int toy_n = 0; toy_n < n_toys; ++toy_n) { 
+            //std::cout << "Toy: " << toy_n << std::endl;
+            RooDataHist* hist = _model->generateBinned(RooArgSet(*mass_), 
+                                 integral_, RooFit::Extended(kTRUE), RooFit::Range(range_name_.c_str()));  
+            hists.push_back(hist->createHistogram(("toy_" + std::to_string(toy_n)).c_str(), *mass_)); 
+            //this->resetParameters(); 
+            //TH1* rhist = hist->createHistogram(("toy_" + std::to_string(toy_n)).c_str(), *mass_); 
+            //delete hist;
+            //RooDataHist* data = new RooDataHist("toy_data", "toy_data", RooArgList(*mass_), rhist);
+            //toy_results.push_back(this->fit(data, range_name_));
+            //delete data; 
+
+    }
+    variable_map["signal yield"]->setConstant(kFALSE);
+    
+    //return toy_results;
+    return hists;
+}
+
 
 void BumpHunter::getChi2Prob(double cond_nll, double mle_nll, double &q0, double &p_value) {
     

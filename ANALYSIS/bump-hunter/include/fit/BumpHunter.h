@@ -131,6 +131,10 @@ class BumpHunter {
         /** Reset the fit parameters to their initial values. */ 
         void resetParameters(HpsFitResult* result); 
 
+        /** */
+        //std::vector<HpsFitResult*> generateToys(double n_toys);
+        std::vector<TH1*> generateToys(double n_toys);
+
     private: 
 
         /**
@@ -141,6 +145,7 @@ class BumpHunter {
          * @return The mass resolution at the given mass.
          */
         inline double getMassResolution(double mass) { 
+            //return -6.2*mass*mass*mass + 0.91*mass*mass - 0.00297*mass + 0.000579; 
             //return 0.0389938364847*mass - 0.0000713783511061; // ideal
             //return 0.0501460737193*mass - 0.0000917925595224; // scaled to moller mass from data
             return 0.0532190838657*mass - 0.0000922283032152; // scaled to moller mass + sys
@@ -202,6 +207,8 @@ class BumpHunter {
         /** Mass variable. */
         RooRealVar* mass_{nullptr};
 
+        RooDataHist* data_{nullptr};
+
         /** Output file stream */
         std::ofstream* ofs;
 
@@ -224,6 +231,8 @@ class BumpHunter {
         /** The upper bound of the histogram. */
         //double _upper_bound{-9999};
         double _upper_bound{0.115};
+
+        double integral_{0}; 
 
         /** 
          * Resolution multiplicative factor used in determining the fit window 
