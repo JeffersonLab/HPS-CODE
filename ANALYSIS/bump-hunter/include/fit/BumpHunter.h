@@ -13,12 +13,13 @@
 //----------------//   
 //   C++ StdLib   //
 //----------------//  
-#include <cstdio> 
-#include <vector>
-#include <map>
-#include <fstream>
 #include <cmath>
+#include <cstdio> 
 #include <exception>
+#include <fstream>
+#include <map>
+#include <ctime>
+#include <vector>
 
 //----------//
 //   ROOT   //
@@ -28,8 +29,6 @@
 #include <TCanvas.h>
 #include <TFile.h>
 #include <Math/ProbFunc.h>
-#include <TRandom.h>
-#include <TRandom3.h>
 
 //------------//
 //   RooFit   //
@@ -45,6 +44,7 @@
 #include <RooPlot.h>
 #include <RooProfileLL.h>
 #include <RooProdPdf.h>
+#include <RooRandom.h>
 #include <RooRealVar.h>
 
 
@@ -133,7 +133,7 @@ class BumpHunter {
 
         /** */
         //std::vector<HpsFitResult*> generateToys(double n_toys);
-        std::vector<TH1*> generateToys(double n_toys);
+        std::vector<TH1*> generateToys(TH1* histogram, double n_toys);
 
     private: 
 
@@ -260,6 +260,12 @@ class BumpHunter {
 
         /** Write the results to a file. */
         bool _write_results{false};
+
+        double window_start_{0}; 
+
+        double window_end_{0};
+
+        double mass_hypothesis_{0};  
 };
 
 #endif // __BUMP_HUNTER_H__

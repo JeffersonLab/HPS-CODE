@@ -33,6 +33,7 @@ int main(int argc, char **argv) {
 
     // PDF used to model the background.
     BumpHunter::BkgModel model{BumpHunter::BkgModel::EXP_POLY};
+    //BumpHunter::BkgModel model{BumpHunter::BkgModel::POLY};
     //BumpHunter::BkgModel model{BumpHunter::BkgModel::EXP_POLY_X_POLY};
 
     // Name of file containing the histogram that will be fit. 
@@ -214,11 +215,11 @@ int main(int argc, char **argv) {
     tuple->addVariable("upper_limit_fit_status"); 
     tuple->addVector("nlls"); 
     tuple->addVector("sig_yields"); 
-    /*tuple->addVector("toy_bkg_yield"); 
+    tuple->addVector("toy_bkg_yield"); 
     tuple->addVector("toy_bkg_yield_err"); 
     tuple->addVector("toy_sig_yield"); 
     tuple->addVector("toy_sig_yield_err");
-    tuple->addVector("toy_upper_limit"); */
+    tuple->addVector("toy_upper_limit"); 
 
     // Search for a resonance at the given mass hypothesis
     HpsFitResult* result = bump_hunter->performSearch(histogram, mass_hypothesis); 
@@ -262,7 +263,25 @@ int main(int argc, char **argv) {
     for (auto& yield : result->getSignalYields()) { 
         tuple->addToVector("sig_yields", yield); 
     } 
-    /*
+
+    std::vector<HpsFitResult*> toy_results; 
+    if (toys > 0) {
+
+        std::cout << "Generating " << toys << std::endl;
+        std::vector<TH1*> toys_hist = bump_hunter->generateToys(histogram, toys);
+
+        //output_file = "fit_result_mass" + to_string(mass_hypothesis) + "_order" +  
+        //    to_string(poly_order) + 
+        //    "_win_factor" + to_string(win_factor) + "_toys.root"; 
+        //TFile* tfile = new TFile(output_file.c_str(), "recreate"); 
+        for (TH1* hist : toys_hist) { 
+            toy_results.push_back(bump_hunter->performSearch(hist, mass_hypothesis)); 
+        //    hist->Write();  
+        }
+        //tfile->Close(); 
+    }
+
+
     for (auto& toy_result : toy_results) { 
         
         // Retrieve all of the result of interest. 
@@ -270,9 +289,9 @@ int main(int argc, char **argv) {
         tuple->addToVector("toy_bkg_yield_err", static_cast<RooRealVar*>(toy_result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getError());
         tuple->addToVector("toy_sig_yield",     static_cast<RooRealVar*>(toy_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getVal());
         tuple->addToVector("toy_sig_yield_err", static_cast<RooRealVar*>(toy_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getError());
-        tuple->setVariableValue("toy_upper_limit", toy_result->getUpperLimit());
+        tuple->addToVector("toy_upper_limit", toy_result->getUpperLimit());
          
-    }*/
+    }
 
     // Fill the ntuple
     tuple->fill();
@@ -283,20 +302,6 @@ int main(int argc, char **argv) {
     delete file;
 
     
-    if (toys > 0) {
-
-        std::cout << "Generating " << toys << std::endl;
-        std::vector<TH1*> toys_hist = bump_hunter->generateToys(toys);
-
-        output_file = "fit_result_mass" + to_string(mass_hypothesis) + "_order" +  
-            to_string(poly_order) + 
-            "_win_factor" + to_string(win_factor) + "_toys.root"; 
-        TFile* tfile = new TFile(output_file.c_str(), "recreate"); 
-        for (TH1* hist : toys_hist) { 
-            hist->Write();  
-        }
-        tfile->Close(); 
-    }
 
     delete bump_hunter; 
 }

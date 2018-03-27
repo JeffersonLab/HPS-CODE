@@ -26,11 +26,15 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
     data->plotOn(plot, 
                  RooFit::MarkerSize(.4),
                  RooFit::MarkerColor(kAzure+2),
-                 RooFit::LineColor(kAzure+2));
+                 RooFit::LineColor(kAzure+2), 
+                 RooFit::Name("data")
+                 );
     model->plotOn(plot,
                   RooFit::Range(range.c_str()), 
                   RooFit::NormRange(range.c_str()), 
-                  RooFit::LineColor(kRed + 2)); 
+                  RooFit::LineColor(kRed + 2), 
+                  RooFit::Name("model")
+                  ); 
     model->plotOn(plot, 
                   RooFit::Range(range.c_str()), 
                   RooFit::NormRange(range.c_str()),  
@@ -43,7 +47,19 @@ void FitPrinter::print(RooRealVar* var, RooDataHist* data, RooAddPdf* model,
                   RooFit::Components("signal"), 
                   RooFit::LineColor(kOrange+10));
     plot->GetYaxis()->SetTitleOffset(1.6);
-    plot->SetTitle(range.c_str()); 
+    plot->SetTitle(range.c_str());
+
+    RooHist* hist = (RooHist*) plot->findObject("data"); 
+    RooCurve* curve = (RooCurve*) plot->findObject("model"); 
+    double sum = 0; 
+    for (int i = 0; i < hist->GetN(); ++i) { 
+        double x, y; 
+        hist->GetPoint(i, x, y); 
+        double y_func = curve->interpolate(x); 
+        sum += (y - y_func)*(y-y_func)/y_func;
+    }
+    std::cout << "Chi2: " << sum << std::endl;
+    std::cout << "Chi2/dof: " << sum/hist->GetN() << std::endl;
 
     RooPlot* tmp_plot = var->frame(); 
     data->plotOn(tmp_plot);//, RooFit::Binning(int(n_bins/4)));
