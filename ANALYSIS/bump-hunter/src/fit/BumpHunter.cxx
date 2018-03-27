@@ -313,8 +313,8 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
 
     result->setNBins(mass_->getBinning().numBins()); 
 
-    //this->calculatePValue(result);
-    //this->getUpperLimit(data_, range_name_, result);
+    this->calculatePValue(result);
+    this->getUpperLimit(data_, range_name_, result);
 
     result->setCorrectedMass(this->correctMass(mass_hypothesis)); 
 
@@ -483,7 +483,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, std::string range_name, HpsFit
 
         this->printDebug("p-value after fit " + std::to_string(fit_counter) + ": " + std::to_string(p_value)); 
     
-        if ((p_value <= 0.0455 && p_value > 0.044)) { 
+        if ((p_value <= 0.02<F11><F11> && p_value > 0.044)) { 
             
             std::cout << "[ BumpHunter ]: Upper limit: " << signal_yield << std::endl;
             std::cout << "[ BumpHunter ]: p-value: " << p_value << std::endl;
