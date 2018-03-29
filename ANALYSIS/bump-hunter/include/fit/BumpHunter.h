@@ -244,7 +244,7 @@ class BumpHunter {
         double _window_size{0};
 
         /** The total number of bins */
-        int bins{2000};
+        int bins_{0};
 
         /** Polynomial order used to model the background. */
         int _poly_order;

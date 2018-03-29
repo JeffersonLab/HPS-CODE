@@ -213,9 +213,9 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
               << window_end_ << " MeV." << std::endl;
 
     // Set the total number of bins used to bin the mass spectrum 
-    bins = (window_end_ - window_start_)/bin_size;  
+    //bins = (window_end_ - window_start_)/bin_size;  
     //mass_->setBins(bins);
-    this->printDebug("Total number of bins: " + std::to_string(bins)); 
+    //this->printDebug("Total number of bins: " + std::to_string(bins)); 
 
     // Set the range that will be used in the fit
     range_name_ = "mass_" + std::to_string(mass_hypothesis) + "gev"; 
@@ -255,6 +255,7 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
 
     // Create a histogram object compatible with RooFit.
     data_ = new RooDataHist("data", "data", RooArgList(*mass_), histogram);
+    bins_ = data_->numEntries();
     
     // Perform a background only fit
     std::cout << "[ BumpHunter ]: Performing a background only fit." << std::endl;
@@ -323,7 +324,6 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
 
 HpsFitResult* BumpHunter::fit(RooDataHist* data, std::string range_name = "") { 
    
-    data->Print();  
     RooFitResult* result = _model->fitTo(*data, RooFit::Range(range_name.c_str()), RooFit::Extended(kTRUE), 
                 RooFit::SumCoefRange(range_name.c_str()), RooFit::Save(kTRUE), RooFit::PrintLevel(-1000)); 
   
@@ -523,7 +523,7 @@ std::vector<TH1*> BumpHunter::generateToys(TH1* histogram, double n_toys) {
     std::string range_name = "toy_mass_" + std::to_string(mass_hypothesis_) + "gev"; 
     toy_mass->setRange(range_name.c_str(), window_start_, window_end_); 
     toy_mass->setRange(window_start_, window_end_);
-    toy_mass->setBins(bins);  
+    toy_mass->setBins(bins_);  
 
     // Fix the signal yield at 0.
     variable_map["signal yield"]->setConstant(kTRUE);
