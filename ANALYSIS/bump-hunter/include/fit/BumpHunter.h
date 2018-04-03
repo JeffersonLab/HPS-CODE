@@ -174,7 +174,7 @@ class BumpHunter {
         /**
          *
          */
-        FitPrinter* printer{new FitPrinter}; 
+        FitPrinter* printer{new FitPrinter()}; 
 
         /** A mapping between a variable name and its corresponding RooRealVar. */
         std::map <std::string, RooRealVar*> variable_map;

@@ -98,6 +98,8 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
 
 BumpHunter::~BumpHunter() {
 
+    delete printer; 
+
     /*
     for (auto& element : variable_map) { 
        delete element.second; 
@@ -256,6 +258,7 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
     // Create a histogram object compatible with RooFit.
     data_ = new RooDataHist("data", "data", RooArgList(*mass_), histogram);
     bins_ = data_->numEntries();
+    this->printDebug("Total number of bins: " + std::to_string(bins_)); 
     
     // Perform a background only fit
     std::cout << "[ BumpHunter ]: Performing a background only fit." << std::endl;
@@ -266,7 +269,7 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
     if (!_batch) { 
         std::string output_path = "fit_result_" + std::string(histogram->GetName()) 
                                   + "_" + std::to_string(mass_hypothesis) + "gev_bkg_only.png";
-        printer->print(mass_, data_, _model, range_name_, output_path); 
+        //printer->print(mass_, data_, _model, range_name_, output_path); 
         /*if (_write_results) { 
      
             // Create the output file name string
@@ -295,7 +298,7 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
     if (!_batch) { 
         std::string output_path = "fit_result_" + std::string(histogram->GetName()) 
                       + "_" + std::to_string(mass_hypothesis) + "gev_full.png";
-        printer->print(mass_, data_, _model, range_name_, output_path); 
+        //printer->print(mass_, data_, _model, range_name_, output_path); 
     }
 
     // Persist the mass hypothesis used for this fit
@@ -314,8 +317,8 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
 
     result->setNBins(mass_->getBinning().numBins()); 
 
-    this->calculatePValue(result);
-    this->getUpperLimit(data_, range_name_, result);
+    //this->calculatePValue(result);
+    //this->getUpperLimit(data_, range_name_, result);
 
     result->setCorrectedMass(this->correctMass(mass_hypothesis)); 
 
