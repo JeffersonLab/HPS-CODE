@@ -219,6 +219,9 @@ int main(int argc, char **argv) {
     tuple->addVector("toy_bkg_yield_err"); 
     tuple->addVector("toy_sig_yield"); 
     tuple->addVector("toy_sig_yield_err");
+    tuple->addVector("toy_q0"); 
+    tuple->addVector("toy_minuit_status");
+    tuple->addVector("toy_nll"); 
     tuple->addVector("toy_upper_limit"); 
 
     // Search for a resonance at the given mass hypothesis
@@ -289,7 +292,10 @@ int main(int argc, char **argv) {
         tuple->addToVector("toy_bkg_yield_err", static_cast<RooRealVar*>(toy_result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getError());
         tuple->addToVector("toy_sig_yield",     static_cast<RooRealVar*>(toy_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getVal());
         tuple->addToVector("toy_sig_yield_err", static_cast<RooRealVar*>(toy_result->getRooFitResult()->floatParsFinal().find("signal yield"))->getError());
-        tuple->addToVector("toy_upper_limit", toy_result->getUpperLimit());
+        tuple->addToVector("toy_upper_limit",   toy_result->getUpperLimit());
+        tuple->addToVector("toy_minuit_status", toy_result->getRooFitResult()->status());
+        tuple->addToVector("toy_nll", toy_result->getRooFitResult()->minNll());
+        tuple->addToVector("toy_q0",  toy_result->getQ0()); 
          
     }
 
