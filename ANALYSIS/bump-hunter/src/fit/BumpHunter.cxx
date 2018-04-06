@@ -80,8 +80,8 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     //----------------------//
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
-    //variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1e13, 1e13);
-    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
+    variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1e13, 1e13);
+    //variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
     variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 30000000, -1e13, 1e13);
 
     _model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
@@ -127,16 +127,6 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
         _upper_bound = histogram->GetXaxis()->GetBinCenter(histogram->FindLastBinAbove());
         this->printDebug("Histogram upper bound: " + std::to_string(_upper_bound));
     }
-
-    // Calculate the bin size from the histogram
-    int total_bins = histogram->GetNbinsX();
-    double min_bin = histogram->GetXaxis()->GetXmin(); 
-    double max_bin = histogram->GetXaxis()->GetXmax();
-    double bin_size = (max_bin - min_bin)/total_bins; 
-    this->printDebug("Total bins: " + std::to_string(total_bins)); 
-    this->printDebug("Min bin: " + std::to_string(min_bin));  
-    this->printDebug("Max bin: " + std::to_string(max_bin));  
-    this->printDebug("Bin size: " + std::to_string(bin_size));  
 
     // Shift the mass hypothesis so it sits in the middle of a bin
     this->printDebug("Mass hypothesis: " + std::to_string(mass_hypothesis)); 
@@ -214,11 +204,6 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
     std::cout << "[ BumpHunter ]: Setting upper edge of window to " 
               << window_end_ << " MeV." << std::endl;
 
-    // Set the total number of bins used to bin the mass spectrum 
-    //bins = (window_end_ - window_start_)/bin_size;  
-    //mass_->setBins(bins);
-    //this->printDebug("Total number of bins: " + std::to_string(bins)); 
-
     // Set the range that will be used in the fit
     range_name_ = "mass_" + std::to_string(mass_hypothesis) + "gev"; 
     mass_->setRange(range_name_.c_str(), window_start_, window_end_); 
@@ -262,6 +247,7 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
     
     // Perform a background only fit
     std::cout << "[ BumpHunter ]: Performing a background only fit." << std::endl;
+    
     // Fix the signal yield at 0.
     variable_map["signal yield"]->setConstant(kTRUE);
     bkg_only_result_ = this->fit(data_, range_name_); 
@@ -289,7 +275,8 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
 
     // Now perform a full fit (signal+bkg).  Use the background fit parameters 
     // as a starting point, but use the default errors.
-    this->resetParameters(bkg_only_result_); 
+    //this->resetParameters(bkg_only_result_); 
+    this->resetParameters(); 
     variable_map["signal yield"]->setConstant(kFALSE);
 
     // Fit the distribution in the given range
@@ -438,21 +425,23 @@ void BumpHunter::getUpperLimit(RooDataHist* data, std::string range_name, HpsFit
     // If the signal yield (mu estimator) at the min NLL is < 0, use the NLL
     // obtained when mu = 0.
     double mle_nll = result->getRooFitResult()->minNll();
-    if (signal_yield < 0) {
 
+
+    if (signal_yield < 0) {
+    
         this->printDebug("Signal yield @ min NLL is < 0. Using NLL when signal yield = 0");
 
         // Get the NLL obtained assuming the background only hypothesis
         mle_nll = bkg_only_result_->getRooFitResult()->minNll();
         
-        signal_yield = 10;
-        
-        variable_map["signal yield"]->setConstant(kTRUE);
-        this->resetParameters(bkg_only_result_);
-        variable_map["signal yield"]->setConstant(kFALSE);
+        signal_yield = 0;
+        //variable_map["signal yield"]->setConstant(kTRUE);
+        //this->resetParameters(bkg_only_result_);
+        //variable_map["signal yield"]->setConstant(kFALSE);
     } else { 
-        this->resetParameters(result);
+        //this->resetParameters(result);
     }
+    this->resetParameters();
     this->printDebug("MLE NLL: " + std::to_string(mle_nll));     
     /*for (int order = 1; order <= _poly_order; ++order) {
         std::string name = "t" + std::to_string(order);
@@ -462,12 +451,13 @@ void BumpHunter::getUpperLimit(RooDataHist* data, std::string range_name, HpsFit
     double p_value = result->getPValue();
     this->printDebug("p-value from result: " + std::to_string(p_value));
     double q0 = 0;
-    signal_yield = floor(signal_yield) + 10; 
+    signal_yield = floor(signal_yield) + 1; 
     int fit_counter = 1;
     bool fell_below_threshold = false; 
 
     while(true) {
 
+        this->resetParameters();
         this->printDebug("Setting signal yield to: " + std::to_string(signal_yield));
         variable_map["signal yield"]->setConstant(kFALSE); 
         variable_map["signal yield"]->setVal(signal_yield);
@@ -486,7 +476,7 @@ void BumpHunter::getUpperLimit(RooDataHist* data, std::string range_name, HpsFit
 
         this->printDebug("p-value after fit " + std::to_string(fit_counter) + ": " + std::to_string(p_value)); 
     
-        if ((p_value <= 0.024 && p_value > 0.022)) { 
+        if ((p_value <= 0.0455 && p_value > 0.044)) { 
             
             std::cout << "[ BumpHunter ]: Upper limit: " << signal_yield << std::endl;
             std::cout << "[ BumpHunter ]: p-value: " << p_value << std::endl;
@@ -503,11 +493,11 @@ void BumpHunter::getUpperLimit(RooDataHist* data, std::string range_name, HpsFit
 
         ++fit_counter; 
 
-        if (p_value <= 0.022) {
+        if (p_value <= 0.044) {
             signal_yield -= 1;
         } else if (p_value <= 0.059) signal_yield += 1;
         else if (p_value <= 0.10) signal_yield += 20;
-        else if (p_value <= 0.2) signal_yield += 50; 
+        else if (p_value <= 0.2) signal_yield += 40; 
         else signal_yield += 100;  
         
         delete current_result; 
