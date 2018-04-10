@@ -226,7 +226,7 @@ int main(int argc, char **argv) {
     tuple->addVector("toy_upper_limit"); 
 
     // Search for a resonance at the given mass hypothesis
-    HpsFitResult* result = bump_hunter->performSearch(histogram, mass_hypothesis); 
+    HpsFitResult* result = bump_hunter->performSearch(histogram, mass_hypothesis, false); 
 
     // Retrieve all of the result of interest. 
     double bkg_yield     = static_cast<RooRealVar*>(result->getRooFitResult()->floatParsFinal().find("bkg yield"))->getVal();
@@ -273,16 +273,10 @@ int main(int argc, char **argv) {
 
         std::cout << "Generating " << toys << std::endl;
         std::vector<TH1*> toys_hist = bump_hunter->generateToys(histogram, toys);
-
-        //output_file = "fit_result_mass" + to_string(mass_hypothesis) + "_order" +  
-        //    to_string(poly_order) + 
-        //    "_win_factor" + to_string(win_factor) + "_toys.root"; 
-        //TFile* tfile = new TFile(output_file.c_str(), "recreate"); 
+        
         for (TH1* hist : toys_hist) { 
-            toy_results.push_back(bump_hunter->performSearch(hist, mass_hypothesis)); 
-        //    hist->Write();  
+            toy_results.push_back(bump_hunter->performSearch(hist, mass_hypothesis, true)); 
         }
-        //tfile->Close(); 
     }
 
 
