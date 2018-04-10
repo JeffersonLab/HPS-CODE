@@ -46,7 +46,11 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     std::string name;
     for (int order = 1; order <= _poly_order; ++order) {
         name = "t" + std::to_string(order);
-        variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -5, 5);
+        if (order == 5) { 
+            variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -0.01, 0.01);
+        } else { 
+            variable_map[name] = new RooRealVar(name.c_str(), name.c_str(), 0, -1, 1);
+        }
         arg_list.add(*variable_map[name]);
     } 
     
@@ -80,9 +84,11 @@ BumpHunter::BumpHunter(BkgModel model, int poly_order, int res_factor)
     //----------------------//
     std::cout << "[ BumpHunter ]: Creating composite model." << std::endl;
 
+    //variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1e13, 1e13);
     variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -1e13, 1e13);
     //variable_map["signal yield"] = new RooRealVar("signal yield", "signal yield", 0, -100000, 100000);
-    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 30000000, -1e13, 1e13);
+    //variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 30000000, -1e13, 1e13);
+    variable_map["bkg yield"] = new RooRealVar("bkg yield", "bkg yield", 30000000, 0, 1e8);
 
     _model = new RooAddPdf("comp model", "comp model", RooArgList(*signal, *bkg), 
                                RooArgList(*variable_map["signal yield"], *variable_map["bkg yield"]));
@@ -214,10 +220,13 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
     // background yield in the case where there is no signal present.
     integral_ = histogram->Integral(window_start_bin, window_end_bin);
     variable_map["bkg yield"]->setVal(integral_);
-    variable_map["bkg yield"]->setError(sqrt(integral_)); 
+    //variable_map["bkg yield"]->setError(round(sqrt(integral_))); 
     default_values["bkg yield"] = integral_;
-    default_errors["bkg yield"] = sqrt(integral_);  
+    //default_errors["bkg yield"] = sqrt(integral_);  
     this->printDebug("Window integral: " + std::to_string(integral_)); 
+
+    variable_map["signal yield"]->setError(sqrt(integral_));
+    default_errors["signal yield"] = sqrt(integral_); 
 
     // Calculate the size of the background window as 2.56*(mass_resolution)
     _bkg_window_size = std::trunc(mass_resolution*2.56*10000)/10000 + 0.00005;
@@ -230,28 +239,59 @@ void BumpHunter::initialize(TH1* histogram, double &mass_hypothesis) {
 
     _bkg_window_integral = histogram->Integral(bkg_window_start_bin, bkg_window_end_bin); 
     
-    variable_map["signal yield"]->setError(sqrt(_bkg_window_integral));
 }
 
-HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) { 
+HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis, bool skip_bkg_fit = false) { 
    
     this->resetParameters(); 
 
-    // Start by setting up the window which will be used to search a resonance.
+    // Calculate all of the fit parameters e.g. window size, mass hypothesis
     this->initialize(histogram, mass_hypothesis);
 
     // Create a histogram object compatible with RooFit.
     data_ = new RooDataHist("data", "data", RooArgList(*mass_), histogram);
+
+    // Get the number of bins in the resulting histogram.  This will be used
+    // when generating toys.
     bins_ = data_->numEntries();
     this->printDebug("Total number of bins: " + std::to_string(bins_)); 
+   
     
-    // Perform a background only fit
+    if (!skip_bkg_fit)  {
+    //if (false)  {
+    
+        // 
+    // Start by performing a background only fit.  The results from this fit 
+    // are used to get an intial estimate of the background parameters.  
+    //
+    std::cout << "*************************************************" << std::endl;
+    std::cout << "*************************************************" << std::endl;
     std::cout << "[ BumpHunter ]: Performing a background only fit." << std::endl;
+    std::cout << "*************************************************" << std::endl;
+    std::cout << "*************************************************" << std::endl;
     
     // Fix the signal yield at 0.
+    variable_map["signal yield"]->setVal(0);
     variable_map["signal yield"]->setConstant(kTRUE);
-    bkg_only_result_ = this->fit(data_, range_name_); 
 
+    // Fit the background
+    bkg_only_result_ = this->fit(data_, range_name_);
+
+    // Using the background fit result, set some reasonable starting parameters
+    // for the background.  These will be used when doing  the signal+bkg fit.
+    std::string name{""}; 
+    for (int order = 1; order <= _poly_order; ++order) {
+        name = "t" + std::to_string(order); 
+        double value = static_cast<RooRealVar*>(bkg_only_result_->getRooFitResult()->floatParsFinal().find(name.c_str()))->getVal(); 
+        int fac = 1; 
+        while(trunc(value*fac) == 0) { 
+            fac *= 10; 
+        }
+        value = trunc(value*fac)/fac;
+        std::cout << "[ BumpHunter ]: Setting " << name << " to " << value << std::endl; 
+        default_values[name] = value;
+    }
+    
     if (!_batch) { 
         std::string output_path = "fit_result_" + std::string(histogram->GetName()) 
                                   + "_" + std::to_string(mass_hypothesis) + "gev_bkg_only.png";
@@ -272,11 +312,15 @@ HpsFitResult* BumpHunter::performSearch(TH1* histogram, double mass_hypothesis) 
             ofs->close();
         }*/
     }
+    
+    }
 
     // Now perform a full fit (signal+bkg).  Use the background fit parameters 
     // as a starting point, but use the default errors.
     //this->resetParameters(bkg_only_result_); 
     this->resetParameters(); 
+
+    //this->resetParameters(); 
     variable_map["signal yield"]->setConstant(kFALSE);
 
     // Fit the distribution in the given range

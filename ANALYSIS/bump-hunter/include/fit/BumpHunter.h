@@ -76,7 +76,7 @@ class BumpHunter {
          *                  used to search for a resonance.
          * @param mass_hypothesis The mass of interest.
          */
-        HpsFitResult* performSearch(TH1* histogram, double mass_hypothesis); 
+        HpsFitResult* performSearch(TH1* histogram, double mass_hypothesis, bool skip_bkg_fit); 
 
         /** 
          * Given the mass of interest, setup the window parameters and 
@@ -226,7 +226,7 @@ class BumpHunter {
 
         /** The lower bound of the histogram. */
         //double _lower_bound{-9999};
-        double _lower_bound{0.014};
+        double _lower_bound{0.016};
 
         /** The upper bound of the histogram. */
         //double _upper_bound{-9999};
