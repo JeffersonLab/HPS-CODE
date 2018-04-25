@@ -27,7 +27,7 @@ ebeam=1.056
 clusterT = 43.0
 targetZ = 0.5
 
-loosevertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<20&&abs(eleClT-posClT)<5&&eleClY*posClY<0&&bscChisq<15&&bscChisq-uncChisq<15&&max(eleTrkChisq,posTrkChisq)<70&&eleP<{0}*0.9&&uncP<{0}*1.15&&uncP>{0}*0.7"
+loosevertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<10&&abs(eleClT-posClT)<2.5&&eleClY*posClY<0&&bscChisq<15&&bscChisq-uncChisq<15&&max(eleTrkChisq,posTrkChisq)<70&&eleP<{0}*0.9&&uncP<{0}*1.15&&uncP>{0}*0.8"
 
 vertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<10&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&bscChisq<10&&bscChisq-uncChisq<5&&max(eleTrkChisq,posTrkChisq)<30&&abs(eleP-posP)/(eleP+posP)<0.5&&posTrkD0+{2}*posPX/posP<1.5&&eleP<{0}*0.75&&uncP<{0}*1.15&&uncP>{0}*0.8&&eleHasL2&&posHasL2"
 
