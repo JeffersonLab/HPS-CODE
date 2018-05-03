@@ -11,12 +11,16 @@ def print_usage():
     print "Arguments: "
 
     print '\t-l: apply loose vertexing cuts'
+    print '\t-f: apply loose L1L1 vertexing cuts'
+    print '\t-g: apply loose L1L2 vertexing cuts'
+    print '\t-i: apply loose L2L2 vertexing cuts'
     print '\t-v: apply default vertexing cuts'
     print '\t-w: apply default L1L1 vertexing cuts'
     print '\t-x: apply default L1L2 vertexing cuts'
     print '\t-y: apply default L2L2 vertexing cuts'
     print '\t-a: apply L1L2 track extrapolation cuts'
     print '\t-b: apply L2L2 track extrapolation cuts'
+    print '\t-d: apply custom cuts'
     print '\t-e: use this beam energy (default 1.056)'
     print '\t-c: use this cluster-track deltaT (default 43.0)'
     print '\t-z: use this target Z (default 0.5)'
@@ -28,6 +32,12 @@ clusterT = 43.0
 targetZ = 0.5
 
 loosevertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<10&&abs(eleClT-posClT)<2.5&&eleClY*posClY<0&&bscChisq<15&&bscChisq-uncChisq<15&&max(eleTrkChisq,posTrkChisq)<70&&eleP<{0}*0.9&&uncP<{0}*1.15&&uncP>{0}*0.8"
+
+loosevertCutL1L1 = "eleHasL1&&posHasL1&&min(eleMinPositiveIso+0.5*(eleTrkZ0+{2}*elePY/eleP)*sign(elePY),posMinPositiveIso+0.5*(posTrkZ0+{2}*posPY/posP)*sign(posPY))>0&&isPair1&&max(eleMatchChisq,posMatchChisq)<10&&abs(eleClT-posClT)<2.5&&eleClY*posClY<0&&bscChisq<15&&bscChisq-uncChisq<15&&max(eleTrkChisq,posTrkChisq)<70&&eleP<{0}*0.75&&uncP<{0}*1.15&&uncP>{0}*0.8&&eleHasL2&&posHasL2"
+
+loosevertCutL1L2 = "isPair1&&max(eleMatchChisq,posMatchChisq)<10&&abs(eleClT-posClT)<2.5&&eleClY*posClY<0&&bscChisq<15&&bscChisq-uncChisq<15&&max(eleTrkChisq,posTrkChisq)<70&&eleP<{0}*0.75&&uncP<{0}*1.15&&uncP>{0}*0.8&&eleHasL2&&posHasL2&&((!eleHasL1&&posHasL1&&min(eleMinPositiveIsoL2+0.33*(eleTrkZ0+{2}*elePY/eleP)*sign(elePY),posMinPositiveIso+0.5*(posTrkZ0+{2}*posPY/posP)*sign(posPY))>0)||(eleHasL1&&!posHasL1&&min(eleMinPositiveIso+0.5*(eleTrkZ0+{2}*elePY/eleP)*sign(elePY),posMinPositiveIsoL2+0.33*(posTrkZ0+{2}*posPY/posP)*sign(posPY))>0))"
+
+loosevertCutL2L2 = "!eleHasL1&&!posHasL1&&min(eleMinPositiveIsoL2+0.33*(eleTrkZ0+{2}*elePY/eleP)*sign(elePY),posMinPositiveIsoL2+0.33*(posTrkZ0+{2}*posPY/posP)*sign(posPY))>0&&isPair1&&max(eleMatchChisq,posMatchChisq)<10&&abs(eleClT-posClT)<2.5&&eleClY*posClY<0&&bscChisq<15&&bscChisq-uncChisq<15&&max(eleTrkChisq,posTrkChisq)<70&&eleP<{0}*0.75&&uncP<{0}*1.15&&uncP>{0}*0.8&&eleHasL2&&posHasL2"
 
 vertCut = "isPair1&&max(eleMatchChisq,posMatchChisq)<10&&max(abs(eleClT-eleTrkT-{1}),abs(posClT-posTrkT-{1}))<4&&abs(eleClT-posClT)<2&&eleClY*posClY<0&&bscChisq<10&&bscChisq-uncChisq<5&&max(eleTrkChisq,posTrkChisq)<30&&abs(eleP-posP)/(eleP+posP)<0.5&&posTrkD0+{2}*posPX/posP<1.5&&eleP<{0}*0.75&&uncP<{0}*1.15&&uncP>{0}*0.8&&eleHasL2&&posHasL2"
 
@@ -43,12 +53,18 @@ vertCutL2L2 = "!eleHasL1&&!posHasL1&&min(eleMinPositiveIsoL2+0.33*(eleTrkZ0+{2}*
 
 customCut = "uncVZ>80"
 
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'lvwxyabde:c:z:h')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'lfgivwxyabde:c:z:h')
 
 # Parse the command line arguments
 for opt, arg in options:
         if opt=='-l':
-            cut=loosevertCut        
+            cut=loosevertCut
+        if opt=='-f':
+            cut=loosevertCutL1L1  
+        if opt=='-g':
+            cut=loosevertCutL1L2  
+        if opt=='-i':
+            cut=loosevertCutL2L2          
         if opt=='-v':
             cut=vertCut
         if opt=='-w':
