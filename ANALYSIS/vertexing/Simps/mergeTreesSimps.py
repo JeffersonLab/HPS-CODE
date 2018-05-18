@@ -9,6 +9,8 @@ sys.argv = tmpargv
 def print_usage():
     print "\nUsage: {0} <output ROOT file name> <input ROOT file names>".format(sys.argv[0])
     print "Arguments: "
+    print '\t-s: apply default simp cuts'
+    print '\t-b: apply default simp cuts for Ap rates'
     print '\t-t: apply default trident cuts'
     print '\t-p: apply pulser trident cuts'
     print '\t-o: apply Omar\'s trident cuts'
