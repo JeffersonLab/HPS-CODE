@@ -15,6 +15,7 @@ def print_usage():
     print '\t-z: total range in z covered <default 100 mm>'
     print '\t-T: plot Test plots'
     print '\t-N: number of bins from target to normalize to <default is 4>'
+    print '\t-s: tuple name <default is "cut">'
     print '\t-h: this help message'
     print
 
@@ -25,6 +26,7 @@ targZ = -5.
 nBins = 50
 zRange = 100
 nNorm = 4
+tupleName = "cut"
 
 #Function to plot efficiency tests of known masses
 def plotTest(iMass,inputFile,output,targZ,maxZ,canvas):
@@ -191,8 +193,42 @@ def Bilinear(x,y,x1,x2,y1,y2,Q11,Q12,Q21,Q22):
     t4 = (x-x1)*(y-y1)/denom*Q22
     return t1+t2+t3+t4
 
+def plotEff(inputFile,output,nBins,targZ,maxZ,canvas):
+    inputfile = open(inputFile,"r")
+    mass = getMassArray(inputFile)
+    z = getZArray(inputFile)
+    eff = getEfficiency(inputFile)
+    histos = []
+    for i in range(len(mass)):
+        histos.append(TH1F("histo{0}".format(mass[i]),"histo{0}".format(mass[i]),nBins,targZ,maxZ))
+    legend = TLegend(.68,.50,.92,.87)
+    legend.SetBorderSize(0)
+    legend.SetFillColor(0)
+    legend.SetFillStyle(0)
+    legend.SetTextFont(42)
+    legend.SetTextSize(0.035)
+    maximum = 0
+    for i in range(len(mass)):
+        for j in range(len(z)):
+            histos[i].SetBinContent(j+1,eff[i][j])
+            if(eff[i][0] > maximum):
+                maximum = eff[i][0]
+        legend.AddEntry(histos[i],str(mass[i])+"MeV","LP")
+        if(i == 0):
+            histos[i].Draw()
+            histos[i].SetStats(0)
+            histos[i].GetXaxis().SetTitle("z [mm]")
+            histos[i].GetYaxis().SetTitle("efficiency")
+            histos[i].SetTitle("A' Efficiencies")
+        else:
+            histos[i].Draw("same")
+        histos[i].SetLineColor(i+1)
+    histos[0].GetYaxis().SetRangeUser(0,1.2*maximum)
+    legend.Draw()
+    canvas.Print(output+".png")
+
 datafile=""
-options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:n:z:Th')
+options, remainder = getopt.gnu_getopt(sys.argv[1:], 'e:t:n:z:TN:s:h')
 
 # Parse the command line arguments
 for opt, arg in options:
@@ -208,6 +244,8 @@ for opt, arg in options:
         makeTestPlots = True
     if opt=='-N':
         nNorm = int(arg)
+    if opt=='-s':
+        tupleName = string(arg)
     if opt=='-h':
         print_usage()
         sys.exit(0)
@@ -253,7 +291,7 @@ nMass = len(reconFiles)
 #Grab values of mass from the truth in the tuple files
 for i in range(nMass):
     inputReconFile = TFile(str(reconFiles[i]))
-    inputReconFile.Get("cut").Draw("triM>>histoMass({0},{1},{2})".format(1000,0,1))
+    inputReconFile.Get(tupleName).Draw("triM>>histoMass({0},{1},{2})".format(1000,0,1))
     histoMass = ROOT.gROOT.FindObject("histoMass")
     mass.append(histoMass.GetMean())
     del histoMass
@@ -284,11 +322,11 @@ for i in range(nMass):
     inputReconFile = TFile(str(reconFiles[i])) #tuple files after cuts
     inputTruthFile = TFile(str(truthFiles[i])) #truth files
     inputL1L1ReconFile = TFile(str(L1L1Files[i])) #L1L1 tuple files after cuts
-    inputReconFile.Get("cut").Draw("triEndZ>>histoRecon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
+    inputReconFile.Get(tupleName).Draw("triEndZ>>histoRecon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoRecon = ROOT.gROOT.FindObject("histoRecon")
     inputTruthFile.Get("ntuple").Draw("triEndZ>>histoTruth({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoTruth = ROOT.gROOT.FindObject("histoTruth")
-    inputL1L1ReconFile.Get("cut").Draw("triEndZ>>histoL1L1Recon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
+    inputL1L1ReconFile.Get(tupleName).Draw("triEndZ>>histoL1L1Recon({0},{1},{2})".format(nBins,targZ,maxZ),"triP>0.8*{0}".format(eBeam))
     histoL1L1Recon = ROOT.gROOT.FindObject("histoL1L1Recon")
     #Find the normalization based on a certain number of bins
     norm = 0.0
@@ -338,3 +376,12 @@ if(makeTestPlots):
         plotTest(i,outfileNorm+".eff",outfileNorm,targZ,maxZ,c2)
 
     c2.Print(outfile+"_norm.pdf]")
+
+    del c2
+
+c3 = TCanvas("c","c",1200,900)
+plotEff(outfile+".eff",outfile,nBins,targZ,maxZ,c3)
+plotEff(outfile+"_norm.eff",outfile+"_norm",nBins,targZ,maxZ,c3)
+
+
+
