@@ -15,10 +15,10 @@ def frange(x, y, jump):
 		x += jump
 
 def print_usage():
-    print "\nUsage: {0} <output basename> <input ROOT 2D histo file> <efficiency text file>".format(sys.argv[0])
-    print "Arguments: "
-    print '\t-h: this help message'
-    print "\n"
+    print("\nUsage: {0} <output basename> <input ROOT 2D histo file> <efficiency text file>".format(sys.argv[0]))
+    print("Arguments: ")
+    print('\t-h: this help message')
+    print("\n")
 
 
 cutfile=""
@@ -30,7 +30,7 @@ massVar = "uncM"
 
 n_massbins=50
 minmass=0.02
-maxmass=0.06
+maxmass=0.075
 n_epsbins=50
 mineps=-10.0
 maxeps=-7.5
@@ -123,11 +123,15 @@ fp2 = TF1("fp2","16.4247-43.7106*x-9425.11*pow(x,2.0)+196389.0*pow(x,3.0)-1.1420
 
 
 targetz = -5.0
+#targetz = 0.5
 maxz = 90 #max Z out to where we have acceptance (fitted acceptance curve may blow up past this)
 zcut_count = 0.5
 
-masscut_nsigma = 2.80
-masscut_eff = 0.838
+#masscut_nsigma = 2.80
+#masscut_eff = 0.838
+#numbers below are for ICHEP analysis of 2015 data
+masscut_nsigma = 2*1.90
+masscut_eff = 0.9426
 
 radfrac = 0.095
 
@@ -200,6 +204,7 @@ fc = TFeldmanCousins()
 fc.SetCL(CL)
 
 for i in range(0,n_massbins):
+    print("******   mass bin #"+str(i))
     mass = minmass+i*(maxmass-minmass)/(n_massbins-1)
     massArr.append(mass)
     #mres_p0 = acceptanceFile.Get("mres_l1_p0").GetFunction("pol1").Eval(mass)
@@ -224,7 +229,7 @@ for i in range(0,n_massbins):
     #radfrac = radfracFile.Get("radfrac").GetFunction("pol3").Eval(mass)
     num_rad = radfrac*num_pairs
     ap_yield= 3*math.pi/(2*(1/137.0))*num_rad*(mass/deltaM)
-    print "{0} pairs, {1} radfrac, {2} rad, {3} A'".format(num_pairs,radfrac,num_rad,ap_yield)
+    print("{0} pairs, {1} radfrac, {2} rad, {3} A'".format(num_pairs,radfrac,num_rad,ap_yield))
 
 
     #breakz = tailsFile.Get("breakz").GetFunction("pol3").Eval(mass)
@@ -257,7 +262,7 @@ for i in range(0,n_massbins):
     #zcut_frac = zcut_count/(dataInRange.sumEntries()*scale_factor)
     #zcut = func.GetX(1-zcut_frac,0,50)
     zcut = fz1.Eval(mass)
-    print "zcut {}".format(zcut)
+    print("zcut {}".format(zcut))
     dataPastCut = dataInRange.reduce(w.set("obs_1d"),"uncVZ>{0}".format(zcut))
     zresArr.append(sigma)
     zcutArr.append(zcut)
@@ -276,7 +281,7 @@ for i in range(0,n_massbins):
     c.Clear()
     gPad.SetLogy(0)
     candRescaledHist.Reset()
-    for k in xrange(0,dataPastCut.numEntries()):
+    for k in range(0,dataPastCut.numEntries()):
         thisX = dataPastCut.get(k).getRealValue("uncVZ")
         #print math.exp((zcut-thisX)/length)
         candRescaledHist.Fill((1-math.exp((zcut-thisX)/length)))
@@ -290,13 +295,13 @@ for i in range(0,n_massbins):
     #zcut2_frac = 20.0/(dataInRange.sumEntries()/scale_factor)
     #zcut2 = func.GetX(1-zcut2_frac,0,50)
     tailcut = targetz-2.0*sigma
-    print "tailcut "+str(tailcut)
+    print("tailcut "+str(tailcut))
     dataPastCut2 = dataInRange.reduce(w.set("obs_1d"),"uncVZ>{0}".format(tailcut)).binnedClone()
 
     n_candidates = dataPastCut.numEntries()
     if (no_candidates):
         n_candidates = 0
-    print n_candidates
+    print("n_candidates = "+str(n_candidates))
     for k in range(0,n_candidates):
         candHist.Fill(mass)
     candArr.append(n_candidates)
@@ -324,7 +329,7 @@ for i in range(0,n_massbins):
     #fitfunc.SetParameters(1.0,mean,sigma,breakz,length)
     fitfunc.SetParameters(fp0.Eval(mass),fp1.Eval(mass),fp2.Eval(mass))
     bkgHist.Reset()
-    for binnum in xrange(1,nbins_histpdf+1):
+    for binnum in range(1,nbins_histpdf+1):
         bkgHist.SetBinContent(binnum,fitfunc.Eval(bkgHist.GetXaxis().GetBinCenter(binnum)))
 #    bkgHist.Draw()
     bkgDataHist = RooDataHist("bkgDataHist_{0}".format(i),"bkgDataHist_{0}".format(i),RooArgList(w.set("obs_1d")),bkgHist)
@@ -352,6 +357,7 @@ for i in range(0,n_massbins):
     c.Print(remainder[0]+".pdf","Title:test2")
 
     for j in range(0,n_epsbins):
+        print("******   epsilon bin #"+str(j))
         c.Clear()
         eps = mineps+j*(maxeps-mineps)/(n_epsbins-1)
         #ct = 80e-3*1e-8/(10**eps)*(0.1/mass)
@@ -386,7 +392,7 @@ for i in range(0,n_massbins):
         #print "signal integral {0}".format(sig_integral) #this is production-weighted efficiency
 
         sigHist.Reset()
-        for binnum in xrange(1,nbins_histpdf+1):
+        for binnum in range(1,nbins_histpdf+1):
             #print exppol4.Eval(sigHist.GetXaxis().GetBinCenter(binnum))
             if sigHist.GetXaxis().GetBinCenter(binnum)>=targetz:
                 #sigHist.SetBinContent(binnum,exppol4.Eval(sigHist.GetXaxis().GetBinCenter(binnum)))
@@ -470,7 +476,7 @@ for i in range(0,n_massbins):
         else:
             dataArray=numpy.zeros(dataPastCut.numEntries()+2)
             dataArray[0] = 0.0
-            for k in xrange(0,dataPastCut.numEntries()):
+            for k in range(0,dataPastCut.numEntries()):
                 thisX = dataPastCut.get(k).getRealValue("uncVZ")
                 w.var("uncVZ").setVal(thisX)
                 #dataArray[i+1]=(signalCdf.getVal()-cdfAtZcut)
@@ -490,32 +496,35 @@ for i in range(0,n_massbins):
         gammactHist.Fill(mass,10**eps,gammact)
         limit_detectable = output[0] # this is a limit on number of detectable A' (past zcut, within mass cut)
         #limit_allz = limit_detectable/(cdfAtZcut*masscut_eff) # this is a limit on number of detectable A' if we didn't have zcut or mass cut
-        print cdfAtZcut
-        print sig_integral
+        print("cdfAtZcut = "+str(cdfAtZcut))
+        print("sig_integral = "+str(sig_integral))
         limit_allz = limit_detectable/((cdfAtZcut/sig_integral)*masscut_eff) # this is a limit on number of detectable A' if we didn't have zcut or mass cut
         limit_production = limit_allz/sig_integral # limit on number of produced A'
         limit_eps = limit_production/ap_yield
         limit_scaled = limit_eps/10**eps
-        print "{0} {1} {2} {3} {4}".format(limit_detectable,limit_allz,limit_production,limit_eps,limit_scaled)
+        print("{0} {1} {2} {3} {4}".format(limit_detectable,limit_allz,limit_production,limit_eps,limit_scaled))
         limitHist.Fill(mass,10**eps,limit_scaled)
         #fcLowerHist.Fill(mass,10**eps,fcLower/cdfAtZcut/masscut_eff/sig_integral/ap_yield/10**eps)
         #fcUpperHist.Fill(mass,10**eps,fcUpper/cdfAtZcut/masscut_eff/sig_integral/ap_yield/10**eps)
         fcLowerHist.Fill(mass,10**eps,fcLower/cdfAtZcut/masscut_eff/ap_yield/10**eps)
         fcUpperHist.Fill(mass,10**eps,fcUpper/cdfAtZcut/masscut_eff/ap_yield/10**eps)
 
+
+print("======  Done with scan =======")
 poiMassArr = array.array('d')
 poiPvalArr = array.array('d')
 poiSigArr = array.array('d')
 poiBkgArr = array.array('d')
 
 c.SetLogy(0)
-for i in xrange(0,len(massArr)):
+print("going through mass array")
+for i in range(0,len(massArr)):
     mass = massArr[i]
     sigMassArr = array.array('d')
     sigCandArr = array.array('d')
     hasLowSide = False
     hasHighSide = False
-    for j in xrange(0,len(massArr)):
+    for j in range(0,len(massArr)):
         if abs(mass-massArr[j])>massWindowArr[i]+massWindowArr[j]:
             #print "{0} {1} {2} {3}".format(mass,massArr[j],massWindowArr[i],massWindowArr[j])
             if j<i:
@@ -544,7 +553,7 @@ for i in xrange(0,len(massArr)):
         poiMassArr.append(mass)
         poiPvalArr.append(pval)
         poiSigArr.append(zscore)
-
+print("done with mass array filling....drawing a bunch of plots")
 c.Clear()
 
 c.Print(remainder[0]+".pdf]")
@@ -708,9 +717,10 @@ c.Print(remainder[0]+"_output.pdf","Title:tada")
 #c.Print(remainder[0]+"_output.pdf","Title:tada")
 #outfile.cd()
 
-
+print ("printing last plot and closing")
 c.Print(remainder[0]+"_output.pdf]")
 outfile.Write()
 outfile.Close()
+c.Print("exiting")
 sys.exit(0)
 
