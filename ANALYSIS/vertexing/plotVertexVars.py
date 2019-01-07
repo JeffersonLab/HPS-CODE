@@ -233,8 +233,8 @@ if(not quickPlots):
 	plots.append("(atan(eleClY/(eleClX-42.5))-atan(posClY/(posClX-42.5)))*180/3.14+180 0 300")
 	plots.append("uncTargProjX-{0} -2 2".format(beamX))
 	plots.append("uncTargProjY-{0} -2 2".format(beamY))
-	plots.append("(uncTargProjX-{0})/uncTargProjXerr -5 5".format(beamX))
-	plots.append("(uncTargProjY-{0})/uncTargProjYerr -5 5".format(beamY))
+	plots.append("(uncTargProjX-{0})/uncTargProjXErr -5 5".format(beamX))
+	plots.append("(uncTargProjY-{0})/uncTargProjYErr -5 5".format(beamY))
 	plots.append("(uncVX-{0})/sqrt(uncCovXX) -5 5".format(beamX))
 	plots.append("(uncVY-{0})/sqrt(uncCovYY) -5 5".format(beamY))
 	plots.append("(uncVZ-{0})/sqrt(uncCovZZ) -5 5".format(targZ))
@@ -267,7 +267,7 @@ if(not quickPlots):
 	plots2D.append("eleFirstHitX eleFirstHitY -40 40 -20 20")
 	plots2D.append("posFirstHitX posFirstHitY -40 40 -20 20")
 	plots2D.append("uncTargProjX-{0} uncTargProjY-{1} -2 2 -2 2".format(beamX,beamY))
-	plots2D.append("(uncTargProjX-{0})/uncTargProjXerr (uncTargProjY-{1})/uncTargProjYerr -5 5 -5 5".format(beamX,beamY))
+	plots2D.append("(uncTargProjX-{0})/uncTargProjXErr (uncTargProjY-{1})/uncTargProjYErr -5 5 -5 5".format(beamX,beamY))
 	plots2D.append("(uncVX-{0})/sqrt(uncCovXX) (uncVY-{1})/sqrt(uncCovYY) -5 5 -5 5".format(beamX,beamY))
 
 
