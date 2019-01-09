@@ -82,6 +82,7 @@ def saveTuplePlot(events,inHisto,nBins,minX,maxX,outfile,canvas,XaxisTitle="",Ya
 	histo.Draw()
 	canvas.SetLogy(logY)
 	canvas.Print(outfile+".pdf")
+	histo.Write(plotTitle)
 	del histo
 
 
@@ -95,6 +96,7 @@ def saveTuplePlot2D(events,inHisto1,inHisto2,nBinsX,minX,maxX,nBinsY,minY,maxY,o
 	histo.Draw("COLZ")
 	canvas.SetLogy(logY)
 	canvas.Print(outfile+".pdf")
+	histo.Write(plotTitle)
 	del histo
 
 def saveFitPlot(events,inHisto,nBins,minX,maxX,outfile,canvas,XaxisTitle="",YaxisTitle="",plotTitle="",nentries=0,stats=1,logY=0):
@@ -108,6 +110,7 @@ def saveFitPlot(events,inHisto,nBins,minX,maxX,outfile,canvas,XaxisTitle="",Yaxi
 	histo.Draw()
 	canvas.SetLogy(logY)
 	canvas.Print(outfile+".pdf")
+	histo.Write(plotTitle)
 	del histo
 
 def openPDF(outfile,canvas):
