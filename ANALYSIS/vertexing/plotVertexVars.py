@@ -168,6 +168,8 @@ rootfile = TFile(outfile+".root","recreate")
 
 plots = []
 plots.append("uncVZ {0} {1}".format(minVZ,maxVZ))
+plots.append("uncVY -1 1")
+plots.append("uncVX -3 3")
 plots.append("uncM 0 {0}".format(0.1*energy))
 plots.append("uncPX -{0} {0}".format(0.05*energy))
 plots.append("uncPY -{0} {0}".format(0.05*energy))
@@ -205,6 +207,9 @@ plots.append("eleMatchChisq 0 15")
 plots.append("posMatchChisq 0 15")
 
 if(not quickPlots):
+	plots.append("bscVZ {0} {1}".format(minVZ,maxVZ))
+	plots.append("bscVY -1 1")
+	plots.append("bscVX -3 3")
 	plots.append("eleClE/eleP 0 3")
 	plots.append("posClE/posP 0 3")
 	plots.append("(eleTrkZ0+eleTrkLambda*{0})*sign(eleTrkLambda) -3 3".format(targZ))
@@ -287,6 +292,9 @@ fitGaus = []
 fitGaus.append("uncVZ {0} {1}".format(minVZ,maxVZ))
 fitGaus.append("uncVY -1 1")
 fitGaus.append("uncVX -3 3")
+fitGaus.append("bscVZ {0} {1}".format(minVZ,maxVZ))
+fitGaus.append("bscVY -1 1")
+fitGaus.append("bscVX -3 3")
 
 openPDF(outfile,c)
 
