@@ -1,0 +1,1 @@
+/nfs/slac/g/hps3/software/setup.sh
