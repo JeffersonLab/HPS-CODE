@@ -855,3 +855,21 @@ class myHistograms:
             effHist.SetBinContent(i,y)    
             
         return effHist
+#########   check if track has a hit in layer 1
+    @staticmethod
+    def hasL1Hit(trk):         
+        if trk == None : 
+            return False
+        for hit in trk.getTracks().At(0).getSvtHits() : 
+            if hit.getLayer() == 1 : 
+                return True
+        return False
+#########   check if track has a hit in layer X
+    @staticmethod
+    def hasLXHit(trk,layer): 
+        if trk == None : 
+            return False
+        for hit in trk.getTracks().At(0).getSvtHits() : 
+            if hit.getLayer() == layer : 
+                return True
+        return False

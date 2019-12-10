@@ -231,6 +231,7 @@ class myHistograms:
         self.h_E1vsE2_cop180.Fill(clEle.getEnergy(),clPos.getEnergy())
         eleMomFromPosition=self.momFromECalPosition(cl_x_ele,cl_z_ele,self.beamAngle,self.BEff)
         posMomFromPosition=self.momFromECalPosition(cl_x_pos,cl_z_pos,self.beamAngle,self.BEff)
+
         if trEle is not None and trPos is not None :
             if trEle.getPDG() == trPos.getPDG() : 
                 print "Same sign! PDG ID = "+str( trEle.getPDG())+"...Bailing..."
@@ -515,3 +516,22 @@ class myHistograms:
         cl_impact_angle = math.atan2(Y, X - phot_nom_x)*radian
         if cl_impact_angle < 0. :
             cl_impact_angle = cl_impact_angle + 360. 
+
+#########   check if track has a hit in layer 1
+    @staticmethod
+    def hasL1Hit(trk): 
+        if trk == None : 
+            return False
+        for hit in trk.getSvtHits() : 
+            if hit.getLayer() == 1 : 
+                return True
+        return False
+#########   check if track has a hit in layer X
+    @staticmethod
+    def hasLXHit(trk,layer): 
+        if trk == None : 
+            return False
+        for hit in trk.getSvtHits() : 
+            if hit.getLayer() == layer : 
+                return True
+        return False

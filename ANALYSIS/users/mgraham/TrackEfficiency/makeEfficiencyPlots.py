@@ -3,7 +3,8 @@ import ROOT
 
 ene=2.3
 
-runs=[7809,7807,7808]
+#runs=[7809,7807,7808]
+runs=[8099]
 effEle=[]
 effPos=[]
 for run in runs : 

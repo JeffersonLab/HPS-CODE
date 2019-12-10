@@ -2,7 +2,7 @@
 import ROOT  
 import os
 effRebin=1
-ROOT.gROOT.SetBatch(True)
+#ROOT.gROOT.SetBatch(True)
 #ene=2.3
 #det='HPS-PhysicsRun2016-Nominal-v5-0'
 #runs=['hps_007809','hps_007807','hps_007808','tritrig_'+det,'wab_'+det]
@@ -11,17 +11,31 @@ ROOT.gROOT.SetBatch(True)
 #col=[1,2,4,5,6]
 #postfix='_hpsrun2016_pass0_useGBL_ECalMatch.root'
 
-ene=1.05
-det='HPS-EngRun2015-Nominal-v5-0'
+ene=2.3
+det='HPS-PhysicsRun2016-Pass2'
+#runs=['hps_008099','tritrig-WB_'+det,'wabtrig-BT_'+det]
+runs=['hps_008099','tritrig-WB_'+det]
+legs=['200nA','tritrig','WABtrig']
+col=[1,2,4,5,6]
+#postfix='_hpsrun2016_pass4_useGBL_ECalMatch.root'
+#postfix='_pass4_useGBL_ECalMatch.root'
+#postfixMC='_pass4_useGBL_ECalMatch.root'
+postfix='_pass4_useGBL_ECalMatch_L6Ele'
+postfixMC='_pass4_useGBL_ECalMatch_L6Ele'
+
+#postfix='_pass4_useGBL_ECalMatch_L6Ele'
+#postfixMC='-cluster-killing_pass4_useGBL_ECalMatch_cluster_killing_weighted_ratios_L6_0pt1mm_L6Ele'
+
+#ene=1.05
+#det='HPS-EngRun2015-Nominal-v5-0'
 #runs=['hps_007809','hps_007807','hps_007808','tritrig_'+det,'wab_'+det]
-runs=['hps_005772','wab_'+det,'tritrig-NOSUMCUT_'+det,'wab-beam-tri-zipFix_'+det]
-legs=['run5772','wab','tritrig-NOSUMCUT','wab-beam-tri']
+#runs=['hps_005772','wab_'+det,'tritrig-NOSUMCUT_'+det,'wab-beam-tri-zipFix_'+det]
+#legs=['run5772','wab','tritrig-NOSUMCUT','wab-beam-tri']
 #runs=['hps_005772','tritrig_'+det,'wab_'+det]
 #legs=['run5772','tritrig','wab']
-col=[1,4,2,5]
-postfix='_engrun2015_pass6_TopBot_LeftRight'
-postfixMC='_TrackKiller_Momentum'
-#postfixMC=''
+#col=[1,4,2,5]
+#postfix='_engrun2015_pass6_TopBot_LeftRight'
+#postfixMC='_TrackKiller_Momentum'
 
 doesum=False
 ########       what to plot    ######################
@@ -30,8 +44,9 @@ xTitles=["Cluster Energy (GeV)","Cluster X Position (mm)","Cluster Y Position (m
 histNames=["h_Ecl_","h_EclX_","h_EclY_"]
 
 #cuts="cop180_Holly_"
-cuts="cop180_midESum_SuperFid"
-#cuts="cop180_"
+#cuts="cop180_midESum_SuperFid"
+#cuts="cop180_midESum_"
+cuts="cop180_"
 #cuts="cop180_SuperFid"
 posSide="pos_side_found_ele"
 eleSide="ele_side_found_pos"
@@ -64,16 +79,16 @@ for kk in range(0,len(histNames)) :
             print 'Loading 1.05GeV File' 
             if os.path.isfile("OutputHistograms/Data/"+run+postfix+".root"): 
                 histFile=ROOT.TFile("OutputHistograms/Data/"+run+postfix+".root")
-            elif  os.path.isfile("OutputHistograms/MC/"+run+postfix+postfixMC+".root"): 
-                histFile=ROOT.TFile("OutputHistograms/MC/"+run+postfix+postfixMC+".root")
+            elif  os.path.isfile("OutputHistograms/MC/"+run+postfixMC+".root"): 
+                histFile=ROOT.TFile("OutputHistograms/MC/"+run+postfixMC+".root")
             else: 
                 print "NO FILE FOUND!!!!!   "+"OutputHistograms/MC/"+run+postfix+postfixMC+".root"
         else : 
             print 'Loading 2.3GeV File' 
-            if os.path.isfile("OutputHistograms/Data/"+run+postfix): 
-                histFile=ROOT.TFile("OutputHistograms/Data/"+run+postfix)
-            elif  os.path.isfile("OutputHistograms/MC/"+run+postfix): 
-                histFile=ROOT.TFile("OutputHistograms/MC/"+run+postfix)
+            if os.path.isfile("OutputHistograms/Data/"+run+postfix+'.root'): 
+                histFile=ROOT.TFile("OutputHistograms/Data/"+run+postfix+'.root')
+            elif  os.path.isfile("OutputHistograms/MC/"+run+postfixMC+'.root'): 
+                histFile=ROOT.TFile("OutputHistograms/MC/"+run+postfixMC+'.root')
             else: 
                 print "NO FILE FOUND!!!!!   "+"OutputHistograms/MC/"+run+postfix
 #get some histograms

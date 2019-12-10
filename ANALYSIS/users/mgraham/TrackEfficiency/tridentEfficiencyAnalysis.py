@@ -35,6 +35,7 @@ if os.getenv('HPS_DST_PATH') is None:
 
 hps_dst_path = os.environ['HPS_DST_PATH']
 hps_dst_path += "/build/lib/libHpsEvent.so"
+#hps_dst_path += "/libHpsEvent.so"
 print "Loading HpsEvent Library from "+hps_dst_path
 # Load the library in ROOT
 import ROOT
@@ -265,9 +266,13 @@ def main():
         myhist.setSmearEnergy(smearEnergy,smearRes)
 
 
+    L1Ele = False  # require L1 hit for Ele
+    L1Pos = False # require L1 hit for Pos
+    L6Ele = True  # require L1 hit for Ele
+    L6Pos = False # require L1 hit for Pos
     trackKiller=False
     killInMomentum=False
-    killInClusterPosition=True
+    killInClusterPosition=False
 #    effFileName='/u/br/mgraham/hps-analysis/TrackEfficiency/cop180_EfficiencyResults.root'
 #    effDataName='h_Ecl_hps_005772_eleEff'
 #    effMCName='h_Ecl_tritrig-NOSUMCUT_HPS-EngRun2015-Nominal-v5-0_eleEff'
@@ -526,6 +531,17 @@ def main():
                         print str(clX)+ ' '+str(clY)+' '+str(bin)+' '+str(tkEff)
                         print "REJECTING THIS POSITRON TRACK!!! "+str(clX)
                         trPos=None
+
+#require layer 1
+            if L1Ele and not myhist.hasL1Hit(trEle):
+                trEle=None
+            if L1Pos and not myhist.hasL1Hit(trPos):
+                trPos=None
+#require layer 6
+            if L6Ele and not myhist.hasLXHit(trEle,6):
+                trEle=None
+            if L6Pos and not myhist.hasLXHit(trPos,6):
+                trPos=None
 
             myhist.fillBand("_copAll_",trEle,clEle,trPos,clPos)
             
