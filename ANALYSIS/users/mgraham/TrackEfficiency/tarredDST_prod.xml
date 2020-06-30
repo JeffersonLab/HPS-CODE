@@ -1,0 +1,27 @@
+<Request>
+        <Name name="tarredDST_${run}_${num}"/>
+        <Project name="hps"/>
+        <Track name="simulation"/>
+        <Email email="mgraham@slac.stanford.edu" request="false" job="true" />
+        <Variable name="ebeam" value="-e 2.3"/>
+        <Variable name="log_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham/HPS-CODE/ANALYSIS/users/mgraham/TrackEfficiency/logs"/>
+        <Variable name="out_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham/HPS-CODE/ANALYSIS/users/mgraham/TrackEfficiency/OutputHistograms/Data"/>
+	<Variable name="analysis" value="/w/hallb-scifs17exp/general/hps/mgraham/HPS-CODE/ANALYSIS/users/mgraham/TrackEfficiency/tridentEfficiencyAnalysis.py"/>
+	<Variable name="postfix" value="pass4_reqL1"/>
+	<Variable name="run" value="7963"/>
+        <Variable name="num" value="1"/>
+	<Command><![CDATA[
+	pwd
+	echo "${run}   ${num}"
+	echo "Auger ID: $AUGER_ID"
+	mkdir hps00${run}_${num}
+	tar -xf in_tar_${num}_hps_00${run}_dst.tar -C hps00${run}_${num}
+	python ${analysis} ${ebeam}  -o out_${run}_${num}.root hps00${run}_${num}/work/hallb/hps/data/physrun2016/pass4/dst/ 
+	]]></Command>
+	<Job>
+	  <Input src="mss:/mss/hallb/hps/physrun2016/pass4/dst/tar_${num}_hps_00${run}_dst.tar" dest="in_tar_${num}_hps_00${run}_dst.tar" />	  
+	  <Output src="out_${run}_${num}.root" dest="${out_dir}/hps_00${run}.${num}_${postfix}.root"/>
+	  <Stderr dest="${log_dir}/hps_00${run}.${num}_${postfix}.log"/>
+	  <Stdout dest="${log_dir}/hps_00${run}.${num}_${postfix}.err"/>
+	</Job>
+</Request>
