@@ -53,3 +53,5 @@ ANALYSIS/users/mgraham/SVTHitEfficiency/MCHitKilling/*
 ANALYSIS/users/mgraham/SVTHitEfficiency/**/*.txt
 ANALYSIS/users/mgraham/SVTHitEfficiency/*.jar
 ANALYSIS/users/mgraham/SVTHitEfficiency/OutputHistograms/*
+ANALYSIS/users/mgraham/TrackEfficiency/MCXMLDIR/*
+
