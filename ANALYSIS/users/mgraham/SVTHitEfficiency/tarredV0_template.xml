@@ -1,0 +1,31 @@
+<Request>
+        <Name name="tarredV0_${run}_${num}"/>
+        <Project name="hps"/>
+        <Track name="simulation"/>
+        <Email email="mgraham@slac.stanford.edu" request="false" job="true" />
+        <Variable name="ebeam" value="-e 2.3"/>
+        <Variable name="log_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham/SVTHitEfficiency/log"/>
+        <Variable name="out_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham//SVTHitEfficiency/OutputHistograms/Data"/>
+	<Variable name="analysis" value="/u/home/mgraham/HPS-CODE/ANALYSIS/users/mgraham/TridentWABs2016/wabAnalysisOmarsCuts.py"/>
+	<Variable name="radCut" value=""/>
+	<!--	<Variable name="radCut" value="-r True"/> -->
+	<Variable name="weigh" value=""/>
+	<!--	<Variable name="weigh" value="-w True"/> -->
+	<Variable name="postfix" value="REPLACEPOSTFIX"/>
+	<Variable name="run" value="REPLACERUNVALUE"/>
+        <Variable name="num" value="REPLACEFILENUM"/>
+	<Command><![CDATA[
+	pwd
+	echo "${run}   ${num}"
+	echo "Auger ID: $AUGER_ID"
+	mkdir hps00${run}_${num}
+	tar -xf in_tar_${num}_hps_00${run}_v0.tar -C hps00${run}_${num}
+        REPLACECOMMAND
+	]]></Command>
+	<Job>
+	  <Input src="mss:/mss/hallb/hps/physrun2016/pass4/skim/v0/tar_${num}_hps_00${run}_v0.tar" dest="in_tar_${num}_hps_00${run}_v0.tar" />	  
+	  <Output src="out_${run}_${num}.root" dest="${out_dir}/hps_00${run}.${num}_${postfix}.root"/>
+	  <Stderr dest="${log_dir}/hps_00${run}.${num}_${postfix}.log"/>
+	  <Stdout dest="${log_dir}/hps_00${run}.${num}_${postfix}.err"/>
+	</Job>
+</Request>

@@ -1,0 +1,24 @@
+<Request>
+        <Name name="MCDST_${mctype}"/>
+        <Memory space="2000" unit="MB"/>
+        <Project name="hps"/>
+        <Track name="simulation"/>
+        <Email email="mgraham@slac.stanford.edu" request="false" job="true" />
+        <Variable name="ebeam" value="-e 2.3"/>
+        <Variable name="log_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham/SVTHitEfficiency/dstlogs"/>
+        <Variable name="out_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham//SVTHitEfficiency/MCV0DSTs/"/>
+	<Variable name="postfix" value="REPLACEPOSTFIX"/>       
+	<Variable name="mctype" value="REPLACEMCTYPE"/>
+	<Command><![CDATA[
+	pwd
+	echo "${mctype}"
+	echo "Auger ID: $AUGER_ID"
+        REPLACECOMMAND
+	]]></Command>
+	<Job>
+          <Input src="REPLACEINPUT" dest="FOOBAR" /> 
+	  <Output src="out.root" dest="${out_dir}/${mctype}_${postfix}.root"/>
+	  <Stderr dest="${log_dir}/${mctype}_${postfix}.log"/>
+	  <Stdout dest="${log_dir}/${mctype}_${postfix}.err"/>
+	</Job>
+</Request>

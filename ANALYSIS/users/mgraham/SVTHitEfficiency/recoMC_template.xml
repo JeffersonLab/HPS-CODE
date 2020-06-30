@@ -1,0 +1,25 @@
+<Request>
+        <Name name="MCSVT_${mctype}"/>
+        <Memory space="2000" unit="MB"/>
+        <Project name="hps"/>
+<!--        <Track name="simulation"/> --> 
+        <Track name="debug"/> 
+        <Email email="mgraham@slac.stanford.edu" request="false" job="true" />
+        <Variable name="ebeam" value="-e 2.3"/>
+        <Variable name="log_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham/SVTHitEfficiency/log"/>
+        <Variable name="skim_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham/SVTHitEfficiency/MCHitKilling"/>
+	<Variable name="postfix" value="REPLACEPOSTFIX"/>       
+	<Variable name="mctype" value="REPLACEMCTYPE"/>
+	<Command><![CDATA[
+	pwd
+	echo "${mctype}"
+	echo "Auger ID: $AUGER_ID"
+        REPLACECOMMAND
+	]]></Command>
+	<Job>
+          <Input src="REPLACEINPUT" dest="FOOBAR" /> 
+	  <Output src="out.slcio" dest="${skim_dir}/${mctype}_${postfix}.slcio"/>
+	  <Stderr dest="${log_dir}/${mctype}_${postfix}.log"/>
+	  <Stdout dest="${log_dir}/${mctype}_${postfix}.err"/>
+	</Job>
+</Request>

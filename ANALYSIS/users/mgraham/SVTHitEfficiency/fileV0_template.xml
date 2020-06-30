@@ -1,0 +1,24 @@
+<Request>
+        <Name name="tarredV0_${run}"/>
+        <Memory space="6000" unit="MB"/>
+        <Project name="hps"/>
+        <Track name="simulation"/>
+        <Email email="mgraham@slac.stanford.edu" request="false" job="true" />
+        <Variable name="ebeam" value="-e 2.3"/>
+        <Variable name="log_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham/SVTHitEfficiency/log"/>
+        <Variable name="out_dir" value="file:/w/hallb-scifs17exp/general/hps/mgraham//SVTHitEfficiency/OutputHistograms/Data"/>
+	<Variable name="postfix" value="REPLACEPOSTFIX"/>
+	<Variable name="run" value="REPLACERUNVALUE"/>
+	<Command><![CDATA[
+	pwd
+	echo "${run}"
+	echo "Auger ID: $AUGER_ID"
+        REPLACECOMMAND
+	]]></Command>
+	<Job>
+          <Input src="REPLACEINPUT" dest="FOOBAR" /> 
+	  <Output src="out.root" dest="${out_dir}/hps_00${run}_${postfix}.root"/>
+	  <Stderr dest="${log_dir}/hps_00${run}_${postfix}.log"/>
+	  <Stdout dest="${log_dir}/hps_00${run}_${postfix}.err"/>
+	</Job>
+</Request>
