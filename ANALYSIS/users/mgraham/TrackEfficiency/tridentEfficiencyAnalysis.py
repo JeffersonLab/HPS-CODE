@@ -58,6 +58,11 @@ radian = ROOT.TMath.RadToDeg();
 #-----------------#
 
 
+def fixTH1EffBins(hist) :
+    nbins=hist.GetNbinsX()
+    for i in range(0,nbins):
+        print 'bin '+str(i)+':  '+str(hist.GetBinContent(i))
+
 
 def getEffTH1(hfile, hname) : 
     print 'Getting Efficiency Graph...converting to TH1'
@@ -266,13 +271,14 @@ def main():
         myhist.setSmearEnergy(smearEnergy,smearRes)
 
 
-    L1Ele = False  # require L1 hit for Ele
+    L1Ele = True  # require L1 hit for Ele
     L1Pos = False # require L1 hit for Pos
-    L6Ele = True  # require L1 hit for Ele
+    L6Ele = False  # require L1 hit for Ele
     L6Pos = False # require L1 hit for Pos
-    trackKiller=False
+    trackKiller=True
     killInMomentum=False
     killInClusterPosition=False
+    killInTrackSlope = True
 #    effFileName='/u/br/mgraham/hps-analysis/TrackEfficiency/cop180_EfficiencyResults.root'
 #    effDataName='h_Ecl_hps_005772_eleEff'
 #    effMCName='h_Ecl_tritrig-NOSUMCUT_HPS-EngRun2015-Nominal-v5-0_eleEff'
@@ -281,7 +287,7 @@ def main():
     effDataName='h_XvsY_hps_005772_eleEff'
     effMCName='h_XvsY_tritrig-NOSUMCUT_HPS-EngRun2015-Nominal-v5-0_eleEff'
     
-    if trackKiller  : 
+    if isMC and trackKiller and killInClusterPosition : 
         effFile=ROOT.TFile(effFileName)
         print 'Getting data efficiency from '+effFileName 
         #    effData=getEffTH1(effFile,effDataName)
@@ -292,6 +298,18 @@ def main():
         effMC.Print("v")
         effData.Divide(effMC)  # this will be the killing factor
         effData.Print("V")
+
+
+    if isMC and trackKiller and killInTrackSlope: 
+#        effSlopeFileName='/u/br/mgraham/hps-analysis/WABs/EmGamma-L1HitEfficiencyResults.root'
+        effSlopeFileName='/u/home/mgraham/HPS-CODE/ANALYSIS/users/mgraham/TridentWABs2016/EmGamma-L1HitEfficiencyResults-2016.root'
+        effRatioName='p2slopehps_007963.1GamEm_L1HitInefficiency'
+        effSlopeFile=ROOT.TFile(effSlopeFileName)
+        effSlopeFile.ls()
+        effSlopeData=getEffTH1(effSlopeFile,effRatioName)
+        effSlopeData.Print("v")
+        print 'L1 Hit Efficiency vs Slope:  MC' 
+        fixTH1EffBins(effSlopeData) 
 
 
      # Open the ROOT file
@@ -337,8 +355,7 @@ def main():
         clTimeMax = 65
     energyRatio=beamEnergy/1.05 #ratio of beam energies references to 1.05 GeV (2015 run)
         
-
-    
+    print("Total number of events in tree = "+str(tree.GetEntries()))
     seedCnt=0
     # Loop over all events in the file
     for entry in xrange(0, tree.GetEntries()) : 
@@ -433,6 +450,8 @@ def main():
         #########################        
         #   found some candidates...lets fill plots...
         #########################        
+        removeL1HitEle=False
+        removeL1HitPos=False
         for pair in pairList : 
             if pair[0].getPosition()[1] >0 :
                 clTop=pair[0]
@@ -532,10 +551,45 @@ def main():
                         print "REJECTING THIS POSITRON TRACK!!! "+str(clX)
                         trPos=None
 
+                if killInTrackSlope: 
+                    if trEle is not None and len(trEle.getTracks())>0: 
+#                        print("found an electron...kill it!!!")
+                        trk=trEle.getTracks()[0]
+                        nHits=len(trk.getSvtHits())
+                        slp=trk.getTanLambda()
+                        rndm=random.random()            
+                        ibin=effSlopeData.FindBin(slp)
+                        eff=1-effSlopeData.GetBinContent(ibin) #the slope "efficiency" is actually an inefficiency                        
+#                        print(str(rndm)+"    "+str(eff))
+                        if rndm>eff: 
+                            if nHits==5: 
+                                print('Removing this electron  due to L1 inefficiency')
+                                trEle=None
+                            else :                            
+                                print(' Removing this electron L1 hit due to inefficiency')
+                                removeL1HitEle=True
+                    if trPos is not None and  len(trPos.getTracks())>0: 
+#                        print("found an positron...kill it!!!")
+                        trk=trPos.getTracks()[0]
+                        nHits=len(trk.getSvtHits())
+                        slp=trk.getTanLambda()
+                        rndm=random.random()            
+                        ibin=effSlopeData.FindBin(slp)
+                        eff=1-effSlopeData.GetBinContent(ibin) #the slope "efficiency" is actually an inefficiency                        
+#                        print(str(rndm)+"    "+str(eff))
+                        if rndm>eff: 
+                            if nHits==5: 
+                                print('Removing this positron due to L1 inefficiency')
+                                trPos=None
+                            else :                            
+                                print('Removing this positron L1 hit due to inefficiency')
+                                removeL1HitPos=True
+
+
 #require layer 1
-            if L1Ele and not myhist.hasL1Hit(trEle):
+            if L1Ele and (not myhist.hasL1Hit(trEle) or removeL1HitEle):
                 trEle=None
-            if L1Pos and not myhist.hasL1Hit(trPos):
+            if L1Pos and (not myhist.hasL1Hit(trPos) or removeL1HitPos):
                 trPos=None
 #require layer 6
             if L6Ele and not myhist.hasLXHit(trEle,6):
@@ -612,9 +666,11 @@ def main():
             
 
 #    if(nPassTrkCuts>0): 
+    print "******************************************************************************************"
     myhist.saveHistograms(output_file)   
-
-#    print "******************************************************************************************"
+#    sys.exit(0)
+    print "***   Returning ****"
+    return
 #    print "Number of Events:\t\t",nEvents,"\t\t\t",float(nEvents)/nEvents,"\t\t\t",float(nEvents)/nEvents
 #    print "N(particle) Cuts:\t\t",nPassBasicCuts,"\t\t\t",float(nPassBasicCuts)/nEvents,"\t\t\t",float(nPassBasicCuts)/nEvents
 #    print "V0 Vertex   Cuts:\t\t",nPassV0Cuts,"\t\t\t",float(nPassV0Cuts)/nPassBasicCuts,"\t\t\t",float(nPassV0Cuts)/nEvents
@@ -633,6 +689,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print "***   Back in main ****"    
+    os._exit(-1)
+    print "os exit done"
+    sys.exit(0)    
+    print "system exit done"
 
 
 

@@ -2,7 +2,7 @@
 import ROOT  
 import os
 effRebin=1
-#ROOT.gROOT.SetBatch(True)
+ROOT.gROOT.SetBatch(True)
 #ene=2.3
 #det='HPS-PhysicsRun2016-Nominal-v5-0'
 #runs=['hps_007809','hps_007807','hps_007808','tritrig_'+det,'wab_'+det]
@@ -14,14 +14,17 @@ effRebin=1
 ene=2.3
 det='HPS-PhysicsRun2016-Pass2'
 #runs=['hps_008099','tritrig-WB_'+det,'wabtrig-BT_'+det]
-runs=['hps_008099','tritrig-WB_'+det]
+runs=['hps_007963.1','tritrig-beam_2500kBunches']
 legs=['200nA','tritrig','WABtrig']
 col=[1,2,4,5,6]
 #postfix='_hpsrun2016_pass4_useGBL_ECalMatch.root'
 #postfix='_pass4_useGBL_ECalMatch.root'
 #postfixMC='_pass4_useGBL_ECalMatch.root'
-postfix='_pass4_useGBL_ECalMatch_L6Ele'
-postfixMC='_pass4_useGBL_ECalMatch_L6Ele'
+#postfix='_pass4_nominal'
+postfix='_pass4_reqL1'
+#postfixMC='_pass4_nominal'
+#postfixMC='_svt_efficiency_allow_missed_sensor_5sigma_weighted_ratios_scalekilling_First3pt0_Second2pt0-pass4_v4_5_0_NoV0Skim'
+postfixMC='_pass4_killInSlope_reqL1'
 
 #postfix='_pass4_useGBL_ECalMatch_L6Ele'
 #postfixMC='-cluster-killing_pass4_useGBL_ECalMatch_cluster_killing_weighted_ratios_L6_0pt1mm_L6Ele'

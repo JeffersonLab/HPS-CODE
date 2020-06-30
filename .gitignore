@@ -4,6 +4,8 @@
 *.err
 *.out
 *.swp
+*.slcio
+*.log
 
 # Compiled Python files
 *.py[cod]
@@ -37,3 +39,17 @@
 *.exe
 *.out
 *.app
+
+# emacs and vim stubs
+*[#~]
+
+# specific directories
+
+ANALYSIS/users/mgraham/SVTHitEfficiency/*XML*/*
+ANALYSIS/users/mgraham/SVTHitEfficiency/SVTHitEfficiencyData/*
+ANALYSIS/users/mgraham/SVTHitEfficiency/MCV0Skims/*
+ANALYSIS/users/mgraham/SVTHitEfficiency/MCV0DSTs/*
+ANALYSIS/users/mgraham/SVTHitEfficiency/MCHitKilling/*
+ANALYSIS/users/mgraham/SVTHitEfficiency/**/*.txt
+ANALYSIS/users/mgraham/SVTHitEfficiency/*.jar
+ANALYSIS/users/mgraham/SVTHitEfficiency/OutputHistograms/*
