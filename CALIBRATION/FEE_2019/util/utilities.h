@@ -75,29 +75,28 @@ TF1 *CBFit(TH1 *h1,int isMC=0){
  
   TF1 *crystal;
   TF1 *gaus;
-  if (isMC) crystal=new TF1("crystal",CrystalBall,2.8,4.4,5);
-  else crystal=new TF1("crystal",CrystalBall,2.4,4.4,5);
+  if (isMC) crystal=new TF1("crystal",CrystalBall,3.2,4.4,5);
+  else crystal=new TF1("crystal",CrystalBall,3.5,6,5);
   
   Double_t max,peakEntry,rms;
   Double_t gmin,gmax;
   int res;
   if (isMC){
-    gmin=3.2; 
-    gmax=4.0;
+    gmin=3.9;
+    gmax=4.4;
   }
   else{
-    gmin=h1->GetBinCenter(h1->GetMaximumBin())-0.2;
-    gmax=h1->GetBinCenter(h1->GetMaximumBin())+1;
+    gmin=4;
+    gmax=6;
   }
   if (h1->Integral(h1->FindBin(gmin),h1->FindBin(gmax))>20){
     gaus=new TF1("gausF","gaus",gmin,gmax);
-    gaus->SetParameter(1,h1->GetBinCenter(h1->GetMaximumBin()));
-    gaus->SetParameter(0,h1->GetBinContent(h1->GetMaximumBin()));
     res=h1->Fit(gaus,"RQ","",gmin,gmax);
     if (res==0){
       max=gaus->GetParameter(1);
       peakEntry=gaus->GetParameter(0);
       rms=gaus->GetParameter(2);
+
     }else{
       max=h1->GetBinCenter(h1->GetMaximumBin());
       rms=h1->GetRMS();

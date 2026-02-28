@@ -16,7 +16,7 @@ Outputs:
 #define NCRY 442
 
 #include "util/utilities.h"
-const double EBEAM = 3.742;
+const double EBEAM = 4.556;
 
 //Gets the max bin in each crystal histogram and plots. 
 void fitMCPeaks(){
@@ -72,7 +72,7 @@ void fitMCPeaks(){
 		//do again with proper good range
 		MPV[jx][jy] = lfit[jx][jy]->GetParameter(2);
 		sigma[jx][jy] =  lfit[jx][jy]->GetParameter(3);
-		lfit[jx][jy]->SetRange(	MPV[jx][jy]-2*sigma[jx][jy],MPV[jx][jy]+4*sigma[jx][jy]);
+		lfit[jx][jy]->SetRange(	MPV[jx][jy]-sigma[jx][jy],MPV[jx][jy]+4*sigma[jx][jy]);
 
 		crystal[jx][jy]->Fit(lfit[jx][jy],"0QR");
 		MPV[jx][jy] = lfit[jx][jy]->GetParameter(2)/EBEAM;
