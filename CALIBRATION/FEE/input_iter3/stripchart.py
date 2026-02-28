@@ -1,0 +1,203 @@
+from ROOT import *
+import glob
+from subprocess import Popen
+
+files=[]
+runs=[]
+
+def isHole(x,y):
+    ret=False;
+    xx=calcX(x)
+    yy=calcY(y)
+    if (xx>12 and xx<22 and yy>3 and yy<6):
+        ret=True;
+    if (x==0):
+        ret=True;
+    if (y==0):
+        ret=True;
+    return ret;
+    
+#input x in the range [-23,23] no 0
+#returns x in [0,45]
+def calcX(ix):
+    xx=ix+23;
+    if (xx>23):
+        xx=xx-1
+    return xx
+
+#input x in the range [-5,5] no 0
+#returns x in [0,10]
+def calcY(iy):
+    yy=iy+5;
+    if (yy>5):
+        yy=yy-1
+    return yy
+
+#input x in the range [0,45]
+#returns x as crystals ix [-23,23]
+def calcIX(xx):
+    ix = xx-23;
+    if (xx>=23):
+        ix+=1;
+    return ix;
+
+#input Y in the range [0,9]
+#returns y as crystal iy [-5,5]
+def calcIY(yy):
+    iy = yy-5;
+    if (yy>=5):
+        iy+=1;
+    return iy;
+
+
+def xy2dbid(xx,yy):
+    #here, xx, and yy correspond to [0,45] and [0,9]
+    dbid = xx+2*23*(5*2-yy-1)+1;
+    ix = calcIX(xx);
+    iy = calcIY(yy);
+    if (iy==1 and ix>-10):
+        dbid -= 9;
+    elif(iy==-1 and ix<-10):
+        dbid -= 9;
+    elif (iy<0):
+        dbid -= 18;
+
+    return dbid;
+
+
+def loadData():
+    file_signature = "*.1.root" 
+    allfiles = glob.glob(file_signature)
+    allfiles.sort()
+    for mfile in allfiles:
+        files.append(TFile(mfile))
+        runs.append(int(mfile.split(".")[0]))
+        
+
+def plotRatio():
+    h2_1 = TH2D("h2_1","h2_1",47,-23.5,23.5,11,-5.5,5.5)
+    h2_2 = TH2D("h2_2","h2_2",47,-23.5,23.5,11,-5.5,5.5)
+
+
+    minR=10200
+    maxR=10300
+    counter=0;
+    for xx in range(-23,24):
+        for yy in range(-5,6):
+            if (isHole(xx,yy)):
+                continue
+            print xx,yy
+            hSum=0;
+            h=0;
+            counter=0;
+            for run,mfile in zip(runs,files):
+                if (int(run)>minR)and(int(run)<maxR):
+                     name="%3d" % xy2dbid(calcX(xx),calcY(yy))
+                     if (counter==0):
+                         hSum=mfile.Get(name)
+                     else:
+                         h=mfile.Get(name)
+                         hSum.Add(h)
+                     counter=counter+1;
+            hSum.Smooth()
+            peak=hSum.GetBinCenter(hSum.GetMaximumBin())
+            if (hSum.GetEntries()>1000):
+                hSum.Fit("gaus","R","",peak-0.05,peak+0.2)
+                peak=hSum.GetFunction("gaus").GetParameter(1)
+                h2_1.Fill(xx,yy,peak)
+
+
+    minR=10600
+    maxR=10700
+    counter=0; 
+    for xx in range(-23,24):
+        for yy in range(-5,6):
+            if (isHole(xx,yy)):
+                continue
+            hSum=0;
+            h=0;
+            counter=0
+            for run,mfile in zip(runs,files):
+                if (int(run)>minR)and(int(run)<maxR):
+                     name="%3d" % xy2dbid(calcX(xx),calcY(yy))
+                     if (counter==0):
+                         hSum=mfile.Get(name)
+                     else:
+                         h=mfile.Get(name)
+                         hSum.Add(h)
+                     counter=counter+1;
+            hSum.Smooth()
+            peak=hSum.GetBinCenter(hSum.GetMaximumBin())
+            if (hSum.GetEntries()>1000):
+                hSum.Fit("gaus","R","",peak-0.05,peak+0.2)
+                peak=hSum.GetFunction("gaus").GetParameter(1)
+                h2_2.Fill(xx,yy,peak)
+    h2_2.Divide(h2_1)
+    return h2_2
+        
+def plotStrip(x,y):
+    if (len(files)==0):
+        loadData()
+
+    g=TGraph()
+    counter=0
+    name="%3d" % (xy2dbid(calcX(x),calcY(y)))
+    for run,mfile in zip(runs,files):
+        h=0
+        h=mfile.Get(name)
+        if (h!=0):
+            print h.GetEntries()
+            h.Smooth(2)
+            peak=h.GetBinCenter(h.GetMaximumBin())
+            if (h.GetEntries()>1000):
+                h.Fit("gaus","R","",peak-0.04,peak+0.2)
+                peak=h.GetFunction("gaus").GetParameter(1)
+                g.SetPoint(counter,run,peak)
+                print counter,run,peak
+                counter=counter+1
+    return g
+
+
+
+def addTogether(runMin,runMax):
+    outFname="fee_"+str(runMin)+"_"+str(runMax)+".root"
+    file_signature = "*.?.root" 
+    allfiles = glob.glob(file_signature)
+    thefiles=[]
+    for mfile in allfiles:
+        run=int(mfile.split(".")[0])
+        if (run>=runMin and run<=runMax):
+            thefiles.append(mfile)
+    thefiles.sort()
+    command="hadd -f "+outFname;
+    for mfile in thefiles:
+        command=command+" "+str(mfile)
+    print command
+    p=Popen(command,shell=True)
+    p.wait()
+
+loadData()
+#c=TCanvas("c","c")
+#g1=plotStrip(2,2)
+#g1.SetMarkerStyle(20)
+
+#g2=plotStrip(-5,-3)
+#g2.SetMarkerStyle(20)
+#g2.SetMarkerColor(2)
+
+#g3=plotStrip(-1,3)
+#g3.SetMarkerStyle(20)
+#g3.SetMarkerColor(3)
+
+#g1.Draw("AP")
+#g2.Draw("PSAME")
+#g3.Draw("PSAME")
+#loadData()
+#hh=plotRatio()
+#hh.Draw("colz")
+
+addTogether(14142,14163)
+addTogether(14164,14316)
+addTogether(14317,14620)
+addTogether(14681,14800)
+
