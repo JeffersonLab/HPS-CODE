@@ -78,7 +78,7 @@ void fitPeaks(int ITER, int PERIOD){
   fclose(myfile3);
 
   // open the root file histogram
-  TFile *f = new TFile(Form("input_iter%d/FEE_c%d_p%d_10103.root",ITER,ITER,PERIOD));
+  TFile *f = new TFile(Form("input_iter%d/FEE_c%d_p%d.root",ITER,ITER,PERIOD));
 
   // make output file
   TCanvas *tcc = new TCanvas("tcc","fits to peak",800,800);
