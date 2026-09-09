@@ -31,6 +31,7 @@ The calibration procedure:
    -review the fits. Use the output output_iter1_p<P>/c1.txt file for the next iteration in hps-java
 5. Repeat step 4 but change all iteration values to 2.
 Continue until within 1% of the MC peak/ beam energy ratio.
+6. Once data and MC peak align after a few iterations, correct the uncorrected crystals. The mean of the ratio $\frac{corrected_gains}{baseline_gains}$ over the corrected crystals can be used as the correction factor for the uncorrected crystals. This is done in `CALIBRATION/FEE/fee_cosmic_ratio_and_gain_fix_rowexcl.ipynb`, which outputs the final global gains for each periods.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 2019 data has 6 temperature-stable periods, calibrated independently, so
@@ -57,5 +58,3 @@ gain must be used. The iterations should be repeated until all crystals (in
 acceptance region) are within 1% according to the Elasticmean plot.
 
 For atleast 2019 data, a handful of crystals (153, 198, 267, 275, 334; also 361 before run 10370) are defective and are excluded from the fit/ratio computation rather than used at face value — see analyzeFeePeak.C.
-
-Once the FEE iterations are over, we need to correct the uncorrected crystals to bring them corrected and uncorrected crystals on the same scale. Mean of the ratio corrected_gains/baseline_gains for all the corrected crystals can be used as the correction factor for the uncorrected crystals. This step is not done this macro. We also need to test whether to exclude the edge rows based on how stable their FEE fit is.
