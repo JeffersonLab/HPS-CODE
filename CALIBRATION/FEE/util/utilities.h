@@ -68,9 +68,10 @@ Double_t CrystalBall(Double_t *x,Double_t *par) {
 }
 TF1 *CBFit(TH1 *h1){
   float max = h1->GetBinCenter(h1->GetMaximumBin());
-  TF1 *crystal = new TF1("crystal",CrystalBall,0.029,0.036,5);
-  Double_t peakEntry = h1->GetBinContent(h1->GetMaximumBin());
   float rms = h1->GetRMS();
+  //TF1 *crystal = new TF1("crystal",CrystalBall,0.029,0.036,5); // original: hardcoded for cosmics MIP range, wrong for FEE
+  TF1 *crystal = new TF1("crystal",CrystalBall,max-0.5*rms,max+1.5*rms,5);
+  Double_t peakEntry = h1->GetBinContent(h1->GetMaximumBin());
   crystal->SetParameters(1,4.5,max,rms/5,peakEntry);
   //crystal->FixParameter(0,1.1);
   crystal->SetParLimits(0,0.5,2);

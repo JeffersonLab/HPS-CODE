@@ -1,29 +1,41 @@
 /////////////////////////////////////////////////////////////////////////////////
-/* 
-Date: 18 July 2017
-Author: Holly Szumila, hszumila@jlab.org
-Purpose: This code performs a single iteration of the FEE claibration. 
-How to run: In root, run .L thisCode.C fitPeaks(N) where N is the iteration number, starting with 1. 
+/*
+Date: 10 July 2026
+Author: Erbaz Khan (Modified Holly Szumila's 2015/2016 macro.)
+Purpose: This code performs a single iteration of the FEE claibration.
+How to run: In root, run .L thisCode.C fitPeaks(N,P) where N is the iteration number, starting with 1,
+and P is the period number. 2019 data had 6 termperature stable windows (periods), that were calibrated independently.
+If there is no such thing, then there will be only one period. Output directory is named output_iter<N>_p<P>.
 Reads in:
 -mc constants
 -root histograms from current iteration
 -previous global total
 -cosmic gains
 Outputs:
--next iterative factor
--updated global coefficient, cGlobal, this excludes cosmics (not for final db)
--pdf containing fits (must check) 
+-next iterative FEE correction factor
+-updated global coefficient, cGlobal, this excludes cosmics
+-png fits plots (must check)
+
+NOTE: Once the FEE iterations are over, we need to correct the uncorrected crystals
+to bring them corrected and uncorrected crystals on the same scale.
+Mean of the ratio corrected_gains/baseline_gains for all the corrected crystals can
+be used as the correction factor for the uncorrected crystals. This step is not done
+this macro. We also need to test whether to exclude the edge rows based on how stable
+their FEE fit is.
  */
 ////////////////////////////////////////////////////////////////////////////////
 #define NX 46
 #define NY 10
 #define NCRY 442
 
+#include <TPaveStats.h>
 #include "util/utilities.h"
-const double EBEAM = 1.05;
+//const double EBEAM = 1.05; // original 2015 value
+// const double EBEAM = 3.742; // 2021 value
+const double EBEAM = 4.55;
 
-//Gets the max bin in each crystal histogram and plots. 
-void fitPeaks(int ITER){
+//Gets the max bin in each crystal histogram and plots.
+void fitPeaks(int ITER, int PERIOD){
 
   //Read in iteration coefficients (for iteration 0, =1):
   float prevC[NCRY]={};
@@ -31,7 +43,7 @@ void fitPeaks(int ITER){
   string line1;
   int cid1;
   if (ITER>1){
-    FILE *myfile1 = fopen(Form("coeff/c%d.txt",ITER-1), "r");
+    FILE *myfile1 = fopen(Form("output_iter%d_p%d/c%d.txt",ITER-1,PERIOD,ITER-1), "r");
     while (fscanf(myfile1, "%d,%f",&cid1, &previous)>0){
       prevC[cid1-1] = previous;
     }
@@ -64,9 +76,9 @@ void fitPeaks(int ITER){
     ccosmic[cid3-1] = cCosmic;
   }
   fclose(myfile3);
- 
+
   // open the root file histogram
-  TFile *f = new TFile(Form("input_iter%d/FEE_c%d.root",ITER,ITER));
+  TFile *f = new TFile(Form("input_iter%d/FEE_c%d_p%d.root",ITER,ITER,PERIOD));
 
   // make output file
   TCanvas *tcc = new TCanvas("tcc","fits to peak",800,800);
@@ -75,7 +87,7 @@ void fitPeaks(int ITER){
   tcc->SetBorderSize(0);
   tcc->SetFrameFillColor(0);
   tcc->SetFrameBorderMode(0);
-  std::string pdf_file_name = Form("output_iter%d/FEEfits.pdf",ITER);
+  gSystem->mkdir(Form("output_iter%d_p%d/crystal_plots",ITER,PERIOD), kTRUE);
 
   float MPV[NX][NY]={};
   TH1F *crystal[NX][NY];
@@ -84,173 +96,192 @@ void fitPeaks(int ITER){
   int rates[NX][NY]={};
 
   TCanvas *crystalSeedE[NX][NY];
-  gROOT->SetBatch(kTRUE); 
+  gROOT->SetBatch(kTRUE);
   tcc->Update();
   for (int jy=0; jy<NY; jy++)
+  {
+    // loop over crystal x
+    for (int jx=0; jx<NX; jx++)
     {
-      // loop over crystal x
-      for (int jx=0; jx<NX; jx++)
-	{
-	  if (!ishole(jx,jy)){
-	      int id = xy2dbid(jx,jy);	      
-	      //make canvas for each crystal
-	      crystalSeedE[jx][jy] = new TCanvas(Form("crystalSeedE_%d_%d",jx,jy),Form("crystalSeedE_%d_%d",jx,jy),600,400);
-	      crystalSeedE[jx][jy]->Divide(2,1);
-	  
-	      //get the energy spectra for each crystal	    
-	      crystal[jx][jy] = (TH1F*)f->Get(Form("%3d",id));
-	      
-	      rates[jx][jy] = crystal[jx][jy]->GetEntries(); 
-	      
-	      crystalSeedE[jx][jy]->cd(1);	  
-	      gStyle->SetOptStat(1111);	
-	      crystal[jx][jy]->Draw();
-	      
-	      if (rates[jx][jy] >= 1000) {
-		lfit[jx][jy]= CBFit(crystal[jx][jy]);
-		crystal[jx][jy]->Fit(lfit[jx][jy],"0QR");
-		
-		MPV[jx][jy] = lfit[jx][jy]->GetParameter(2)/EBEAM;
-		sigma[jx][jy] =  lfit[jx][jy]->GetParameter(3);
-		
-		//quality control check
-		if (sigma[jx][jy]>0.08 || sigma[jx][jy]<0)
-		  {
-		    MPV[jx][jy] = -999;
-		    sigma[jx][jy] = -999;
-		  }
-		
-		// Global style settings	      
-		crystalSeedE[jx][jy]->cd(2);
-		gStyle->SetOptFit(111);
-		crystal[jx][jy]->Draw();
-		crystal[jx][jy]->SetTitle(Form("Crystal_%d_%d",jx,jy));
-		lfit[jx][jy]->Draw("lsame");	      
-		crystalSeedE[jx][jy]->Update();
-		
-		if (id==1){
-		  crystalSeedE[jx][jy]->Print((pdf_file_name+"(").c_str());
-		}
-		else if (id==442){
-		  crystalSeedE[jx][jy]->Print((pdf_file_name+"(").c_str());
-		}
-		else {
-		  crystalSeedE[jx][jy]->Print((pdf_file_name+"(").c_str());
-		}
-		crystalSeedE[jx][jy]->Close();
-	      }
-	      else{//revert to cosmics
-		MPV[jx][jy] = -999;
-		sigma[jx][jy] = -999;
-		
-		// Global style settings
-		crystalSeedE[jx][jy]->cd(2);
-		crystal[jx][jy]->Draw();
-		crystalSeedE[jx][jy]->Update();
-		
-		if (id==1){
-		  crystalSeedE[jx][jy]->Print((pdf_file_name+"(").c_str());
-		}
-		else if (id==442){
-		  crystalSeedE[jx][jy]->Print((pdf_file_name+"(").c_str());
-		}
-		else {
-		  crystalSeedE[jx][jy]->Print((pdf_file_name+"(").c_str());
-		}		
-		crystalSeedE[jx][jy]->Close();
-	      }//end else	  
-	    }//end !ishole
-	}//end loop x
-    }//end loop y
-  
+      if (!ishole(jx,jy)){
+        int id = xy2dbid(jx,jy);
+        //make canvas for each crystal
+        crystalSeedE[jx][jy] = new TCanvas(Form("crystalSeedE_%d_%d",jx,jy),Form("crystalSeedE_%d_%d",jx,jy),600,400);
+
+        //get the energy spectra for each crystal
+        crystal[jx][jy] = (TH1F*)f->Get(Form("%3d",id));
+
+        rates[jx][jy] = crystal[jx][jy]->GetEntries();
+
+        if (rates[jx][jy] >= 1000) {
+          lfit[jx][jy]= CBFit(crystal[jx][jy]);
+          crystal[jx][jy]->Fit(lfit[jx][jy],"0QR");
+
+          MPV[jx][jy] = lfit[jx][jy]->GetParameter(2)/EBEAM;
+          sigma[jx][jy] =  lfit[jx][jy]->GetParameter(3);
+
+          //quality control check
+          //if (sigma[jx][jy]>0.08 || sigma[jx][jy]<0) // original cut for 1.05 GeV beam
+          if (sigma[jx][jy]> 0.24 || sigma[jx][jy]<0) {
+            MPV[jx][jy] = -999;
+            sigma[jx][jy] = -999;
+          }
+
+          gStyle->SetOptStat(1111);
+          gStyle->SetOptFit(111);
+          crystal[jx][jy]->SetTitle(Form("Crystal %d (ix=%d, iy=%d);Cluster Energy (GeV);Counts",id,calcIX(jx),calcIY(jy)));
+          crystal[jx][jy]->Draw();
+          lfit[jx][jy]->Draw("lsame");
+          crystalSeedE[jx][jy]->Update();
+
+          // Legend positioning and formatting for single crystal energy plots
+          TPaveStats *st = (TPaveStats*)crystal[jx][jy]->FindObject("stats");
+          if (st) {
+              st->SetX1NDC(0.70); st->SetX2NDC(0.98);
+              st->SetY1NDC(0.70); st->SetY2NDC(0.99);
+              st->SetTextSize(0.038);
+              crystalSeedE[jx][jy]->Modified();
+          }
+
+          if (MPV[jx][jy] != -999) {
+            crystalSeedE[jx][jy]->SaveAs(Form("output_iter%d_p%d/crystal_plots/crystal_%d.png",ITER,PERIOD,id));
+          }
+          crystalSeedE[jx][jy]->Close();
+        }
+        else {//revert to cosmics
+          MPV[jx][jy] = -999;
+          sigma[jx][jy] = -999;
+
+          // low-entry crystal, no fit — just draw raw histogram
+          crystal[jx][jy]->SetTitle(Form("Crystal %d (ix=%d, iy=%d) - insufficient entries;Cluster Energy (GeV);Counts",id,calcIX(jx),calcIY(jy)));
+          crystal[jx][jy]->Draw();
+          crystalSeedE[jx][jy]->Update();
+          crystalSeedE[jx][jy]->Close();
+        }//end else
+      }//end !ishole
+    }//end loop x
+  }//end loop y
+
   ////////////////////////
   //Plot energy fraction//
   ////////////////////////
   TCanvas *tOff=new TCanvas("tOff","EnergyFraction",1200,800);
   tOff->cd();
-  TH2D *ECal=new TH2D("ECal", "Elastic Energy Peak as Fraction of Beam E", 49,-1.5,47.5, 12,-1.5,10.5);
+  TH2D *ECal=new TH2D("ECal", "Elastic Energy Peak as Fraction of Beam E; seed ix;seed iy", 47,-23.5,23.5, 11,-5.5,5.5);
   ECal->SetMinimum(0.2);
+
+  ECal->GetYaxis()->SetNdivisions(11);
   for (int iy=0; iy<NY; iy++)
+  {
+    // loop over crystal x
+    for (int ix=0; ix<NX; ix++)
     {
-      // loop over crystal x
-      for (int ix=0; ix<NX; ix++)
-	{
-	  if (!ishole(ix,iy)){
-	    int id =  xy2dbid(ix,iy);
-	    ECal->SetBinContent(ix+3,iy+2,MPV[ix][iy]);
-	    ECal->Draw("colz");	  
-	  }
-	}
+      if (!ishole(ix,iy)){
+        int id =  xy2dbid(ix,iy);
+        ECal->SetBinContent(ECal->GetXaxis()->FindBin(calcIX(ix)), ECal->GetYaxis()->FindBin(calcIY(iy)), MPV[ix][iy]);
+        ECal->Draw("colz");
+      }
     }
+  }
   gStyle->SetOptStat(0);
   tOff->Update();
-  tOff->Print(Form("output_iter%d/EnergyFraction.png",ITER));
+  tOff->Print(Form("output_iter%d_p%d/EnergyFraction.png",ITER,PERIOD));
   tOff->Close();
-  
+
   ////////////////////////////////////////
   //Plot the occupancies in each crystal
   ////////////////////////////////////////
   TCanvas *occup = new TCanvas("occup","Occupancies",1200,800);
   occup->cd();
-  TH2D *ECalF=new TH2D("ECalF", "Crystal Occupancies", 49,-1.5,47.5, 12,-1.5,10.5);
+  TH2D *ECalF=new TH2D("ECalF", "Crystal Occupancies; seed ix; seed iy", 47,-23.5,23.5, 11,-5.5,5.5);
   ECalF->SetMinimum(1.0);
+
+  ECalF->GetYaxis()->SetNdivisions(11);
   cout<<"Printing occupanices"<<endl;
   for (int iy=0; iy<NY; iy++)
     {
       // loop over crystal x
       for (int ix=0; ix<NX; ix++)
-	{
-	  if (!ishole(ix,iy)){
-	    int id = xy2dbid(ix,iy);		
-	    ECalF->SetBinContent(ix+3,iy+2,rates[ix][iy]);
-	    ECalF->Draw("colz");	  
-	  }  
-	}
+      {
+        if (!ishole(ix,iy)){
+          int id = xy2dbid(ix,iy);
+          ECalF->SetBinContent(ECalF->GetXaxis()->FindBin(calcIX(ix)), ECalF->GetYaxis()->FindBin(calcIY(iy)), rates[ix][iy]);
+          ECalF->Draw("colz");
+        }
+      }
     }
   gStyle->SetOptStat(0);
   occup->Update();
-  occup->Print(Form("output_iter%d/CrystalOccupancies.png",ITER));
+  occup->Print(Form("output_iter%d_p%d/CrystalOccupancies.png",ITER,PERIOD));
   occup->Close();
   f->Close();
 
 
   //////////////////////////////////////////////////////////////
-  //Write out iteration factor//////////////////////////////////
+  //////////////// Write out iteration factor //////////////////
   //////////////////////////////////////////////////////////////
   cout<<"Printing iteration factor"<<endl;
   //iteration factor:
-  FILE *c = fopen(Form("output_iter%d/c%d.txt",ITER,ITER),"a+");
+  FILE *c = fopen(Form("output_iter%d_p%d/c%d.txt",ITER,PERIOD,ITER),"w");
   //global running gain:
-  FILE *cc = fopen(Form("coeff/cGlobal_%d.txt",ITER),"a+");
-  for (int iy=0; iy<NY; iy++)
-    {
-      // loop over crystal x
-      for (int ix=0; ix<NX; ix++)
-	{
-	  if (!ishole(ix,iy)){
-	    int id = xy2dbid(ix,iy);
-	    fprintf(c,"%d,%.4f\n",id,prevC[id-1]*mcG[id-1]/MPV[ix][iy]);
-	    fprintf(cc,"%d,%.4f\n",id,ccosmic[id-1]*prevC[id-1]*mcG[id-1]/MPV[ix][iy]);
+  FILE *cc = fopen(Form("output_iter%d_p%d/cGlobal_%d.txt",ITER,PERIOD,ITER),"w");
+  //ecal gains copy, with zeroed-out dead crystals:
+  FILE *eg = fopen(Form("output_iter%d_p%d/ecalGains_%d.txt",ITER,PERIOD,ITER),"w");
+  fprintf(eg,"# COMMENT\n");
+  //ecal gains copy, dead crystals zeroed and edge rows (y=-5,-1,1,5) set to 1.0 (uncorrected):
+  FILE *egr = fopen(Form("output_iter%d_p%d/ecalGains_rowexcl_%d.txt",ITER,PERIOD,ITER),"w");
+  fprintf(egr,"# COMMENT\n");
+  int deadCrystals[5] = {153,198,267,275,334};
 
-	  }
-	}
+  for (int iy=0; iy<NY; iy++) {
+    // loop over crystal x
+    for (int ix=0; ix<NX; ix++) {
+      if (!ishole(ix,iy)) {
+        int id = xy2dbid(ix,iy);
+
+        bool isDead = false;
+        for (int ideadi=0; ideadi<5; ideadi++) {
+          if (id==deadCrystals[ideadi]) isDead = true;
+        }
+        int row = calcIY(iy);
+        bool isEdgeRow = (row==-5 || row==-1 || row==1 || row==5);
+
+        if (MPV[ix][iy] == -999 || mcG[id-1] == -999) {
+            // fit failed — carry forward previous factor unchanged
+            fprintf(c,"%d,%.4f\n",id,prevC[id-1]);
+            fprintf(cc,"%d,%.4f\n",id,ccosmic[id-1]*prevC[id-1]);
+            fprintf(eg,"%d,%.4f\n",id,isDead ? 0.0 : prevC[id-1]);
+            fprintf(egr,"%d,%.4f\n",id,isDead ? 0.0 : (isEdgeRow ? 1.0 : prevC[id-1]));
+        }
+        else {
+            fprintf(c,"%d,%.4f\n",id,prevC[id-1]*mcG[id-1]/MPV[ix][iy]);
+            fprintf(cc,"%d,%.4f\n",id,ccosmic[id-1]*prevC[id-1]*mcG[id-1]/MPV[ix][iy]);
+            fprintf(eg,"%d,%.4f\n",id,isDead ? 0.0 : prevC[id-1]*mcG[id-1]/MPV[ix][iy]);
+            fprintf(egr,"%d,%.4f\n",id,isDead ? 0.0 : (isEdgeRow ? 1.0 : prevC[id-1]*mcG[id-1]/MPV[ix][iy]));
+        }
+      }
     }
-
+  }
+  fclose(c);
+  fclose(cc);
+  fclose(eg);
+  fclose(egr);
+ 
   //////////////////////////////////////////////////////////////
   //Make plot to show peak position by crystal, sigma by crystal
   //////////////////////////////////////////////////////////////
   Double_t xPos[NX]={};
-  
+
   for (Int_t i=0;i<NX; i++){
     xPos[i] = calcIX(i);
   }
   Double_t row[NY][NX]={};
-  
+
   for (int iy=0; iy<NY; iy++){
     for (int ix=0; ix<NX; ix++){
       if (!ishole(ix,iy)){
-	int id = xy2dbid(ix,iy);
-	row[iy][ix] = mcG[id-1]/MPV[ix][iy];
+        int id = xy2dbid(ix,iy);
+        row[iy][ix] = mcG[id-1]/MPV[ix][iy];
       }
       else {row[iy][ix]=-1;}
     }
@@ -259,11 +290,11 @@ void fitPeaks(int ITER){
   TMultiGraph *mg = new TMultiGraph();
   mg->SetMinimum(0.0);
   mg->SetMaximum(1.5);
-  
+
   TFile *out=new TFile("scratch.root","RECREATE");
   TCanvas *scr=new TCanvas("scr","xxxx",1200,800);
   scr->cd();
-  
+
   TGraphErrors *grp[NY];
   for (int yy=0;yy<NY;yy++){
     grp[yy]= new TGraphErrors(NX,xPos,row[yy],0,0);
@@ -281,21 +312,21 @@ void fitPeaks(int ITER){
   mg->GetYaxis()->SetTitle("MC Elastic Peak / Data Elastic Peak");
 
 
-  TLegend * leg = new TLegend(0.3,0.65,0.48,0.95);
+  TLegend * leg = new TLegend(0.85,0.55,0.95,0.92);
   leg->SetHeader("Row in y");
-  leg->AddEntry(Form("grp[%d]",9),"y=5","lep");
-  leg->AddEntry(Form("grp[%d]",8),"y=4","lep");
-  leg->AddEntry(Form("grp[%d]",7),"y=3","lep");
-  leg->AddEntry(Form("grp[%d]",6),"y=2","lep");
-  leg->AddEntry(Form("grp[%d]",5),"y=1","lep");
-  leg->AddEntry(Form("grp[%d]",4),"y=-1","lep");
-  leg->AddEntry(Form("grp[%d]",3),"y=-2","lep");
-  leg->AddEntry(Form("grp[%d]",2),"y=-3","lep");
-  leg->AddEntry(Form("grp[%d]",1),"y=-4","lep");
-  leg->AddEntry(Form("grp[%d]",0),"y=-5","lep");
+  leg->AddEntry(grp[9],"y=5","lep");
+  leg->AddEntry(grp[8],"y=4","lep");
+  leg->AddEntry(grp[7],"y=3","lep");
+  leg->AddEntry(grp[6],"y=2","lep");
+  leg->AddEntry(grp[5],"y=1","lep");
+  leg->AddEntry(grp[4],"y=-1","lep");
+  leg->AddEntry(grp[3],"y=-2","lep");
+  leg->AddEntry(grp[2],"y=-3","lep");
+  leg->AddEntry(grp[1],"y=-4","lep");
+  leg->AddEntry(grp[0],"y=-5","lep");
   leg->Draw();
-  
+
   scr->Update();
-  scr->Print(Form("output_iter%d/Elasticmean.C",ITER));
+  scr->Print(Form("output_iter%d_p%d/Elasticmean.png",ITER,PERIOD));
   scr->Close();
 }
